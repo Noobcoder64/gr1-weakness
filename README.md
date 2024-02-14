@@ -1,5 +1,7 @@
 # Dependencies
 
+Python 3.8 and Miniconda https://docs.anaconda.com/free/miniconda/miniconda-install/
+
 | Name   | Link                                   | Version | Command                                                |
 |--------|----------------------------------------|---------|--------------------------------------------------------|
 | dd     | https://pypi.org/project/dd/           | 0.5.7   | pip install dd                                         |
