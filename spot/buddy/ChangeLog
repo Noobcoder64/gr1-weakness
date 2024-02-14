@@ -1,5 +1,0 @@
-2022-10-08  Alexandre Duret-Lutz  <adl@lrde.epita.fr>
-
-	Release Spot 2.11
-
-	* NEWS, configure.ac, doc/org/setup.org: Update version.
