@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-08-01 Tue 20:00 -->
+<!-- 2022-10-08 Sat 19:34 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>=ltl2tgba=</title>
@@ -192,41 +192,30 @@
     { font-size: 10px; font-weight: bold; white-space: nowrap; }
   .org-info-js_search-highlight
     { background-color: #ffff00; color: #000000; font-weight: bold; }
-  .org-svg { }
+  .org-svg { width: 90%; }
 </style>
 <link rel="stylesheet" type="text/css" href="spot.css" />
-<script>
-  window.MathJax = {
-    tex: {
-      ams: {
-        multlineWidth: '85%'
-      },
-      tags: 'ams',
-      tagSide: 'right',
-      tagIndent: '.8em'
-    },
-    chtml: {
-      scale: 1.0,
-      displayAlign: 'center',
-      displayIndent: '0em'
-    },
-    svg: {
-      scale: 1.0,
-      displayAlign: 'center',
-      displayIndent: '0em'
-    },
-    output: {
-      font: 'mathjax-modern',
-      displayOverflow: 'overflow'
-    }
-  };
-</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
 
-<script
-  id="MathJax-script"
-  async
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
 </head>
 <body>
 <div id="org-div-home-and-up">
@@ -239,20 +228,19 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org83d9a2a">TGBA and BA</a></li>
-<li><a href="#orgb4d225e">Spin output</a></li>
-<li><a href="#org999223c">Do you favor deterministic or small automata?</a></li>
+<li><a href="#orgb7627f5">TGBA and BA</a></li>
+<li><a href="#org7f2935e">Spin output</a></li>
+<li><a href="#orgd0167d5">Do you favor deterministic or small automata?</a></li>
 <li><a href="#generic">Deterministic automata with <code>--generic --deterministic</code></a></li>
 <li><a href="#parity">Deterministic automata with <code>--parity --deterministic</code></a></li>
-<li><a href="#org39e2a97">Translating multiple formulas for statistics</a></li>
+<li><a href="#org6555093">Translating multiple formulas for statistics</a></li>
 <li><a href="#monitors">Building Monitors</a></li>
 </ul>
 </div>
 </div>
 
-<div id="orgac71227" class="figure">
-<p><object type="image/svg+xml" data="spot2.svg" class="org-svg" id="spotlogo">
-Sorry, your browser does not support SVG.</object>
+<div id="org70d30d9" class="figure">
+<p><img src="spot2.svg" alt="spot2.svg" class="org-svg" id="spotlogo" />
 </p>
 </div>
 <p>
@@ -306,9 +294,9 @@ usually present the result as an automaton with state-based acceptance
 for simplicity.
 </p>
 
-<div id="outline-container-org83d9a2a" class="outline-2">
-<h2 id="org83d9a2a">TGBA and BA</h2>
-<div class="outline-text-2" id="text-org83d9a2a">
+<div id="outline-container-orgb7627f5" class="outline-2">
+<h2 id="orgb7627f5">TGBA and BA</h2>
+<div class="outline-text-2" id="text-orgb7627f5">
 <p>
 Formulas to translate may be specified using <a href="ioltl.html">common input options for
 LTL/PSL formulas</a>.
@@ -370,9 +358,8 @@ we use some <a href="oaut.html#default-dot">environment variables</a> to produce
 output by default)
 </p>
 
-<div id="orgee2fb7b" class="figure">
-<p><object type="image/svg+xml" data="dotex.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="orgcc9e17f" class="figure">
+<p><img src="dotex.svg" alt="dotex.svg" class="org-svg" />
 </p>
 </div>
 
@@ -395,14 +382,13 @@ Here is a TGBA with multiple acceptance sets (we omit the call to
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="orgeec0dd7">ltl2tgba <span class="org-string">"GFa &amp; GFb"</span> -d
+<pre class="src src-sh" id="org611eb38">ltl2tgba <span class="org-string">"GFa &amp; GFb"</span> -d
 </pre>
 </div>
 
 
-<div id="org716e980" class="figure">
-<p><object type="image/svg+xml" data="dotex2.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org18ebaf3" class="figure">
+<p><img src="dotex2.svg" alt="dotex2.svg" class="org-svg" />
 </p>
 </div>
 
@@ -420,24 +406,22 @@ state-based acceptance (<code>-B</code>) or if transition-based acceptance is OK
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="org82199b5">ltl2tgba -b <span class="org-string">'GFa &amp; GFb'</span> -d
+<pre class="src src-sh" id="org05c21f9">ltl2tgba -b <span class="org-string">'GFa &amp; GFb'</span> -d
 </pre>
 </div>
 
-<div id="org5db6d82" class="figure">
-<p><object type="image/svg+xml" data="dotex2tba.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org50e53d7" class="figure">
+<p><img src="dotex2tba.svg" alt="dotex2tba.svg" class="org-svg" />
 </p>
 </div>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="org329226e">ltl2tgba -B <span class="org-string">'GFa &amp; GFb'</span> -d
+<pre class="src src-sh" id="org7d9c13e">ltl2tgba -B <span class="org-string">'GFa &amp; GFb'</span> -d
 </pre>
 </div>
 
-<div id="org8c77236" class="figure">
-<p><object type="image/svg+xml" data="dotex2ba.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org62c2d6e" class="figure">
+<p><img src="dotex2ba.svg" alt="dotex2ba.svg" class="org-svg" />
 </p>
 </div>
 
@@ -456,9 +440,8 @@ acceptance, as it is done internally):
 </pre>
 </div>
 
-<div id="orge9ee73c" class="figure">
-<p><object type="image/svg+xml" data="dotex2ba-t.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org86e69ab" class="figure">
+<p><img src="dotex2ba-t.svg" alt="dotex2ba-t.svg" class="org-svg" />
 </p>
 </div>
 
@@ -479,13 +462,12 @@ Here is the same formula as above, for comparison.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="org010709f">ltl2tgba -S <span class="org-string">'GFa &amp; GFb'</span> -d
+<pre class="src src-sh" id="org303840b">ltl2tgba -S <span class="org-string">'GFa &amp; GFb'</span> -d
 </pre>
 </div>
 
-<div id="org1698031" class="figure">
-<p><object type="image/svg+xml" data="dotex2gba.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org960d44f" class="figure">
+<p><img src="dotex2gba.svg" alt="dotex2gba.svg" class="org-svg" />
 </p>
 </div>
 
@@ -502,7 +484,7 @@ As already discussed on the page about <a href="oaut.html">common output options
 options controls the output format of <code>ltl2tgba</code>:
 </p>
 
-<pre class="example" id="org6cfbdb1">
+<pre class="example" id="orgfab48f1">
 -8, --utf8                 enable UTF-8 characters in output (ignored with
                            --lbtt or --spin)
     --check[=PROP]         test for the additional property PROP and output
@@ -560,21 +542,20 @@ on systems that can display UTF-8 correctly.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="org0436c64">ltl2tgba -8B <span class="org-string">"GFa &amp; GFb"</span> -d
+<pre class="src src-sh" id="orgcde941a">ltl2tgba -8B <span class="org-string">"GFa &amp; GFb"</span> -d
 </pre>
 </div>
 
-<div id="org4fbbf8a" class="figure">
-<p><object type="image/svg+xml" data="dotex2ba8.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org0731f83" class="figure">
+<p><img src="dotex2ba8.svg" alt="dotex2ba8.svg" class="org-svg" />
 </p>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgb4d225e" class="outline-2">
-<h2 id="orgb4d225e">Spin output</h2>
-<div class="outline-text-2" id="text-orgb4d225e">
+<div id="outline-container-org7f2935e" class="outline-2">
+<h2 id="org7f2935e">Spin output</h2>
+<div class="outline-text-2" id="text-org7f2935e">
 <p>
 Using the <code>--spin</code> or <code>-s</code> option, <code>ltl2tgba</code> will produce a Büchi automaton
 (the <code>-B</code> option is implied) as a never claim that can be fed to Spin.
@@ -586,7 +567,7 @@ Using the <code>--spin</code> or <code>-s</code> option, <code>ltl2tgba</code> w
 <pre class="src src-sh">ltl2tgba -s <span class="org-string">'GFa &amp; GFb'</span>
 </pre>
 </div>
-<pre class="example" id="orgac5fc6e">
+<pre class="example" id="orgaf0b910">
 never { /* G(Fa &amp; Fb) */
 accept_init:
   if
@@ -632,9 +613,9 @@ accept_all:
 </div>
 </div>
 
-<div id="outline-container-org999223c" class="outline-2">
-<h2 id="org999223c">Do you favor deterministic or small automata?</h2>
-<div class="outline-text-2" id="text-org999223c">
+<div id="outline-container-orgd0167d5" class="outline-2">
+<h2 id="orgd0167d5">Do you favor deterministic or small automata?</h2>
+<div class="outline-text-2" id="text-orgd0167d5">
 <p>
 The translation procedure can be controled by a few switches.  A first
 set of options specifies the goal of the simplification routines:
@@ -693,26 +674,24 @@ flagrant is <code>Ga|Gb|Gc</code>:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="orgb1c7f0d">ltl2tgba <span class="org-string">'Ga|Gb|Gc'</span> -d
+<pre class="src src-sh" id="org4adba80">ltl2tgba <span class="org-string">'Ga|Gb|Gc'</span> -d
 </pre>
 </div>
 
 
-<div id="org6e9097b" class="figure">
-<p><object type="image/svg+xml" data="gagbgc1.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org31d3a85" class="figure">
+<p><img src="gagbgc1.svg" alt="gagbgc1.svg" class="org-svg" />
 </p>
 </div>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="orgeeace15">ltl2tgba -D <span class="org-string">'Ga|Gb|Gc'</span> -d
+<pre class="src src-sh" id="orgaafe821">ltl2tgba -D <span class="org-string">'Ga|Gb|Gc'</span> -d
 </pre>
 </div>
 
 
-<div id="org2f668f2" class="figure">
-<p><object type="image/svg+xml" data="gagbgc2.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org57d851f" class="figure">
+<p><img src="gagbgc2.svg" alt="gagbgc2.svg" class="org-svg" />
 </p>
 </div>
 
@@ -743,14 +722,13 @@ two ways to accept a run that repeats continuously the configuration
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="org14efa43">ltl2tgba -B <span class="org-string">'GFa -&gt; GFb'</span> -d
+<pre class="src src-sh" id="orgb553c62">ltl2tgba -B <span class="org-string">'GFa -&gt; GFb'</span> -d
 </pre>
 </div>
 
 
-<div id="orge081036" class="figure">
-<p><object type="image/svg+xml" data="ambig1.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="orgb285f06" class="figure">
+<p><img src="ambig1.svg" alt="ambig1.svg" class="org-svg" />
 </p>
 </div>
 
@@ -760,14 +738,13 @@ is only one run that recognizes this example word:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="org876b87b">ltl2tgba -B -U <span class="org-string">'GFa -&gt; GFb'</span> -d
+<pre class="src src-sh" id="org5bafbd1">ltl2tgba -B -U <span class="org-string">'GFa -&gt; GFb'</span> -d
 </pre>
 </div>
 
 
-<div id="org7bf6f6c" class="figure">
-<p><object type="image/svg+xml" data="ambig2.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org25a76f7" class="figure">
+<p><img src="ambig2.svg" alt="ambig2.svg" class="org-svg" />
 </p>
 </div>
 
@@ -871,14 +848,13 @@ deterministic TGBA exists.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="orgf0bcd56">ltl2tgba <span class="org-string">"FGa"</span> -D -d
+<pre class="src src-sh" id="org5cf0f85">ltl2tgba <span class="org-string">"FGa"</span> -D -d
 </pre>
 </div>
 
 
-<div id="org5d3d33f" class="figure">
-<p><object type="image/svg+xml" data="ltl2tgba-fga.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="orga7a56c5" class="figure">
+<p><img src="ltl2tgba-fga.svg" alt="ltl2tgba-fga.svg" class="org-svg" />
 </p>
 </div>
 
@@ -887,14 +863,13 @@ But with <code>--generic</code>, <code>ltl2tgba</code> will output the following
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="org4a96c9f">ltl2tgba <span class="org-string">"FGa"</span> -G -D -d
+<pre class="src src-sh" id="orgf5aab84">ltl2tgba <span class="org-string">"FGa"</span> -G -D -d
 </pre>
 </div>
 
 
-<div id="orgc976554" class="figure">
-<p><object type="image/svg+xml" data="ltl2tgba-fga-D.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org057a3f5" class="figure">
+<p><img src="ltl2tgba-fga-D.svg" alt="ltl2tgba-fga-D.svg" class="org-svg" />
 </p>
 </div>
 
@@ -905,14 +880,13 @@ acceptance condition, we get a weak and deterministic Büchi automaton:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="org06f833c">ltl2tgba <span class="org-string">"Fb|Gc"</span> -G -D -d
+<pre class="src src-sh" id="org95d057e">ltl2tgba <span class="org-string">"Fb|Gc"</span> -G -D -d
 </pre>
 </div>
 
 
-<div id="org675647e" class="figure">
-<p><object type="image/svg+xml" data="ltl2tgba-fbgc-D.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org0ba080f" class="figure">
+<p><img src="ltl2tgba-fbgc-D.svg" alt="ltl2tgba-fbgc-D.svg" class="org-svg" />
 </p>
 </div>
 
@@ -923,14 +897,13 @@ product of these two automata will be made, producing:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="org885dfb6">ltl2tgba <span class="org-string">"(Fb|Gc)&amp;FGa"</span> -G -D -d
+<pre class="src src-sh" id="org72d0705">ltl2tgba <span class="org-string">"(Fb|Gc)&amp;FGa"</span> -G -D -d
 </pre>
 </div>
 
 
-<div id="org72bc63b" class="figure">
-<p><object type="image/svg+xml" data="ltl2tgba-fbgcfga-D.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org56271ff" class="figure">
+<p><img src="ltl2tgba-fbgcfga-D.svg" alt="ltl2tgba-fbgcfga-D.svg" class="org-svg" />
 </p>
 </div>
 
@@ -943,13 +916,12 @@ automaton with parity acceptance:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="org04bfd59">ltl2tgba <span class="org-string">"(Fb|Gc)&amp;FGa"</span> -G -D -xltl-split=0 -d
+<pre class="src src-sh" id="orga079991">ltl2tgba <span class="org-string">"(Fb|Gc)&amp;FGa"</span> -G -D -xltl-split=0 -d
 </pre>
 </div>
 
-<div id="org1a0e8fb" class="figure">
-<p><object type="image/svg+xml" data="ltl2tgba-fbgcfga-nosplit-D.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org9b40347" class="figure">
+<p><img src="ltl2tgba-fbgcfga-nosplit-D.svg" alt="ltl2tgba-fbgcfga-nosplit-D.svg" class="org-svg" />
 </p>
 </div>
 
@@ -966,14 +938,13 @@ For instance the following deterministic automaton
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="orgbb025f9">ltl2tgba <span class="org-string">"F(a W FGb)"</span> -G -D -d
+<pre class="src src-sh" id="org95a369b">ltl2tgba <span class="org-string">"F(a W FGb)"</span> -G -D -d
 </pre>
 </div>
 
 
-<div id="org94a4966" class="figure">
-<p><object type="image/svg+xml" data="ltl2tgba-det1.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org5e9e78b" class="figure">
+<p><img src="ltl2tgba-det1.svg" alt="ltl2tgba-det1.svg" class="org-svg" />
 </p>
 </div>
 
@@ -982,14 +953,13 @@ would be larger if SCC-based optimizations were disabled:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="org4558646">ltl2tgba <span class="org-string">"F(a W FGb)"</span> -xdet-scc=0 -G -D -d
+<pre class="src src-sh" id="org70e717a">ltl2tgba <span class="org-string">"F(a W FGb)"</span> -xdet-scc=0 -G -D -d
 </pre>
 </div>
 
 
-<div id="org2737d77" class="figure">
-<p><object type="image/svg+xml" data="ltl2tgba-det2.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org02a514d" class="figure">
+<p><img src="ltl2tgba-det2.svg" alt="ltl2tgba-det2.svg" class="org-svg" />
 </p>
 </div>
 </div>
@@ -1037,14 +1007,13 @@ acceptance (another name for <code>parity min odd 2</code>):
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="org5921db2">ltl2tgba <span class="org-string">"FGa"</span> -D -P -d
+<pre class="src src-sh" id="orgeb67dc9">ltl2tgba <span class="org-string">"FGa"</span> -D -P -d
 </pre>
 </div>
 
 
-<div id="orge2ba26e" class="figure">
-<p><object type="image/svg+xml" data="ltl2tgba-dp1.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="orgcf398ca" class="figure">
+<p><img src="ltl2tgba-dp1.svg" alt="ltl2tgba-dp1.svg" class="org-svg" />
 </p>
 </div>
 
@@ -1054,14 +1023,13 @@ for <code>parity min even 1</code>):
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="org4c8cd62">ltl2tgba <span class="org-string">"GFa &amp; GFb"</span> -D -P -d
+<pre class="src src-sh" id="org88dc084">ltl2tgba <span class="org-string">"GFa &amp; GFb"</span> -D -P -d
 </pre>
 </div>
 
 
-<div id="orgd9facf2" class="figure">
-<p><object type="image/svg+xml" data="ltl2tgba-dp2.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org08c811f" class="figure">
+<p><img src="ltl2tgba-dp2.svg" alt="ltl2tgba-dp2.svg" class="org-svg" />
 </p>
 </div>
 
@@ -1071,14 +1039,13 @@ we can specify it as an argument to the <code>--parity</code> option.  For insta
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="org5d459ec">ltl2tgba <span class="org-string">"GFa &amp; GFb"</span> -D -P<span class="org-string">'min odd'</span> -d
+<pre class="src src-sh" id="org878eff4">ltl2tgba <span class="org-string">"GFa &amp; GFb"</span> -D -P<span class="org-string">'min odd'</span> -d
 </pre>
 </div>
 
 
-<div id="org3d4224a" class="figure">
-<p><object type="image/svg+xml" data="ltl2tgba-dp3.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org32f125c" class="figure">
+<p><img src="ltl2tgba-dp3.svg" alt="ltl2tgba-dp3.svg" class="org-svg" />
 </p>
 </div>
 
@@ -1091,26 +1058,24 @@ requested) should belong to exactly one acceptance set.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="org42ef28c">ltl2tgba <span class="org-string">"GFa &amp; GFb"</span> -D -p -d
+<pre class="src src-sh" id="org66e120f">ltl2tgba <span class="org-string">"GFa &amp; GFb"</span> -D -p -d
 </pre>
 </div>
 
 
-<div id="org53abf5a" class="figure">
-<p><object type="image/svg+xml" data="ltl2tgba-dp4.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org70714c5" class="figure">
+<p><img src="ltl2tgba-dp4.svg" alt="ltl2tgba-dp4.svg" class="org-svg" />
 </p>
 </div>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="org6da3157">ltl2tgba <span class="org-string">"GFa &amp; GFb"</span> -D -p<span class="org-string">'min odd'</span> -d
+<pre class="src src-sh" id="orgaf2c2ff">ltl2tgba <span class="org-string">"GFa &amp; GFb"</span> -D -p<span class="org-string">'min odd'</span> -d
 </pre>
 </div>
 
 
-<div id="org2cbc819" class="figure">
-<p><object type="image/svg+xml" data="ltl2tgba-dp5.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="orgfa05198" class="figure">
+<p><img src="ltl2tgba-dp5.svg" alt="ltl2tgba-dp5.svg" class="org-svg" />
 </p>
 </div>
 
@@ -1120,22 +1085,21 @@ acceptance if needed:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="org648367d">ltl2tgba <span class="org-string">"GFa &amp; GFb"</span> -D -S -p<span class="org-string">'max even'</span> -d
+<pre class="src src-sh" id="org2dfd6b7">ltl2tgba <span class="org-string">"GFa &amp; GFb"</span> -D -S -p<span class="org-string">'max even'</span> -d
 </pre>
 </div>
 
 
-<div id="orgec43310" class="figure">
-<p><object type="image/svg+xml" data="ltl2tgba-dp6.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org9cd2aa5" class="figure">
+<p><img src="ltl2tgba-dp6.svg" alt="ltl2tgba-dp6.svg" class="org-svg" />
 </p>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org39e2a97" class="outline-2">
-<h2 id="org39e2a97">Translating multiple formulas for statistics</h2>
-<div class="outline-text-2" id="text-org39e2a97">
+<div id="outline-container-org6555093" class="outline-2">
+<h2 id="org6555093">Translating multiple formulas for statistics</h2>
+<div class="outline-text-2" id="text-org6555093">
 <p>
 If multiple formulas are given to <code>ltl2tgba</code>, the corresponding
 automata will be output one after the other.  The default output
@@ -1153,7 +1117,7 @@ statistics should be output, and how they should be output using the
 following sequence of characters (other characters are output as-is):
 </p>
 
-<pre class="example" id="org6b0c3b8">
+<pre class="example" id="org97ddfbb">
 %&lt;                         the part of the line before the formula if it
                            comes from a column extracted from a CSV file
 %&gt;                         the part of the line after the formula if it comes
@@ -1167,8 +1131,7 @@ following sequence of characters (other characters are output as-is):
                            (iw) inherently weak. Use uppercase letters to
                            negate them.
 %d                         1 if the output is deterministic, 0 otherwise
-%e, %[LETTER]e             number of edges (add one LETTER to select (r)
-                           reachable [default], (u) unreachable, (a) all).
+%e                         number of reachable edges
 %f                         the formula, in Spot's syntax
 %F                         name of the input file
 %g, %[LETTERS]g            acceptance condition (in HOA syntax); add brackets
@@ -1193,11 +1156,8 @@ following sequence of characters (other characters are output as-is):
                            LETTERS to restrict to(u) user time, (s) system
                            time, (p) parent process, or (c) children
                            processes.
-%s, %[LETTER]s             number of states (add one LETTER to select (r)
-                           reachable [default], (u) unreachable, (a) all).
-%t, %[LETTER]t             number of transitions (add one LETTER to select
-                           (r) reachable [default], (u) unreachable, (a)
-                           all).
+%s                         number of reachable states
+%t                         number of reachable transitions
 %u, %[e]u                  number of states (or [e]dges) with universal
                            branching
 %u, %[LETTER]u             1 if the automaton contains some universal
@@ -1287,26 +1247,24 @@ deterministic monitor for the given formula.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="orgd8e75e0">ltl2tgba -M <span class="org-string">'(Xa &amp; Fb) | Gc'</span> -d
+<pre class="src src-sh" id="orgca243a7">ltl2tgba -M <span class="org-string">'(Xa &amp; Fb) | Gc'</span> -d
 </pre>
 </div>
 
 
-<div id="org38e18e5" class="figure">
-<p><object type="image/svg+xml" data="monitor1.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org431e2ef" class="figure">
+<p><img src="monitor1.svg" alt="monitor1.svg" class="org-svg" />
 </p>
 </div>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="org09e9846">ltl2tgba -MD <span class="org-string">'(Xa &amp; Fb) | Gc'</span> -d
+<pre class="src src-sh" id="orgc84a0be">ltl2tgba -MD <span class="org-string">'(Xa &amp; Fb) | Gc'</span> -d
 </pre>
 </div>
 
 
-<div id="orgfac6df7" class="figure">
-<p><object type="image/svg+xml" data="monitor2.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org5aa2778" class="figure">
+<p><img src="monitor2.svg" alt="monitor2.svg" class="org-svg" />
 </p>
 </div>
 
@@ -1332,14 +1290,13 @@ if) a sink state had to be added.  For instance, here is the
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="org8bafc00">ltl2tgba -C -M -D <span class="org-string">'(Xa &amp; Fb) | Gc'</span> -d
+<pre class="src src-sh" id="org354780a">ltl2tgba -C -M -D <span class="org-string">'(Xa &amp; Fb) | Gc'</span> -d
 </pre>
 </div>
 
 
-<div id="orgee43fef" class="figure">
-<p><object type="image/svg+xml" data="monitor3.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org22b4a56" class="figure">
+<p><img src="monitor3.svg" alt="monitor3.svg" class="org-svg" />
 </p>
 </div>
 </div>

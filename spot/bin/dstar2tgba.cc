@@ -1,5 +1,5 @@
 // -*- coding: utf-8 -*-
-// Copyright (C) 2013-2019, 2022, 2023 Laboratoire de Recherche et Développement
+// Copyright (C) 2013-2019, 2022 Laboratoire de Recherche et Développement
 // de l'Epita (LRDE).
 //
 // This file is part of Spot, a model checking library.
@@ -48,7 +48,7 @@
 #include <spot/parseaut/public.hh>
 #include <spot/twaalgos/sccinfo.hh>
 
-static const char argp_program_doc[] = "\
+static const char argp_program_doc[] ="\
 Convert automata with any acceptance condition into variants of \
 Büchi automata.\n\nThis reads automata into any supported format \
 (HOA, LBTT, ltl2dstar, never claim) and outputs a \
@@ -117,7 +117,7 @@ namespace
     spot::postprocessor& post;
     automaton_printer printer;
 
-    explicit dstar_processor(spot::postprocessor& post)
+    dstar_processor(spot::postprocessor& post)
       : hoa_processor(spot::make_bdd_dict()), post(post), printer(aut_input)
     {
     }

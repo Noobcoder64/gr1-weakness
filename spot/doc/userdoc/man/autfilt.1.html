@@ -1,5 +1,5 @@
-<!-- Creator     : groff version 1.23.0 -->
-<!-- CreationDate: Tue Aug  1 19:58:50 2023 -->
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Sat Oct  8 19:32:54 2022 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -26,16 +26,6 @@
 <li><a href="#NAME">NAME</a></li>
 <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
 <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
-<li><a href="#Input:">Input:</a></li>
-<li><a href="#Output automaton type:">Output automaton type:</a></li>
-<li><a href="#Output format:">Output format:</a></li>
-<li><a href="#Filtering options:">Filtering options:</a></li>
-<li><a href="#Transformations:">Transformations:</a></li>
-<li><a href="#Decorations (for -d and -H1.1 output):">Decorations (for -d and -H1.1 output):</a></li>
-<li><a href="#Simplification goal:">Simplification goal:</a></li>
-<li><a href="#Simplification level:">Simplification level:</a></li>
-<li><a href="#Miscellaneous options:">Miscellaneous options:</a></li>
-<li><a href="#Exit status:">Exit status:</a></li>
 <li><a href="#OPTIONS FOR SAT-MINIMIZATION">OPTIONS FOR SAT-MINIMIZATION</a></li>
 <li><a href="#BIBLIOGRAPHY">BIBLIOGRAPHY</a></li>
 <li><a href="#REPORTING BUGS">REPORTING BUGS</a></li>
@@ -68,13 +58,8 @@ filter, convert, and transform omega-automata</p>
 <p style="margin-left:11%; margin-top: 1em">Convert,
 transform, and filter omega-automata.</p>
 
-<h3>Input:
-<a name="Input:"></a>
-</h3>
-
-
-<p style="margin-left:11%; margin-top: 1em"><b>-F</b>,
-<b>--file</b>=<i>FILENAME</i></p>
+<h3 style="margin-left:11%">Input:</h3><p style="margin-left:11%"><b>
+-F</b>, <b>--file</b>=<i>FILENAME</i></p>
 
 <p style="margin-left:22%;">process the automaton in
 FILENAME</p>
@@ -86,13 +71,9 @@ FILENAME</p>
 HOA files are ignored, unless they can be easily verified.
 If true (the default) any supported property is trusted.</p>
 
-<h3>Output automaton type:
-<a name="Output automaton type:"></a>
-</h3>
-
-
-<p style="margin-left:11%; margin-top: 1em"><b>-b</b>,
-<b>--buchi</b>, <b>--Buchi</b></p>
+<h3 style="margin-left:11%">Output
+automaton type:</h3><p style="margin-left:11%"><b>
+-b</b>, <b>--buchi</b>, <b>--Buchi</b></p>
 
 <p style="margin-left:22%;">automaton with B&uuml;chi
 acceptance</p>
@@ -164,13 +145,9 @@ states</p>
 <p style="margin-left:22%;">automaton with Generalized
 B&uuml;chi acceptance</p>
 
-<h3>Output format:
-<a name="Output format:"></a>
-</h3>
-
-
-<p style="margin-left:11%; margin-top: 1em"><b>-8</b>,
-<b>--utf8</b></p>
+<h3 style="margin-left:11%">Output
+format:</h3><p style="margin-left:11%"><b>
+-8</b>, <b>--utf8</b></p>
 
 <p style="margin-left:22%;">enable UTF-8 characters in
 output (ignored with <b>--lbtt</b> or <b>--spin</b>)</p>
@@ -356,33 +333,31 @@ Use uppercase letters to negate them.</p>
 <p>1 if the automaton is deterministic, 0 otherwise</p></td>
 <td width="5%">
 </td></tr>
-</table>
-
-<p style="margin-left:11%;">%E, %e, %[LETTER]E,
-%[LETTER]e</p>
-
-<p style="margin-left:22%;">number of edges (add one LETTER
-to select</p>
-
-<p style="margin-left:11%;">(r) reachable [default], (u)
-unreachable, (a)</p>
-
-<p style="margin-left:22%;">all).</p>
-
-<table width="100%" border="0" rules="none" frame="void"
-       cellspacing="0" cellpadding="0">
 <tr valign="top" align="left">
 <td width="11%"></td>
-<td width="3%">
+<td width="9%">
+
+
+<p>%E, %e</p></td>
+<td width="2%"></td>
+<td width="73%">
+
+
+<p>number of reachable edges</p></td>
+<td width="5%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="9%">
 
 
 <p>%F</p></td>
-<td width="8%"></td>
-<td width="33%">
+<td width="2%"></td>
+<td width="73%">
 
 
 <p>name of the input file</p></td>
-<td width="45%">
+<td width="5%">
 </td></tr>
 </table>
 
@@ -474,31 +449,39 @@ parsing)</p> </td></tr>
 <p style="margin-left:11%;">%R, %[LETTERS]R</p>
 
 <p style="margin-left:22%;">CPU time (excluding parsing),
-in seconds; Add LETTERS to restrict to (u) user time, (s)
+in seconds; Add LETTERS to restrict to(u) user time, (s)
 system time, (p) parent process, or (c) children
 processes.</p>
 
-<p style="margin-left:11%;">%S, %s, %[LETTER]S,
-%[LETTER]s</p>
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="9%">
 
-<p style="margin-left:22%;">number of states (add one
-LETTER to select</p>
 
-<p style="margin-left:11%;">(r) reachable [default], (u)
-unreachable, (a)</p>
+<p>%S, %s</p></td>
+<td width="2%"></td>
+<td width="47%">
 
-<p style="margin-left:22%;">all).</p>
 
-<p style="margin-left:11%;">%T, %t, %[LETTER]E,
-%[LETTER]e</p>
+<p>number of reachable states</p></td>
+<td width="31%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="9%">
 
-<p style="margin-left:22%;">number of transitions (add one
-LETTER to</p>
 
-<p style="margin-left:11%;">select (r) reachable [default],
-(u) unreachable,</p>
+<p>%T, %t</p></td>
+<td width="2%"></td>
+<td width="47%">
 
-<p style="margin-left:22%;">(a) all).</p>
+
+<p>number of reachable transitions</p></td>
+<td width="31%">
+</td></tr>
+</table>
 
 <p style="margin-left:11%;">%U, %u, %[LETTER]U,
 %[LETTER]u</p>
@@ -539,13 +522,9 @@ C-style escape, (c) double-quotes with CSV-style escape, (p)
 between parentheses, any extra non-alphanumeric character
 will be used to separate propositions</p>
 
-<h3>Filtering options:
-<a name="Filtering options:"></a>
-</h3>
-
-
-
-<p style="margin-left:11%; margin-top: 1em"><b>--acc-sccs</b>=<i>RANGE</i>,
+<h3 style="margin-left:11%">Filtering
+options:</h3><p style="margin-left:11%"><b>
+--acc-sccs</b>=<i>RANGE</i>,
 <b>--accepting-sccs</b>=<i>RANGE</i></p>
 
 <p style="margin-left:22%;">keep automata whose number of
@@ -778,13 +757,9 @@ lasso-shaped and written as
 arbitrary Boolean formulas. The &rsquo;cycle{...}&rsquo;
 part is mandatory, but the prefix can be omitted.</p>
 
-<h3>Transformations:
-<a name="Transformations:"></a>
-</h3>
 
-
-
-<p style="margin-left:11%; margin-top: 1em"><b>--cleanup-acceptance</b></p>
+<h3 style="margin-left:11%">Transformations:</h3><p style="margin-left:11%"><b>
+--cleanup-acceptance</b></p>
 
 <p style="margin-left:22%;">remove unused acceptance sets
 from the automaton</p>
@@ -836,28 +811,17 @@ the automaton, restrict all edges to ensure two of them may
 not be true at the same time. Use this option multiple times
 to declare independent groups of exclusive propositions.</p>
 
-<table width="100%" border="0" rules="none" frame="void"
-       cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="11%"></td>
-<td width="89%">
 
+<p style="margin-left:11%;"><b>--generalized-rabin</b>[=<i>unique-inf</i>|<i>share-inf</i>],
+<b>--gra</b>[=<i>unique-inf</i>| <i><br>
+share-inf</i>]</p>
 
-
-<p style="margin-top: 1em"><b>--generalized-rabin</b>[=<i>unique-inf</i>|<i>share-inf</i>],
-<b>--gra</b>[=<i>unique-inf</i>| <i>share-inf</i>]</p></td></tr>
-</table>
-
-<p style="margin-left:11%; margin-top: 1em">rewrite the
-acceptance condition as generalized</p>
-
-<p>Rabin; the default &quot;unique-inf&quot; option uses
-the</p> </table>
-
-<p style="margin-left:22%;">generalized Rabin definition
-from the HOA format; the &quot;share-inf&quot; option allows
-clauses to share Inf sets, therefore reducing the number of
-sets</p>
+<p style="margin-left:22%;">rewrite the acceptance
+condition as generalized Rabin; the default
+&quot;unique-inf&quot; option uses the generalized Rabin
+definition from the HOA format; the &quot;share-inf&quot;
+option allows clauses to share Inf sets, therefore reducing
+the number of sets</p>
 
 
 <p style="margin-left:11%;"><b>--generalized-streett</b>[=<i>unique-fin</i>|<i>share-fin</i>],
@@ -1028,13 +992,9 @@ B&uuml;chi automaton interpretable as a finite automaton.
 States with a outgoing &quot;!alive&quot; edge are marked as
 accepting.</p>
 
-<h3>Decorations (for -d and -H1.1 output):
-<a name="Decorations (for -d and -H1.1 output):"></a>
-</h3>
-
-
-
-<p style="margin-left:11%; margin-top: 1em"><b>--highlight-accepting-run</b>[=<i>NUM</i>]</p>
+<h3 style="margin-left:11%">Decorations
+(for -d and -H1.1 output):</h3><p style="margin-left:11%"><b>
+--highlight-accepting-run</b>[=<i>NUM</i>]</p>
 
 <p style="margin-left:22%;">highlight one accepting run
 using color NUM</p>
@@ -1069,13 +1029,10 @@ states with color NUM</p>
 <p style="margin-left:22%;">highlight one run matching WORD
 using color NUM</p>
 
-<h3>Simplification goal:
-<a name="Simplification goal:"></a>
-</h3>
 
-
-<p style="margin-left:11%; margin-top: 1em"><b>-a</b>,
-<b>--any</b></p>
+<h3 style="margin-left:11%">Simplification
+goal:</h3><p style="margin-left:11%"><b>
+-a</b>, <b>--any</b></p>
 
 <p style="margin-left:22%;">no preference, do not bother
 making it small or deterministic</p>
@@ -1091,10 +1048,9 @@ deterministic automaton)</p>
 
 <p style="margin-left:22%;">prefer small automata</p>
 
-<h3>Simplification level:
-<a name="Simplification level:"></a>
-</h3>
 
+<h3 style="margin-left:11%">Simplification
+level:</h3>
 
 <table width="100%" border="0" rules="none" frame="void"
        cellspacing="0" cellpadding="0">
@@ -1103,13 +1059,12 @@ deterministic automaton)</p>
 <td width="9%">
 
 
-<p style="margin-top: 1em"><b>--high</b></p></td>
+<p><b>--high</b></p></td>
 <td width="2%"></td>
 <td width="52%">
 
 
-<p style="margin-top: 1em">all available optimizations
-(slow)</p> </td>
+<p>all available optimizations (slow)</p></td>
 <td width="26%">
 </td></tr>
 <tr valign="top" align="left">
@@ -1142,13 +1097,10 @@ options are specified, then autfilt acts as is <b>--any
 --low</b> were given: these actually disable the
 simplification routines.</p>
 
-<h3>Miscellaneous options:
-<a name="Miscellaneous options:"></a>
-</h3>
 
-
-
-<p style="margin-left:11%; margin-top: 1em"><b>--seed</b>=<i>INT</i></p>
+<h3 style="margin-left:11%">Miscellaneous
+options:</h3><p style="margin-left:11%"><b>
+--seed</b>=<i>INT</i></p>
 
 <p style="margin-left:22%;">seed for the random number
 generator (0)</p>
@@ -1184,10 +1136,8 @@ generator (0)</p>
 optional arguments to long options are also mandatory or
 optional for any corresponding short options.</p>
 
-<h3>Exit status:
-<a name="Exit status:"></a>
-</h3>
-
+<h3 style="margin-left:11%">Exit
+status:</h3>
 
 <table width="100%" border="0" rules="none" frame="void"
        cellspacing="0" cellpadding="0">
@@ -1196,12 +1146,12 @@ optional for any corresponding short options.</p>
 <td width="1%">
 
 
-<p style="margin-top: 1em">0</p></td>
+<p>0</p></td>
 <td width="10%"></td>
 <td width="56%">
 
 
-<p style="margin-top: 1em">if some automata were output</p></td>
+<p>if some automata were output</p></td>
 <td width="22%">
 </td></tr>
 <tr valign="top" align="left">
@@ -1431,8 +1381,8 @@ LPAR-20). LNCS 9450.</p></td></tr>
 
 
 <p style="margin-left:11%; margin-top: 1em">Copyright
-&copy; 2023 Laboratoire de Recherche de l&rsquo;Epita (LRE)
-License GPLv3+: <a href="http://www.gnu.org/licenses/gpl.html">GNU GPL version 3 or later</a>. <br>
+&copy; 2022 Laboratoire de Recherche et D&eacute;veloppement
+de l&rsquo;Epita. License GPLv3+: <a href="http://www.gnu.org/licenses/gpl.html">GNU GPL version 3 or later</a>. <br>
 This is free software: you are free to change and
 redistribute it. There is NO WARRANTY, to the extent
 permitted by law.</p>

@@ -1,5 +1,5 @@
-<!-- Creator     : groff version 1.23.0 -->
-<!-- CreationDate: Tue Aug  1 19:58:50 2023 -->
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Sat Oct  8 19:32:57 2022 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -26,15 +26,6 @@
 <li><a href="#NAME">NAME</a></li>
 <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
 <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
-<li><a href="#Input options:">Input options:</a></li>
-<li><a href="#Specifying translators to call:">Specifying translators to call:</a></li>
-<li><a href="#Parsing of automata:">Parsing of automata:</a></li>
-<li><a href="#ltlcross behavior:">ltlcross behavior:</a></li>
-<li><a href="#State-space generation:">State-space generation:</a></li>
-<li><a href="#Statistics output:">Statistics output:</a></li>
-<li><a href="#Output options:">Output options:</a></li>
-<li><a href="#Miscellaneous options:">Miscellaneous options:</a></li>
-<li><a href="#Exit status:">Exit status:</a></li>
 <li><a href="#ENVIRONMENT VARIABLES">ENVIRONMENT VARIABLES</a></li>
 <li><a href="#OUTPUT DATA">OUTPUT DATA</a></li>
 <li><a href="#DEPRECATED OUTPUT SPECIFIERS">DEPRECATED OUTPUT SPECIFIERS</a></li>
@@ -74,13 +65,9 @@ bugs, or to gather statistics. The list of formulas to use
 should be supplied on standard input, or using the <b>-f</b>
 or <b>-F</b> options.</p>
 
-<h3>Input options:
-<a name="Input options:"></a>
-</h3>
-
-
-<p style="margin-left:11%; margin-top: 1em"><b>-f</b>,
-<b>--formula</b>=<i>STRING</i></p>
+<h3 style="margin-left:11%">Input
+options:</h3><p style="margin-left:11%"><b>
+-f</b>, <b>--formula</b>=<i>STRING</i></p>
 
 <p style="margin-left:22%;">process the formula STRING</p>
 
@@ -103,13 +90,9 @@ LBT&rsquo;s prefix syntax</p>
 cannot be parsed as subformulas are considered as atomic
 properties</p>
 
-<h3>Specifying translators to call:
-<a name="Specifying translators to call:"></a>
-</h3>
-
-
-
-<p style="margin-left:11%; margin-top: 1em"><b>--list-shorthands</b></p>
+<h3 style="margin-left:11%">Specifying
+translators to call:</h3><p style="margin-left:11%"><b>
+--list-shorthands</b></p>
 
 <p style="margin-left:22%;">list availabled shorthands to
 use in COMMANDFMT</p>
@@ -200,25 +183,17 @@ outputing it. Furthermore, if COMMANDFMT has the form
 shell, and NAME will be used to name the tool in the
 output.</p>
 
-<h3>Parsing of automata:
-<a name="Parsing of automata:"></a>
-</h3>
-
-
-
-<p style="margin-left:11%; margin-top: 1em"><b>--trust-hoa</b>=<i>BOOL</i></p>
+<h3 style="margin-left:11%">Parsing of
+automata:</h3><p style="margin-left:11%"><b>
+--trust-hoa</b>=<i>BOOL</i></p>
 
 <p style="margin-left:22%;">If false, properties listed in
 HOA files are ignored, unless they can be easily verified.
 If true (the default) any supported property is trusted.</p>
 
-<h3>ltlcross behavior:
-<a name="ltlcross behavior:"></a>
-</h3>
-
-
-
-<p style="margin-left:11%; margin-top: 1em"><b>--allow-dups</b></p>
+<h3 style="margin-left:11%">ltlcross
+behavior:</h3><p style="margin-left:11%"><b>
+--allow-dups</b></p>
 
 <p style="margin-left:22%;">translate duplicate formulas in
 input</p>
@@ -274,13 +249,9 @@ automata to perform extra checks</p>
 <p style="margin-left:22%;">stop on first execution error
 or failure to pass sanity checks (timeouts are OK)</p>
 
-<h3>State-space generation:
-<a name="State-space generation:"></a>
-</h3>
-
-
-
-<p style="margin-left:11%; margin-top: 1em"><b>--density</b>=<i>FLOAT</i></p>
+<h3 style="margin-left:11%">State-space
+generation:</h3><p style="margin-left:11%"><b>
+--density</b>=<i>FLOAT</i></p>
 
 <p style="margin-left:22%;">probability, between 0.0 and
 1.0, to add a transition between two states (0.1 by
@@ -303,14 +274,9 @@ generator (0 by default)</p>
 <p style="margin-left:22%;">number of the states in the
 state-spaces (200 by default)</p>
 
-<h3>Statistics output:
-<a name="Statistics output:"></a>
-</h3>
-
-
-
-<p style="margin-left:11%; margin-top: 1em"><b>--ambiguous</b>,
-<b>--unambiguous</b></p>
+<h3 style="margin-left:11%">Statistics
+output:</h3><p style="margin-left:11%"><b>
+--ambiguous</b>, <b>--unambiguous</b></p>
 
 <p style="margin-left:22%;">output statistics about
 ambiguous automata [not supported for alternating
@@ -346,13 +312,9 @@ timeouts or failed translations</p>
 strengths (non-accepting, terminal, weak, strong) [not
 supported for alternating automata]</p>
 
-<h3>Output options:
-<a name="Output options:"></a>
-</h3>
-
-
-
-<p style="margin-left:11%; margin-top: 1em"><b>--color</b>[=<i>WHEN</i>]</p>
+<h3 style="margin-left:11%">Output
+options:</h3><p style="margin-left:11%"><b>
+--color</b>[=<i>WHEN</i>]</p>
 
 <p style="margin-left:22%;">colorize output; WHEN can be
 &rsquo;never&rsquo;, &rsquo;always&rsquo; (the default if
@@ -393,10 +355,9 @@ debugging</p>
 FILENAME is prefixed with &rsquo;&gt;&gt;&rsquo;, it is open
 in append mode instead of being truncated.</p>
 
-<h3>Miscellaneous options:
-<a name="Miscellaneous options:"></a>
-</h3>
 
+<h3 style="margin-left:11%">Miscellaneous
+options:</h3>
 
 <table width="100%" border="0" rules="none" frame="void"
        cellspacing="0" cellpadding="0">
@@ -405,12 +366,12 @@ in append mode instead of being truncated.</p>
 <td width="9%">
 
 
-<p style="margin-top: 1em"><b>--help</b></p></td>
+<p><b>--help</b></p></td>
 <td width="2%"></td>
 <td width="23%">
 
 
-<p style="margin-top: 1em">print this help</p></td>
+<p>print this help</p></td>
 <td width="55%">
 </td></tr>
 </table>
@@ -423,10 +384,8 @@ in append mode instead of being truncated.</p>
 optional arguments to long options are also mandatory or
 optional for any corresponding short options.</p>
 
-<h3>Exit status:
-<a name="Exit status:"></a>
-</h3>
-
+<h3 style="margin-left:11%">Exit
+status:</h3>
 
 <table width="100%" border="0" rules="none" frame="void"
        cellspacing="0" cellpadding="0">
@@ -435,13 +394,13 @@ optional for any corresponding short options.</p>
 <td width="1%">
 
 
-<p style="margin-top: 1em">0</p></td>
+<p>0</p></td>
 <td width="10%"></td>
 <td width="78%">
 
 
-<p style="margin-top: 1em">everything went fine (without
-<b>--fail-on-timeout</b>, timeouts are OK)</p></td></tr>
+<p>everything went fine (without <b>--fail-on-timeout</b>,
+timeouts are OK)</p></td></tr>
 <tr valign="top" align="left">
 <td width="11%"></td>
 <td width="1%">
@@ -609,8 +568,8 @@ automaton. Column <b>edges</b> counts the number of edges
 graph, while <b>transitions</b> counts the number of
 assignment-labeled transitions that might have been merged
 into a formula-labeled edge. For instance an edge labeled by
-true will be counted as 2&#710;3=8 transitions if the
-automaton uses 3 atomic propositions.</p>
+true will be counted as 2^3=8 transitions if the automaton
+uses 3 atomic propositions.</p>
 
 <p style="margin-left:11%;"><b>scc</b>, <b>nonacc_scc</b>,
 <b>terminal_scc</b>, <b>weak_scc</b>, <b>strong_scc</b></p>
@@ -906,8 +865,8 @@ abbreviated <b>-H</b>.</p>
 
 
 <p style="margin-left:11%; margin-top: 1em">Copyright
-&copy; 2023 Laboratoire de Recherche de l&rsquo;Epita (LRE)
-License GPLv3+: <a href="http://www.gnu.org/licenses/gpl.html">GNU GPL version 3 or later</a>. <br>
+&copy; 2022 Laboratoire de Recherche et D&eacute;veloppement
+de l&rsquo;Epita. License GPLv3+: <a href="http://www.gnu.org/licenses/gpl.html">GNU GPL version 3 or later</a>. <br>
 This is free software: you are free to change and
 redistribute it. There is NO WARRANTY, to the extent
 permitted by law.</p>

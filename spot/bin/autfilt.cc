@@ -1,5 +1,5 @@
 // -*- coding: utf-8 -*-
-// Copyright (C) 2013-2023 Laboratoire de Recherche et Développement
+// Copyright (C) 2013-2022 Laboratoire de Recherche et Développement
 // de l'Epita (LRDE).
 //
 // This file is part of Spot, a model checking library.
@@ -75,7 +75,7 @@
 #include <spot/twaalgos/sum.hh>
 #include <spot/twaalgos/totgba.hh>
 
-static const char argp_program_doc[] = "\
+static const char argp_program_doc[] ="\
 Convert, transform, and filter omega-automata.\v\
 Exit status:\n\
   0  if some automata were output\n\
@@ -448,7 +448,7 @@ struct canon_aut
   std::vector<tr_t> edges;
   std::string acc;
 
-  explicit canon_aut(const spot::const_twa_graph_ptr& aut)
+  canon_aut(const spot::const_twa_graph_ptr& aut)
     : num_states(aut->num_states())
     , edges(aut->edge_vector().begin() + 1,
             aut->edge_vector().end())
@@ -755,22 +755,6 @@ product_or(spot::twa_graph_ptr left, spot::twa_graph_ptr right)
   return spot::product_or(left, right);
 }
 
-static spot::twa_graph_ptr
-word_to_aut(const char* word, const char *argname)
-{
-  try
-    {
-      return spot::parse_word(word, opt->dict)->as_automaton();
-    }
-  catch (const spot::parse_error& e)
-    {
-      error(2, 0, "failed to parse the argument of --%s:\n%s",
-            argname, e.what());
-    }
-  SPOT_UNREACHABLE();
-  return nullptr;
-}
-
 static int
 parse_opt(int key, char* arg, struct argp_state*)
 {
@@ -792,14 +776,17 @@ parse_opt(int key, char* arg, struct argp_state*)
       opt_nth = parse_range(arg, 0, std::numeric_limits<int>::max());
       break;
     case 'u':
-      opt->uniq = std::make_unique<unique_aut_t>();
+      opt->uniq = std::unique_ptr<unique_aut_t>(new std::set<canon_aut>());
       break;
     case 'v':
       opt_invert = true;
       break;
     case 'x':
-      if (const char* opt = extra_options.parse_options(arg))
-        error(2, 0, "failed to parse --options near '%s'", opt);
+      {
+        const char* opt = extra_options.parse_options(arg);
+        if (opt)
+          error(2, 0, "failed to parse --options near '%s'", opt);
+      }
       break;
     case OPT_ALIASES:
       opt_aliases = XARGMATCH("--aliases", arg, aliases_args, aliases_types);
@@ -815,7 +802,16 @@ parse_opt(int key, char* arg, struct argp_state*)
       opt_art_sccs_set = true;
       break;
     case OPT_ACCEPT_WORD:
-      opt->acc_words.emplace_back(word_to_aut(arg, "accept-word"));
+      try
+        {
+          opt->acc_words.push_back(spot::parse_word(arg, opt->dict)
+                                   ->as_automaton());
+        }
+      catch (const spot::parse_error& e)
+        {
+          error(2, 0, "failed to parse the argument of --accept-word:\n%s",
+                e.what());
+        }
       break;
     case OPT_ACCEPTANCE_IS:
       {
@@ -968,7 +964,16 @@ parse_opt(int key, char* arg, struct argp_state*)
                     "%d should be followed by a comma and WORD", res);
             arg = endptr + 1;
           }
-        opt->hl_words.emplace_back(word_to_aut(arg, "highlight-word"), res);
+        try
+          {
+            opt->hl_words.emplace_back(spot::parse_word(arg, opt->dict)
+                                       ->as_automaton(), res);
+          }
+        catch (const spot::parse_error& e)
+          {
+            error(2, 0, "failed to parse the argument of --highlight-word:\n%s",
+                  e.what());
+          }
       }
       break;
     case OPT_HIGHLIGHT_LANGUAGES:
@@ -1152,7 +1157,16 @@ parse_opt(int key, char* arg, struct argp_state*)
       opt_art_sccs_set = true;
       break;
     case OPT_REJECT_WORD:
-      opt->rej_words.emplace_back(word_to_aut(arg, "reject-word"));
+      try
+        {
+          opt->rej_words.push_back(spot::parse_word(arg, opt->dict)
+                                   ->as_automaton());
+        }
+      catch (const spot::parse_error& e)
+        {
+          error(2, 0, "failed to parse the argument of --reject-word:\n%s",
+                e.what());
+        }
       break;
     case OPT_REM_AP:
       opt->rem_ap.add_ap(arg);
@@ -1277,7 +1291,7 @@ namespace
   static
   bool match_acceptance(spot::twa_graph_ptr aut)
   {
-    const spot::acc_cond& acc = aut->acc();
+    auto& acc = aut->acc();
     switch (opt_acceptance_is)
       {
       case ACC_Any:
@@ -1332,7 +1346,8 @@ namespace
         {
           bool max;
           bool odd;
-          if (!acc.is_parity(max, odd, true))
+          bool is_p = acc.is_parity(max, odd, true);
+          if (!is_p)
             return false;
           switch (opt_acceptance_is)
             {
@@ -1445,7 +1460,7 @@ namespace
       if (matched && opt_acceptance_is)
         matched = match_acceptance(aut);
 
-      if (matched && (opt_sccs_set || opt_art_sccs_set))
+      if (matched && (opt_sccs_set | opt_art_sccs_set))
         {
           spot::scc_info si(aut);
           unsigned n = si.scc_count();
@@ -1525,14 +1540,14 @@ namespace
           && spot::contains(aut, opt->equivalent_pos);
 
       if (matched && !opt->acc_words.empty())
-        for (const spot::twa_graph_ptr& word_aut: opt->acc_words)
+        for (auto& word_aut: opt->acc_words)
           if (spot::product(aut, word_aut)->is_empty())
             {
               matched = false;
               break;
             }
       if (matched && !opt->rej_words.empty())
-        for (const spot::twa_graph_ptr& word_aut: opt->rej_words)
+        for (auto& word_aut: opt->rej_words)
           if (!spot::product(aut, word_aut)->is_empty())
             {
               matched = false;
@@ -1666,9 +1681,14 @@ namespace
         aut->accepting_run()->highlight(opt_highlight_accepting_run);
 
       if (!opt->hl_words.empty())
-        for (auto& [word_aut, color]: opt->hl_words)
-          if (auto run = spot::product(aut, word_aut)->accepting_run())
-            run->project(aut)->highlight(color);
+        for (auto& word_aut: opt->hl_words)
+          {
+            if (aut->acc().uses_fin_acceptance())
+              error(2, 0,
+                    "--highlight-word does not yet work with Fin acceptance");
+            if (auto run = spot::product(aut, word_aut.first)->accepting_run())
+              run->project(aut)->highlight(word_aut.second);
+          }
 
       timer.stop();
       if (opt->uniq)
@@ -1743,16 +1763,14 @@ main(int argc, char** argv)
       post.set_level(level);
 
       autfilt_processor processor(post, o.dict);
-      int err = processor.run();
+      if (processor.run())
+        return 2;
+
+      // Diagnose unused -x options
+      extra_options.report_unused_options();
 
       if (automaton_format == Count)
         std::cout << match_count << std::endl;
-
-      // Diagnose unused -x options
-      if (!err)
-        extra_options.report_unused_options();
-      else
-        return 2;
 
       check_cout();
       return match_count ? 0 : 1;

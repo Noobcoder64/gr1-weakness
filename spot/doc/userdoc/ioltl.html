@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-08-01 Tue 20:02 -->
+<!-- 2022-10-08 Sat 19:38 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Common input and output options for LTL/PSL formulas</title>
@@ -192,7 +192,7 @@
     { font-size: 10px; font-weight: bold; white-space: nowrap; }
   .org-info-js_search-highlight
     { background-color: #ffff00; color: #000000; font-weight: bold; }
-  .org-svg { }
+  .org-svg { width: 90%; }
 </style>
 <link rel="stylesheet" type="text/css" href="spot.css" />
 </head>
@@ -207,7 +207,7 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org62d1fb1">Common input options</a>
+<li><a href="#org10384f3">Common input options</a>
 <ul>
 <li><a href="#infix">Default parser</a></li>
 <li><a href="#lenient">Lenient mode</a></li>
@@ -219,9 +219,8 @@
 </div>
 </div>
 
-<div id="orgb6f53d5" class="figure">
-<p><object type="image/svg+xml" data="spot2.svg" class="org-svg" id="spotlogo">
-Sorry, your browser does not support SVG.</object>
+<div id="org45a9af5" class="figure">
+<p><img src="spot2.svg" alt="spot2.svg" class="org-svg" id="spotlogo" />
 </p>
 </div>
 <p>
@@ -230,9 +229,9 @@ documents the options, common to all tools where it makes sense, that
 are used to specify input and output of formula.
 </p>
 
-<div id="outline-container-org62d1fb1" class="outline-2">
-<h2 id="org62d1fb1">Common input options</h2>
-<div class="outline-text-2" id="text-org62d1fb1">
+<div id="outline-container-org10384f3" class="outline-2">
+<h2 id="org10384f3">Common input options</h2>
+<div class="outline-text-2" id="text-org10384f3">
 <p>
 All tools that read LTL/PSL formulas implement the following options:
 </p>
@@ -277,7 +276,7 @@ such as <a href="http://spinroot.com">Spin</a>, <a href="http://vlsi.colorado.ed
 to express the same formula for different tools.
 </p>
 
-<table id="org730dd60" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table id="orgfc2eec6" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
 <colgroup>
@@ -555,7 +554,7 @@ used by <a href="http://www.ltl2dstar.de">ltl2dstar</a>.
 All tools that output LTL/PSL formulas implement the following options:
 </p>
 
-<pre class="example" id="orgbed5ec7">
+<pre class="example" id="orgb255fad">
 -0, --zero-terminated-output   separate output formulas with \0 instead of \n
                            (for use with xargs -0)
 -8, --utf8                 output using UTF-8 characters
@@ -575,7 +574,7 @@ All tools that output LTL/PSL formulas implement the following options:
 
 <p>
 The <code>--spot</code>, <code>--utf-8</code>, <code>--spin</code>, <code>--wring</code> options select different
-output syntaxes as seen in <a href="#org730dd60">the above table</a>.
+output syntaxes as seen in <a href="#orgfc2eec6">the above table</a>.
 </p>
 
 <p>

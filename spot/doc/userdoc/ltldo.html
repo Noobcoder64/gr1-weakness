@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-08-01 Tue 20:00 -->
+<!-- 2022-10-08 Sat 19:38 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>=ltldo=</title>
@@ -192,7 +192,7 @@
     { font-size: 10px; font-weight: bold; white-space: nowrap; }
   .org-info-js_search-highlight
     { background-color: #ffff00; color: #000000; font-weight: bold; }
-  .org-svg { }
+  .org-svg { width: 90%; }
 </style>
 <link rel="stylesheet" type="text/css" href="spot.css" />
 </head>
@@ -207,20 +207,19 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org6d9cb6c">Example: computing statistics for <code>ltl3ba</code></a></li>
-<li><a href="#org72a8976">Example: running <code>spin</code> and producing HOA</a></li>
-<li><a href="#orge2d62ff">Syntax for specifying tools to call</a></li>
-<li><a href="#org2cef091">Shorthands for existing tools</a></li>
-<li><a href="#orgfcb7235">Transparent renaming</a></li>
+<li><a href="#org61adf11">Example: computing statistics for <code>ltl3ba</code></a></li>
+<li><a href="#orgcdc900c">Example: running <code>spin</code> and producing HOA</a></li>
+<li><a href="#org9047f0b">Syntax for specifying tools to call</a></li>
+<li><a href="#org05a6fe6">Shorthands for existing tools</a></li>
+<li><a href="#org6eee33b">Transparent renaming</a></li>
 <li><a href="#portfolio">Acting as a portfolio of translators</a></li>
-<li><a href="#org2df42ab">Controlling and measuring time</a></li>
+<li><a href="#orgad1d202">Controlling and measuring time</a></li>
 </ul>
 </div>
 </div>
 
-<div id="orgd1fd867" class="figure">
-<p><object type="image/svg+xml" data="spot2.svg" class="org-svg" id="spotlogo">
-Sorry, your browser does not support SVG.</object>
+<div id="org2281741" class="figure">
+<p><img src="spot2.svg" alt="spot2.svg" class="org-svg" id="spotlogo" />
 </p>
 </div>
 <p>
@@ -242,9 +241,9 @@ In effect, <code>ltldo</code> wraps the I/O interface of the Spot tools on top o
 any other tool.
 </p>
 
-<div id="outline-container-org6d9cb6c" class="outline-2">
-<h2 id="org6d9cb6c">Example: computing statistics for <code>ltl3ba</code></h2>
-<div class="outline-text-2" id="text-org6d9cb6c">
+<div id="outline-container-org61adf11" class="outline-2">
+<h2 id="org61adf11">Example: computing statistics for <code>ltl3ba</code></h2>
+<div class="outline-text-2" id="text-org61adf11">
 <p>
 As a motivating example, consider a scenario where we want to run
 <a href="https://sourceforge.net/projects/ltl3ba/"><code>ltl3ba</code></a> on a set of 10 formulas stored in a file.  For each formula
@@ -304,7 +303,7 @@ Here is how the shell command could look like:
 <span class="org-keyword">done</span>
 </pre>
 </div>
-<pre class="example" id="org279a462">
+<pre class="example" id="org1be2d6b">
 true,1,1
 true U a,2,4
 !(!((a U []b) U b) U []&lt;&gt;a),2,4
@@ -326,7 +325,7 @@ Using <code>ltldo</code> the above command can be reduced to this:
 <pre class="src src-sh">ltldo <span class="org-string">'ltl3ba -f %s&gt;%O'</span> -F sample.ltl --stats=<span class="org-string">'%f,%s,%t'</span>
 </pre>
 </div>
-<pre class="example" id="org979b600">
+<pre class="example" id="orgaa4ab9b">
 1,1,1
 1 U a,2,4
 !(!((a U Gb) U b) U GFa),2,4
@@ -358,9 +357,9 @@ command:
 </div>
 </div>
 
-<div id="outline-container-org72a8976" class="outline-2">
-<h2 id="org72a8976">Example: running <code>spin</code> and producing HOA</h2>
-<div class="outline-text-2" id="text-org72a8976">
+<div id="outline-container-orgcdc900c" class="outline-2">
+<h2 id="orgcdc900c">Example: running <code>spin</code> and producing HOA</h2>
+<div class="outline-text-2" id="text-orgcdc900c">
 <p>
 Here is another example, where we use Spin to produce two automata in
 the <a href="http://adl.github.io/hoaf/">HOA format</a>.  Spin has no support for HOA, but <code>ltldo</code> simply
@@ -409,15 +408,15 @@ Again, using the shorthands defined below, the previous command can be
 simplified to just this:
 </p>
 
-<pre class="example" id="orgede0342">
+<pre class="example" id="org16f3901">
 ltldo spin -f a -f GFa
 </pre>
 </div>
 </div>
 
-<div id="outline-container-orge2d62ff" class="outline-2">
-<h2 id="orge2d62ff">Syntax for specifying tools to call</h2>
-<div class="outline-text-2" id="text-orge2d62ff">
+<div id="outline-container-org9047f0b" class="outline-2">
+<h2 id="org9047f0b">Syntax for specifying tools to call</h2>
+<div class="outline-text-2" id="text-org9047f0b">
 <p>
 The syntax for specifying how a tool should be called is the same as
 in <a href="ltlcross.html"><code>ltlcross</code></a>.  Namely, the following sequences are available.
@@ -471,16 +470,6 @@ A typical use-case is to compare statistics of different tools:
 </pre>
 </div>
 
-<pre class="example">
-spin -f %s&gt;%O,1,2,2
-ltl3ba -f %s&gt;%O,1,1,1
-spin -f %s&gt;%O,1 U a,2,3
-ltl3ba -f %s&gt;%O,1 U a,2,3
-spin -f %s&gt;%O,!(!((a U Gb) U b) U GFa),23,86
-ltl3ba -f %s&gt;%O,!(!((a U Gb) U b) U GFa),2,3
-</pre>
-
-
 <p>
 Here we used <code>%T</code> to output the name of the tool used to translate the
 formula <code>%f</code> as an automaton with <code>%s</code> states and <code>%e</code> edges.
@@ -500,28 +489,15 @@ using the trick that the command <code>echo %f</code> will not be subject to
 </pre>
 </div>
 
-<pre class="example" id="org2cd4ad3">
-# 1
-spin,2,2
-ltl3ba,1,1
-# (1) U (a)
-spin,2,3
-ltl3ba,2,3
-# !((!(((a) U (G(b))) U (b))) U (G(F(a))))
-spin,23,86
-ltl3ba,2,3
-# ((b) &lt;-&gt; (X(c))) xor (F(b))
-</pre>
-
 <p>
 Much more readable!
 </p>
 </div>
 </div>
 
-<div id="outline-container-org2cef091" class="outline-2">
-<h2 id="org2cef091">Shorthands for existing tools</h2>
-<div class="outline-text-2" id="text-org2cef091">
+<div id="outline-container-org05a6fe6" class="outline-2">
+<h2 id="org05a6fe6">Shorthands for existing tools</h2>
+<div class="outline-text-2" id="text-org05a6fe6">
 <p>
 There is a list of existing tools for which <code>ltldo</code> (and <code>ltlcross</code>)
 have built-in specifications.  This list can be printed using the
@@ -532,7 +508,7 @@ have built-in specifications.  This list can be printed using the
 <pre class="src src-sh">ltldo --list-shorthands
 </pre>
 </div>
-<pre class="example" id="org78ffab4">
+<pre class="example" id="orgebce01f">
 If a COMMANDFMT does not use any %-sequence, and starts with one of
 the following regexes, then the string on the right is appended.
 
@@ -565,7 +541,7 @@ requested with <code>-d</code>) for the neverclaim produced by <code>ltl2ba -f a
 <pre class="src src-sh">ltldo ltl2ba -f a -d
 </pre>
 </div>
-<pre class="example" id="org4f2b411">
+<pre class="example" id="org101bca1">
 digraph "" {
   rankdir=LR
   label="[Büchi]"
@@ -603,9 +579,9 @@ ltl3ba -H2, 1 states, 2 edges
 </div>
 </div>
 
-<div id="outline-container-orgfcb7235" class="outline-2">
-<h2 id="orgfcb7235">Transparent renaming</h2>
-<div class="outline-text-2" id="text-orgfcb7235">
+<div id="outline-container-org6eee33b" class="outline-2">
+<h2 id="org6eee33b">Transparent renaming</h2>
+<div class="outline-text-2" id="text-org6eee33b">
 <p>
 If you have ever tried to use <code>spin</code>, <code>ltl2ba</code>, or <code>ltl3ba</code>, to translate
 a formula such as <code>[]!Error</code>, you have noticed that it does not work:
@@ -804,7 +780,7 @@ can use the following command instead.
 </pre>
 </div>
 
-<pre class="example" id="org5616774">
+<pre class="example" id="org437de40">
 HOA: v1
 name: "F(a &amp; Xa)"
 States: 3
@@ -839,7 +815,7 @@ automaton.
   ltldo -F-/2 ltl2ba ltl3ba <span class="org-string">'ltl2tgba -s'</span> --smallest --stats=<span class="org-string">'%&lt;,%T'</span>
 </pre>
 </div>
-<pre class="example" id="orgcb3a818">
+<pre class="example" id="orgf756f88">
 dac-patterns:10,ltl2ba
 dac-patterns:11,ltl2ba
 dac-patterns:12,ltl2tgba -s
@@ -869,7 +845,7 @@ To understand the above pipeline, remove the <code>ltldo</code> invocation.  The
 <pre class="src src-sh">genltl --dac=10..20 --format=%F:%L,%f
 </pre>
 </div>
-<pre class="example" id="org8f93f11">
+<pre class="example" id="org53cda2b">
 dac-patterns:10,G((p0 &amp; !p1) -&gt; (!p1 U (!p1 &amp; p2)))
 dac-patterns:11,!p0 W (p0 W (!p0 W (p0 W G!p0)))
 dac-patterns:12,Fp0 -&gt; ((!p0 &amp; !p1) U (p0 | ((!p0 &amp; p1) U (p0 | ((!p0 &amp; !p1) U (p0 | ((!p0 &amp; p1) U (p0 | (!p1 U p0)))))))))
@@ -910,7 +886,7 @@ files.)
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="orgfdb0f6b"><span class="org-builtin">echo</span> input,ltl2ba,ltl3ba,ltl2tgba -s
+<pre class="src src-sh" id="orge3110f9"><span class="org-builtin">echo</span> input,ltl2ba,ltl3ba,ltl2tgba -s
 genltl --dac=10..20 --format=%F:%L,%f |
   ltldo -F-/2 ltl2ba --stats <span class="org-string">'%&lt;,%f,%ss %ee %dd'</span> |
   ltldo -F-/2 ltl3ba --stats <span class="org-string">'%&lt;,%f,%&gt;,%ss %ee %dd'</span> |
@@ -1020,9 +996,9 @@ genltl --dac=10..20 --format=%F:%L,%f |
 </div>
 </div>
 
-<div id="outline-container-org2df42ab" class="outline-2">
-<h2 id="org2df42ab">Controlling and measuring time</h2>
-<div class="outline-text-2" id="text-org2df42ab">
+<div id="outline-container-orgad1d202" class="outline-2">
+<h2 id="orgad1d202">Controlling and measuring time</h2>
+<div class="outline-text-2" id="text-orgad1d202">
 <p>
 The run time of each command can be restricted with the <code>-T NUM</code>
 option.  The argument is the maximum number of seconds that each

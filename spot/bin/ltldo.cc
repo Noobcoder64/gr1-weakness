@@ -1,6 +1,6 @@
 // -*- coding: utf-8 -*-
-// Copyright (C) 2015-2020, 2022-2023 Laboratoire de Recherche et
-// Développement de l'Epita (LRDE).
+// Copyright (C) 2015-2020, 2022 Laboratoire de Recherche et Développement
+// de l'Epita (LRDE).
 //
 // This file is part of Spot, a model checking library.
 //
@@ -47,7 +47,7 @@
 #include <spot/twaalgos/totgba.hh>
 #include <spot/parseaut/public.hh>
 
-static const char argp_program_doc[] = "\
+const char argp_program_doc[] ="\
 Run LTL/PSL formulas through another program, performing conversion\n\
 of input and output as required.";
 
@@ -209,7 +209,7 @@ namespace
   class xtranslator_runner final: public translator_runner
   {
   public:
-    explicit xtranslator_runner(spot::bdd_dict_ptr dict)
+    xtranslator_runner(spot::bdd_dict_ptr dict)
       : translator_runner(dict, true)
     {
     }
@@ -224,6 +224,8 @@ namespace
       format(command, tools[translator_num].cmd);
 
       std::string cmd = command.str();
+      //std::cerr << "Running [" << l << translator_num << "]: "
+      // << cmd << std::endl;
       timer.start();
       int es = exec_with_timeout(cmd.c_str());
       timer.stop();
@@ -310,7 +312,7 @@ namespace
     spot::printable_value<std::string> inputf;
 
   public:
-    explicit processor(spot::postprocessor& post)
+    processor(spot::postprocessor& post)
       : runner(dict), best_printer(best_stream, best_format), post(post)
     {
       printer.add_stat('T', &cmdname);
@@ -321,7 +323,9 @@ namespace
       best_printer.declare('f', &inputf);
     }
 
-    ~processor() override = default;
+    ~processor()
+    {
+    }
 
     int
     process_string(const std::string& input,

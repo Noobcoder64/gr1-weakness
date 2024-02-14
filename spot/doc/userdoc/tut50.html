@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-08-01 Tue 20:00 -->
+<!-- 2022-10-08 Sat 19:37 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Explicit vs. on-the-fly: two interfaces for exploring automata</title>
@@ -192,41 +192,30 @@
     { font-size: 10px; font-weight: bold; white-space: nowrap; }
   .org-info-js_search-highlight
     { background-color: #ffff00; color: #000000; font-weight: bold; }
-  .org-svg { }
+  .org-svg { width: 90%; }
 </style>
 <link rel="stylesheet" type="text/css" href="spot.css" />
-<script>
-  window.MathJax = {
-    tex: {
-      ams: {
-        multlineWidth: '85%'
-      },
-      tags: 'ams',
-      tagSide: 'right',
-      tagIndent: '.8em'
-    },
-    chtml: {
-      scale: 1.0,
-      displayAlign: 'center',
-      displayIndent: '0em'
-    },
-    svg: {
-      scale: 1.0,
-      displayAlign: 'center',
-      displayIndent: '0em'
-    },
-    output: {
-      font: 'mathjax-modern',
-      displayOverflow: 'overflow'
-    }
-  };
-</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
 
-<script
-  id="MathJax-script"
-  async
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
 </head>
 <body>
 <div id="org-div-home-and-up">
@@ -241,26 +230,25 @@
 <ul>
 <li><a href="#explicit-interface">The explicit interface</a>
 <ul>
-<li><a href="#orgb3a4e9b">How this interface works</a></li>
-<li><a href="#orga4dae72">Recursive DFS</a></li>
-<li><a href="#orgb2fac78">Iterative DFS (two versions)</a></li>
+<li><a href="#org32c8b40">How this interface works</a></li>
+<li><a href="#orga9dcb92">Recursive DFS</a></li>
+<li><a href="#org050e3cc">Iterative DFS (two versions)</a></li>
 </ul>
 </li>
 <li><a href="#on-the-fly-interface">The on-the-fly <code>twa</code> interface</a>
 <ul>
-<li><a href="#org3bc5002">How this interface works</a></li>
-<li><a href="#org1490d49">Recursive DFS (v1)</a></li>
-<li><a href="#org39970a7">Recursive DFS (v2)</a></li>
-<li><a href="#orgfd3cb84">Iterative DFS</a></li>
+<li><a href="#org25900cf">How this interface works</a></li>
+<li><a href="#org2db147c">Recursive DFS (v1)</a></li>
+<li><a href="#orgc4316d6">Recursive DFS (v2)</a></li>
+<li><a href="#orgb75c2b2">Iterative DFS</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="orga9451aa" class="figure">
-<p><object type="image/svg+xml" data="spot2.svg" class="org-svg" id="spotlogo">
-Sorry, your browser does not support SVG.</object>
+<div id="org5576a34" class="figure">
+<p><img src="spot2.svg" alt="spot2.svg" class="org-svg" id="spotlogo" />
 </p>
 </div>
 <p>
@@ -291,17 +279,16 @@ algorithms in Spot.
 </p>
 </div>
 
-<div id="outline-container-orgb3a4e9b" class="outline-3">
-<h3 id="orgb3a4e9b">How this interface works</h3>
-<div class="outline-text-3" id="text-orgb3a4e9b">
+<div id="outline-container-org32c8b40" class="outline-3">
+<h3 id="org32c8b40">How this interface works</h3>
+<div class="outline-text-3" id="text-org32c8b40">
 <p>
 The picture below gives a partial view of the classes involved:
 </p>
 
 
-<div id="org5818780" class="figure">
-<p><object type="image/svg+xml" data="uml-explicit-classes.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org8aea6db" class="figure">
+<p><img src="uml-explicit-classes.svg" alt="uml-explicit-classes.svg" class="org-svg" />
 </p>
 </div>
 
@@ -457,9 +444,9 @@ to exactly the same machine code.
 </div>
 </div>
 
-<div id="outline-container-orga4dae72" class="outline-3">
-<h3 id="orga4dae72">Recursive DFS</h3>
-<div class="outline-text-3" id="text-orga4dae72">
+<div id="outline-container-orga9dcb92" class="outline-3">
+<h3 id="orga9dcb92">Recursive DFS</h3>
+<div class="outline-text-3" id="text-orga9dcb92">
 <p>
 Let us write a DFS using this interface.  A recursive version is easy:
 we call <code>dfs_rec()</code> from the initial state, that function updates a
@@ -511,9 +498,9 @@ on all successors of the given state.
 </div>
 </div>
 
-<div id="outline-container-orgb2fac78" class="outline-3">
-<h3 id="orgb2fac78">Iterative DFS (two versions)</h3>
-<div class="outline-text-3" id="text-orgb2fac78">
+<div id="outline-container-org050e3cc" class="outline-3">
+<h3 id="org050e3cc">Iterative DFS (two versions)</h3>
+<div class="outline-text-3" id="text-org050e3cc">
 <p>
 Recursive graph algorithms are usually avoided, especially if large
 graphs should be processed.
@@ -694,9 +681,9 @@ on-the-fly interface but without computing anything.
 </p>
 </div>
 
-<div id="outline-container-org3bc5002" class="outline-3">
-<h3 id="org3bc5002">How this interface works</h3>
-<div class="outline-text-3" id="text-org3bc5002">
+<div id="outline-container-org25900cf" class="outline-3">
+<h3 id="org25900cf">How this interface works</h3>
+<div class="outline-text-3" id="text-org25900cf">
 <p>
 The following class diagram has two classes in common with the
 previous one: <code>twa</code> and <code>twa_graph</code>, but this time the focus is on the
@@ -705,9 +692,8 @@ defined in <code>twa_graph</code>.
 </p>
 
 
-<div id="orgfb4aa6e" class="figure">
-<p><object type="image/svg+xml" data="uml-otf-classes.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org2daa206" class="figure">
+<p><img src="uml-otf-classes.svg" alt="uml-otf-classes.svg" class="org-svg" />
 </p>
 </div>
 
@@ -907,9 +893,9 @@ passes the iterator back to <code>aut-&gt;release_iter()</code> for recycling.
 </div>
 </div>
 
-<div id="outline-container-org1490d49" class="outline-3">
-<h3 id="org1490d49">Recursive DFS (v1)</h3>
-<div class="outline-text-3" id="text-org1490d49">
+<div id="outline-container-org2db147c" class="outline-3">
+<h3 id="org2db147c">Recursive DFS (v1)</h3>
+<div class="outline-text-3" id="text-org2db147c">
 <p>
 We can now write a recursive DFS easily.  The only pain is to keep
 track of the states to <code>destroy()</code> them only after we do not need them
@@ -978,9 +964,9 @@ remember what states we have already seen.
 </div>
 </div>
 
-<div id="outline-container-org39970a7" class="outline-3">
-<h3 id="org39970a7">Recursive DFS (v2)</h3>
-<div class="outline-text-3" id="text-org39970a7">
+<div id="outline-container-orgc4316d6" class="outline-3">
+<h3 id="orgc4316d6">Recursive DFS (v2)</h3>
+<div class="outline-text-3" id="text-orgc4316d6">
 <p>
 Using a hash map to keep a unique pointer to each state is quite
 common.  The class <code>spot::state_unicity_table</code> can be used for this
@@ -1049,9 +1035,9 @@ They are performed in <code>state_unicity_table::is_new()</code> and in
 </div>
 </div>
 
-<div id="outline-container-orgfd3cb84" class="outline-3">
-<h3 id="orgfd3cb84">Iterative DFS</h3>
-<div class="outline-text-3" id="text-orgfd3cb84">
+<div id="outline-container-orgb75c2b2" class="outline-3">
+<h3 id="orgb75c2b2">Iterative DFS</h3>
+<div class="outline-text-3" id="text-orgb75c2b2">
 <p>
 For a non-recursive version, let us use a stack of
 <code>twa_succ_iterator</code>.  However these iterators do not know their

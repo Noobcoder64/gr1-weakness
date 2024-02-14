@@ -1,7 +1,7 @@
 #!/bin/sh
 # -*- coding: utf-8 -*-
-# Copyright (C) 2012-2014, 2017, 2020, 2023 Laboratoire de Recherche
-# et Développement de l'Epita (LRDE).
+# Copyright (C) 2012-2014, 2017, 2020 Laboratoire de Recherche et
+# Développement de l'Epita (LRDE).
 #
 # This file is part of Spot, a model checking library.
 #
@@ -54,7 +54,8 @@ x = pandas.read_csv("output.csv")
 # We used to call describe() instead of agg(),
 # but the output of this function was changed
 # in pandas 0.20.
-print(x.filter(('tool', 'states', 'transitions')).\
+print(x.filter(('formula', 'tool',
+                'states', 'transitions')).\
         groupby('tool').\
         agg([np.mean, np.std, np.min, np.max]))
 EOF
@@ -65,14 +66,12 @@ $PYTHON test.py >out.1
 # remove trailing whitespace from pandas' output, and limit to 6
 # lines, because Pandas 0.13 adds the size of the dataframe
 # afterwards.  Alse the spacing between columns differs from version
-# to version.  The name of the output columns changed from "amin amax"
-# to "min max" in some Pandas version (maybe around 2.0).
-sed 's/[ \t]*$//g;s/amin/min/g;s/amax/max/g;6q' <out.1 |
-    sed 's/  */ /g' >py.out
+# to version.
+sed 's/[ \t]*$//g;6q' <out.1 | sed 's/  */ /g' > py.out
 
 cat >expected <<EOF
  states transitions
- mean std min max mean std min max
+ mean std amin amax mean std amin amax
 tool
 ltl2tgba any 2.25 0.957427 1 3 10.00 5.163978 4 16
 ltl2tgba det 2.25 0.957427 1 3 9.25 4.573474 4 14

@@ -179,7 +179,7 @@ namespace spot
 
               for (bdd oneletter: minterms_of(letters, ap))
                 {
-                  minato_isop isop(bdd_restrict(delta, oneletter));
+                  minato_isop isop(bdd_relprod(delta, oneletter, ap));
                   bdd dest;
 
                   while ((dest = isop.next()) != bddfalse)

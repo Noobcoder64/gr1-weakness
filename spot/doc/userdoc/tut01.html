@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-08-01 Tue 20:05 -->
+<!-- 2022-10-08 Sat 19:36 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Parsing and Printing LTL Formulas</title>
@@ -192,7 +192,7 @@
     { font-size: 10px; font-weight: bold; white-space: nowrap; }
   .org-info-js_search-highlight
     { background-color: #ffff00; color: #000000; font-weight: bold; }
-  .org-svg { }
+  .org-svg { width: 90%; }
 </style>
 <link rel="stylesheet" type="text/css" href="spot.css" />
 </head>
@@ -207,38 +207,37 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgb98500f">Shell command</a></li>
-<li><a href="#orgeeedd1a">Python bindings</a></li>
-<li><a href="#org0e117d5">C++</a>
+<li><a href="#org4b01527">Shell command</a></li>
+<li><a href="#orge69f25d">Python bindings</a></li>
+<li><a href="#org22e7659">C++</a>
 <ul>
-<li><a href="#org6dc5b48">Simple wrapper for the two parsers</a></li>
-<li><a href="#orgfb152b4">Calling the infix parser explicitly</a></li>
-<li><a href="#orgae63f1a">Calling the prefix parser explicitly</a></li>
+<li><a href="#orgdc030dd">Simple wrapper for the two parsers</a></li>
+<li><a href="#orgc862359">Calling the infix parser explicitly</a></li>
+<li><a href="#orgd3a685b">Calling the prefix parser explicitly</a></li>
 </ul>
 </li>
-<li><a href="#orgc49c6d8">Additional Comments</a>
+<li><a href="#orga1078a5">Additional Comments</a>
 <ul>
-<li><a href="#org140d1cb">PSL vs LTL</a></li>
-<li><a href="#org373c82e">Lenient parsing</a></li>
-<li><a href="#org23c450e">Python formatting</a></li>
+<li><a href="#org35ac271">PSL vs LTL</a></li>
+<li><a href="#orgd9a2eb9">Lenient parsing</a></li>
+<li><a href="#org2e91ae8">Python formatting</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="org813f9b8" class="figure">
-<p><object type="image/svg+xml" data="spot2.svg" class="org-svg" id="spotlogo">
-Sorry, your browser does not support SVG.</object>
+<div id="orgcd1eff0" class="figure">
+<p><img src="spot2.svg" alt="spot2.svg" class="org-svg" id="spotlogo" />
 </p>
 </div>
 <p>
 Our first task is to read formulas and print them in another syntax.
 </p>
 
-<div id="outline-container-orgb98500f" class="outline-2">
-<h2 id="orgb98500f">Shell command</h2>
-<div class="outline-text-2" id="text-orgb98500f">
+<div id="outline-container-org4b01527" class="outline-2">
+<h2 id="org4b01527">Shell command</h2>
+<div class="outline-text-2" id="text-org4b01527">
 <p>
 Using <code>ltlfilt</code>, you can easily read an LTL formula in one syntax, and
 output it in another syntax.  By default the parser will accept a
@@ -275,9 +274,9 @@ other syntaxes.)
 </div>
 </div>
 
-<div id="outline-container-orgeeedd1a" class="outline-2">
-<h2 id="orgeeedd1a">Python bindings</h2>
-<div class="outline-text-2" id="text-orgeeedd1a">
+<div id="outline-container-orge69f25d" class="outline-2">
+<h2 id="orge69f25d">Python bindings</h2>
+<div class="outline-text-2" id="text-orge69f25d">
 <p>
 Here are the same operations in Python
 </p>
@@ -311,13 +310,13 @@ errors are returned as an exception.
 </div>
 </div>
 
-<div id="outline-container-org0e117d5" class="outline-2">
-<h2 id="org0e117d5">C++</h2>
-<div class="outline-text-2" id="text-org0e117d5">
+<div id="outline-container-org22e7659" class="outline-2">
+<h2 id="org22e7659">C++</h2>
+<div class="outline-text-2" id="text-org22e7659">
 </div>
-<div id="outline-container-org6dc5b48" class="outline-3">
-<h3 id="org6dc5b48">Simple wrapper for the two parsers</h3>
-<div class="outline-text-3" id="text-org6dc5b48">
+<div id="outline-container-orgdc030dd" class="outline-3">
+<h3 id="orgdc030dd">Simple wrapper for the two parsers</h3>
+<div class="outline-text-3" id="text-orgdc030dd">
 <p>
 We first start with the easy parser interface, similar to the one used
 above in the python bindings.  Here parse errors would be returned as
@@ -325,7 +324,7 @@ exceptions.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-C++" id="orgf32c826"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;iostream&gt;</span>
+<pre class="src src-C++" id="orgfe8191d"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;iostream&gt;</span>
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;spot/tl/parse.hh&gt;</span>
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;spot/tl/print.hh&gt;</span>
 
@@ -376,9 +375,9 @@ parser.  Additionally, this give you control over how to print errors.
 </div>
 </div>
 
-<div id="outline-container-orgfb152b4" class="outline-3">
-<h3 id="orgfb152b4">Calling the infix parser explicitly</h3>
-<div class="outline-text-3" id="text-orgfb152b4">
+<div id="outline-container-orgc862359" class="outline-3">
+<h3 id="orgc862359">Calling the infix parser explicitly</h3>
+<div class="outline-text-3" id="text-orgc862359">
 <p>
 Here is how to call the infix parser explicitly:
 </p>
@@ -478,9 +477,9 @@ really cannot recover anything.
 </div>
 </div>
 
-<div id="outline-container-orgae63f1a" class="outline-3">
-<h3 id="orgae63f1a">Calling the prefix parser explicitly</h3>
-<div class="outline-text-3" id="text-orgae63f1a">
+<div id="outline-container-orgd3a685b" class="outline-3">
+<h3 id="orgd3a685b">Calling the prefix parser explicitly</h3>
+<div class="outline-text-3" id="text-orgd3a685b">
 <p>
 The only difference here is the call to <code>parse_prefix_ltl()</code> instead
 of <code>parse_infix_psl()</code>.
@@ -517,13 +516,13 @@ p_{1} \land p_{2} \land \G p_{0}
 </div>
 
 
-<div id="outline-container-orgc49c6d8" class="outline-2">
-<h2 id="orgc49c6d8">Additional Comments</h2>
-<div class="outline-text-2" id="text-orgc49c6d8">
+<div id="outline-container-orga1078a5" class="outline-2">
+<h2 id="orga1078a5">Additional Comments</h2>
+<div class="outline-text-2" id="text-orga1078a5">
 </div>
-<div id="outline-container-org140d1cb" class="outline-3">
-<h3 id="org140d1cb">PSL vs LTL</h3>
-<div class="outline-text-3" id="text-org140d1cb">
+<div id="outline-container-org35ac271" class="outline-3">
+<h3 id="org35ac271">PSL vs LTL</h3>
+<div class="outline-text-3" id="text-org35ac271">
 <p>
 LTL is a subset of PSL as far as Spot is concerned, so you can parse
 an LTL formula with <code>parse_infix_psl()</code>, and later print it with for
@@ -650,9 +649,9 @@ a U (b &amp;&amp; (a U (b &amp;&amp; []&lt;&gt;c)))
 </div>
 </div>
 
-<div id="outline-container-org373c82e" class="outline-3">
-<h3 id="org373c82e">Lenient parsing</h3>
-<div class="outline-text-3" id="text-org373c82e">
+<div id="outline-container-orgd9a2eb9" class="outline-3">
+<h3 id="orgd9a2eb9">Lenient parsing</h3>
+<div class="outline-text-3" id="text-orgd9a2eb9">
 <p>
 In version 6, Spin extended its command-line LTL parser to accept
 arbitrary atomic propositions to be specified.  For instance <code>(a &gt; 4)
@@ -723,9 +722,9 @@ In C++ you can enable lenient using one of the Boolean arguments of
 </p>
 </div>
 </div>
-<div id="outline-container-org23c450e" class="outline-3">
-<h3 id="org23c450e">Python formatting</h3>
-<div class="outline-text-3" id="text-org23c450e">
+<div id="outline-container-org2e91ae8" class="outline-3">
+<h3 id="org2e91ae8">Python formatting</h3>
+<div class="outline-text-3" id="text-org2e91ae8">
 <p>
 Formulas have a custom format specification language that allows you
 to easily change the way a formula should be output when using the
@@ -769,7 +768,7 @@ The complete list of specifier that apply to formulas can always be
 printed with <code>help(spot.formula.__format__)</code>:
 </p>
 
-<pre class="example" id="org9d1f526">
+<pre class="example" id="orgf1917ff">
 Help on function __format__ in module spot:
 
 __format__(self, spec)

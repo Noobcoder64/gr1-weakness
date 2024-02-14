@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-08-01 Tue 20:06 -->
+<!-- 2022-10-08 Sat 19:36 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Custom print of an automaton</title>
@@ -192,41 +192,30 @@
     { font-size: 10px; font-weight: bold; white-space: nowrap; }
   .org-info-js_search-highlight
     { background-color: #ffff00; color: #000000; font-weight: bold; }
-  .org-svg { }
+  .org-svg { width: 90%; }
 </style>
 <link rel="stylesheet" type="text/css" href="spot.css" />
-<script>
-  window.MathJax = {
-    tex: {
-      ams: {
-        multlineWidth: '85%'
-      },
-      tags: 'ams',
-      tagSide: 'right',
-      tagIndent: '.8em'
-    },
-    chtml: {
-      scale: 1.0,
-      displayAlign: 'center',
-      displayIndent: '0em'
-    },
-    svg: {
-      scale: 1.0,
-      displayAlign: 'center',
-      displayIndent: '0em'
-    },
-    output: {
-      font: 'mathjax-modern',
-      displayOverflow: 'overflow'
-    }
-  };
-</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
 
-<script
-  id="MathJax-script"
-  async
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
 </head>
 <body>
 <div id="org-div-home-and-up">
@@ -239,15 +228,14 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org80faba9">C++</a></li>
-<li><a href="#org2f5957b">Python</a></li>
+<li><a href="#org7d0e67f">C++</a></li>
+<li><a href="#org40c1412">Python</a></li>
 </ul>
 </div>
 </div>
 
-<div id="org4e345c9" class="figure">
-<p><object type="image/svg+xml" data="spot2.svg" class="org-svg" id="spotlogo">
-Sorry, your browser does not support SVG.</object>
+<div id="orgb2c773d" class="figure">
+<p><img src="spot2.svg" alt="spot2.svg" class="org-svg" id="spotlogo" />
 </p>
 </div>
 <p>
@@ -394,9 +382,9 @@ property bits are used.
 </pre>
 </div>
 
-<div id="outline-container-org80faba9" class="outline-2">
-<h2 id="org80faba9">C++</h2>
-<div class="outline-text-2" id="text-org80faba9">
+<div id="outline-container-org7d0e67f" class="outline-2">
+<h2 id="org7d0e67f">C++</h2>
+<div class="outline-text-2" id="text-org7d0e67f">
 <p>
 We now write some C++ to load this automaton <a href="tut20.html">as we did before</a>, and in
 <code>custom_print()</code> we print it out in a custom way by explicitly
@@ -506,7 +494,7 @@ corresponding BDD variable number, and then use for instance
 </pre>
 </div>
 
-<pre class="example" id="org33db6d5">
+<pre class="example" id="orgb480b41">
 Acceptance: Inf(0)&amp;Inf(1)
 Number of sets: 2
 Number of states: 17
@@ -783,9 +771,9 @@ State 16:
 </div>
 </div>
 
-<div id="outline-container-org2f5957b" class="outline-2">
-<h2 id="org2f5957b">Python</h2>
-<div class="outline-text-2" id="text-org2f5957b">
+<div id="outline-container-org40c1412" class="outline-2">
+<h2 id="org40c1412">Python</h2>
+<div class="outline-text-2" id="text-org40c1412">
 <p>
 Here is the very same example, but written in Python:
 </p>
@@ -834,7 +822,7 @@ custom_print(spot.automaton(<span class="org-string">"tut21.hoa"</span>))
 </pre>
 </div>
 
-<pre class="example" id="orgd676d0c">
+<pre class="example" id="org02d52b4">
 Acceptance: Inf(0)&amp;Inf(1)
 Number of sets: 2
 Number of states:  17

@@ -62,8 +62,8 @@ namespace spot
         gf_guarantee_set_ = true;
       }
     ltl_split_ = opt->get("ltl-split", 1);
-    tls_max_states_ = std::max(0, opt->get("tls-max-states", 64));
-    tls_max_ops_ = std::max(0, opt->get("tls-max-ops", 16));
+    int tls_max_states = opt->get("tls-max-states", 64);
+    tls_max_states_ = std::max(0, tls_max_states);
     exprop_ = opt->get("exprop", -1);
     branchpost_ = opt->get("branch-post", -1);
   }
@@ -72,7 +72,6 @@ namespace spot
   {
     tl_simplifier_options options(false, false, false);
     options.containment_max_states = tls_max_states_;
-    options.containment_max_ops = tls_max_ops_;
     switch (level_)
       {
       case High:
@@ -209,12 +208,9 @@ namespace spot
         if (!rest.empty() && !oblg.empty())
           {
             auto safety = [](formula f)
-            {
-              // Prevent gcc 12.2.0 from warning us that f could be a
-              // nullptr formula.
-              SPOT_ASSUME(f != nullptr);
-              return f.is_syntactic_safety();
-            };
+              {
+                return f.is_syntactic_safety();
+              };
             auto i = std::remove_if(oblg.begin(), oblg.end(), safety);
             rest.insert(rest.end(), i, oblg.end());
             oblg.erase(i, oblg.end());

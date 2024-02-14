@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-08-01 Tue 20:04 -->
+<!-- 2022-10-08 Sat 19:35 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Translating an LTL formula into a monitor</title>
@@ -192,7 +192,7 @@
     { font-size: 10px; font-weight: bold; white-space: nowrap; }
   .org-info-js_search-highlight
     { background-color: #ffff00; color: #000000; font-weight: bold; }
-  .org-svg { }
+  .org-svg { width: 90%; }
 </style>
 <link rel="stylesheet" type="text/css" href="spot.css" />
 </head>
@@ -207,28 +207,27 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org67f67fd">Building a deterministic monitor</a>
+<li><a href="#org880b67d">Building a deterministic monitor</a>
 <ul>
-<li><a href="#orge86c3d7">Shell</a></li>
-<li><a href="#orgd12fceb">Python</a></li>
-<li><a href="#org6e329af">C++</a></li>
+<li><a href="#org94934d7">Shell</a></li>
+<li><a href="#orgb2ec564">Python</a></li>
+<li><a href="#orgbd41dd6">C++</a></li>
 </ul>
 </li>
-<li><a href="#org02462db">Non-deterministic monitors</a></li>
-<li><a href="#orgf70bc57">Details</a>
+<li><a href="#org8e3eb85">Non-deterministic monitors</a></li>
+<li><a href="#org1081c15">Details</a>
 <ul>
-<li><a href="#orgb415a3c">Expressiveness</a></li>
-<li><a href="#orgb810532">Construction &amp; References</a></li>
+<li><a href="#org67ba8c7">Expressiveness</a></li>
+<li><a href="#org68c6bc6">Construction &amp; References</a></li>
 </ul>
 </li>
-<li><a href="#orgefed72a">Further reading</a></li>
+<li><a href="#org48bbcf9">Further reading</a></li>
 </ul>
 </div>
 </div>
 
-<div id="org6c5db18" class="figure">
-<p><object type="image/svg+xml" data="spot2.svg" class="org-svg" id="spotlogo">
-Sorry, your browser does not support SVG.</object>
+<div id="orgd08e6a8" class="figure">
+<p><img src="spot2.svg" alt="spot2.svg" class="org-svg" id="spotlogo" />
 </p>
 </div>
 <p>
@@ -244,9 +243,8 @@ immediately after <b>red</b>.
 </p>
 
 
-<div id="orgbe7bff6" class="figure">
-<p><object type="image/svg+xml" data="tut11a.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org3a745e1" class="figure">
+<p><img src="tut11a.svg" alt="tut11a.svg" class="org-svg" />
 </p>
 </div>
 
@@ -260,13 +258,13 @@ that case a violation should be reported.
 </p>
 
 
-<div id="outline-container-org67f67fd" class="outline-2">
-<h2 id="org67f67fd">Building a deterministic monitor</h2>
-<div class="outline-text-2" id="text-org67f67fd">
+<div id="outline-container-org880b67d" class="outline-2">
+<h2 id="org880b67d">Building a deterministic monitor</h2>
+<div class="outline-text-2" id="text-org880b67d">
 </div>
-<div id="outline-container-orge86c3d7" class="outline-3">
-<h3 id="orge86c3d7">Shell</h3>
-<div class="outline-text-3" id="text-orge86c3d7">
+<div id="outline-container-org94934d7" class="outline-3">
+<h3 id="org94934d7">Shell</h3>
+<div class="outline-text-3" id="text-org94934d7">
 <p>
 To build the above deterministic monitor using <a href="ltl2tgba.html"><code>ltl2tgba</code></a>, we simply
 pass option <code>-M</code> (for monitor) and <code>-D</code> (for deterministic).
@@ -277,7 +275,7 @@ pass option <code>-M</code> (for monitor) and <code>-D</code> (for deterministic
 </pre>
 </div>
 
-<pre class="example" id="org571a01e">
+<pre class="example" id="orgdab49cb">
 HOA: v1
 name: "G(!red | X!yellow)"
 States: 2
@@ -298,9 +296,9 @@ State: 1
 </div>
 </div>
 
-<div id="outline-container-orgd12fceb" class="outline-3">
-<h3 id="orgd12fceb">Python</h3>
-<div class="outline-text-3" id="text-orgd12fceb">
+<div id="outline-container-orgb2ec564" class="outline-3">
+<h3 id="orgb2ec564">Python</h3>
+<div class="outline-text-3" id="text-orgb2ec564">
 <p>
 The code is very similar to <a href="tut10.html">our previous example of building a never
 claim</a> except that we explicitly require a deterministic monitor and
@@ -313,7 +311,7 @@ output in the <a href="hoa.html">HOA format</a>.
 </pre>
 </div>
 
-<pre class="example" id="org0370be9">
+<pre class="example" id="org15e238b">
 HOA: v1
 States: 2
 Start: 0
@@ -333,9 +331,9 @@ State: 1
 </div>
 </div>
 
-<div id="outline-container-org6e329af" class="outline-3">
-<h3 id="org6e329af">C++</h3>
-<div class="outline-text-3" id="text-org6e329af">
+<div id="outline-container-orgbd41dd6" class="outline-3">
+<h3 id="orgbd41dd6">C++</h3>
+<div class="outline-text-3" id="text-orgbd41dd6">
 <p>
 The code very similar to <a href="tut10.html">the never claim example</a>.
 </p>
@@ -361,7 +359,7 @@ The code very similar to <a href="tut10.html">the never claim example</a>.
 </pre>
 </div>
 
-<pre class="example" id="orga71e182">
+<pre class="example" id="org7c5d231">
 HOA: v1
 States: 2
 Start: 0
@@ -383,9 +381,9 @@ State: 1
 </div>
 
 
-<div id="outline-container-org02462db" class="outline-2">
-<h2 id="org02462db">Non-deterministic monitors</h2>
-<div class="outline-text-2" id="text-org02462db">
+<div id="outline-container-org8e3eb85" class="outline-2">
+<h2 id="org8e3eb85">Non-deterministic monitors</h2>
+<div class="outline-text-2" id="text-org8e3eb85">
 <p>
 If you drop the <code>-D</code> option from <code>ltl2tgba</code>, or the <code>det</code> argument
 from <code>spot.translate()</code>, or the
@@ -397,13 +395,13 @@ the smallest one.
 </div>
 </div>
 
-<div id="outline-container-orgf70bc57" class="outline-2">
-<h2 id="orgf70bc57">Details</h2>
-<div class="outline-text-2" id="text-orgf70bc57">
+<div id="outline-container-org1081c15" class="outline-2">
+<h2 id="org1081c15">Details</h2>
+<div class="outline-text-2" id="text-org1081c15">
 </div>
-<div id="outline-container-orgb415a3c" class="outline-3">
-<h3 id="orgb415a3c">Expressiveness</h3>
-<div class="outline-text-3" id="text-orgb415a3c">
+<div id="outline-container-org67ba8c7" class="outline-3">
+<h3 id="org67ba8c7">Expressiveness</h3>
+<div class="outline-text-3" id="text-org67ba8c7">
 <p>
 In the <a href="hierarchy.html">hierarchy of temporal properties</a>, the properties that are
 monitorable correspond to the class of <a href="hierarchy.html#safety">safety properties</a>.  You can
@@ -452,9 +450,8 @@ Nonetheless, we can still build a monitor for it:
 </p>
 
 
-<div id="org0b5196b" class="figure">
-<p><object type="image/svg+xml" data="tut11b.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="orga44bd19" class="figure">
+<p><img src="tut11b.svg" alt="tut11b.svg" class="org-svg" />
 </p>
 </div>
 
@@ -473,9 +470,9 @@ our original property <code>G(press -&gt; red U green)</code>.
 </div>
 </div>
 
-<div id="outline-container-orgb810532" class="outline-3">
-<h3 id="orgb810532">Construction &amp; References</h3>
-<div class="outline-text-3" id="text-orgb810532">
+<div id="outline-container-org68c6bc6" class="outline-3">
+<h3 id="org68c6bc6">Construction &amp; References</h3>
+<div class="outline-text-3" id="text-org68c6bc6">
 <p>
 The construction of deterministic monitors in Spot follows the
 construction of M. d'Amorim and G. Roşu (<a href="https://www.ideals.illinois.edu/bitstream/handle/2142/10975/Efficient%20Monitoring%20of%20%CF%89-languages.pdf">Efficient monitoring of
@@ -537,7 +534,7 @@ of these steps, we recommend you use <code>spot::translator</code> instead.
 </pre>
 </div>
 
-<pre class="example" id="orgba27501">
+<pre class="example" id="org4dee815">
 HOA: v1
 States: 2
 Start: 1
@@ -559,9 +556,9 @@ State: 1
 </div>
 </div>
 
-<div id="outline-container-orgefed72a" class="outline-2">
-<h2 id="orgefed72a">Further reading</h2>
-<div class="outline-text-2" id="text-orgefed72a">
+<div id="outline-container-org48bbcf9" class="outline-2">
+<h2 id="org48bbcf9">Further reading</h2>
+<div class="outline-text-2" id="text-org48bbcf9">
 <p>
 If your application requires monitors and you plan to build them with
 Spot, it is very likely that you will want to convert the resulting

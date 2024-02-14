@@ -1,5 +1,5 @@
 // -*- coding: utf-8 -*-
-// Copyright (C) 2012-2023 Laboratoire de Recherche et Développement
+// Copyright (C) 2012-2022 Laboratoire de Recherche et Développement
 // de l'Epita (LRDE).
 //
 // This file is part of Spot, a model checking library.
@@ -203,18 +203,12 @@ static const argp_option io_options[] =
       "to specify additional options as in --hoa=opt)", 0 },
     { "%M, %m", 0, nullptr, OPTION_DOC | OPTION_NO_USAGE,
       "name of the automaton", 0 },
-    { "%S, %s, %[LETTER]S, %[LETTER]s",
-      0, nullptr, OPTION_DOC | OPTION_NO_USAGE,
-      "number of states (add one LETTER to select (r) reachable [default], "
-      "(u) unreachable, (a) all).", 0 },
-    { "%E, %e, %[LETTER]E, %[LETTER]e",
-      0, nullptr, OPTION_DOC | OPTION_NO_USAGE,
-      "number of edges (add one LETTER to select (r) reachable [default], "
-      "(u) unreachable, (a) all).", 0 },
-    { "%T, %t, %[LETTER]E, %[LETTER]e",
-      0, nullptr, OPTION_DOC | OPTION_NO_USAGE,
-      "number of transitions (add one LETTER to select (r) reachable "
-      "[default], (u) unreachable, (a) all).", 0 },
+    { "%S, %s", 0, nullptr, OPTION_DOC | OPTION_NO_USAGE,
+      "number of reachable states", 0 },
+    { "%E, %e", 0, nullptr, OPTION_DOC | OPTION_NO_USAGE,
+      "number of reachable edges", 0 },
+    { "%T, %t", 0, nullptr, OPTION_DOC | OPTION_NO_USAGE,
+      "number of reachable transitions", 0 },
     { "%A, %a", 0, nullptr, OPTION_DOC | OPTION_NO_USAGE,
       "number of acceptance sets", 0 },
     { "%G, %g, %[LETTERS]G, %[LETTERS]g", 0, nullptr,
@@ -227,7 +221,7 @@ static const argp_option io_options[] =
       "(iw) inherently weak. Use uppercase letters to negate them.", 0 },
     { "%R, %[LETTERS]R", 0, nullptr,
       OPTION_DOC | OPTION_NO_USAGE,
-      "CPU time (excluding parsing), in seconds; Add LETTERS to restrict to "
+      "CPU time (excluding parsing), in seconds; Add LETTERS to restrict to"
       "(u) user time, (s) system time, (p) parent process, "
       "or (c) children processes.", 0 },
     { "%N, %n", 0, nullptr, OPTION_DOC | OPTION_NO_USAGE,
@@ -274,15 +268,12 @@ static const argp_option o_options[] =
       "to specify additional options as in --hoa=opt)", 0 },
     { "%m", 0, nullptr, OPTION_DOC | OPTION_NO_USAGE,
       "name of the automaton", 0 },
-    { "%s, %[LETTER]s", 0, nullptr, OPTION_DOC | OPTION_NO_USAGE,
-      "number of states (add one LETTER to select (r) reachable [default], "
-      "(u) unreachable, (a) all).", 0 },
-    { "%e, %[LETTER]e", 0, nullptr, OPTION_DOC | OPTION_NO_USAGE,
-      "number of edges (add one LETTER to select (r) reachable [default], "
-      "(u) unreachable, (a) all).", 0 },
-    { "%t, %[LETTER]t", 0, nullptr, OPTION_DOC | OPTION_NO_USAGE,
-      "number of transitions (add one LETTER to select (r) reachable "
-      "[default], (u) unreachable, (a) all).", 0 },
+    { "%s", 0, nullptr, OPTION_DOC | OPTION_NO_USAGE,
+      "number of reachable states", 0 },
+    { "%e", 0, nullptr, OPTION_DOC | OPTION_NO_USAGE,
+      "number of reachable edges", 0 },
+    { "%t", 0, nullptr, OPTION_DOC | OPTION_NO_USAGE,
+      "number of reachable transitions", 0 },
     { "%a", 0, nullptr, OPTION_DOC | OPTION_NO_USAGE,
       "number of acceptance sets", 0 },
     { "%g, %[LETTERS]g", 0, nullptr,
@@ -453,7 +444,7 @@ hoa_stat_printer::print(const spot::const_parsed_aut_ptr& haut,
                         const spot::const_twa_graph_ptr& aut,
                         spot::formula f,
                         const char* filename, int loc,
-                        const spot::process_timer& ptimer,
+                        spot::process_timer& ptimer,
                         const char* csv_prefix, const char* csv_suffix)
 {
   timer_ = ptimer;
@@ -481,15 +472,15 @@ hoa_stat_printer::print(const spot::const_parsed_aut_ptr& haut,
       if (has('T'))
         {
           spot::twa_sub_statistics s = sub_stats_reachable(haut->aut);
-          haut_states_.set(s.states, haut->aut->num_states());
-          haut_edges_.set(s.edges, haut->aut->num_edges());
-          haut_trans_.set(s.transitions, count_all_transitions(haut->aut));
+          haut_states_ = s.states;
+          haut_edges_ = s.edges;
+          haut_trans_ = s.transitions;
         }
       else if (has('E') || has('S'))
         {
           spot::twa_statistics s = stats_reachable(haut->aut);
-          haut_states_.set(s.states, haut->aut->num_states());
-          haut_edges_.set(s.edges, haut->aut->num_edges());
+          haut_states_ = s.states;
+          haut_edges_ = s.edges;
         }
       if (has('M'))
         {
@@ -633,30 +624,10 @@ automaton_printer::print(const spot::twa_graph_ptr& aut,
       outputnamer.print(haut, aut, f, filename, loc, ptimer,
                         csv_prefix, csv_suffix);
       std::string fname = outputname.str();
-      auto [it, b] = outputfiles.try_emplace(fname, nullptr);
-      if (b)
-        it->second.reset(new output_file(fname.c_str()));
-      else
-        // reopen if the file has been closed; see below
-        it->second->reopen_for_append(fname);
-      out = &it->second->ostream();
-
-      // If we have opened fewer than 10 files, we keep them all open
-      // to avoid wasting time on open/close calls.
-      //
-      // However we cannot keep all files open, especially in
-      // scenarios were we use thousands of files only once.  To keep
-      // things simple, we only close the previous file if it is not
-      // the current output.  This way we still save the close/open
-      // cost when consecutive automata are sent to the same file.
-      static output_file* previous = nullptr;
-      static const std::string* previous_name = nullptr;
-      if (previous
-          && outputfiles.size() > 10
-          && &previous->ostream() != out)
-        previous->close(*previous_name);
-      previous = it->second.get();
-      previous_name = &it->first;
+      auto p = outputfiles.emplace(fname, nullptr);
+      if (p.second)
+        p.first->second.reset(new output_file(fname.c_str()));
+      out = &p.first->second->ostream();
     }
 
   // Output it.

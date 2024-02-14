@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-08-01 Tue 20:01 -->
+<!-- 2022-10-08 Sat 19:34 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>=ltlcross=</title>
@@ -192,41 +192,30 @@
     { font-size: 10px; font-weight: bold; white-space: nowrap; }
   .org-info-js_search-highlight
     { background-color: #ffff00; color: #000000; font-weight: bold; }
-  .org-svg { }
+  .org-svg { width: 90%; }
 </style>
 <link rel="stylesheet" type="text/css" href="spot.css" />
-<script>
-  window.MathJax = {
-    tex: {
-      ams: {
-        multlineWidth: '85%'
-      },
-      tags: 'ams',
-      tagSide: 'right',
-      tagIndent: '.8em'
-    },
-    chtml: {
-      scale: 1.0,
-      displayAlign: 'center',
-      displayIndent: '0em'
-    },
-    svg: {
-      scale: 1.0,
-      displayAlign: 'center',
-      displayIndent: '0em'
-    },
-    output: {
-      font: 'mathjax-modern',
-      displayOverflow: 'overflow'
-    }
-  };
-</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
 
-<script
-  id="MathJax-script"
-  async
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
 </head>
 <body>
 <div id="org-div-home-and-up">
@@ -239,28 +228,28 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org25a7fab">Formula selection</a></li>
-<li><a href="#org19cc19a">Configuring translators</a>
+<li><a href="#orgef2cb54">Formula selection</a></li>
+<li><a href="#orga849d4e">Configuring translators</a>
 <ul>
-<li><a href="#orgc6771fe">Translator specifications</a></li>
-<li><a href="#orgbceaba8">Trusted and untrusted translators</a></li>
+<li><a href="#orgf47934e">Translator specifications</a></li>
+<li><a href="#org40b839c">Trusted and untrusted translators</a></li>
 </ul>
 </li>
 <li><a href="#checks">Detecting problems</a></li>
-<li><a href="#org5d9d033">Getting statistics</a>
+<li><a href="#org8192e81">Getting statistics</a>
 <ul>
-<li><a href="#org06663e4">CSV or JSON output (or both!)</a></li>
-<li><a href="#org9b9b519">Description of the columns</a></li>
-<li><a href="#orgcfa81fa">Changing the name of the translators</a></li>
-<li><a href="#org5cf46a3">Working with these CSV files in R</a></li>
+<li><a href="#org1ee3760">CSV or JSON output (or both!)</a></li>
+<li><a href="#org05ad9c9">Description of the columns</a></li>
+<li><a href="#org193af21">Changing the name of the translators</a></li>
+<li><a href="#org770b9a6">Working with these CSV files in R</a></li>
 </ul>
 </li>
-<li><a href="#org6f4060b">Miscellaneous options</a>
+<li><a href="#orgdbef177">Miscellaneous options</a>
 <ul>
-<li><a href="#org4689189"><code>--stop-on-error</code></a></li>
-<li><a href="#org010b213"><code>--save-bogus=FILENAME</code></a></li>
-<li><a href="#orgc1fd768"><code>--grind=FILENAME</code></a></li>
-<li><a href="#org1b2e7e6"><code>--no-check</code></a></li>
+<li><a href="#org468ebc9"><code>--stop-on-error</code></a></li>
+<li><a href="#org3e48489"><code>--save-bogus=FILENAME</code></a></li>
+<li><a href="#org2dbf09d"><code>--grind=FILENAME</code></a></li>
+<li><a href="#org9160c03"><code>--no-check</code></a></li>
 <li><a href="#verbose"><code>--verbose</code></a></li>
 </ul>
 </li>
@@ -269,9 +258,8 @@
 </div>
 </div>
 
-<div id="org83a23d7" class="figure">
-<p><object type="image/svg+xml" data="spot2.svg" class="org-svg" id="spotlogo">
-Sorry, your browser does not support SVG.</object>
+<div id="org3b2e44d" class="figure">
+<p><img src="spot2.svg" alt="spot2.svg" class="org-svg" id="spotlogo" />
 </p>
 </div>
 <p>
@@ -332,9 +320,9 @@ state-space for all translations).  (If the <code>--products=N</code> option is 
 <li>Gather statistics if requested.</li>
 </ul>
 
-<div id="outline-container-org25a7fab" class="outline-2">
-<h2 id="org25a7fab">Formula selection</h2>
-<div class="outline-text-2" id="text-org25a7fab">
+<div id="outline-container-orgef2cb54" class="outline-2">
+<h2 id="orgef2cb54">Formula selection</h2>
+<div class="outline-text-2" id="text-orgef2cb54">
 <p>
 Formulas to translate should be specified using the <a href="ioltl.html">common input
 options</a>.  Standard input is read if it is not connected to a terminal,
@@ -343,13 +331,13 @@ and no <code>-f</code> or <code>-F</code> options are given.
 </div>
 </div>
 
-<div id="outline-container-org19cc19a" class="outline-2">
-<h2 id="org19cc19a">Configuring translators</h2>
-<div class="outline-text-2" id="text-org19cc19a">
+<div id="outline-container-orga849d4e" class="outline-2">
+<h2 id="orga849d4e">Configuring translators</h2>
+<div class="outline-text-2" id="text-orga849d4e">
 </div>
-<div id="outline-container-orgc6771fe" class="outline-3">
-<h3 id="orgc6771fe">Translator specifications</h3>
-<div class="outline-text-3" id="text-orgc6771fe">
+<div id="outline-container-orgf47934e" class="outline-3">
+<h3 id="orgf47934e">Translator specifications</h3>
+<div class="outline-text-3" id="text-orgf47934e">
 <p>
 Each translator should be specified as a string that use some of the
 following character sequences:
@@ -382,27 +370,6 @@ by the formula in Spin's syntax, and <code>%O</code> will be replaced by a
 temporary file into which the output of the translator is redirected
 before it is read back by <code>ltlcross</code>.
 </p>
-
-<pre class="example" id="org3ff6f8d">
-[](&lt;&gt;(a))
-Running [P0]: ltl2tgba -s '[](&lt;&gt;(a))' &gt;'lcr-o0-Kee3bR'
-Running [P1]: spin -f '[](&lt;&gt;(a))' &gt;'lcr-o1-NEWZZk'
-Running [N0]: ltl2tgba -s '!([](&lt;&gt;(a)))' &gt;'lcr-o0-XOjLQS'
-Running [N1]: spin -f '!([](&lt;&gt;(a)))' &gt;'lcr-o1-DStdtk'
-Performing sanity checks and gathering statistics...
-
-X((a) U (b))
-Running [P0]: ltl2tgba -s 'X((a) U (b))' &gt;'lcr-o0-z4I1Ys'
-Running [P1]: spin -f 'X((a) U (b))' &gt;'lcr-o1-yAZqbe'
-error: execution returned exit code 1.
-Running [N0]: ltl2tgba -s '!(X((a) U (b)))' &gt;'lcr-o0-ud3vk9'
-Running [N1]: spin -f '!(X((a) U (b)))' &gt;'lcr-o1-EEczTe'
-error: execution returned exit code 1.
-Performing sanity checks and gathering statistics...
-
-error: some error was detected during the above runs,
-       please search for 'error:' messages in the above trace.
-</pre>
 
 <p>
 To handle tools that do not support some LTL operators, the character
@@ -491,7 +458,7 @@ shorthands are available.  Those can be listed with the
 <pre class="src src-sh">ltlcross --list-shorthands
 </pre>
 </div>
-<pre class="example" id="org40f4847">
+<pre class="example" id="org2341c58">
 If a COMMANDFMT does not use any %-sequence, and starts with one of
 the following regexes, then the string on the right is appended.
 
@@ -528,9 +495,9 @@ is short for <code>ltlcross 'ltl2tgba -D -H %F&gt;%O' ...</code>
 </div>
 </div>
 
-<div id="outline-container-orgbceaba8" class="outline-3">
-<h3 id="orgbceaba8">Trusted and untrusted translators</h3>
-<div class="outline-text-3" id="text-orgbceaba8">
+<div id="outline-container-org40b839c" class="outline-3">
+<h3 id="org40b839c">Trusted and untrusted translators</h3>
+<div class="outline-text-3" id="text-org40b839c">
 <p>
 By default, all translators specified are not trusted.  This means
 that <code>ltlcross</code> will cross-compare the output of all translators,
@@ -745,9 +712,9 @@ automaton as well.
 </div>
 </div>
 
-<div id="outline-container-org5d9d033" class="outline-2">
-<h2 id="org5d9d033">Getting statistics</h2>
-<div class="outline-text-2" id="text-org5d9d033">
+<div id="outline-container-org8192e81" class="outline-2">
+<h2 id="org8192e81">Getting statistics</h2>
+<div class="outline-text-2" id="text-org8192e81">
 <p>
 Detailed statistics about the result of each translation, and the
 product of that resulting automaton with the random state-space, can
@@ -755,9 +722,9 @@ be obtained using the <code>--csv=FILE</code> or <code>--json=FILE</code> option
 </p>
 </div>
 
-<div id="outline-container-org06663e4" class="outline-3">
-<h3 id="org06663e4">CSV or JSON output (or both!)</h3>
-<div class="outline-text-3" id="text-org06663e4">
+<div id="outline-container-org1ee3760" class="outline-3">
+<h3 id="org1ee3760">CSV or JSON output (or both!)</h3>
+<div class="outline-text-3" id="text-org1ee3760">
 <p>
 The following compare <code>ltl2tgba</code>, <code>spin</code>, and <code>lbt</code> on three random
 formulas (where <code>W</code> and <code>M</code> operators have been rewritten away because
@@ -773,42 +740,6 @@ ltlcross --csv=results.csv <span class="org-sh-escaped-newline">\</span>
          <span class="org-string">'lbt &lt; %L &gt;%O'</span>
 </pre>
 </div>
-
-<pre class="example" id="orgab2cc32">
--:1: G(!((!(p0)) &amp; ((X(p0)) | (F((p1) R (X(p0)))))))
-Running [P0]: ltl2tgba -s 'G(!((!(p0)) &amp; ((X(p0)) | (F((p1) R (X(p0)))))))' &gt;'lcr-o0-hbus7F'
-Running [P1]: spin -f '[](!((!(p0)) &amp;&amp; ((X(p0)) || (&lt;&gt;((p1) V (X(p0)))))))' &gt;'lcr-o1-xZvOBM'
-error: execution returned exit code 1.
-Running [P2]: lbt &lt; 'lcr-i0-nzfOiC' &gt;'lcr-o2-RIwDOX'
-Running [N0]: ltl2tgba -s '!(G(!((!(p0)) &amp; ((X(p0)) | (F((p1) R (X(p0))))))))' &gt;'lcr-o0-hqS0eH'
-Running [N1]: spin -f '!([](!((!(p0)) &amp;&amp; ((X(p0)) || (&lt;&gt;((p1) V (X(p0))))))))' &gt;'lcr-o1-LL2k1o'
-error: execution returned exit code 1.
-Running [N2]: lbt &lt; 'lcr-i0-ZTZXM4' &gt;'lcr-o2-ZGYVrZ'
-Performing sanity checks and gathering statistics...
-
--:2: F(p0)
-Running [P0]: ltl2tgba -s 'F(p0)' &gt;'lcr-o0-JgmsDB'
-Running [P1]: spin -f '&lt;&gt;(p0)' &gt;'lcr-o1-4vjXSk'
-Running [P2]: lbt &lt; 'lcr-i1-ohBxK8' &gt;'lcr-o2-eaBezb'
-Running [N0]: ltl2tgba -s '!(F(p0))' &gt;'lcr-o0-cteBzt'
-Running [N1]: spin -f '!(&lt;&gt;(p0))' &gt;'lcr-o1-50Qh1p'
-Running [N2]: lbt &lt; 'lcr-i1-feKFyY' &gt;'lcr-o2-D6mK2Z'
-Performing sanity checks and gathering statistics...
-
--:3: (X(p0)) U ((!(p0)) &amp; (X(p0)))
-Running [P0]: ltl2tgba -s '(X(p0)) U ((!(p0)) &amp; (X(p0)))' &gt;'lcr-o0-DoJWZw'
-Running [P1]: spin -f '(X(p0)) U ((!(p0)) &amp;&amp; (X(p0)))' &gt;'lcr-o1-UhFBH3'
-error: execution returned exit code 1.
-Running [P2]: lbt &lt; 'lcr-i2-tbSqOQ' &gt;'lcr-o2-zrkTpk'
-Running [N0]: ltl2tgba -s '!((X(p0)) U ((!(p0)) &amp; (X(p0))))' &gt;'lcr-o0-CtbG0U'
-Running [N1]: spin -f '!((X(p0)) U ((!(p0)) &amp;&amp; (X(p0))))' &gt;'lcr-o1-hoLEjo'
-error: execution returned exit code 1.
-Running [N2]: lbt &lt; 'lcr-i2-qCZDdW' &gt;'lcr-o2-7ecfgz'
-Performing sanity checks and gathering statistics...
-
-error: some error was detected during the above runs,
-       please search for 'error:' messages in the above trace.
-</pre>
 
 <p>
 After this execution, the file <code>results.csv</code> contains the following:
@@ -876,7 +807,7 @@ After this execution, the file <code>results.csv</code> contains the following:
 <td class="org-left">ltl2tgba -s %f &gt;%O</td>
 <td class="org-left">ok</td>
 <td class="org-right">0</td>
-<td class="org-right">0.0383131</td>
+<td class="org-right">0.0402804</td>
 <td class="org-right">2</td>
 <td class="org-right">3</td>
 <td class="org-right">3</td>
@@ -895,7 +826,7 @@ After this execution, the file <code>results.csv</code> contains the following:
 <td class="org-left">spin -f %s &gt;%O</td>
 <td class="org-left">exit code</td>
 <td class="org-right">1</td>
-<td class="org-right">0.00257957</td>
+<td class="org-right">0.00271631</td>
 <td class="org-right">&#xa0;</td>
 <td class="org-right">&#xa0;</td>
 <td class="org-right">&#xa0;</td>
@@ -914,7 +845,7 @@ After this execution, the file <code>results.csv</code> contains the following:
 <td class="org-left">lbt &lt; %L &gt;%O</td>
 <td class="org-left">ok</td>
 <td class="org-right">0</td>
-<td class="org-right">0.00375798</td>
+<td class="org-right">0.00376756</td>
 <td class="org-right">6</td>
 <td class="org-right">14</td>
 <td class="org-right">28</td>
@@ -933,7 +864,7 @@ After this execution, the file <code>results.csv</code> contains the following:
 <td class="org-left">ltl2tgba -s %f &gt;%O</td>
 <td class="org-left">ok</td>
 <td class="org-right">0</td>
-<td class="org-right">0.0395146</td>
+<td class="org-right">0.0409936</td>
 <td class="org-right">3</td>
 <td class="org-right">5</td>
 <td class="org-right">6</td>
@@ -952,7 +883,7 @@ After this execution, the file <code>results.csv</code> contains the following:
 <td class="org-left">spin -f %s &gt;%O</td>
 <td class="org-left">exit code</td>
 <td class="org-right">1</td>
-<td class="org-right">0.00263934</td>
+<td class="org-right">0.0027496</td>
 <td class="org-right">&#xa0;</td>
 <td class="org-right">&#xa0;</td>
 <td class="org-right">&#xa0;</td>
@@ -971,7 +902,7 @@ After this execution, the file <code>results.csv</code> contains the following:
 <td class="org-left">lbt &lt; %L &gt;%O</td>
 <td class="org-left">ok</td>
 <td class="org-right">0</td>
-<td class="org-right">0.0037771</td>
+<td class="org-right">0.00387543</td>
 <td class="org-right">13</td>
 <td class="org-right">28</td>
 <td class="org-right">67</td>
@@ -990,7 +921,7 @@ After this execution, the file <code>results.csv</code> contains the following:
 <td class="org-left">ltl2tgba -s %f &gt;%O</td>
 <td class="org-left">ok</td>
 <td class="org-right">0</td>
-<td class="org-right">0.0364002</td>
+<td class="org-right">0.0382853</td>
 <td class="org-right">2</td>
 <td class="org-right">3</td>
 <td class="org-right">4</td>
@@ -1009,7 +940,7 @@ After this execution, the file <code>results.csv</code> contains the following:
 <td class="org-left">spin -f %s &gt;%O</td>
 <td class="org-left">ok</td>
 <td class="org-right">0</td>
-<td class="org-right">0.00276377</td>
+<td class="org-right">0.00276879</td>
 <td class="org-right">2</td>
 <td class="org-right">3</td>
 <td class="org-right">5</td>
@@ -1028,7 +959,7 @@ After this execution, the file <code>results.csv</code> contains the following:
 <td class="org-left">lbt &lt; %L &gt;%O</td>
 <td class="org-left">ok</td>
 <td class="org-right">0</td>
-<td class="org-right">0.00367807</td>
+<td class="org-right">0.00368029</td>
 <td class="org-right">4</td>
 <td class="org-right">6</td>
 <td class="org-right">10</td>
@@ -1047,7 +978,7 @@ After this execution, the file <code>results.csv</code> contains the following:
 <td class="org-left">ltl2tgba -s %f &gt;%O</td>
 <td class="org-left">ok</td>
 <td class="org-right">0</td>
-<td class="org-right">0.036135</td>
+<td class="org-right">0.037913</td>
 <td class="org-right">1</td>
 <td class="org-right">1</td>
 <td class="org-right">1</td>
@@ -1066,7 +997,7 @@ After this execution, the file <code>results.csv</code> contains the following:
 <td class="org-left">spin -f %s &gt;%O</td>
 <td class="org-left">ok</td>
 <td class="org-right">0</td>
-<td class="org-right">0.0027369</td>
+<td class="org-right">0.00285838</td>
 <td class="org-right">1</td>
 <td class="org-right">1</td>
 <td class="org-right">1</td>
@@ -1085,7 +1016,7 @@ After this execution, the file <code>results.csv</code> contains the following:
 <td class="org-left">lbt &lt; %L &gt;%O</td>
 <td class="org-left">ok</td>
 <td class="org-right">0</td>
-<td class="org-right">0.00365251</td>
+<td class="org-right">0.00432489</td>
 <td class="org-right">2</td>
 <td class="org-right">2</td>
 <td class="org-right">2</td>
@@ -1104,7 +1035,7 @@ After this execution, the file <code>results.csv</code> contains the following:
 <td class="org-left">ltl2tgba -s %f &gt;%O</td>
 <td class="org-left">ok</td>
 <td class="org-right">0</td>
-<td class="org-right">0.0363882</td>
+<td class="org-right">0.0391009</td>
 <td class="org-right">3</td>
 <td class="org-right">3</td>
 <td class="org-right">4</td>
@@ -1123,7 +1054,7 @@ After this execution, the file <code>results.csv</code> contains the following:
 <td class="org-left">spin -f %s &gt;%O</td>
 <td class="org-left">exit code</td>
 <td class="org-right">1</td>
-<td class="org-right">0.0026537</td>
+<td class="org-right">0.00266236</td>
 <td class="org-right">&#xa0;</td>
 <td class="org-right">&#xa0;</td>
 <td class="org-right">&#xa0;</td>
@@ -1142,7 +1073,7 @@ After this execution, the file <code>results.csv</code> contains the following:
 <td class="org-left">lbt &lt; %L &gt;%O</td>
 <td class="org-left">ok</td>
 <td class="org-right">0</td>
-<td class="org-right">0.00366293</td>
+<td class="org-right">0.00373531</td>
 <td class="org-right">6</td>
 <td class="org-right">7</td>
 <td class="org-right">10</td>
@@ -1161,7 +1092,7 @@ After this execution, the file <code>results.csv</code> contains the following:
 <td class="org-left">ltl2tgba -s %f &gt;%O</td>
 <td class="org-left">ok</td>
 <td class="org-right">0</td>
-<td class="org-right">0.0364236</td>
+<td class="org-right">0.0389199</td>
 <td class="org-right">3</td>
 <td class="org-right">4</td>
 <td class="org-right">5</td>
@@ -1180,7 +1111,7 @@ After this execution, the file <code>results.csv</code> contains the following:
 <td class="org-left">spin -f %s &gt;%O</td>
 <td class="org-left">exit code</td>
 <td class="org-right">1</td>
-<td class="org-right">0.00260938</td>
+<td class="org-right">0.00266558</td>
 <td class="org-right">&#xa0;</td>
 <td class="org-right">&#xa0;</td>
 <td class="org-right">&#xa0;</td>
@@ -1199,7 +1130,7 @@ After this execution, the file <code>results.csv</code> contains the following:
 <td class="org-left">lbt &lt; %L &gt;%O</td>
 <td class="org-left">ok</td>
 <td class="org-right">0</td>
-<td class="org-right">0.00365033</td>
+<td class="org-right">0.00378165</td>
 <td class="org-right">9</td>
 <td class="org-right">17</td>
 <td class="org-right">23</td>
@@ -1251,24 +1182,24 @@ contained the following <a href="http://www.json.org/">JSON</a> output.
   ],
   "inputs":  [ 0, 1 ],
   "results": [
-    [ 0,0,"ok",0,0.0383131,2,3,3,1,2,0,0,0,400,6276,2 ],
-    [ 0,1,"exit code",1,0.00257957,null,null,null,null,null,null,null,null,null,null,null ],
-    [ 0,2,"ok",0,0.00375798,6,14,28,1,5,6,1,0,1000,20970,403 ],
-    [ 1,0,"ok",0,0.0395146,3,5,6,1,3,0,0,1,600,12633,3 ],
-    [ 1,1,"exit code",1,0.00263934,null,null,null,null,null,null,null,null,null,null,null ],
-    [ 1,2,"ok",0,0.0037771,13,28,67,2,13,7,1,0,2400,59006,1604 ],
-    [ 2,0,"ok",0,0.0364002,2,3,4,1,2,0,0,1,400,8264,2 ],
-    [ 2,1,"ok",0,0.00276377,2,3,5,1,2,1,1,1,400,10323,2 ],
-    [ 2,2,"ok",0,0.00367807,4,6,10,1,4,2,1,1,601,14487,203 ],
-    [ 3,0,"ok",0,0.036135,1,1,1,1,1,0,0,0,200,2073,1 ],
-    [ 3,1,"ok",0,0.0027369,1,1,1,1,1,0,0,0,200,2073,1 ],
-    [ 3,2,"ok",0,0.00365251,2,2,2,0,2,0,0,0,201,2081,2 ],
-    [ 4,0,"ok",0,0.0363882,3,3,4,1,3,0,0,0,208,4118,9 ],
-    [ 4,1,"exit code",1,0.0026537,null,null,null,null,null,null,null,null,null,null,null ],
-    [ 4,2,"ok",0,0.00366293,6,7,10,1,6,1,1,0,484,7467,86 ],
-    [ 5,0,"ok",0,0.0364236,3,4,5,1,3,0,0,0,208,4128,9 ],
-    [ 5,1,"exit code",1,0.00260938,null,null,null,null,null,null,null,null,null,null,null ],
-    [ 5,2,"ok",0,0.00365033,9,17,23,0,9,4,1,0,1601,34445,1004 ]
+    [ 0,0,"ok",0,0.0402804,2,3,3,1,2,0,0,0,400,6276,2 ],
+    [ 0,1,"exit code",1,0.00271631,null,null,null,null,null,null,null,null,null,null,null ],
+    [ 0,2,"ok",0,0.00376756,6,14,28,1,5,6,1,0,1000,20970,403 ],
+    [ 1,0,"ok",0,0.0409936,3,5,6,1,3,0,0,1,600,12633,3 ],
+    [ 1,1,"exit code",1,0.0027496,null,null,null,null,null,null,null,null,null,null,null ],
+    [ 1,2,"ok",0,0.00387543,13,28,67,2,13,7,1,0,2400,59006,1604 ],
+    [ 2,0,"ok",0,0.0382853,2,3,4,1,2,0,0,1,400,8264,2 ],
+    [ 2,1,"ok",0,0.00276879,2,3,5,1,2,1,1,1,400,10323,2 ],
+    [ 2,2,"ok",0,0.00368029,4,6,10,1,4,2,1,1,601,14487,203 ],
+    [ 3,0,"ok",0,0.037913,1,1,1,1,1,0,0,0,200,2073,1 ],
+    [ 3,1,"ok",0,0.00285838,1,1,1,1,1,0,0,0,200,2073,1 ],
+    [ 3,2,"ok",0,0.00432489,2,2,2,0,2,0,0,0,201,2081,2 ],
+    [ 4,0,"ok",0,0.0391009,3,3,4,1,3,0,0,0,208,4118,9 ],
+    [ 4,1,"exit code",1,0.00266236,null,null,null,null,null,null,null,null,null,null,null ],
+    [ 4,2,"ok",0,0.00373531,6,7,10,1,6,1,1,0,484,7467,86 ],
+    [ 5,0,"ok",0,0.0389199,3,4,5,1,3,0,0,0,208,4128,9 ],
+    [ 5,1,"exit code",1,0.00266558,null,null,null,null,null,null,null,null,null,null,null ],
+    [ 5,2,"ok",0,0.00378165,9,17,23,0,9,4,1,0,1601,34445,1004 ]
   ]
 }
 </pre>
@@ -1312,12 +1243,6 @@ columns are inputs, instead of reading the <code>inputs</code> field.
         <span class="org-string">" &amp; "</span>.join(sums)))
 </pre>
 </div>
-<pre class="example">
-tool               &amp; count &amp; time &amp; states &amp; edges &amp; transitions &amp; acc &amp; scc &amp; nondet_states &amp; nondet_aut &amp; complete_aut &amp; product_states &amp; product_transitions &amp; product_scc \\
-ltl2tgba -s %f &gt;%O &amp;   6 &amp;    0.0 &amp;    2.3 &amp;    3.2 &amp;    3.8 &amp;    1.0 &amp;    2.3 &amp;    0.0 &amp;    0.0 &amp;    0.3 &amp;  336.0 &amp; 6248.7 &amp;    4.3 \\
-</pre>
-
-
 <p>
 The script <code>bench/ltl2tgba/sum.py</code> is a more evolved version of the
 above script that generates two kinds of LaTeX tables.
@@ -1341,9 +1266,9 @@ it does not try to guess who is incorrect.
 </div>
 </div>
 
-<div id="outline-container-org9b9b519" class="outline-3">
-<h3 id="org9b9b519">Description of the columns</h3>
-<div class="outline-text-3" id="text-org9b9b519">
+<div id="outline-container-org05ad9c9" class="outline-3">
+<h3 id="org05ad9c9">Description of the columns</h3>
+<div class="outline-text-3" id="text-org05ad9c9">
 <p>
 The number of column output in the CSV or JSON outputs depend on the
 options passed to <code>ltlcross</code>. Additional columns will be output if
@@ -1504,9 +1429,9 @@ produced automaton in the HOA format.
 </div>
 </div>
 
-<div id="outline-container-orgcfa81fa" class="outline-3">
-<h3 id="orgcfa81fa">Changing the name of the translators</h3>
-<div class="outline-text-3" id="text-orgcfa81fa">
+<div id="outline-container-org193af21" class="outline-3">
+<h3 id="org193af21">Changing the name of the translators</h3>
+<div class="outline-text-3" id="text-org193af21">
 <p>
 By default, the names used in the CSV and JSON output to designate the
 translators are the command specified on the command line.
@@ -1519,7 +1444,7 @@ configurations, and the strings <code>ltl2tgba -s --small %f &gt;%O</code> and
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="org1273f6d">ltlcross -f a -f Ga <span class="org-string">'ltl2tgba -s --small %f &gt;%O'</span> <span class="org-string">'ltl2tgba -s --deter %f &gt;%O'</span> --csv
+<pre class="src src-sh" id="org7570e7b">ltlcross -f a -f Ga <span class="org-string">'ltl2tgba -s --small %f &gt;%O'</span> <span class="org-string">'ltl2tgba -s --deter %f &gt;%O'</span> --csv
 </pre>
 </div>
 
@@ -1585,7 +1510,7 @@ configurations, and the strings <code>ltl2tgba -s --small %f &gt;%O</code> and
 <td class="org-left">ltl2tgba -s --small %f &gt;%O</td>
 <td class="org-left">ok</td>
 <td class="org-right">0</td>
-<td class="org-right">0.0365011</td>
+<td class="org-right">0.0375203</td>
 <td class="org-right">2</td>
 <td class="org-right">2</td>
 <td class="org-right">3</td>
@@ -1604,7 +1529,7 @@ configurations, and the strings <code>ltl2tgba -s --small %f &gt;%O</code> and
 <td class="org-left">ltl2tgba -s --deter %f &gt;%O</td>
 <td class="org-left">ok</td>
 <td class="org-right">0</td>
-<td class="org-right">0.0357576</td>
+<td class="org-right">0.0374848</td>
 <td class="org-right">2</td>
 <td class="org-right">2</td>
 <td class="org-right">3</td>
@@ -1623,7 +1548,7 @@ configurations, and the strings <code>ltl2tgba -s --small %f &gt;%O</code> and
 <td class="org-left">ltl2tgba -s --small %f &gt;%O</td>
 <td class="org-left">ok</td>
 <td class="org-right">0</td>
-<td class="org-right">0.0360889</td>
+<td class="org-right">0.0371754</td>
 <td class="org-right">2</td>
 <td class="org-right">2</td>
 <td class="org-right">3</td>
@@ -1642,7 +1567,7 @@ configurations, and the strings <code>ltl2tgba -s --small %f &gt;%O</code> and
 <td class="org-left">ltl2tgba -s --deter %f &gt;%O</td>
 <td class="org-left">ok</td>
 <td class="org-right">0</td>
-<td class="org-right">0.0353693</td>
+<td class="org-right">0.0372066</td>
 <td class="org-right">2</td>
 <td class="org-right">2</td>
 <td class="org-right">3</td>
@@ -1661,7 +1586,7 @@ configurations, and the strings <code>ltl2tgba -s --small %f &gt;%O</code> and
 <td class="org-left">ltl2tgba -s --small %f &gt;%O</td>
 <td class="org-left">ok</td>
 <td class="org-right">0</td>
-<td class="org-right">0.0358119</td>
+<td class="org-right">0.0386423</td>
 <td class="org-right">1</td>
 <td class="org-right">1</td>
 <td class="org-right">1</td>
@@ -1680,7 +1605,7 @@ configurations, and the strings <code>ltl2tgba -s --small %f &gt;%O</code> and
 <td class="org-left">ltl2tgba -s --deter %f &gt;%O</td>
 <td class="org-left">ok</td>
 <td class="org-right">0</td>
-<td class="org-right">0.03581</td>
+<td class="org-right">0.0375818</td>
 <td class="org-right">1</td>
 <td class="org-right">1</td>
 <td class="org-right">1</td>
@@ -1699,7 +1624,7 @@ configurations, and the strings <code>ltl2tgba -s --small %f &gt;%O</code> and
 <td class="org-left">ltl2tgba -s --small %f &gt;%O</td>
 <td class="org-left">ok</td>
 <td class="org-right">0</td>
-<td class="org-right">0.0362892</td>
+<td class="org-right">0.0377426</td>
 <td class="org-right">2</td>
 <td class="org-right">3</td>
 <td class="org-right">4</td>
@@ -1718,7 +1643,7 @@ configurations, and the strings <code>ltl2tgba -s --small %f &gt;%O</code> and
 <td class="org-left">ltl2tgba -s --deter %f &gt;%O</td>
 <td class="org-left">ok</td>
 <td class="org-right">0</td>
-<td class="org-right">0.0356836</td>
+<td class="org-right">0.0377847</td>
 <td class="org-right">2</td>
 <td class="org-right">3</td>
 <td class="org-right">4</td>
@@ -1752,40 +1677,40 @@ ltlcross <span class="org-string">'{small} ltl2tgba -s --small %f &gt;%O'</span>
 </pre>
 </div>
 
-<pre class="example" id="orgcf09244">
+<pre class="example" id="orgab95598">
 -:1: F(p1)
-Running [P0: small]: ltl2tgba -s --small 'F(p1)' &gt;'lcr-o0-4gwL93'
-Running [P1: deter]: ltl2tgba -s --deter 'F(p1)' &gt;'lcr-o1-tinZY5'
-Running [N0: small]: ltl2tgba -s --small '!(F(p1))' &gt;'lcr-o0-Z0wR9c'
-Running [N1: deter]: ltl2tgba -s --deter '!(F(p1))' &gt;'lcr-o1-1VZCXe'
+Running [P0: small]: ltl2tgba -s --small 'F(p1)' &gt;'lcr-o0-5eQ16X'
+Running [P1: deter]: ltl2tgba -s --deter 'F(p1)' &gt;'lcr-o1-pn3tvD'
+Running [N0: small]: ltl2tgba -s --small '!(F(p1))' &gt;'lcr-o0-GTS2VP'
+Running [N1: deter]: ltl2tgba -s --deter '!(F(p1))' &gt;'lcr-o1-AIRSty'
 Performing sanity checks and gathering statistics...
 
 -:2: (F(p1)) &amp; (F(p2))
-Running [P0: small]: ltl2tgba -s --small '(F(p1)) &amp; (F(p2))' &gt;'lcr-o0-2iaSiH'
-Running [P1: deter]: ltl2tgba -s --deter '(F(p1)) &amp; (F(p2))' &gt;'lcr-o1-7dyHrc'
-Running [N0: small]: ltl2tgba -s --small '!((F(p1)) &amp; (F(p2)))' &gt;'lcr-o0-X5UiK1'
-Running [N1: deter]: ltl2tgba -s --deter '!((F(p1)) &amp; (F(p2)))' &gt;'lcr-o1-bVM7oq'
+Running [P0: small]: ltl2tgba -s --small '(F(p1)) &amp; (F(p2))' &gt;'lcr-o0-2sPf2Z'
+Running [P1: deter]: ltl2tgba -s --deter '(F(p1)) &amp; (F(p2))' &gt;'lcr-o1-XryFRG'
+Running [N0: small]: ltl2tgba -s --small '!((F(p1)) &amp; (F(p2)))' &gt;'lcr-o0-RjrwtD'
+Running [N1: deter]: ltl2tgba -s --deter '!((F(p1)) &amp; (F(p2)))' &gt;'lcr-o1-efOJj9'
 Performing sanity checks and gathering statistics...
 
 -:3: (F(p1)) &amp; (F(p2)) &amp; (F(p3))
-Running [P0: small]: ltl2tgba -s --small '(F(p1)) &amp; (F(p2)) &amp; (F(p3))' &gt;'lcr-o0-FJJr5s'
-Running [P1: deter]: ltl2tgba -s --deter '(F(p1)) &amp; (F(p2)) &amp; (F(p3))' &gt;'lcr-o1-anlanZ'
-Running [N0: small]: ltl2tgba -s --small '!((F(p1)) &amp; (F(p2)) &amp; (F(p3)))' &gt;'lcr-o0-6WMWWF'
-Running [N1: deter]: ltl2tgba -s --deter '!((F(p1)) &amp; (F(p2)) &amp; (F(p3)))' &gt;'lcr-o1-7fEn4o'
+Running [P0: small]: ltl2tgba -s --small '(F(p1)) &amp; (F(p2)) &amp; (F(p3))' &gt;'lcr-o0-twdnZX'
+Running [P1: deter]: ltl2tgba -s --deter '(F(p1)) &amp; (F(p2)) &amp; (F(p3))' &gt;'lcr-o1-ZekSdf'
+Running [N0: small]: ltl2tgba -s --small '!((F(p1)) &amp; (F(p2)) &amp; (F(p3)))' &gt;'lcr-o0-wcMR0f'
+Running [N1: deter]: ltl2tgba -s --deter '!((F(p1)) &amp; (F(p2)) &amp; (F(p3)))' &gt;'lcr-o1-C5ObfD'
 Performing sanity checks and gathering statistics...
 
 -:4: (F(p1)) &amp; (F(p2)) &amp; (F(p3)) &amp; (F(p4))
-Running [P0: small]: ltl2tgba -s --small '(F(p1)) &amp; (F(p2)) &amp; (F(p3)) &amp; (F(p4))' &gt;'lcr-o0-pV8JP2'
-Running [P1: deter]: ltl2tgba -s --deter '(F(p1)) &amp; (F(p2)) &amp; (F(p3)) &amp; (F(p4))' &gt;'lcr-o1-2QJ1Kl'
-Running [N0: small]: ltl2tgba -s --small '!((F(p1)) &amp; (F(p2)) &amp; (F(p3)) &amp; (F(p4)))' &gt;'lcr-o0-2sd5QH'
-Running [N1: deter]: ltl2tgba -s --deter '!((F(p1)) &amp; (F(p2)) &amp; (F(p3)) &amp; (F(p4)))' &gt;'lcr-o1-5h1a3h'
+Running [P0: small]: ltl2tgba -s --small '(F(p1)) &amp; (F(p2)) &amp; (F(p3)) &amp; (F(p4))' &gt;'lcr-o0-NH3YIa'
+Running [P1: deter]: ltl2tgba -s --deter '(F(p1)) &amp; (F(p2)) &amp; (F(p3)) &amp; (F(p4))' &gt;'lcr-o1-nzpblL'
+Running [N0: small]: ltl2tgba -s --small '!((F(p1)) &amp; (F(p2)) &amp; (F(p3)) &amp; (F(p4)))' &gt;'lcr-o0-ctw6KE'
+Running [N1: deter]: ltl2tgba -s --deter '!((F(p1)) &amp; (F(p2)) &amp; (F(p3)) &amp; (F(p4)))' &gt;'lcr-o1-AyeLUM'
 Performing sanity checks and gathering statistics...
 
 -:5: (F(p1)) &amp; (F(p2)) &amp; (F(p3)) &amp; (F(p4)) &amp; (F(p5))
-Running [P0: small]: ltl2tgba -s --small '(F(p1)) &amp; (F(p2)) &amp; (F(p3)) &amp; (F(p4)) &amp; (F(p5))' &gt;'lcr-o0-uFa200'
-Running [P1: deter]: ltl2tgba -s --deter '(F(p1)) &amp; (F(p2)) &amp; (F(p3)) &amp; (F(p4)) &amp; (F(p5))' &gt;'lcr-o1-b5o0ZJ'
-Running [N0: small]: ltl2tgba -s --small '!((F(p1)) &amp; (F(p2)) &amp; (F(p3)) &amp; (F(p4)) &amp; (F(p5)))' &gt;'lcr-o0-7LwEW2'
-Running [N1: deter]: ltl2tgba -s --deter '!((F(p1)) &amp; (F(p2)) &amp; (F(p3)) &amp; (F(p4)) &amp; (F(p5)))' &gt;'lcr-o1-UZ80EI'
+Running [P0: small]: ltl2tgba -s --small '(F(p1)) &amp; (F(p2)) &amp; (F(p3)) &amp; (F(p4)) &amp; (F(p5))' &gt;'lcr-o0-zFXoHO'
+Running [P1: deter]: ltl2tgba -s --deter '(F(p1)) &amp; (F(p2)) &amp; (F(p3)) &amp; (F(p4)) &amp; (F(p5))' &gt;'lcr-o1-BKU0H6'
+Running [N0: small]: ltl2tgba -s --small '!((F(p1)) &amp; (F(p2)) &amp; (F(p3)) &amp; (F(p4)) &amp; (F(p5)))' &gt;'lcr-o0-qGEfbD'
+Running [N1: deter]: ltl2tgba -s --deter '!((F(p1)) &amp; (F(p2)) &amp; (F(p3)) &amp; (F(p4)) &amp; (F(p5)))' &gt;'lcr-o1-ZRqUFi'
 Performing sanity checks and gathering statistics...
 
 No problem detected.
@@ -1859,7 +1784,7 @@ short name in the <code>tool</code> column:
 <td class="org-left">small</td>
 <td class="org-left">ok</td>
 <td class="org-right">0</td>
-<td class="org-right">0.0365494</td>
+<td class="org-right">0.0381698</td>
 <td class="org-right">2</td>
 <td class="org-right">3</td>
 <td class="org-right">4</td>
@@ -1878,7 +1803,7 @@ short name in the <code>tool</code> column:
 <td class="org-left">deter</td>
 <td class="org-left">ok</td>
 <td class="org-right">0</td>
-<td class="org-right">0.0364981</td>
+<td class="org-right">0.0378302</td>
 <td class="org-right">2</td>
 <td class="org-right">3</td>
 <td class="org-right">4</td>
@@ -1897,7 +1822,7 @@ short name in the <code>tool</code> column:
 <td class="org-left">small</td>
 <td class="org-left">ok</td>
 <td class="org-right">0</td>
-<td class="org-right">0.0359899</td>
+<td class="org-right">0.0387551</td>
 <td class="org-right">1</td>
 <td class="org-right">1</td>
 <td class="org-right">1</td>
@@ -1916,7 +1841,7 @@ short name in the <code>tool</code> column:
 <td class="org-left">deter</td>
 <td class="org-left">ok</td>
 <td class="org-right">0</td>
-<td class="org-right">0.0357448</td>
+<td class="org-right">0.0398165</td>
 <td class="org-right">1</td>
 <td class="org-right">1</td>
 <td class="org-right">1</td>
@@ -1935,7 +1860,7 @@ short name in the <code>tool</code> column:
 <td class="org-left">small</td>
 <td class="org-left">ok</td>
 <td class="org-right">0</td>
-<td class="org-right">0.0367099</td>
+<td class="org-right">0.0385555</td>
 <td class="org-right">4</td>
 <td class="org-right">9</td>
 <td class="org-right">16</td>
@@ -1954,7 +1879,7 @@ short name in the <code>tool</code> column:
 <td class="org-left">deter</td>
 <td class="org-left">ok</td>
 <td class="org-right">0</td>
-<td class="org-right">0.0365873</td>
+<td class="org-right">0.0397491</td>
 <td class="org-right">4</td>
 <td class="org-right">9</td>
 <td class="org-right">16</td>
@@ -1973,7 +1898,7 @@ short name in the <code>tool</code> column:
 <td class="org-left">small</td>
 <td class="org-left">ok</td>
 <td class="org-right">0</td>
-<td class="org-right">0.0368633</td>
+<td class="org-right">0.0386508</td>
 <td class="org-right">3</td>
 <td class="org-right">5</td>
 <td class="org-right">7</td>
@@ -1992,7 +1917,7 @@ short name in the <code>tool</code> column:
 <td class="org-left">deter</td>
 <td class="org-left">ok</td>
 <td class="org-right">0</td>
-<td class="org-right">0.0362909</td>
+<td class="org-right">0.0398833</td>
 <td class="org-right">3</td>
 <td class="org-right">5</td>
 <td class="org-right">7</td>
@@ -2011,7 +1936,7 @@ short name in the <code>tool</code> column:
 <td class="org-left">small</td>
 <td class="org-left">ok</td>
 <td class="org-right">0</td>
-<td class="org-right">0.038812</td>
+<td class="org-right">0.0413772</td>
 <td class="org-right">8</td>
 <td class="org-right">27</td>
 <td class="org-right">64</td>
@@ -2030,7 +1955,7 @@ short name in the <code>tool</code> column:
 <td class="org-left">deter</td>
 <td class="org-left">ok</td>
 <td class="org-right">0</td>
-<td class="org-right">0.0375994</td>
+<td class="org-right">0.0410938</td>
 <td class="org-right">8</td>
 <td class="org-right">27</td>
 <td class="org-right">64</td>
@@ -2049,7 +1974,7 @@ short name in the <code>tool</code> column:
 <td class="org-left">small</td>
 <td class="org-left">ok</td>
 <td class="org-right">0</td>
-<td class="org-right">0.0383972</td>
+<td class="org-right">0.0403175</td>
 <td class="org-right">4</td>
 <td class="org-right">6</td>
 <td class="org-right">24</td>
@@ -2068,7 +1993,7 @@ short name in the <code>tool</code> column:
 <td class="org-left">deter</td>
 <td class="org-left">ok</td>
 <td class="org-right">0</td>
-<td class="org-right">0.0393638</td>
+<td class="org-right">0.0449126</td>
 <td class="org-right">7</td>
 <td class="org-right">19</td>
 <td class="org-right">37</td>
@@ -2087,7 +2012,7 @@ short name in the <code>tool</code> column:
 <td class="org-left">small</td>
 <td class="org-left">ok</td>
 <td class="org-right">0</td>
-<td class="org-right">0.0431398</td>
+<td class="org-right">0.0460599</td>
 <td class="org-right">16</td>
 <td class="org-right">81</td>
 <td class="org-right">256</td>
@@ -2106,7 +2031,7 @@ short name in the <code>tool</code> column:
 <td class="org-left">deter</td>
 <td class="org-left">ok</td>
 <td class="org-right">0</td>
-<td class="org-right">0.0413285</td>
+<td class="org-right">0.044783</td>
 <td class="org-right">16</td>
 <td class="org-right">81</td>
 <td class="org-right">256</td>
@@ -2125,7 +2050,7 @@ short name in the <code>tool</code> column:
 <td class="org-left">small</td>
 <td class="org-left">ok</td>
 <td class="org-right">0</td>
-<td class="org-right">0.0415657</td>
+<td class="org-right">0.0438088</td>
 <td class="org-right">5</td>
 <td class="org-right">8</td>
 <td class="org-right">64</td>
@@ -2144,7 +2069,7 @@ short name in the <code>tool</code> column:
 <td class="org-left">deter</td>
 <td class="org-left">ok</td>
 <td class="org-right">0</td>
-<td class="org-right">0.0409875</td>
+<td class="org-right">0.0435537</td>
 <td class="org-right">15</td>
 <td class="org-right">65</td>
 <td class="org-right">175</td>
@@ -2163,7 +2088,7 @@ short name in the <code>tool</code> column:
 <td class="org-left">small</td>
 <td class="org-left">ok</td>
 <td class="org-right">0</td>
-<td class="org-right">0.0506821</td>
+<td class="org-right">0.0519572</td>
 <td class="org-right">32</td>
 <td class="org-right">243</td>
 <td class="org-right">1024</td>
@@ -2182,7 +2107,7 @@ short name in the <code>tool</code> column:
 <td class="org-left">deter</td>
 <td class="org-left">ok</td>
 <td class="org-right">0</td>
-<td class="org-right">0.0484578</td>
+<td class="org-right">0.0500268</td>
 <td class="org-right">32</td>
 <td class="org-right">243</td>
 <td class="org-right">1024</td>
@@ -2201,7 +2126,7 @@ short name in the <code>tool</code> column:
 <td class="org-left">small</td>
 <td class="org-left">ok</td>
 <td class="org-right">0</td>
-<td class="org-right">0.0480027</td>
+<td class="org-right">0.0502705</td>
 <td class="org-right">6</td>
 <td class="org-right">10</td>
 <td class="org-right">160</td>
@@ -2224,9 +2149,9 @@ can play with it in the next section.
 </div>
 </div>
 
-<div id="outline-container-org5cf46a3" class="outline-3">
-<h3 id="org5cf46a3">Working with these CSV files in R</h3>
-<div class="outline-text-3" id="text-org5cf46a3">
+<div id="outline-container-org770b9a6" class="outline-3">
+<h3 id="org770b9a6">Working with these CSV files in R</h3>
+<div class="outline-text-3" id="text-org770b9a6">
 <p>
 The produced CSV should be directly readable by R's CSV input functions like
 <code>read.csv()</code>, <code>readr::read_csv()</code>, or <code>data.table::fread()</code>.
@@ -2238,27 +2163,13 @@ dt <span class="org-ess-assignment">&lt;-</span> fread(<span class="org-string">
 str(dt)
 </pre>
 </div>
-<pre class="example" id="org47020f9">
-data.table 1.14.8 using 12 threads (see ?getDTthreads).  Latest news: r-datatable.com
-Classes 'data.table' and 'data.frame':	20 obs. of  16 variables:
- $ formula            : chr  "F(p1)" "F(p1)" "!(F(p1))" "!(F(p1))" ...
- $ tool               : chr  "small" "deter" "small" "deter" ...
- $ exit_status        : chr  "ok" "ok" "ok" "ok" ...
- $ exit_code          : int  0 0 0 0 0 0 0 0 0 0 ...
- $ time               : num  0.0365 0.0365 0.036 0.0357 0.0367 ...
- $ states             : int  2 2 1 1 4 4 3 3 8 8 ...
- $ edges              : int  3 3 1 1 9 9 5 5 27 27 ...
- $ transitions        : int  4 4 1 1 16 16 7 7 64 64 ...
- $ acc                : int  1 1 1 1 1 1 1 1 1 1 ...
- $ scc                : int  2 2 1 1 4 4 3 3 8 8 ...
- $ nondet_states      : int  0 0 0 0 0 0 0 0 0 0 ...
- $ nondet_aut         : int  0 0 0 0 0 0 0 0 0 0 ...
- $ complete_aut       : int  1 1 0 0 1 1 0 0 1 1 ...
- $ product_states     : int  400 400 200 200 798 798 598 598 1587 1587 ...
- $ product_transitions: int  8272 8272 2055 2055 16533 16533 7367 7367 33068 33068 ...
- $ product_scc        : int  3 3 2 2 5 5 4 4 34 34 ...
- - attr(*, ".internal.selfref")=&lt;externalptr&gt;
+<pre class="example">
+data.table 1.14.2 using 12 threads (see ?getDTthreads).  Latest news: r-datatable.com
+Error in fread("ltlcross.csv") : 
+  File 'ltlcross.csv' does not exist or is non-readable. getwd()=='/builds/spot/spot'
+function (x, df, ncp, log = FALSE)
 </pre>
+
 
 <p>
 Currently the data frame shows one line per couple (formula, tool).
@@ -2278,40 +2189,12 @@ str(dt2)
 </pre>
 </div>
 
-<pre class="example" id="org8ea0bac">
-Classes 'data.table' and 'data.frame':	10 obs. of  29 variables:
- $ formula                  : chr  "!((F(p1)) &amp; (F(p2)) &amp; (F(p3)) &amp; (F(p4)) &amp; (F(p5)))" "!((F(p1)) &amp; (F(p2)) &amp; (F(p3)) &amp; (F(p4)))" "!((F(p1)) &amp; (F(p2)) &amp; (F(p3)))" "!((F(p1)) &amp; (F(p2)))" ...
- $ exit_status.deter        : chr  "ok" "ok" "ok" "ok" ...
- $ exit_status.small        : chr  "ok" "ok" "ok" "ok" ...
- $ exit_code.deter          : int  0 0 0 0 0 0 0 0 0 0
- $ exit_code.small          : int  0 0 0 0 0 0 0 0 0 0
- $ time.deter               : num  0.0484 0.041 0.0394 0.0363 0.0357 ...
- $ time.small               : num  0.048 0.0416 0.0384 0.0369 0.036 ...
- $ states.deter             : int  31 15 7 3 1 4 8 16 32 2
- $ states.small             : int  6 5 4 3 1 4 8 16 32 2
- $ edges.deter              : int  211 65 19 5 1 9 27 81 243 3
- $ edges.small              : int  10 8 6 5 1 9 27 81 243 3
- $ transitions.deter        : int  781 175 37 7 1 16 64 256 1024 4
- $ transitions.small        : int  160 64 24 7 1 16 64 256 1024 4
- $ acc.deter                : int  1 1 1 1 1 1 1 1 1 1
- $ acc.small                : int  1 1 1 1 1 1 1 1 1 1
- $ scc.deter                : int  31 15 7 3 1 4 8 16 32 2
- $ scc.small                : int  6 5 4 3 1 4 8 16 32 2
- $ nondet_states.deter      : int  0 0 0 0 0 0 0 0 0 0
- $ nondet_states.small      : int  1 1 1 0 0 0 0 0 0 0
- $ nondet_aut.deter         : int  0 0 0 0 0 0 0 0 0 0
- $ nondet_aut.small         : int  1 1 1 0 0 0 0 0 0 0
- $ complete_aut.deter       : int  0 0 0 0 0 1 1 1 1 1
- $ complete_aut.small       : int  0 0 0 0 0 1 1 1 1 1
- $ product_states.deter     : int  5130 2527 1387 598 200 798 1587 2727 5330 400
- $ product_states.small     : int  1000 801 601 598 200 798 1587 2727 5330 400
- $ product_transitions.deter: int  82897 37226 18792 7367 2055 16533 33068 57786 114068 8272
- $ product_transitions.small: int  10707 8468 6171 7367 2055 16533 33068 57786 114068 8272
- $ product_scc.deter        : int  349 73 33 4 2 5 34 74 350 3
- $ product_scc.small        : int  6 5 4 4 2 5 34 74 350 3
- - attr(*, ".internal.selfref")=&lt;externalptr&gt; 
- - attr(*, "sorted")= chr "formula"
+<pre class="example">
+Error in value[[3L]](cond) : 
+  The dcast generic in data.table has been passed a function, but data.table::dcast currently only has a method for data.tables. Please confirm your input is a data.table, with setDT(dt) or as.data.table(dt). If you intend to use a reshape2::dcast, try installing that package first, but do note that reshape2 is deprecated and you should be migrating your code away from using it.
+Error in str(dt2) : object 'dt2' not found
 </pre>
+
 
 <p>
 Using the above form, it is easy to compare two tools on some given
@@ -2328,14 +2211,6 @@ ggplot(dt2, aes(x=states.small, y=states.deter)) +
 </pre>
 </div>
 
-
-<div id="org587f537" class="figure">
-<p><object type="image/svg+xml" data="ltlcross-r.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
-</p>
-</div>
-
-
 <p>
 We should probably print the formulas for the cases where the two
 sizes differ.
@@ -2348,24 +2223,17 @@ sizes differ.
              aes(label=formula), hjust=0, nudge_x=.5)
 </pre>
 </div>
-
-
-<div id="orgfc6566b" class="figure">
-<p><object type="image/svg+xml" data="ltlcross-r2.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
-</p>
-</div>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org6f4060b" class="outline-2">
-<h2 id="org6f4060b">Miscellaneous options</h2>
-<div class="outline-text-2" id="text-org6f4060b">
+<div id="outline-container-orgdbef177" class="outline-2">
+<h2 id="orgdbef177">Miscellaneous options</h2>
+<div class="outline-text-2" id="text-orgdbef177">
 </div>
-<div id="outline-container-org4689189" class="outline-3">
-<h3 id="org4689189"><code>--stop-on-error</code></h3>
-<div class="outline-text-3" id="text-org4689189">
+<div id="outline-container-org468ebc9" class="outline-3">
+<h3 id="org468ebc9"><code>--stop-on-error</code></h3>
+<div class="outline-text-3" id="text-org468ebc9">
 <p>
 The <code>--stop-on-error</code> option will cause <code>ltlcross</code> to abort on the
 first detected error.  This include failure to start some translator,
@@ -2392,9 +2260,9 @@ to remove duplicate formulas will keep growing).
 </div>
 </div>
 
-<div id="outline-container-org010b213" class="outline-3">
-<h3 id="org010b213"><code>--save-bogus=FILENAME</code></h3>
-<div class="outline-text-3" id="text-org010b213">
+<div id="outline-container-org3e48489" class="outline-3">
+<h3 id="org3e48489"><code>--save-bogus=FILENAME</code></h3>
+<div class="outline-text-3" id="text-org3e48489">
 <p>
 The <code>--save-bogus=FILENAME</code> will save any formula for which an error
 was detected (either some translation failed, or some problem was
@@ -2427,9 +2295,9 @@ You can periodically check the contents of <code>bugs.ltl</code>, and then run
 </div>
 </div>
 
-<div id="outline-container-orgc1fd768" class="outline-3">
-<h3 id="orgc1fd768"><code>--grind=FILENAME</code></h3>
-<div class="outline-text-3" id="text-orgc1fd768">
+<div id="outline-container-org2dbf09d" class="outline-3">
+<h3 id="org2dbf09d"><code>--grind=FILENAME</code></h3>
+<div class="outline-text-3" id="text-org2dbf09d">
 <p>
 This option tells <code>ltlcross</code> that, when a problem is detected, it
 should try to find a smaller formula that still exhibits the
@@ -2462,41 +2330,41 @@ Example:
   --grind=bogus-grind
 </pre>
 </div>
-<pre class="example" id="orgcb21e09">
+<pre class="example" id="orgacdf65d">
 | &amp; G ! p0 | ! p1 F ! p2 &amp; &amp; p1 G p2 F p0
-Running [P0]: modella 'lcr-i0-u3LmEy' 'lcr-o0-9qznel'
-Running [N0]: modella 'lcr-i0-oFiK1B' 'lcr-o0-0zedN3'
+Running [P0]: modella 'lcr-i0-jx276N' 'lcr-o0-qiir7D'
+Running [N0]: modella 'lcr-i0-P4DwoG' 'lcr-o0-cE6duu'
 Performing sanity checks and gathering statistics...
 error: P0*N0 is nonempty; both automata accept the infinite word:
        cycle{!p0 &amp; !p1}
 
 Trying to find a bogus mutation of (G!b &amp; (!c | F!a)) | (c &amp; Ga &amp; Fb)...
 Mutation 1/22: &amp; &amp; p0 G p1 F p2
-Running [P0]: modella 'lcr-i1-GYAGHY' 'lcr-o0-RFpQo5'
-Running [N0]: modella 'lcr-i1-ju87xs' 'lcr-o0-CD2Qf0'
+Running [P0]: modella 'lcr-i1-yRwaxr' 'lcr-o0-MMagsx'
+Running [N0]: modella 'lcr-i1-Ksb2pp' 'lcr-o0-FEhvDW'
 Performing sanity checks and gathering statistics...
 
 Mutation 2/22: &amp; G ! p0 | ! p1 F ! p2
-Running [P0]: modella 'lcr-i2-yPJcWK' 'lcr-o0-uMiSKX'
-Running [N0]: modella 'lcr-i2-1wvXeZ' 'lcr-o0-mBwquL'
+Running [P0]: modella 'lcr-i2-7vJJSY' 'lcr-o0-SakV18'
+Running [N0]: modella 'lcr-i2-vNg8o3' 'lcr-o0-8qGyJv'
 Performing sanity checks and gathering statistics...
 
 Mutation 3/22: | G ! p0 &amp; &amp; p1 G p2 F p0
-Running [P0]: modella 'lcr-i3-0JAAoN' 'lcr-o0-enQAFl'
-Running [N0]: modella 'lcr-i3-sDjIle' 'lcr-o0-hcbfNO'
+Running [P0]: modella 'lcr-i3-YGMXTx' 'lcr-o0-pRxz9Y'
+Running [N0]: modella 'lcr-i3-hrBU4w' 'lcr-o0-tmg5sC'
 Performing sanity checks and gathering statistics...
 error: P0*N0 is nonempty; both automata accept the infinite word:
        cycle{!p0 &amp; !p1}
 
 Trying to find a bogus mutation of G!b | (c &amp; Ga &amp; Fb)...
 Mutation 1/16: t
-Running [P0]: modella 'lcr-i4-svHdty' 'lcr-o0-YC9SMj'
-Running [N0]: modella 'lcr-i4-vSvde5' 'lcr-o0-nxDdoV'
+Running [P0]: modella 'lcr-i4-E9yJxM' 'lcr-o0-AKPGvK'
+Running [N0]: modella 'lcr-i4-6IRr3h' 'lcr-o0-4Qpkym'
 Performing sanity checks and gathering statistics...
 
 Mutation 2/16: G ! p0
-Running [P0]: modella 'lcr-i5-UhFenb' 'lcr-o0-LnIqTJ'
-Running [N0]: modella 'lcr-i5-6X4Jen' 'lcr-o0-sg0mDc'
+Running [P0]: modella 'lcr-i5-0W6ZXQ' 'lcr-o0-BIqr29'
+Running [N0]: modella 'lcr-i5-lfTzsE' 'lcr-o0-ad4yB6'
 Performing sanity checks and gathering statistics...
 
 Mutation 3/16: &amp; &amp; p0 G p1 F p2
@@ -2504,8 +2372,8 @@ warning: This formula or its negation has already been checked.
          Use --allow-dups if it should not be ignored.
 
 Mutation 4/16: | G ! p0 &amp; p1 F p0
-Running [P0]: modella 'lcr-i6-zqHEbi' 'lcr-o0-O8NRi3'
-Running [N0]: modella 'lcr-i6-tUQZU9' 'lcr-o0-xWjbyt'
+Running [P0]: modella 'lcr-i6-krHUZn' 'lcr-o0-4iXh2a'
+Running [N0]: modella 'lcr-i6-JQQ0QN' 'lcr-o0-Hxa1CC'
 Performing sanity checks and gathering statistics...
 error: P0*N0 is nonempty; both automata accept the infinite word:
        cycle{!p0 &amp; !p1}
@@ -2520,38 +2388,38 @@ warning: This formula or its negation has already been checked.
          Use --allow-dups if it should not be ignored.
 
 Mutation 3/10: &amp; p0 F p1
-Running [P0]: modella 'lcr-i7-SW5QZo' 'lcr-o0-jjj9mT'
-Running [N0]: modella 'lcr-i7-UyXK3w' 'lcr-o0-fzF1wS'
+Running [P0]: modella 'lcr-i7-ggsnDN' 'lcr-o0-sNa5FM'
+Running [N0]: modella 'lcr-i7-suni03' 'lcr-o0-XGLnvr'
 Performing sanity checks and gathering statistics...
 
 Mutation 4/10: | p0 G ! p1
-Running [P0]: modella 'lcr-i8-GzzScj' 'lcr-o0-Ef4X7e'
-Running [N0]: modella 'lcr-i8-UQcjde' 'lcr-o0-zXYppA'
+Running [P0]: modella 'lcr-i8-e6llNT' 'lcr-o0-YauElB'
+Running [N0]: modella 'lcr-i8-4Uacxw' 'lcr-o0-DJmW9Z'
 Performing sanity checks and gathering statistics...
 
 Mutation 5/10: | G ! p0 F p0
-Running [P0]: modella 'lcr-i9-ssQE1Y' 'lcr-o0-UYa9I8'
-Running [N0]: modella 'lcr-i9-JYPCQq' 'lcr-o0-OwgaiR'
+Running [P0]: modella 'lcr-i9-Nh924a' 'lcr-o0-ljUAkC'
+Running [N0]: modella 'lcr-i9-AmieU4' 'lcr-o0-XxUcuG'
 Performing sanity checks and gathering statistics...
 
 Mutation 6/10: | ! p0 &amp; p1 F p0
-Running [P0]: modella 'lcr-i10-v9fVOe' 'lcr-o0-41elpz'
-Running [N0]: modella 'lcr-i10-4sG0NR' 'lcr-o0-oGXuze'
+Running [P0]: modella 'lcr-i10-Lrr7yn' 'lcr-o0-dq4EeH'
+Running [N0]: modella 'lcr-i10-K3tlNW' 'lcr-o0-z46Rgi'
 Performing sanity checks and gathering statistics...
 
 Mutation 7/10: | &amp; p1 F p0 G p0
-Running [P0]: modella 'lcr-i11-t0C0eI' 'lcr-o0-r9FRsX'
-Running [N0]: modella 'lcr-i11-gYKbOI' 'lcr-o0-50HEkc'
+Running [P0]: modella 'lcr-i11-Ml7jIj' 'lcr-o0-W8eVHB'
+Running [N0]: modella 'lcr-i11-LtnOQh' 'lcr-o0-LLJgba'
 Performing sanity checks and gathering statistics...
 
 Mutation 8/10: | &amp; p0 p1 G ! p0
-Running [P0]: modella 'lcr-i12-EtMyts' 'lcr-o0-kiAeJg'
-Running [N0]: modella 'lcr-i12-qdqS8x' 'lcr-o0-m0AYDb'
+Running [P0]: modella 'lcr-i12-5xi1zI' 'lcr-o0-liD6jH'
+Running [N0]: modella 'lcr-i12-9c94mT' 'lcr-o0-LVfeT9'
 Performing sanity checks and gathering statistics...
 
 Mutation 9/10: | G ! p0 &amp; p0 F p0
-Running [P0]: modella 'lcr-i13-OZLPM5' 'lcr-o0-BHsC38'
-Running [N0]: modella 'lcr-i13-JqKSuR' 'lcr-o0-9kkEwy'
+Running [P0]: modella 'lcr-i13-8KH5GJ' 'lcr-o0-8t4Qy0'
+Running [N0]: modella 'lcr-i13-KYL5if' 'lcr-o0-s9p1og'
 Performing sanity checks and gathering statistics...
 error: P0*N0 is nonempty; both automata accept the infinite word:
        cycle{!p0}
@@ -2566,13 +2434,13 @@ warning: This formula or its negation has already been checked.
          Use --allow-dups if it should not be ignored.
 
 Mutation 3/7: &amp; p0 F p0
-Running [P0]: modella 'lcr-i14-Ak3vc9' 'lcr-o0-Mov9w1'
-Running [N0]: modella 'lcr-i14-k2KIcm' 'lcr-o0-HvJv2D'
+Running [P0]: modella 'lcr-i14-VBFdhX' 'lcr-o0-Peoepe'
+Running [N0]: modella 'lcr-i14-QECtDC' 'lcr-o0-B1KeBC'
 Performing sanity checks and gathering statistics...
 
 Mutation 4/7: | p0 G ! p0
-Running [P0]: modella 'lcr-i15-ctg3pB' 'lcr-o0-FaM6AG'
-Running [N0]: modella 'lcr-i15-6lwmUj' 'lcr-o0-wfzLfj'
+Running [P0]: modella 'lcr-i15-X0HD0R' 'lcr-o0-52AFAp'
+Running [N0]: modella 'lcr-i15-GkyByH' 'lcr-o0-TkAhQR'
 Performing sanity checks and gathering statistics...
 
 Mutation 5/7: | G ! p0 F p0
@@ -2580,13 +2448,13 @@ warning: This formula or its negation has already been checked.
          Use --allow-dups if it should not be ignored.
 
 Mutation 6/7: | ! p0 &amp; p0 F p0
-Running [P0]: modella 'lcr-i16-OydpNN' 'lcr-o0-uq9HzC'
-Running [N0]: modella 'lcr-i16-sEHeUS' 'lcr-o0-6wNkPy'
+Running [P0]: modella 'lcr-i16-LsNcoS' 'lcr-o0-8n9LwD'
+Running [N0]: modella 'lcr-i16-7NsgiV' 'lcr-o0-HUZldi'
 Performing sanity checks and gathering statistics...
 
 Mutation 7/7: | G p0 &amp; p0 F p0
-Running [P0]: modella 'lcr-i17-haaGch' 'lcr-o0-5FGz1K'
-Running [N0]: modella 'lcr-i17-7k27KD' 'lcr-o0-9lpLFA'
+Running [P0]: modella 'lcr-i17-uGQ6eX' 'lcr-o0-N1nscD'
+Running [N0]: modella 'lcr-i17-9ntocX' 'lcr-o0-jrBo2U'
 Performing sanity checks and gathering statistics...
 
 Smallest bogus mutation found for (G!b &amp; (!c | F!a)) | (c &amp; Ga &amp; Fb) is G!c | (c &amp; Fc).
@@ -2619,9 +2487,9 @@ G!c | (c &amp; Fc)
 </div>
 </div>
 
-<div id="outline-container-org1b2e7e6" class="outline-3">
-<h3 id="org1b2e7e6"><code>--no-check</code></h3>
-<div class="outline-text-3" id="text-org1b2e7e6">
+<div id="outline-container-org9160c03" class="outline-3">
+<h3 id="org9160c03"><code>--no-check</code></h3>
+<div class="outline-text-3" id="text-org9160c03">
 <p>
 The <code>--no-check</code> option disables all sanity checks, and only use the supplied
 formulas in their positive form.
@@ -2655,12 +2523,12 @@ produce transition-based generalized Büchi automata, while <code>ltl3ba
 </pre>
 </div>
 
-<pre class="example" id="org6a75e64">
+<pre class="example" id="orgef43052">
 F(G(a))
-Running [P0]: ltl2tgba -H 'F(G(a))'&gt;'lcr-o0-CbLBKY'
-Running [P1]: ltl3ba -H1 -f '&lt;&gt;([](a))'&gt;'lcr-o1-eg8SEf'
-Running [N0]: ltl2tgba -H '!(F(G(a)))'&gt;'lcr-o0-9GLlJa'
-Running [N1]: ltl3ba -H1 -f '!(&lt;&gt;([](a)))'&gt;'lcr-o1-3X4MKP'
+Running [P0]: ltl2tgba -H 'F(G(a))'&gt;'lcr-o0-P4aqyz'
+Running [P1]: ltl3ba -H1 -f '&lt;&gt;([](a))'&gt;'lcr-o1-X9ZCet'
+Running [N0]: ltl2tgba -H '!(F(G(a)))'&gt;'lcr-o0-woG1VE'
+Running [N1]: ltl3ba -H1 -f '!(&lt;&gt;([](a)))'&gt;'lcr-o1-lvIvlN'
 info: collected automata:
 info:   P0	(2 st.,3 ed.,1 sets)
 info:   N0	(1 st.,2 ed.,1 sets) deterministic complete
@@ -2736,12 +2604,12 @@ can look slightly more complex:
 </pre>
 </div>
 
-<pre class="example" id="org628a282">
+<pre class="example" id="org3e29f77">
 F(G(a))
-Running [P0]: ltl2tgba -H 'F(G(a))'&gt;'lcr-o0-3ZWsrq'
-Running [P1]: ltl3ba -H1 -f '&lt;&gt;([](a))'&gt;'lcr-o1-Tk2wph'
-Running [N0]: ltl2tgba -H '!(F(G(a)))'&gt;'lcr-o0-L1im8t'
-Running [N1]: ltl3ba -H1 -f '!(&lt;&gt;([](a)))'&gt;'lcr-o1-aGxI6M'
+Running [P0]: ltl2tgba -H 'F(G(a))'&gt;'lcr-o0-bbmFfk'
+Running [P1]: ltl3ba -H1 -f '&lt;&gt;([](a))'&gt;'lcr-o1-xKX0Jm'
+Running [N0]: ltl2tgba -H '!(F(G(a)))'&gt;'lcr-o0-7kJlqz'
+Running [N1]: ltl3ba -H1 -f '!(&lt;&gt;([](a)))'&gt;'lcr-o1-InPXCu'
 info: collected automata:
 info:   P0	(2 st.,3 ed.,1 sets)
 info:   N0	(1 st.,2 ed.,1 sets) deterministic complete
@@ -2813,12 +2681,12 @@ of tests performed has been reduced.
 </pre>
 </div>
 
-<pre class="example" id="org2d85671">
+<pre class="example" id="org6862081">
 F(G(a))
-Running [P0]: ltl3ba -H1 -f '&lt;&gt;([](a))'&gt;'lcr-o0-5xvjOw'
-Running [P1]: ltl2tgba -H 'F(G(a))'&gt;'lcr-o1-qoIoXv'
-Running [N0]: ltl3ba -H1 -f '!(&lt;&gt;([](a)))'&gt;'lcr-o0-KsV0xO'
-Running [N1]: ltl2tgba -H '!(F(G(a)))'&gt;'lcr-o1-89ivWJ'
+Running [P0]: ltl3ba -H1 -f '&lt;&gt;([](a))'&gt;'lcr-o0-zCzs8a'
+Running [P1]: ltl2tgba -H 'F(G(a))'&gt;'lcr-o1-u39IKj'
+Running [N0]: ltl3ba -H1 -f '!(&lt;&gt;([](a)))'&gt;'lcr-o0-KCGs6q'
+Running [N1]: ltl2tgba -H '!(F(G(a)))'&gt;'lcr-o1-5KznSY'
 info: collected automata:
 info:   P0	(2 st.,3 ed.,1 sets)
 info:   N0	(3 st.,5 ed.,1 sets) univ-edges complete
@@ -2902,7 +2770,7 @@ testing <code>ltl2tgba</code> and <code>ltl3ba</code> against all formulas produ
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="orgf373cc5"><span class="org-builtin">echo</span> <span class="org-string">'LTLCROSS=ltlcross -q ltl2tgba ltl3ba'</span> &gt; ltlcross.mk
+<pre class="src src-sh" id="orgc53cbd4"><span class="org-builtin">echo</span> <span class="org-string">'LTLCROSS=ltlcross -q ltl2tgba ltl3ba'</span> &gt; ltlcross.mk
 <span class="org-builtin">echo</span> <span class="org-string">"ALL= $(echo $(genltl --eh --format="%F%L.csv"))"</span> &gt;&gt; ltlcross.mk
 <span class="org-builtin">echo</span> <span class="org-string">"all.csv: \$(ALL); cat \$(ALL) | sed -e 1n -e '/^\"formula\"/d' &gt; \$@"</span> &gt;&gt;ltlcross.mk
 genltl --eh --format=<span class="org-string">"%F%L.csv:; \$(LTLCROSS) --csv=\$@ -f '%f'"</span> &gt;&gt;ltlcross.mk

@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-08-01 Tue 20:03 -->
+<!-- 2022-10-08 Sat 19:39 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>=dstar2tgba=</title>
@@ -192,41 +192,30 @@
     { font-size: 10px; font-weight: bold; white-space: nowrap; }
   .org-info-js_search-highlight
     { background-color: #ffff00; color: #000000; font-weight: bold; }
-  .org-svg { }
+  .org-svg { width: 90%; }
 </style>
 <link rel="stylesheet" type="text/css" href="spot.css" />
-<script>
-  window.MathJax = {
-    tex: {
-      ams: {
-        multlineWidth: '85%'
-      },
-      tags: 'ams',
-      tagSide: 'right',
-      tagIndent: '.8em'
-    },
-    chtml: {
-      scale: 1.0,
-      displayAlign: 'center',
-      displayIndent: '0em'
-    },
-    svg: {
-      scale: 1.0,
-      displayAlign: 'center',
-      displayIndent: '0em'
-    },
-    output: {
-      font: 'mathjax-modern',
-      displayOverflow: 'overflow'
-    }
-  };
-</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
 
-<script
-  id="MathJax-script"
-  async
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
 </head>
 <body>
 <div id="org-div-home-and-up">
@@ -239,26 +228,25 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org91eef21">Two quick examples</a>
+<li><a href="#org0f23acd">Two quick examples</a>
 <ul>
-<li><a href="#org763c1a7">From Rabin to Büchi</a></li>
+<li><a href="#org349276d">From Rabin to Büchi</a></li>
 <li><a href="#streett_to_tgba_example">Streett to TGBA</a></li>
 </ul>
 </li>
-<li><a href="#org47d594e">Details</a>
+<li><a href="#org71c44e3">Details</a>
 <ul>
-<li><a href="#org5569e39">General behavior</a></li>
-<li><a href="#org1a7e9b4">Controlling output</a></li>
-<li><a href="#org57b2b2f">Conversion of various acceptance conditions to TGBA and BA</a></li>
+<li><a href="#orgff2bb72">General behavior</a></li>
+<li><a href="#orgc007f4e">Controlling output</a></li>
+<li><a href="#org15b446a">Conversion of various acceptance conditions to TGBA and BA</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="orge74017d" class="figure">
-<p><object type="image/svg+xml" data="spot2.svg" class="org-svg" id="spotlogo">
-Sorry, your browser does not support SVG.</object>
+<div id="orgee58373" class="figure">
+<p><img src="spot2.svg" alt="spot2.svg" class="org-svg" id="spotlogo" />
 </p>
 </div>
 <p>
@@ -282,18 +270,18 @@ some files...</code>.
 </p>
 
 
-<div id="outline-container-org91eef21" class="outline-2">
-<h2 id="org91eef21">Two quick examples</h2>
-<div class="outline-text-2" id="text-org91eef21">
+<div id="outline-container-org0f23acd" class="outline-2">
+<h2 id="org0f23acd">Two quick examples</h2>
+<div class="outline-text-2" id="text-org0f23acd">
 <p>
 Here are some brief examples before we discuss the behavior of
 <code>dstar2tgba</code> in more detail.
 </p>
 </div>
 
-<div id="outline-container-org763c1a7" class="outline-3">
-<h3 id="org763c1a7">From Rabin to Büchi</h3>
-<div class="outline-text-3" id="text-org763c1a7">
+<div id="outline-container-org349276d" class="outline-3">
+<h3 id="org349276d">From Rabin to Büchi</h3>
+<div class="outline-text-3" id="text-org349276d">
 <p>
 The following command instructs <code>ltl2dstar</code> to:
 </p>
@@ -321,7 +309,7 @@ produced a 4-state DRA:
 <pre class="src src-sh">cat fagfb
 </pre>
 </div>
-<pre class="example" id="orgf5ce555">
+<pre class="example" id="orgec593be">
 DRA v2 explicit
 Comment: "DBA2DRA[NBA=3]"
 States: 4
@@ -359,14 +347,13 @@ Acc-Sig: +0
 Let's display this automaton with <code>autfilt</code>:
 </p>
 <div class="org-src-container">
-<pre class="src src-sh" id="org6cf15c1">autfilt fagfb --dot
+<pre class="src src-sh" id="org9dcceda">autfilt fagfb --dot
 </pre>
 </div>
 
 
-<div id="org0aa3355" class="figure">
-<p><object type="image/svg+xml" data="fagfb.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org9a129a9" class="figure">
+<p><img src="fagfb.svg" alt="fagfb.svg" class="org-svg" />
 </p>
 </div>
 
@@ -380,14 +367,13 @@ For instance here is the conversion to a Büchi automaton (<code>-B</code>):
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="org621660f">dstar2tgba -B fagfb -d
+<pre class="src src-sh" id="orgd4333b3">dstar2tgba -B fagfb -d
 </pre>
 </div>
 
 
-<div id="orgdc5a72a" class="figure">
-<p><object type="image/svg+xml" data="fagfb2ba.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org2bdd261" class="figure">
+<p><img src="fagfb2ba.svg" alt="fagfb2ba.svg" class="org-svg" />
 </p>
 </div>
 
@@ -405,7 +391,7 @@ But we could as well require the output as a never claim for Spin (option <code>
 <pre class="src src-sh">dstar2tgba -s fagfb
 </pre>
 </div>
-<pre class="example" id="orgc758107">
+<pre class="example" id="org16e98e3">
 never {
 T0_init:
   if
@@ -435,15 +421,14 @@ Here is the translation of <code>GFa | GFb</code> to a 4-state Streett automaton
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="org4e77343">ltlfilt -f <span class="org-string">'GFa &amp; GFb'</span> -l | ltl2dstar --automata=streett --ltl2nba=spin:ltl2tgba@-Ds - gfagfb
+<pre class="src src-sh" id="orgb876af4">ltlfilt -f <span class="org-string">'GFa &amp; GFb'</span> -l | ltl2dstar --automata=streett --ltl2nba=spin:ltl2tgba@-Ds - gfagfb
 autfilt --dot gfagfb
 </pre>
 </div>
 
 
-<div id="orgc1ab67b" class="figure">
-<p><object type="image/svg+xml" data="gfafgb.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="orga007516" class="figure">
+<p><img src="gfafgb.svg" alt="gfafgb.svg" class="org-svg" />
 </p>
 </div>
 
@@ -454,27 +439,26 @@ And now its conversion by <code>dstar2tgba</code> to a 1-state TGBA.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="orgd44e535">dstar2tgba gfagfb -d
+<pre class="src src-sh" id="orge387d3f">dstar2tgba gfagfb -d
 </pre>
 </div>
 
 
-<div id="orgde6c43b" class="figure">
-<p><object type="image/svg+xml" data="gfagfb2ba.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org7fc31cd" class="figure">
+<p><img src="gfagfb2ba.svg" alt="gfagfb2ba.svg" class="org-svg" />
 </p>
 </div>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org47d594e" class="outline-2">
-<h2 id="org47d594e">Details</h2>
-<div class="outline-text-2" id="text-org47d594e">
+<div id="outline-container-org71c44e3" class="outline-2">
+<h2 id="org71c44e3">Details</h2>
+<div class="outline-text-2" id="text-org71c44e3">
 </div>
-<div id="outline-container-org5569e39" class="outline-3">
-<h3 id="org5569e39">General behavior</h3>
-<div class="outline-text-3" id="text-org5569e39">
+<div id="outline-container-orgff2bb72" class="outline-3">
+<h3 id="orgff2bb72">General behavior</h3>
+<div class="outline-text-3" id="text-orgff2bb72">
 <p>
 The <code>dstar2tgba</code> tool implements a 4-step process:
 </p>
@@ -495,9 +479,9 @@ formats.)
 </div>
 </div>
 
-<div id="outline-container-org1a7e9b4" class="outline-3">
-<h3 id="org1a7e9b4">Controlling output</h3>
-<div class="outline-text-3" id="text-org1a7e9b4">
+<div id="outline-container-orgc007f4e" class="outline-3">
+<h3 id="orgc007f4e">Controlling output</h3>
+<div class="outline-text-3" id="text-orgc007f4e">
 <p>
 The last two steps are shared with <code>ltl2tgba</code> and use the same options.
 </p>
@@ -506,7 +490,7 @@ The last two steps are shared with <code>ltl2tgba</code> and use the same option
 The type of automaton to produce can be selected using the <code>-B</code> or <code>-M</code>
 switches:
 </p>
-<pre class="example" id="orgda14747">
+<pre class="example" id="orga65e3b2">
 -b, --buchi, --Buchi       automaton with Büchi acceptance
 -B, --sba, --ba            state-based Büchi Automaton (same as -S -b)
     --cobuchi, --coBuchi   automaton with co-Büchi acceptance (will
@@ -561,7 +545,7 @@ should you find <code>dstar2tgba</code> too slow.
 Finally, the output format can be changed with the following
 <a href="oaut.html">common ouput options</a>:
 </p>
-<pre class="example" id="orgcff6457">
+<pre class="example" id="org1264c31">
 -8, --utf8                 enable UTF-8 characters in output (ignored with
                            --lbtt or --spin)
     --check[=PROP]         test for the additional property PROP and output
@@ -659,7 +643,7 @@ ltlfilt --remove-wm -r -u --size-min=3 -n 10 |
 </pre>
 </div>
 
-<pre class="example" id="org63658cc">
+<pre class="example" id="org12cdc8b">
 (b | Fa) R Fc
   DRA: 9st.; BA: 6st.; det.? 1; complete? 1
 Ga U G(!a | Gc)
@@ -697,9 +681,9 @@ You can instruct <code>dstar2tgba</code> to output a complete automaton using th
 </div>
 </div>
 
-<div id="outline-container-org57b2b2f" class="outline-3">
-<h3 id="org57b2b2f">Conversion of various acceptance conditions to TGBA and BA</h3>
-<div class="outline-text-3" id="text-org57b2b2f">
+<div id="outline-container-org15b446a" class="outline-3">
+<h3 id="org15b446a">Conversion of various acceptance conditions to TGBA and BA</h3>
+<div class="outline-text-3" id="text-org15b446a">
 <p>
 Spot implements several acceptance conversion algorithms.
 There is one generic cases, with some specialized variants.
@@ -707,8 +691,8 @@ There is one generic cases, with some specialized variants.
 </div>
 
 <ul class="org-ul">
-<li><a id="orgcb605a9"></a>Generic case<br />
-<div class="outline-text-4" id="text-orgcb605a9">
+<li><a id="org29c80d9"></a>Generic case<br />
+<div class="outline-text-4" id="text-org29c80d9">
 <p>
 The most generic one, called <code>remove_fin()</code> in Spot, takes an
 automaton with any acceptance condition, and as its name suggests, it
@@ -748,8 +732,8 @@ are common (Rabin and Streett).
 </div>
 </li>
 
-<li><a id="org5b751c5"></a>Rabin to BA<br />
-<div class="outline-text-4" id="text-org5b751c5">
+<li><a id="org7b01f7e"></a>Rabin to BA<br />
+<div class="outline-text-4" id="text-org7b01f7e">
 <p>
 When the input is a Rabin automaton, a dedicated conversion to BA is
 used.  This procedure actually works for input that is called
@@ -785,8 +769,8 @@ described above.
 </div>
 </li>
 
-<li><a id="org5731563"></a>Streett to TGBA<br />
-<div class="outline-text-4" id="text-org5731563">
+<li><a id="org3189d4d"></a>Streett to TGBA<br />
+<div class="outline-text-4" id="text-org3189d4d">
 <p>
 Streett acceptance have a specialized conversion into non-deterministic TGBA.
 This improved conversion is automatically used by <code>to_generalized_buchi()</code>.

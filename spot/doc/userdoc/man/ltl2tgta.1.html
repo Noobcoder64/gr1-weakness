@@ -1,5 +1,5 @@
-<!-- Creator     : groff version 1.23.0 -->
-<!-- CreationDate: Tue Aug  1 19:58:48 2023 -->
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Sat Oct  8 19:32:55 2022 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -26,13 +26,6 @@
 <li><a href="#NAME">NAME</a></li>
 <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
 <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
-<li><a href="#Automaton type:">Automaton type:</a></li>
-<li><a href="#Input options:">Input options:</a></li>
-<li><a href="#Options for TA and GTA creation:">Options for TA and GTA creation:</a></li>
-<li><a href="#Output options:">Output options:</a></li>
-<li><a href="#Simplification goal:">Simplification goal:</a></li>
-<li><a href="#Simplification level:">Simplification level:</a></li>
-<li><a href="#Miscellaneous options:">Miscellaneous options:</a></li>
 <li><a href="#BIBLIOGRAPHY">BIBLIOGRAPHY</a></li>
 <li><a href="#REPORTING BUGS">REPORTING BUGS</a></li>
 <li><a href="#COPYRIGHT">COPYRIGHT</a></li>
@@ -71,10 +64,8 @@ smallest Transition-based Generalized B&uuml;chi Automata,
 in GraphViz&rsquo;s format. The input formula is assumed to
 be stuttering-insensitive.</p>
 
-<h3>Automaton type:
-<a name="Automaton type:"></a>
-</h3>
-
+<h3 style="margin-left:11%">Automaton
+type:</h3>
 
 <table width="100%" border="0" rules="none" frame="void"
        cellspacing="0" cellpadding="0">
@@ -83,13 +74,12 @@ be stuttering-insensitive.</p>
 <td width="9%">
 
 
-<p style="margin-top: 1em"><b>--gta</b></p></td>
+<p><b>--gta</b></p></td>
 <td width="2%"></td>
 <td width="78%">
 
 
-<p style="margin-top: 1em">Generalized Testing
-Automaton</p> </td></tr>
+<p>Generalized Testing Automaton</p></td></tr>
 <tr valign="top" align="left">
 <td width="11%"></td>
 <td width="9%">
@@ -115,13 +105,9 @@ Automaton</p> </td></tr>
 (default)</p> </td></tr>
 </table>
 
-<h3>Input options:
-<a name="Input options:"></a>
-</h3>
-
-
-<p style="margin-left:11%; margin-top: 1em"><b>-f</b>,
-<b>--formula</b>=<i>STRING</i></p>
+<h3 style="margin-left:11%">Input
+options:</h3><p style="margin-left:11%"><b>
+-f</b>, <b>--formula</b>=<i>STRING</i></p>
 
 <p style="margin-left:22%;">process the formula STRING</p>
 
@@ -144,13 +130,9 @@ LBT&rsquo;s prefix syntax</p>
 cannot be parsed as subformulas are considered as atomic
 properties</p>
 
-<h3>Options for TA and GTA creation:
-<a name="Options for TA and GTA creation:"></a>
-</h3>
-
-
-
-<p style="margin-left:11%; margin-top: 1em"><b>--multiple-init</b></p>
+<h3 style="margin-left:11%">Options for
+TA and GTA creation:</h3><p style="margin-left:11%"><b>
+--multiple-init</b></p>
 
 <p style="margin-left:22%;">do not create the fake initial
 state</p>
@@ -165,24 +147,17 @@ without artificial livelock state</p>
 <p style="margin-left:22%;">add an artificial livelock
 state to obtain a single-pass (G)TA</p>
 
-<h3>Output options:
-<a name="Output options:"></a>
-</h3>
-
-
-<p style="margin-left:11%; margin-top: 1em"><b>-8</b>,
-<b>--utf8</b></p>
+<h3 style="margin-left:11%">Output
+options:</h3><p style="margin-left:11%"><b>
+-8</b>, <b>--utf8</b></p>
 
 <p style="margin-left:22%;">enable UTF-8 characters in
 output</p>
 
-<h3>Simplification goal:
-<a name="Simplification goal:"></a>
-</h3>
 
-
-<p style="margin-left:11%; margin-top: 1em"><b>-a</b>,
-<b>--any</b></p>
+<h3 style="margin-left:11%">Simplification
+goal:</h3><p style="margin-left:11%"><b>
+-a</b>, <b>--any</b></p>
 
 <p style="margin-left:22%;">no preference, do not bother
 making it small or deterministic</p>
@@ -198,10 +173,9 @@ automata</p>
 <p style="margin-left:22%;">prefer small automata
 (default)</p>
 
-<h3>Simplification level:
-<a name="Simplification level:"></a>
-</h3>
 
+<h3 style="margin-left:11%">Simplification
+level:</h3>
 
 <table width="100%" border="0" rules="none" frame="void"
        cellspacing="0" cellpadding="0">
@@ -210,13 +184,12 @@ automata</p>
 <td width="9%">
 
 
-<p style="margin-top: 1em"><b>--high</b></p></td>
+<p><b>--high</b></p></td>
 <td width="2%"></td>
 <td width="66%">
 
 
-<p style="margin-top: 1em">all available optimizations
-(slow, default)</p></td>
+<p>all available optimizations (slow, default)</p></td>
 <td width="12%">
 </td></tr>
 <tr valign="top" align="left">
@@ -238,13 +211,10 @@ automata</p>
 
 <p style="margin-left:22%;">moderate optimizations</p>
 
-<h3>Miscellaneous options:
-<a name="Miscellaneous options:"></a>
-</h3>
 
-
-<p style="margin-left:11%; margin-top: 1em"><b>-x</b>,
-<b>--extra-options</b>=<i>OPTS</i></p>
+<h3 style="margin-left:11%">Miscellaneous
+options:</h3><p style="margin-left:11%"><b>
+-x</b>, <b>--extra-options</b>=<i>OPTS</i></p>
 
 <p style="margin-left:22%;">fine-tuning options (see spot-x
 (7))</p>
@@ -314,8 +284,8 @@ Transactions on Petri Nets and Other Models of Concurrency
 
 
 <p style="margin-left:11%; margin-top: 1em">Copyright
-&copy; 2023 Laboratoire de Recherche de l&rsquo;Epita (LRE)
-License GPLv3+: <a href="http://www.gnu.org/licenses/gpl.html">GNU GPL version 3 or later</a>. <br>
+&copy; 2022 Laboratoire de Recherche et D&eacute;veloppement
+de l&rsquo;Epita. License GPLv3+: <a href="http://www.gnu.org/licenses/gpl.html">GNU GPL version 3 or later</a>. <br>
 This is free software: you are free to change and
 redistribute it. There is NO WARRANTY, to the extent
 permitted by law.</p>

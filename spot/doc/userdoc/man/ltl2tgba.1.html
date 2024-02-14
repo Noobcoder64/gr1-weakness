@@ -1,5 +1,5 @@
-<!-- Creator     : groff version 1.23.0 -->
-<!-- CreationDate: Tue Aug  1 19:58:51 2023 -->
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Sat Oct  8 19:32:54 2022 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -26,13 +26,6 @@
 <li><a href="#NAME">NAME</a></li>
 <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
 <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
-<li><a href="#Input options:">Input options:</a></li>
-<li><a href="#Output automaton type:">Output automaton type:</a></li>
-<li><a href="#Output format:">Output format:</a></li>
-<li><a href="#Any FORMAT string may use the following interpreted sequences:">Any FORMAT string may use the following interpreted sequences:</a></li>
-<li><a href="#Simplification goal:">Simplification goal:</a></li>
-<li><a href="#Simplification level:">Simplification level:</a></li>
-<li><a href="#Miscellaneous options:">Miscellaneous options:</a></li>
 <li><a href="#NOTE ON TGBA">NOTE ON TGBA</a></li>
 <li><a href="#NOTE ON LBTT&rsquo;S FORMAT">NOTE ON LBTT&rsquo;S FORMAT</a></li>
 <li><a href="#NOTE ON GENERATING MONITORS">NOTE ON GENERATING MONITORS</a></li>
@@ -75,13 +68,9 @@ smallest Transition-based Generalized B&uuml;chi Automata,
 output in the HOA format. If multiple formulas are supplied,
 several automata will be output.</p>
 
-<h3>Input options:
-<a name="Input options:"></a>
-</h3>
-
-
-<p style="margin-left:11%; margin-top: 1em"><b>-f</b>,
-<b>--formula</b>=<i>STRING</i></p>
+<h3 style="margin-left:11%">Input
+options:</h3><p style="margin-left:11%"><b>
+-f</b>, <b>--formula</b>=<i>STRING</i></p>
 
 <p style="margin-left:22%;">process the formula STRING</p>
 
@@ -108,13 +97,9 @@ properties</p>
 
 <p style="margin-left:22%;">negate each formula</p>
 
-<h3>Output automaton type:
-<a name="Output automaton type:"></a>
-</h3>
-
-
-<p style="margin-left:11%; margin-top: 1em"><b>-b</b>,
-<b>--buchi</b>, <b>--Buchi</b></p>
+<h3 style="margin-left:11%">Output
+automaton type:</h3><p style="margin-left:11%"><b>
+-b</b>, <b>--buchi</b>, <b>--Buchi</b></p>
 
 <p style="margin-left:22%;">automaton with B&uuml;chi
 acceptance</p>
@@ -191,13 +176,9 @@ B&uuml;chi acceptance (default)</p>
 
 <p style="margin-left:22%;">output unambiguous automata</p>
 
-<h3>Output format:
-<a name="Output format:"></a>
-</h3>
-
-
-<p style="margin-left:11%; margin-top: 1em"><b>-8</b>,
-<b>--utf8</b></p>
+<h3 style="margin-left:11%">Output
+format:</h3><p style="margin-left:11%"><b>
+-8</b>, <b>--utf8</b></p>
 
 <p style="margin-left:22%;">enable UTF-8 characters in
 output (ignored with <b>--lbtt</b> or <b>--spin</b>)</p>
@@ -287,10 +268,8 @@ style, (c) comments on states</p>
 <p style="margin-left:22%;">output statistics about the
 automaton</p>
 
-<h3>Any FORMAT string may use the following interpreted sequences:
-<a name="Any FORMAT string may use the following interpreted sequences:"></a>
-</h3>
-
+<h3 style="margin-left:11%">Any FORMAT
+string may use the following interpreted sequences:</h3>
 
 <table width="100%" border="0" rules="none" frame="void"
        cellspacing="0" cellpadding="0">
@@ -299,14 +278,13 @@ automaton</p>
 <td width="3%">
 
 
-<p style="margin-top: 1em">%&lt;</p></td>
+<p>%&lt;</p></td>
 <td width="8%"></td>
 <td width="78%">
 
 
-<p style="margin-top: 1em">the part of the line before the
-formula if it comes from a column extracted from a CSV
-file</p> </td></tr>
+<p>the part of the line before the formula if it comes from
+a column extracted from a CSV file</p></td></tr>
 <tr valign="top" align="left">
 <td width="11%"></td>
 <td width="3%">
@@ -366,16 +344,19 @@ Use uppercase letters to negate them.</p>
 <p>1 if the output is deterministic, 0 otherwise</p></td>
 <td width="9%">
 </td></tr>
-</table>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
 
-<p style="margin-left:11%;">%e, %[LETTER]e</p>
 
-<p style="margin-left:22%;">number of edges (add one LETTER
-to select (r) reachable [default], (u) unreachable, (a)
-all).</p>
+<p>%e</p></td>
+<td width="8%"></td>
+<td width="69%">
 
-<table width="100%" border="0" rules="none" frame="void"
-       cellspacing="0" cellpadding="0">
+
+<p>number of reachable edges</p></td>
+<td width="9%">
+</td></tr>
 <tr valign="top" align="left">
 <td width="11%"></td>
 <td width="3%">
@@ -383,11 +364,11 @@ all).</p>
 
 <p>%f</p></td>
 <td width="8%"></td>
-<td width="44%">
+<td width="69%">
 
 
 <p>the formula, in Spot&rsquo;s syntax</p></td>
-<td width="34%">
+<td width="9%">
 </td></tr>
 <tr valign="top" align="left">
 <td width="11%"></td>
@@ -396,11 +377,11 @@ all).</p>
 
 <p>%F</p></td>
 <td width="8%"></td>
-<td width="44%">
+<td width="69%">
 
 
 <p>name of the input file</p></td>
-<td width="34%">
+<td width="9%">
 </td></tr>
 </table>
 
@@ -495,17 +476,35 @@ in seconds; Add LETTERS to restrict to(u) user time, (s)
 system time, (p) parent process, or (c) children
 processes.</p>
 
-<p style="margin-left:11%;">%s, %[LETTER]s</p>
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
 
-<p style="margin-left:22%;">number of states (add one
-LETTER to select (r) reachable [default], (u) unreachable,
-(a) all).</p>
 
-<p style="margin-left:11%;">%t, %[LETTER]t</p>
+<p>%s</p></td>
+<td width="8%"></td>
+<td width="47%">
 
-<p style="margin-left:22%;">number of transitions (add one
-LETTER to select (r) reachable [default], (u) unreachable,
-(a) all).</p>
+
+<p>number of reachable states</p></td>
+<td width="31%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p>%t</p></td>
+<td width="8%"></td>
+<td width="47%">
+
+
+<p>number of reachable transitions</p></td>
+<td width="31%">
+</td></tr>
+</table>
 
 <p style="margin-left:11%;">%u, %[e]u</p>
 
@@ -545,13 +544,10 @@ C-style escape, (c) double-quotes with CSV-style escape, (p)
 between parentheses, any extra non-alphanumeric character
 will be used to separate propositions</p>
 
-<h3>Simplification goal:
-<a name="Simplification goal:"></a>
-</h3>
 
-
-<p style="margin-left:11%; margin-top: 1em"><b>-a</b>,
-<b>--any</b></p>
+<h3 style="margin-left:11%">Simplification
+goal:</h3><p style="margin-left:11%"><b>
+-a</b>, <b>--any</b></p>
 
 <p style="margin-left:22%;">no preference, do not bother
 making it small or deterministic</p>
@@ -568,10 +564,9 @@ deterministic automaton)</p>
 <p style="margin-left:22%;">prefer small automata
 (default)</p>
 
-<h3>Simplification level:
-<a name="Simplification level:"></a>
-</h3>
 
+<h3 style="margin-left:11%">Simplification
+level:</h3>
 
 <table width="100%" border="0" rules="none" frame="void"
        cellspacing="0" cellpadding="0">
@@ -580,13 +575,12 @@ deterministic automaton)</p>
 <td width="9%">
 
 
-<p style="margin-top: 1em"><b>--high</b></p></td>
+<p><b>--high</b></p></td>
 <td width="2%"></td>
 <td width="66%">
 
 
-<p style="margin-top: 1em">all available optimizations
-(slow, default)</p></td>
+<p>all available optimizations (slow, default)</p></td>
 <td width="12%">
 </td></tr>
 <tr valign="top" align="left">
@@ -608,13 +602,10 @@ deterministic automaton)</p>
 
 <p style="margin-left:22%;">moderate optimizations</p>
 
-<h3>Miscellaneous options:
-<a name="Miscellaneous options:"></a>
-</h3>
 
-
-<p style="margin-left:11%; margin-top: 1em"><b>-x</b>,
-<b>--extra-options</b>=<i>OPTS</i></p>
+<h3 style="margin-left:11%">Miscellaneous
+options:</h3><p style="margin-left:11%"><b>
+-x</b>, <b>--extra-options</b>=<i>OPTS</i></p>
 
 <p style="margin-left:22%;">fine-tuning options (see spot-x
 (7))</p>
@@ -932,8 +923,8 @@ automata. Proceedings of FORTE&rsquo;14. LNCS 8461.</p></td></tr>
 
 
 <p style="margin-left:11%; margin-top: 1em">Copyright
-&copy; 2023 Laboratoire de Recherche de l&rsquo;Epita (LRE)
-License GPLv3+: <a href="http://www.gnu.org/licenses/gpl.html">GNU GPL version 3 or later</a>. <br>
+&copy; 2022 Laboratoire de Recherche et D&eacute;veloppement
+de l&rsquo;Epita. License GPLv3+: <a href="http://www.gnu.org/licenses/gpl.html">GNU GPL version 3 or later</a>. <br>
 This is free software: you are free to change and
 redistribute it. There is NO WARRANTY, to the extent
 permitted by law.</p>

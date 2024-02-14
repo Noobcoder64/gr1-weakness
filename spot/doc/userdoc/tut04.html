@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-08-01 Tue 19:59 -->
+<!-- 2022-10-08 Sat 19:38 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Testing the equivalence of two formulas</title>
@@ -192,41 +192,30 @@
     { font-size: 10px; font-weight: bold; white-space: nowrap; }
   .org-info-js_search-highlight
     { background-color: #ffff00; color: #000000; font-weight: bold; }
-  .org-svg { }
+  .org-svg { width: 90%; }
 </style>
 <link rel="stylesheet" type="text/css" href="spot.css" />
-<script>
-  window.MathJax = {
-    tex: {
-      ams: {
-        multlineWidth: '85%'
-      },
-      tags: 'ams',
-      tagSide: 'right',
-      tagIndent: '.8em'
-    },
-    chtml: {
-      scale: 1.0,
-      displayAlign: 'center',
-      displayIndent: '0em'
-    },
-    svg: {
-      scale: 1.0,
-      displayAlign: 'center',
-      displayIndent: '0em'
-    },
-    output: {
-      font: 'mathjax-modern',
-      displayOverflow: 'overflow'
-    }
-  };
-</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
 
-<script
-  id="MathJax-script"
-  async
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
 </head>
 <body>
 <div id="org-div-home-and-up">
@@ -239,16 +228,15 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgb45c431">Shell</a></li>
-<li><a href="#org3d13c8a">Python</a></li>
-<li><a href="#org88f3410">C++</a></li>
+<li><a href="#org34a161d">Shell</a></li>
+<li><a href="#org978c841">Python</a></li>
+<li><a href="#orga41dadb">C++</a></li>
 </ul>
 </div>
 </div>
 
-<div id="org4de77a6" class="figure">
-<p><object type="image/svg+xml" data="spot2.svg" class="org-svg" id="spotlogo">
-Sorry, your browser does not support SVG.</object>
+<div id="orgcab57c0" class="figure">
+<p><img src="spot2.svg" alt="spot2.svg" class="org-svg" id="spotlogo" />
 </p>
 </div>
 <p>
@@ -256,9 +244,9 @@ This page shows how to test whether two LTL/PSL formulas are
 equivalent, i.e., if they denote the same languages.
 </p>
 
-<div id="outline-container-orgb45c431" class="outline-2">
-<h2 id="orgb45c431">Shell</h2>
-<div class="outline-text-2" id="text-orgb45c431">
+<div id="outline-container-org34a161d" class="outline-2">
+<h2 id="org34a161d">Shell</h2>
+<div class="outline-text-2" id="text-org34a161d">
 <p>
 Using a <code>ltlfilt</code> you can use <code>--equivalent-to=f</code> to filter a list of
 LTL formula and retain only those equivalent to <code>f</code>.  So this gives an easy
@@ -298,9 +286,9 @@ familiar to <code>grep</code> users.)
 </div>
 </div>
 
-<div id="outline-container-org3d13c8a" class="outline-2">
-<h2 id="org3d13c8a">Python</h2>
-<div class="outline-text-2" id="text-org3d13c8a">
+<div id="outline-container-org978c841" class="outline-2">
+<h2 id="org978c841">Python</h2>
+<div class="outline-text-2" id="text-org978c841">
 <p>
 In Python, we can implement this in a number of ways.  The
 easiest is to use the <code>spot.are_equivalent()</code> function.
@@ -377,9 +365,9 @@ equivalences.
 </div>
 </div>
 
-<div id="outline-container-org88f3410" class="outline-2">
-<h2 id="org88f3410">C++</h2>
-<div class="outline-text-2" id="text-org88f3410">
+<div id="outline-container-orga41dadb" class="outline-2">
+<h2 id="orga41dadb">C++</h2>
+<div class="outline-text-2" id="text-orga41dadb">
 <p>
 Here are possible C++ implementations using either <code>are_equivalent()</code>
 or the <code>language_containment_checker</code>.  Note that the

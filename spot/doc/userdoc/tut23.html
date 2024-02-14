@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-08-01 Tue 20:04 -->
+<!-- 2022-10-08 Sat 19:41 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Creating an alternating automaton by adding states and transitions</title>
@@ -192,7 +192,7 @@
     { font-size: 10px; font-weight: bold; white-space: nowrap; }
   .org-info-js_search-highlight
     { background-color: #ffff00; color: #000000; font-weight: bold; }
-  .org-svg { }
+  .org-svg { width: 90%; }
 </style>
 <link rel="stylesheet" type="text/css" href="spot.css" />
 </head>
@@ -208,15 +208,14 @@
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
 <li><a href="#cpp">C++</a></li>
-<li><a href="#org60d1f17">Python</a></li>
-<li><a href="#orgcd2c77b">Additional comments</a></li>
+<li><a href="#orgb07b8cb">Python</a></li>
+<li><a href="#orgf53254e">Additional comments</a></li>
 </ul>
 </div>
 </div>
 
-<div id="orgdf4f552" class="figure">
-<p><object type="image/svg+xml" data="spot2.svg" class="org-svg" id="spotlogo">
-Sorry, your browser does not support SVG.</object>
+<div id="orgb8e57f6" class="figure">
+<p><img src="spot2.svg" alt="spot2.svg" class="org-svg" id="spotlogo" />
 </p>
 </div>
 <p>
@@ -225,9 +224,8 @@ co-Büchi automaton (recognizing <code>GFa</code>) and then print it.
 </p>
 
 
-<div id="orge3bd7c5" class="figure">
-<p><object type="image/svg+xml" data="tut23-aut.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org387c377" class="figure">
+<p><img src="tut23-aut.svg" alt="tut23-aut.svg" class="org-svg" />
 </p>
 </div>
 
@@ -243,7 +241,7 @@ edges (declared with <code>new_edge()</code>) and universal edges (declared with
 <h2 id="cpp">C++</h2>
 <div class="outline-text-2" id="text-cpp">
 <div class="org-src-container">
-<pre class="src src-C++" id="org5447388"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;iostream&gt;</span>
+<pre class="src src-C++" id="orgb71ac0d"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;iostream&gt;</span>
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;spot/twaalgos/hoa.hh&gt;</span>
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;spot/twa/twagraph.hh&gt;</span>
 
@@ -313,9 +311,9 @@ edges (declared with <code>new_edge()</code>) and universal edges (declared with
 </div>
 </div>
 
-<div id="outline-container-org60d1f17" class="outline-2">
-<h2 id="org60d1f17">Python</h2>
-<div class="outline-text-2" id="text-org60d1f17">
+<div id="outline-container-orgb07b8cb" class="outline-2">
+<h2 id="orgb07b8cb">Python</h2>
+<div class="outline-text-2" id="text-orgb07b8cb">
 <div class="org-src-container">
 <pre class="src src-python"><span class="org-keyword">import</span> spot
 <span class="org-keyword">import</span> buddy
@@ -382,9 +380,9 @@ aut.new_edge(2, 2, buddy.bddtrue);
 </div>
 </div>
 
-<div id="outline-container-orgcd2c77b" class="outline-2">
-<h2 id="orgcd2c77b">Additional comments</h2>
-<div class="outline-text-2" id="text-orgcd2c77b">
+<div id="outline-container-orgf53254e" class="outline-2">
+<h2 id="orgf53254e">Additional comments</h2>
+<div class="outline-text-2" id="text-orgf53254e">
 <p>
 Alternating automata in Spot can also have a universal initial state:
 e.g, an automaton may start in <code>0&amp;1&amp;2</code>.  Use <code>set_univ_init_state()</code>

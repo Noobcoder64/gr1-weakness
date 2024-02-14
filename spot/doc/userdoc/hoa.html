@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-08-01 Tue 20:01 -->
+<!-- 2022-10-08 Sat 19:36 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Support for the Hanoi Omega Automata (HOA) Format</title>
@@ -192,41 +192,30 @@
     { font-size: 10px; font-weight: bold; white-space: nowrap; }
   .org-info-js_search-highlight
     { background-color: #ffff00; color: #000000; font-weight: bold; }
-  .org-svg { }
+  .org-svg { width: 90%; }
 </style>
 <link rel="stylesheet" type="text/css" href="spot.css" />
-<script>
-  window.MathJax = {
-    tex: {
-      ams: {
-        multlineWidth: '85%'
-      },
-      tags: 'ams',
-      tagSide: 'right',
-      tagIndent: '.8em'
-    },
-    chtml: {
-      scale: 1.0,
-      displayAlign: 'center',
-      displayIndent: '0em'
-    },
-    svg: {
-      scale: 1.0,
-      displayAlign: 'center',
-      displayIndent: '0em'
-    },
-    output: {
-      font: 'mathjax-modern',
-      displayOverflow: 'overflow'
-    }
-  };
-</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
 
-<script
-  id="MathJax-script"
-  async
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
 </head>
 <body>
 <div id="org-div-home-and-up">
@@ -239,34 +228,33 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org7e741bd">Format, files, and TωA</a></li>
+<li><a href="#orgc517991">Format, files, and TωA</a></li>
 <li><a href="#restrictions">Features of the HOA format with no or limited support in Spot</a></li>
-<li><a href="#orgdfd9782">Internal representations of some features</a>
+<li><a href="#org2ab21c3">Internal representations of some features</a>
 <ul>
-<li><a href="#orga0f21f3">State-based vs. transition-based acceptance</a></li>
-<li><a href="#org83e59a6">Generic acceptance</a></li>
-<li><a href="#orga95e6b5">State-based vs. transition-based labels</a></li>
+<li><a href="#org0365391">State-based vs. transition-based acceptance</a></li>
+<li><a href="#orgc5c0115">Generic acceptance</a></li>
+<li><a href="#orgb25c60a">State-based vs. transition-based labels</a></li>
 <li><a href="#property-bits">Property flags</a></li>
 <li><a href="#named-properties">Named properties</a></li>
 </ul>
 </li>
-<li><a href="#org000d120">Streaming support</a></li>
-<li><a href="#org4b3b797">Error recovery</a></li>
-<li><a href="#org9593510">Checked properties</a></li>
+<li><a href="#org9b52763">Streaming support</a></li>
+<li><a href="#org25621d5">Error recovery</a></li>
+<li><a href="#orgfc179d7">Checked properties</a></li>
 <li><a href="#extensions">Extensions</a>
 <ul>
-<li><a href="#org41a69aa">Highlighting states and edges</a></li>
-<li><a href="#orgba85a06">Sample words</a></li>
-<li><a href="#orgc3ba4ef">Arenas for two-player games</a></li>
+<li><a href="#orgdbdb823">Highlighting states and edges</a></li>
+<li><a href="#org87bf5b2">Sample words</a></li>
+<li><a href="#org11d4d11">Arenas for two-player games</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="orgf40fde0" class="figure">
-<p><object type="image/svg+xml" data="spot2.svg" class="org-svg" id="spotlogo">
-Sorry, your browser does not support SVG.</object>
+<div id="orga70e5bb" class="figure">
+<p><img src="spot2.svg" alt="spot2.svg" class="org-svg" id="spotlogo" />
 </p>
 </div>
 <p>
@@ -302,9 +290,9 @@ of writing, and that there are discussion about calling it version 2
 instead.
 </p>
 
-<div id="outline-container-org7e741bd" class="outline-2">
-<h2 id="org7e741bd">Format, files, and TωA</h2>
-<div class="outline-text-2" id="text-org7e741bd">
+<div id="outline-container-orgc517991" class="outline-2">
+<h2 id="orgc517991">Format, files, and TωA</h2>
+<div class="outline-text-2" id="text-orgc517991">
 <p>
 Some note about the abbreviation first.  We usually write "HOA format"
 or occasionally HOAF to denote the format (as a specification), and
@@ -398,9 +386,9 @@ acceptance <code>Inf(0)&amp;Inf(!0)</code> can only be fixed by adding a new set
 </div>
 </div>
 
-<div id="outline-container-orgdfd9782" class="outline-2">
-<h2 id="orgdfd9782">Internal representations of some features</h2>
-<div class="outline-text-2" id="text-orgdfd9782">
+<div id="outline-container-org2ab21c3" class="outline-2">
+<h2 id="org2ab21c3">Internal representations of some features</h2>
+<div class="outline-text-2" id="text-org2ab21c3">
 <p>
 In this section we discuss features of the format that are fully
 supported, but in a way that so people could find unexpected.  These
@@ -409,9 +397,9 @@ way.
 </p>
 </div>
 
-<div id="outline-container-orga0f21f3" class="outline-3">
-<h3 id="orga0f21f3">State-based vs. transition-based acceptance</h3>
-<div class="outline-text-3" id="text-orga0f21f3">
+<div id="outline-container-org0365391" class="outline-3">
+<h3 id="org0365391">State-based vs. transition-based acceptance</h3>
+<div class="outline-text-3" id="text-org0365391">
 <p>
 A Transition-based ω-Automaton (TωA), as its name implies, uses
 transition-based acceptance sets.  Each edge is stored as a
@@ -492,7 +480,7 @@ each states belong to the same sets:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="org42d4a9d">cat &gt;sba.hoa &lt;&lt;EOF_HOA
+<pre class="src src-sh" id="orga6fce93">cat &gt;sba.hoa &lt;&lt;EOF_HOA
 <span class="org-sh-heredoc">HOA: v1</span>
 <span class="org-sh-heredoc">States: 3</span>
 <span class="org-sh-heredoc">Start: 0</span>
@@ -678,9 +666,9 @@ output with the previous one.
 </div>
 </div>
 
-<div id="outline-container-org83e59a6" class="outline-3">
-<h3 id="org83e59a6">Generic acceptance</h3>
-<div class="outline-text-3" id="text-org83e59a6">
+<div id="outline-container-orgc5c0115" class="outline-3">
+<h3 id="orgc5c0115">Generic acceptance</h3>
+<div class="outline-text-3" id="text-orgc5c0115">
 <p>
 Currently, Spot's parser for HOA ignores the optional <code>acc-name:</code>
 line, and only uses the mandatory <code>Acceptance:</code> line.  As explained
@@ -852,9 +840,9 @@ and likewise for <code>Inf(4)&amp;Inf(5)</code>.
 </div>
 </div>
 
-<div id="outline-container-orga95e6b5" class="outline-3">
-<h3 id="orga95e6b5">State-based vs. transition-based labels</h3>
-<div class="outline-text-3" id="text-orga95e6b5">
+<div id="outline-container-orgb25c60a" class="outline-3">
+<h3 id="orgb25c60a">State-based vs. transition-based labels</h3>
+<div class="outline-text-3" id="text-orgb25c60a">
 <p>
 State labels are handled in the same way as state-based acceptance:
 Spot store labels on transitions internally, so if an input automaton
@@ -1206,7 +1194,7 @@ You can see these properties being preserved when an automaton is read and then 
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="org7b39471">cat &gt;hw.hoa &lt;&lt;EOF
+<pre class="src src-sh" id="org26f6bb9">cat &gt;hw.hoa &lt;&lt;EOF
 <span class="org-sh-heredoc">HOA: v1</span>
 <span class="org-sh-heredoc">name: "hello world!"</span>
 <span class="org-sh-heredoc">States: 3</span>
@@ -1348,9 +1336,9 @@ field.
 </div>
 </div>
 
-<div id="outline-container-org000d120" class="outline-2">
-<h2 id="org000d120">Streaming support</h2>
-<div class="outline-text-2" id="text-org000d120">
+<div id="outline-container-org9b52763" class="outline-2">
+<h2 id="org9b52763">Streaming support</h2>
+<div class="outline-text-2" id="text-org9b52763">
 <p>
 The HOA format has been designed to easily allow multiple automata to
 be concatenated together (in the same file, or in a pipe) and
@@ -1472,9 +1460,9 @@ aborted automata, or flag them as errors.
 </div>
 </div>
 
-<div id="outline-container-org4b3b797" class="outline-2">
-<h2 id="org4b3b797">Error recovery</h2>
-<div class="outline-text-2" id="text-org4b3b797">
+<div id="outline-container-org25621d5" class="outline-2">
+<h2 id="org25621d5">Error recovery</h2>
+<div class="outline-text-2" id="text-org25621d5">
 <p>
 The HOA parser does a fair amount of error recovery.  It is important
 that when parsing a stream of automata, a syntax error in one
@@ -1493,9 +1481,9 @@ and fix the number of states.
 </div>
 </div>
 
-<div id="outline-container-org9593510" class="outline-2">
-<h2 id="org9593510">Checked properties</h2>
-<div class="outline-text-2" id="text-org9593510">
+<div id="outline-container-orgfc179d7" class="outline-2">
+<h2 id="orgfc179d7">Checked properties</h2>
+<div class="outline-text-2" id="text-orgfc179d7">
 <p>
 When an automaton is output in HOA format, the <code>property:</code> lines
 includes property registered into the automaton (see the Property
@@ -1515,9 +1503,9 @@ terminal.
 <div class="outline-text-2" id="text-extensions">
 </div>
 
-<div id="outline-container-org41a69aa" class="outline-3">
-<h3 id="org41a69aa">Highlighting states and edges</h3>
-<div class="outline-text-3" id="text-org41a69aa">
+<div id="outline-container-orgdbdb823" class="outline-3">
+<h3 id="orgdbdb823">Highlighting states and edges</h3>
+<div class="outline-text-3" id="text-orgdbdb823">
 <p>
 Spot supports two additional headers that are not part of the standard
 HOA format.  These are <code>spot.highlight.states</code> and
@@ -1526,7 +1514,7 @@ with colors.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="org7ae820c">cat &gt;decorate.hoa &lt;&lt;EOF
+<pre class="src src-sh" id="orgda7b16f">cat &gt;decorate.hoa &lt;&lt;EOF
 <span class="org-sh-heredoc">HOA: v1.1</span>
 <span class="org-sh-heredoc">States: 3</span>
 <span class="org-sh-heredoc">Start: 1</span>
@@ -1550,9 +1538,8 @@ autfilt decorate.hoa -d<span class="org-string">'.#'</span>
 </div>
 
 
-<div id="org594b5b2" class="figure">
-<p><object type="image/svg+xml" data="decorate.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org5bb89c1" class="figure">
+<p><img src="decorate.svg" alt="decorate.svg" class="org-svg" />
 </p>
 </div>
 
@@ -1648,9 +1635,9 @@ autfilt -H1.1 decorate.hoa
 </div>
 </div>
 
-<div id="outline-container-orgba85a06" class="outline-3">
-<h3 id="orgba85a06">Sample words</h3>
-<div class="outline-text-3" id="text-orgba85a06">
+<div id="outline-container-org87bf5b2" class="outline-3">
+<h3 id="org87bf5b2">Sample words</h3>
+<div class="outline-text-3" id="text-org87bf5b2">
 <p>
 When the <code>--check=stutter-sensitive-example</code> option is used, and when
 a stutter-sensitive automaton is output, two sample words are added to
@@ -1716,9 +1703,9 @@ ltl2tgba --check=stutter-sensitive-example -H1.1 Xa
 </div>
 </div>
 </div>
-<div id="outline-container-orgc3ba4ef" class="outline-3">
-<h3 id="orgc3ba4ef">Arenas for two-player games</h3>
-<div class="outline-text-3" id="text-orgc3ba4ef">
+<div id="outline-container-org11d4d11" class="outline-3">
+<h3 id="org11d4d11">Arenas for two-player games</h3>
+<div class="outline-text-3" id="text-org11d4d11">
 <p>
 An automaton can be seen as a two-player game by simply annotating
 states with number representing the player that should play in this
@@ -1736,7 +1723,7 @@ For instance in the following output of <code>ltlsynt</code>, the sequence
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="orgb0c1880">ltlsynt --ins=a --outs=b -f <span class="org-string">'Ga &lt;-&gt; Gb'</span> --print-game-hoa
+<pre class="src src-sh" id="org976a44e">ltlsynt --ins=a --outs=b -f <span class="org-string">'Ga &lt;-&gt; Gb'</span> --print-game-hoa
 </pre>
 </div>
 
@@ -1786,14 +1773,13 @@ When converted to dot, states from player 1 have a diamond shape:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="org26230be">ltlsynt --ins=a --outs=b -f <span class="org-string">'Ga &lt;-&gt; Gb'</span> --print-game-hoa | autfilt --dot
+<pre class="src src-sh" id="orge8c4b72">ltlsynt --ins=a --outs=b -f <span class="org-string">'Ga &lt;-&gt; Gb'</span> --print-game-hoa | autfilt --dot
 </pre>
 </div>
 
 
-<div id="org44d38c3" class="figure">
-<p><object type="image/svg+xml" data="exgame.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="orged6df76" class="figure">
+<p><img src="exgame.svg" alt="exgame.svg" class="org-svg" />
 </p>
 </div>
 </div>

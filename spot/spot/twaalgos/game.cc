@@ -1,5 +1,5 @@
 // -*- coding: utf-8 -*-
-// Copyright (C) 2017-2018, 2020-2023 Laboratoire de Recherche et
+// Copyright (C) 2017-2018, 2020-2022 Laboratoire de Recherche et
 // Développement de l'Epita (LRDE).
 //
 // This file is part of Spot, a model checking library.
@@ -214,14 +214,10 @@ namespace spot
         // Only the states owned by the winner need a strategy
         assert([&]()
                {
-                  std::unordered_set<unsigned> valid_strat;
-                  for (const auto& e : arena_->edges())
-                    valid_strat.insert(arena_->edge_number(e));
-
                   for (unsigned v = 0; v < arena_->num_states(); ++v)
                     {
                       if (((*owner_ptr_)[v] == w_.winner(v))
-                          && (valid_strat.count(s_.at(v)) == 0))
+                          && ((s_[v] <= 0) || (s_[v] > arena_->num_edges())))
                         return false;
                     }
                   return true;
@@ -231,7 +227,6 @@ namespace spot
         region_t &w = *arena->get_or_set_named_prop<region_t>("state-winner");
         strategy_t &s = *arena->get_or_set_named_prop<strategy_t>("strategy");
         w.swap(w_.winner_);
-        s.clear();
         s.reserve(s_.size());
         for (auto as : s_)
           s.push_back(as == no_strat_mark ? 0 : (unsigned) as);
@@ -1038,7 +1033,7 @@ namespace spot
         ("set_state_players(): There must be as many owners as states");
 
     arena->set_named_prop<region_t>("state-player",
-                                    new region_t(std::move(owners)));
+        new region_t(std::forward<region_t>(owners)));
   }
 
   void set_state_player(twa_graph_ptr arena, unsigned state, bool owner)
@@ -1060,18 +1055,7 @@ namespace spot
     (*owners)[state] = owner;
   }
 
-  const region_t& get_state_players(const const_twa_graph_ptr& arena)
-  {
-    region_t *owners = arena->get_named_prop<region_t>
-      ("state-player");
-    if (!owners)
-      throw std::runtime_error
-        ("get_state_players(): state-player property not defined, not a game?");
-
-    return *owners;
-  }
-
-  const region_t& get_state_players(twa_graph_ptr& arena)
+  const region_t& get_state_players(const_twa_graph_ptr arena)
   {
     region_t *owners = arena->get_named_prop<region_t>
       ("state-player");
@@ -1096,7 +1080,7 @@ namespace spot
   }
 
 
-  const strategy_t& get_strategy(const const_twa_graph_ptr& arena)
+  const strategy_t& get_strategy(const_twa_graph_ptr arena)
   {
     auto strat_ptr = arena->get_named_prop<strategy_t>("strategy");
     if (!strat_ptr)
@@ -1116,7 +1100,7 @@ namespace spot
       throw std::runtime_error("set_strategy(): strategies need to have "
                                "the same size as the automaton.");
     arena->set_named_prop<strategy_t>("strategy",
-        new strategy_t(std::move(strat)));
+        new strategy_t(std::forward<strategy_t>(strat)));
   }
 
   void set_synthesis_outputs(const twa_graph_ptr& arena, const bdd& outs)
@@ -1167,7 +1151,7 @@ namespace spot
         ("set_state_winners(): There must be as many winners as states");
 
     arena->set_named_prop<region_t>("state-winner",
-                                    new region_t(std::move(winners)));
+        new region_t(std::forward<region_t>(winners)));
   }
 
   void set_state_winner(twa_graph_ptr arena, unsigned state, bool winner)
@@ -1189,7 +1173,7 @@ namespace spot
     (*winners)[state] = winner;
   }
 
-  const region_t& get_state_winners(const const_twa_graph_ptr& arena)
+  const region_t& get_state_winners(const_twa_graph_ptr arena)
   {
     region_t *winners = arena->get_named_prop<region_t>("state-winner");
     if (!winners)

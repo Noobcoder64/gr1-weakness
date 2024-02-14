@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2008-2023, Laboratoire de Recherche et Développement
+# Copyright (C) 2008-2022, Laboratoire de Recherche et Développement
 # de l'Epita (LRDE).
 # Copyright (C) 2003-2007 Laboratoire d'Informatique de Paris 6
 # (LIP6), département Systèmes Répartis Coopératifs (SRC), Université
@@ -21,7 +21,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 AC_PREREQ([2.69])
-AC_INIT([spot], [2.11.6], [spot@lrde.epita.fr])
+AC_INIT([spot], [2.11], [spot@lrde.epita.fr])
 AC_CONFIG_AUX_DIR([tools])
 AC_CONFIG_MACRO_DIR([m4])
 AM_INIT_AUTOMAKE([1.11 gnu tar-ustar color-tests parallel-tests])
@@ -192,7 +192,7 @@ if test "x${enable_python:-yes}" = xyes; then
 
   AC_ARG_WITH([pythondir],
   [AS_HELP_STRING([--with-pythondir], [override the computed pythondir])],
-  [pythondir=$withval pyexecdir=$withval], [])
+  [pythondir=$withval], [])
 fi
 
 
@@ -217,7 +217,7 @@ AC_CHECK_PROG([LTL3BA], [ltl3ba], [ltl3ba])
 AC_CHECK_PROG([PERL], [perl], [perl])
 AC_CHECK_PROG([SPIN], [spin], [spin])
 AC_CHECK_PROG([LBTT], [lbtt], [lbtt])
-AM_MISSING_PROG([EMACS], [emacs])
+AC_CHECK_PROG([EMACS], [emacs], [emacs])
 AC_CHECK_PROGS([IPYTHON], [ipython3 ipython], [ipython])
 AC_CHECK_PROGS([JUPYTER], [jupyter], [jupyter])
 AC_CHECK_PROG([LBTT_TRANSLATE], [lbtt-translate], [lbtt-translate])

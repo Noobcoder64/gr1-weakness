@@ -1,5 +1,5 @@
 // -*- coding: utf-8 -*-
-// Copyright (C) 2012-2019, 2023 Laboratoire de Recherche et Développement
+// Copyright (C) 2012-2019 Laboratoire de Recherche et Développement
 // de l'Epita (LRDE).
 //
 // This file is part of Spot, a model checking library.
@@ -23,7 +23,6 @@
 #include "common_setup.hh"
 #include <iostream>
 #include <sstream>
-#include <memory>
 #include <spot/tl/print.hh>
 #include <spot/tl/length.hh>
 #include <spot/tl/apcollect.hh>
@@ -45,7 +44,6 @@ output_format_t output_format = spot_output;
 bool full_parenth = false;
 bool escape_csv = false;
 char output_terminator = '\n';
-bool output_ratexp = false;
 
 static const argp_option options[] =
   {
@@ -106,10 +104,7 @@ stream_formula(std::ostream& out,
         report_not_ltl(f, filename, linenum, "LBT");
       break;
     case spot_output:
-      if (output_ratexp)
-        spot::print_sere(out, f, full_parenth);
-      else
-        spot::print_psl(out, f, full_parenth);
+      spot::print_psl(out, f, full_parenth);
       break;
     case spin_output:
       if (f.is_ltl_formula())
@@ -124,16 +119,10 @@ stream_formula(std::ostream& out,
         report_not_ltl(f, filename, linenum, "Wring");
       break;
     case utf8_output:
-      if (output_ratexp)
-        spot::print_utf8_sere(out, f, full_parenth);
-      else
-        spot::print_utf8_psl(out, f, full_parenth);
+      spot::print_utf8_psl(out, f, full_parenth);
       break;
     case latex_output:
-      if (output_ratexp)
-        spot::print_latex_sere(out, f, full_parenth);
-      else
-        spot::print_latex_psl(out, f, full_parenth);
+      spot::print_latex_psl(out, f, full_parenth);
       break;
     case count_output:
     case quiet_output:
@@ -234,7 +223,7 @@ namespace
     }
   };
 
-  class formula_printer final: public spot::formater
+  class formula_printer final: protected spot::formater
   {
   public:
     formula_printer(std::ostream& os, const char* format)
@@ -308,9 +297,9 @@ namespace
   };
 }
 
-static std::unique_ptr<formula_printer> format;
+static formula_printer* format = nullptr;
 static std::ostringstream outputname;
-static std::unique_ptr<formula_printer> outputnamer;
+static formula_printer* outputnamer = nullptr;
 static std::map<std::string, std::unique_ptr<output_file>> outputfiles;
 
 int
@@ -331,7 +320,7 @@ parse_opt_output(int key, char* arg, struct argp_state*)
       output_format = lbt_output;
       break;
     case 'o':
-      outputnamer = std::make_unique<formula_printer>(outputname, arg);
+      outputnamer = new formula_printer(outputname, arg);
       break;
     case 'p':
       full_parenth = true;
@@ -352,7 +341,8 @@ parse_opt_output(int key, char* arg, struct argp_state*)
       output_format = wring_output;
       break;
     case OPT_FORMAT:
-      format = std::make_unique<formula_printer>(std::cout, arg);
+      delete format;
+      format = new formula_printer(std::cout, arg);
       break;
     default:
       return ARGP_ERR_UNKNOWN;
@@ -402,7 +392,6 @@ output_formula(std::ostream& out,
   else
     {
       formula_with_location fl = { f, filename, linenum, prefix, suffix };
-      format->set_output(out);
       format->print(fl, ptimer);
     }
 }
@@ -428,30 +417,10 @@ output_formula_checked(spot::formula f, spot::process_timer* ptimer,
       formula_with_location fl = { f, filename, linenum, prefix, suffix };
       outputnamer->print(fl, ptimer);
       std::string fname = outputname.str();
-      auto [it, b] = outputfiles.try_emplace(fname, nullptr);
-      if (b)
-        it->second.reset(new output_file(fname.c_str()));
-      else
-        // reopen if the file has been closed; see below
-        it->second->reopen_for_append(fname);
-      out = &it->second->ostream();
-
-      // If we have opened fewer than 10 files, we keep them all open
-      // to avoid wasting time on open/close calls.
-      //
-      // However we cannot keep all files open, especially in
-      // scenarios were we use thousands of files only once.  To keep
-      // things simple, we only close the previous file if it is not
-      // the current output.  This way we still save the close/open
-      // cost when consecutive formulas are sent to the same file.
-      static output_file* previous = nullptr;
-      static const std::string* previous_name = nullptr;
-      if (previous
-          && outputfiles.size() > 10
-          && &previous->ostream() != out)
-        previous->close(*previous_name);
-      previous = it->second.get();
-      previous_name = &it->first;
+      auto p = outputfiles.emplace(fname, nullptr);
+      if (p.second)
+        p.first->second.reset(new output_file(fname.c_str()));
+      out = &p.first->second->ostream();
     }
   output_formula(*out, f, ptimer, filename, linenum, prefix, suffix);
   *out << output_terminator;

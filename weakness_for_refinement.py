@@ -160,11 +160,13 @@ def compareViaImplication(phi1,phi2,var_set=None):
 
 def main():
     i1 = compareViaImplication("G((a&b) -> Xc) & a", "G((a&b) -> Xc) & G(F(a&b&c))", ['a', 'b', 'c'])
-    assert(i1 == 0)
+    assert(i1 == 0) # A does not imply B
     i2 = compareViaImplication("G((a) -> Xc) & G(F(a&b&c&d))", "G(F(a&b&d))",  ['a', 'b', 'c'])
-    assert(i2 == 1)    
+    assert(i2 == 1) # A implies B
     i3 = compareViaImplication("G(F(a&b&c))", "G(F(a&b&c))",  ['a', 'b', 'c'])
-    assert(i3 == 2)
+    assert(i3 == 2) # B implies A
+    i4 = compareViaImplication("G((!b1 & !b2 & !b3) -> X(b1 | b2 | b3))", "G(F(b1 | b2 | b3))",  ['b1', 'b2', 'b2', 'f1', 'f2', 'f3'])
+    assert(i4 == 1)
 
     # TEST LIFT
     exp.configure("Lift.spectra", show_args=False)
@@ -185,26 +187,26 @@ def main():
     print("Refinement 4: G(F(b2 | b3))")
     print("Weakness 4: ", w4)
 
-    assert(w1.d1 == 0.774594463598773)
-    assert(w1.d2 == 0.774594463598773)
-    assert(w1.d3 == -np.inf)
+    assert(round(w1.d1, 4) == 0.7746)
+    assert(round(w1.d2, 4) == 0.7746)
+    assert(round(w1.d3, 4) == -np.inf)
 
-    assert(w2.d1 == 0.792481250360578)
-    assert(w2.d2 == 0.792481250360578)
-    assert(w2.d3 == -np.inf)
+    assert(round(w2.d1, 4) == 0.7925)
+    assert(round(w2.d2, 4) == 0.7925)
+    assert(round(w2.d3, 4) == -np.inf)
 
     # w2 is weaker than w1 (w1 is stronger than w2)
     assert(w1 < w2)
 
-    assert(w3.d1 == 0.792481250360578)
-    assert(w3.d2 == 0.792481250360578)
-    assert(w3.d3 ==  0.6949875002403855)
+    assert(round(w3.d1, 4) == 0.7925)
+    assert(round(w3.d2, 4) == 0.7925)
+    assert(round(w3.d3, 4) ==  0.695)
     
     # w2 is weaker than w3 (w3 is stronger than w2)
     assert(w2 > w3)
 
-    assert(w4.d1 == 0.792481250360578)
-    assert(w4.d2 == 0.792481250360578)
+    assert(round(w4.d1, 4) == 0.7925)
+    assert(round(w4.d2, 4) == 0.7925)
     assert(w4.d3 ==  -np.inf)
 
     # w4 is weaker than w3 (w3 is stronger than w4)

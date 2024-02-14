@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-08-01 Tue 20:06 -->
+<!-- 2022-10-08 Sat 19:35 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>The bdd_dict interface (advanced topic)</title>
@@ -192,41 +192,30 @@
     { font-size: 10px; font-weight: bold; white-space: nowrap; }
   .org-info-js_search-highlight
     { background-color: #ffff00; color: #000000; font-weight: bold; }
-  .org-svg { }
+  .org-svg { width: 90%; }
 </style>
 <link rel="stylesheet" type="text/css" href="spot.css" />
-<script>
-  window.MathJax = {
-    tex: {
-      ams: {
-        multlineWidth: '85%'
-      },
-      tags: 'ams',
-      tagSide: 'right',
-      tagIndent: '.8em'
-    },
-    chtml: {
-      scale: 1.0,
-      displayAlign: 'center',
-      displayIndent: '0em'
-    },
-    svg: {
-      scale: 1.0,
-      displayAlign: 'center',
-      displayIndent: '0em'
-    },
-    output: {
-      font: 'mathjax-modern',
-      displayOverflow: 'overflow'
-    }
-  };
-</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
 
-<script
-  id="MathJax-script"
-  async
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
 </head>
 <body>
 <div id="org-div-home-and-up">
@@ -239,16 +228,15 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org291affb">The purpose of <code>bdd_dict</code></a></li>
+<li><a href="#org4a87c03">The purpose of <code>bdd_dict</code></a></li>
 <li><a href="#ap">Prolonging the association between a BDD variable and an atomic proposition</a></li>
 <li><a href="#anonymous">Anonymous BDD variables</a></li>
 </ul>
 </div>
 </div>
 
-<div id="orgc09c50a" class="figure">
-<p><object type="image/svg+xml" data="spot2.svg" class="org-svg" id="spotlogo">
-Sorry, your browser does not support SVG.</object>
+<div id="orgf29a2d0" class="figure">
+<p><img src="spot2.svg" alt="spot2.svg" class="org-svg" id="spotlogo" />
 </p>
 </div>
 <p>
@@ -285,9 +273,9 @@ the atomic propositions \(a\) and \(b\), we need to make sure that both
 automata agree on the BDD variables used to represent \(a\) and \(b\).
 </p>
 
-<div id="outline-container-org291affb" class="outline-2">
-<h2 id="org291affb">The purpose of <code>bdd_dict</code></h2>
-<div class="outline-text-2" id="text-org291affb">
+<div id="outline-container-org4a87c03" class="outline-2">
+<h2 id="org4a87c03">The purpose of <code>bdd_dict</code></h2>
+<div class="outline-text-2" id="text-org4a87c03">
 <p>
 The <code>spot::bdd_dict</code> object is in charge of allocating BDD variables,
 and ensuring that multiple users reuse the same variables for similar
@@ -442,21 +430,21 @@ for debugging, please do not rely on its output).
 </pre>
 </div>
 
-<pre class="example" id="orgba2464b">
-aut1@0x558b9a155780: a=0 b=1
+<pre class="example" id="orgc465610">
+aut1@0x562fa2d9a400: a=0 b=1
 Variable Map:
- 0 Var[a] x1 { 0x558b9a155780 }
- 1 Var[b] x1 { 0x558b9a155780 }
+ 0 Var[a] x1 { 0x562fa2d9a400 }
+ 1 Var[b] x1 { 0x562fa2d9a400 }
 Anonymous lists:
   [0] 
 Free list:
 
 ---
-aut2@0x558b9a156d10: b=1 c=2
+aut2@0x562fa2d9b990: b=1 c=2
 Variable Map:
- 0 Var[a] x1 { 0x558b9a155780 }
- 1 Var[b] x2 { 0x558b9a155780 0x558b9a156d10 }
- 2 Var[c] x1 { 0x558b9a156d10 }
+ 0 Var[a] x1 { 0x562fa2d9a400 }
+ 1 Var[b] x2 { 0x562fa2d9a400 0x562fa2d9b990 }
+ 2 Var[c] x1 { 0x562fa2d9b990 }
 Anonymous lists:
   [0] 
 Free list:
@@ -465,8 +453,8 @@ Free list:
 aut1 destroyed
 Variable Map:
  0 Free
- 1 Var[b] x1 { 0x558b9a156d10 }
- 2 Var[c] x1 { 0x558b9a156d10 }
+ 1 Var[b] x1 { 0x562fa2d9b990 }
+ 2 Var[c] x1 { 0x562fa2d9b990 }
 Anonymous lists:
   [0] 
 Free list:
@@ -558,7 +546,7 @@ all transition that belong to a certain acceptance set.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python" id="orgf3a5e84"><span class="org-keyword">import</span> spot
+<pre class="src src-python" id="org20890e0"><span class="org-keyword">import</span> spot
 
 <span class="org-keyword">class</span> <span class="org-type">trans_set</span>:
     <span class="org-keyword">def</span> <span class="org-function-name">__init__</span>(<span class="org-keyword">self</span>, <span class="org-builtin">dict</span>):

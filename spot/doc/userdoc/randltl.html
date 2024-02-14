@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-08-01 Tue 20:05 -->
+<!-- 2022-10-08 Sat 19:39 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>=randltl=</title>
@@ -192,7 +192,7 @@
     { font-size: 10px; font-weight: bold; white-space: nowrap; }
   .org-info-js_search-highlight
     { background-color: #ffff00; color: #000000; font-weight: bold; }
-  .org-svg { }
+  .org-svg { width: 90%; }
 </style>
 <link rel="stylesheet" type="text/css" href="spot.css" />
 </head>
@@ -204,9 +204,8 @@
 </div><div id="content" class="content">
 <h1 class="title"><code>randltl</code></h1>
 
-<div id="org87a57d4" class="figure">
-<p><object type="image/svg+xml" data="spot2.svg" class="org-svg" id="spotlogo">
-Sorry, your browser does not support SVG.</object>
+<div id="orgd3e3d60" class="figure">
+<p><img src="spot2.svg" alt="spot2.svg" class="org-svg" id="spotlogo" />
 </p>
 </div>
 <p>
@@ -261,7 +260,7 @@ The syntax of the formula output can be changed using the
 <a href="ioltl.html">common output options</a>:
 </p>
 
-<pre class="example" id="orgbe61775">
+<pre class="example" id="org0cdec16">
 -0, --zero-terminated-output   separate output formulas with \0 instead of \n
                            (for use with xargs -0)
 -8, --utf8                 output using UTF-8 characters
@@ -313,7 +312,7 @@ three commands:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="orgcae8166">randltl a b c d
+<pre class="src src-sh" id="orgafb521e">randltl a b c d
 randltl --seed=4 a b c d
 randltl --seed=0 a b c d
 </pre>
@@ -430,7 +429,7 @@ be seen with <code>--dump-priorities</code>:
 <pre class="src src-sh">randltl a b c --dump-priorities
 </pre>
 </div>
-<pre class="example" id="orgb98c157">
+<pre class="example" id="org8e09769">
 Use --ltl-priorities to set the following LTL priorities:
 ap	3
 false	1
@@ -560,7 +559,7 @@ options:
 <pre class="src src-sh">randltl -P a b c --dump-priorities
 </pre>
 </div>
-<pre class="example" id="orgdf6820f">
+<pre class="example" id="orgb459f91">
 Use --ltl-priorities to set the following LTL priorities:
 ap	3
 false	1

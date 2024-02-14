@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-08-01 Tue 20:04 -->
+<!-- 2022-10-08 Sat 19:35 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>=autfilt=</title>
@@ -192,7 +192,7 @@
     { font-size: 10px; font-weight: bold; white-space: nowrap; }
   .org-info-js_search-highlight
     { background-color: #ffff00; color: #000000; font-weight: bold; }
-  .org-svg { }
+  .org-svg { width: 90%; }
 </style>
 <link rel="stylesheet" type="text/css" href="spot.css" />
 </head>
@@ -207,31 +207,30 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgca161fe">Conversion between formats</a></li>
-<li><a href="#org3c5450c">Displaying statistics</a></li>
-<li><a href="#orgd06b09a">Filtering automata</a></li>
-<li><a href="#org91655b1">Simplifying automata and changing acceptance conditions</a>
+<li><a href="#org75eb51f">Conversion between formats</a></li>
+<li><a href="#org5470230">Displaying statistics</a></li>
+<li><a href="#org565d888">Filtering automata</a></li>
+<li><a href="#org6553d32">Simplifying automata and changing acceptance conditions</a>
 <ul>
-<li><a href="#orgb62c652">Determinization</a></li>
+<li><a href="#org0825ad4">Determinization</a></li>
 </ul>
 </li>
-<li><a href="#org790904d">Transformations</a></li>
-<li><a href="#org0dd0e95">Decorations</a></li>
-<li><a href="#orga7a04ae">Examples</a>
+<li><a href="#org1f623c0">Transformations</a></li>
+<li><a href="#org36a01e6">Decorations</a></li>
+<li><a href="#orgc14f7d7">Examples</a>
 <ul>
-<li><a href="#org8a07b33">Acceptance transformations</a></li>
-<li><a href="#orge4a38ed">Atomic proposition removal</a></li>
-<li><a href="#org21d65be">Testing word acceptance</a></li>
-<li><a href="#org0daf39f">Decorations</a></li>
+<li><a href="#orgf318992">Acceptance transformations</a></li>
+<li><a href="#orgfa648b8">Atomic proposition removal</a></li>
+<li><a href="#org0aa4c27">Testing word acceptance</a></li>
+<li><a href="#org39f68a9">Decorations</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="orgdec70e0" class="figure">
-<p><object type="image/svg+xml" data="spot2.svg" class="org-svg" id="spotlogo">
-Sorry, your browser does not support SVG.</object>
+<div id="orge1b793e" class="figure">
+<p><img src="spot2.svg" alt="spot2.svg" class="org-svg" id="spotlogo" />
 </p>
 </div>
 <p>
@@ -256,9 +255,9 @@ output (i.e., format conversion) without any transformation and
 filtering.
 </p>
 
-<div id="outline-container-orgca161fe" class="outline-2">
-<h2 id="orgca161fe">Conversion between formats</h2>
-<div class="outline-text-2" id="text-orgca161fe">
+<div id="outline-container-org75eb51f" class="outline-2">
+<h2 id="org75eb51f">Conversion between formats</h2>
+<div class="outline-text-2" id="text-org75eb51f">
 <p>
 <code>autfilt</code> can read automata written in the <a href="http://adl.github.io/hoaf/">Hanoi Omega Automata
 Format</a>, as <a href="http://spinroot.com/spin/Man/never.html">Spin never claims</a>, using <a href="http://www.tcs.hut.fi/Software/lbtt/doc/html/Format-for-automata.html">LBTT's format</a>, or using
@@ -292,7 +291,7 @@ autfilt example.hoa --dot
 </pre>
 </div>
 
-<pre class="example" id="org48f5afb">
+<pre class="example" id="orgc09e4de">
 digraph "" {
   rankdir=LR
   label=&lt;Inf(&lt;font color="#1F78B4"&gt;⓿&lt;/font&gt;)&lt;br/&gt;[Büchi]&gt;
@@ -319,7 +318,7 @@ The <code>--spin</code> option implicitly requires a degeneralization:
 </pre>
 </div>
 
-<pre class="example" id="orgd1cb3a2">
+<pre class="example" id="org0e021c6">
 never {
 T0_init:
   if
@@ -353,9 +352,9 @@ Option <code>--lbtt</code> only works for Büchi or generalized Büchi acceptanc
 </div>
 </div>
 
-<div id="outline-container-org3c5450c" class="outline-2">
-<h2 id="org3c5450c">Displaying statistics</h2>
-<div class="outline-text-2" id="text-org3c5450c">
+<div id="outline-container-org5470230" class="outline-2">
+<h2 id="org5470230">Displaying statistics</h2>
+<div class="outline-text-2" id="text-org5470230">
 <p>
 One special output format of <code>autfilt</code> is the statistic output.  For
 instance the following command calls <a href="randaut.html"><code>randaut</code></a> to generate 10 random
@@ -370,7 +369,7 @@ autfilt --stats=<span class="org-string">'%s states, %e edges, %a acc-sets, %c S
 </pre>
 </div>
 
-<pre class="example" id="org448665b">
+<pre class="example" id="orgbe6ea7c">
 16 states, 30 edges, 1 acc-sets, 3 SCCs, det=0
 20 states, 42 edges, 2 acc-sets, 1 SCCs, det=0
 15 states, 27 edges, 2 acc-sets, 1 SCCs, det=0
@@ -386,7 +385,7 @@ autfilt --stats=<span class="org-string">'%s states, %e edges, %a acc-sets, %c S
 <p>
 The following <code>%</code> sequences are available:
 </p>
-<pre class="example" id="orgc8720fc">
+<pre class="example" id="orgb169e70">
 %&lt;                         the part of the line before the formula if it
                            comes from a column extracted from a CSV file
 %&gt;                         the part of the line after the formula if it comes
@@ -400,8 +399,7 @@ The following <code>%</code> sequences are available:
                            (iw) inherently weak. Use uppercase letters to
                            negate them.
 %d                         1 if the output is deterministic, 0 otherwise
-%e, %[LETTER]e             number of edges (add one LETTER to select (r)
-                           reachable [default], (u) unreachable, (a) all).
+%e                         number of reachable edges
 %f                         the formula, in Spot's syntax
 %F                         name of the input file
 %g, %[LETTERS]g            acceptance condition (in HOA syntax); add brackets
@@ -426,11 +424,8 @@ The following <code>%</code> sequences are available:
                            LETTERS to restrict to(u) user time, (s) system
                            time, (p) parent process, or (c) children
                            processes.
-%s, %[LETTER]s             number of states (add one LETTER to select (r)
-                           reachable [default], (u) unreachable, (a) all).
-%t, %[LETTER]t             number of transitions (add one LETTER to select
-                           (r) reachable [default], (u) unreachable, (a)
-                           all).
+%s                         number of reachable states
+%t                         number of reachable transitions
 %u, %[e]u                  number of states (or [e]dges) with universal
                            branching
 %u, %[LETTER]u             1 if the automaton contains some universal
@@ -457,15 +452,15 @@ automaton.
 </div>
 </div>
 
-<div id="outline-container-orgd06b09a" class="outline-2">
-<h2 id="orgd06b09a">Filtering automata</h2>
-<div class="outline-text-2" id="text-orgd06b09a">
+<div id="outline-container-org565d888" class="outline-2">
+<h2 id="org565d888">Filtering automata</h2>
+<div class="outline-text-2" id="text-org565d888">
 <p>
 <code>autfilt</code> offers multiple options to filter automata based on
 different characteristics of the automaton.
 </p>
 
-<pre class="example" id="orgd0766cf">
+<pre class="example" id="org49033cd">
     --acc-sccs=RANGE, --accepting-sccs=RANGE
                            keep automata whose number of non-trivial
                            accepting SCCs is in RANGE
@@ -550,9 +545,9 @@ keep the others.
 </div>
 </div>
 
-<div id="outline-container-org91655b1" class="outline-2">
-<h2 id="org91655b1">Simplifying automata and changing acceptance conditions</h2>
-<div class="outline-text-2" id="text-org91655b1">
+<div id="outline-container-org6553d32" class="outline-2">
+<h2 id="org6553d32">Simplifying automata and changing acceptance conditions</h2>
+<div class="outline-text-2" id="text-org6553d32">
 <p>
 The standard set of automata simplification routines (these are often
 referred to as the "post-processing" routines, because these are the
@@ -564,7 +559,7 @@ TGBA) are available through the following options.
 This set of options controls the desired type of output automaton:
 </p>
 
-<pre class="example" id="orgd908039">
+<pre class="example" id="org1355e58">
 -b, --buchi, --Buchi       automaton with Büchi acceptance
 -B, --sba, --ba            state-based Büchi Automaton (same as -S -b)
     --cobuchi, --coBuchi   automaton with co-Büchi acceptance (will
@@ -645,9 +640,9 @@ just implies that <code>autfilt</code> could not find it.</li>
 </div>
 
 
-<div id="outline-container-orgb62c652" class="outline-3">
-<h3 id="orgb62c652">Determinization</h3>
-<div class="outline-text-3" id="text-orgb62c652">
+<div id="outline-container-org0825ad4" class="outline-3">
+<h3 id="org0825ad4">Determinization</h3>
+<div class="outline-text-3" id="text-org0825ad4">
 <p>
 Spot has basically two ways to determinize automata, and that it uses
 when <code>--deterministic</code> is passed.
@@ -689,131 +684,131 @@ set.
 </div>
 </div>
 
-<div id="outline-container-org790904d" class="outline-2">
-<h2 id="org790904d">Transformations</h2>
-<div class="outline-text-2" id="text-org790904d">
+<div id="outline-container-org1f623c0" class="outline-2">
+<h2 id="org1f623c0">Transformations</h2>
+<div class="outline-text-2" id="text-org1f623c0">
 <p>
 The following transformations are available:
 </p>
 
-<pre class="example" id="org5bd8d54">
-      --cleanup-acceptance   remove unused acceptance sets from the automaton
-      --cnf-acceptance       put the acceptance condition in Conjunctive Normal
-                             Form
-      --complement           complement each automaton (different strategies
-                             are used)
-      --complement-acceptance   complement the acceptance condition (without
-                             touching the automaton)
-                                   --decompose-scc=t|w|s|N|aN, --decompose-strength=t|w|s|N|aN
-                             extract the (t) terminal, (w) weak, or (s) strong
-                             part of an automaton or (N) the subautomaton
-                             leading to the Nth SCC, or (aN) to the Nth
-                             accepting SCC (option can be combined with commas
-                             to extract multiple parts)
-      --destut               allow less stuttering
-      --dnf-acceptance       put the acceptance condition in Disjunctive Normal
-                             Form
-      --dualize              dualize each automaton
-      --exclusive-ap=AP,AP,...   if any of those APs occur in the automaton,
-                             restrict all edges to ensure two of them may not
-                             be true at the same time.  Use this option
-                             multiple times to declare independent groups of
-                             exclusive propositions.
-      --generalized-rabin[=unique-inf|share-inf], --gra[=unique-inf|share-inf]
-rewrite the acceptance condition as generalized
-                             Rabin; the default "unique-inf" option uses the
-                             generalized Rabin definition from the HOA format;
-                             the "share-inf" option allows clauses to share Inf
-                             sets, therefore reducing the number of sets
-      --generalized-streett[=unique-fin|share-fin], --gsa[=unique-fin|share-fin]                             
-                             rewrite the acceptance condition as generalized
-                             Streett; the "share-fin" option allows clauses to
-                             share Fin sets, therefore reducing the number of
-                             sets; the default "unique-fin" does not
-      --instut[=1|2]         allow more stuttering (two possible algorithms)
-      --keep-states=NUM[,NUM...]   only keep specified states.  The first state
-                             will be the new initial state.  Implies
-                             --remove-unreachable-states.
-      --kill-states=NUM[,NUM...]   mark the specified states as dead (no
-                             successor), and remove them.  Implies
-                             --remove-dead-states.
-      --mask-acc=NUM[,NUM...]   remove all transitions in specified acceptance
-                             sets
-      --merge-transitions    merge transitions with same destination and
-                             acceptance
-      --partial-degeneralize[=NUM1,NUM2,...]
-                             Degeneralize automata according to sets
-                             NUM1,NUM2,... If no sets are given, partial
-                             degeneralization is performed for all conjunctions
-                             of Inf and disjunctions of Fin.
-      --product=FILENAME, --product-and=FILENAME
-                             build the product with the automaton in FILENAME
-                             to intersect languages
-      --product-or=FILENAME  build the product with the automaton in FILENAME
-                             to sum languages
-      --randomize[=s|t]      randomize states and transitions (specify 's' or
-                             't' to randomize only states or transitions)
-      --remove-ap=AP[=0|=1][,AP...]
-                             remove atomic propositions either by existential
-                             quantification, or by assigning them 0 or 1
-      --remove-dead-states   remove states that are unreachable, or that cannot
-                             belong to an infinite path
-      --remove-fin           rewrite the automaton without using Fin
-                             acceptance
-      --remove-unreachable-states
-                             remove states that are unreachable from the
-                             initial state
-      --remove-unused-ap     remove declared atomic propositions that are not
-                             used
-      --sat-minimize[=options]   minimize the automaton using a SAT solver
-                             (only works for deterministic automata). Supported
-                             options are acc=STRING, states=N, max-states=N,
-                             sat-incr=N, sat-incr-steps=N, sat-langmap,
-                             sat-naive, colored, preproc=N. Spot uses by
-                             default its PicoSAT distribution but an external
-                             SATsolver can be set thanks to the SPOT_SATSOLVER
-                             environment variable(see spot-x).
-      --separate-sets        if both Inf(x) and Fin(x) appear in the acceptance
-                             condition, replace Fin(x) by a new Fin(y) and
-                             adjust the automaton
-      --simplify-acceptance  simplify the acceptance condition by merging
-                             identical acceptance sets and by simplifying some
-                             terms containing complementary sets
-      --simplify-exclusive-ap   if --exclusive-ap is used, assume those AP
-                             groups are actually exclusive in the system to
-                             simplify the expression of transition labels
-                             (implies --merge-transitions)
-      --split-edges          split edges into transitions labeled by
-                             conjunctions of all atomic propositions, so they
-                             can be read as letters
-      --streett-like         convert to an automaton with Streett-like
-                             acceptance. Works only with acceptance condition
-                             in DNF
-      --strip-acceptance     remove the acceptance condition and all acceptance
-                             sets
-      --sum=FILENAME, --sum-or=FILENAME
-                             build the sum with the automaton in FILENAME to
-                             sum languages
-      --sum-and=FILENAME     build the sum with the automaton in FILENAME to
-                             intersect languages
-      --to-finite[=alive]    Convert an automaton with "alive" and "!alive"
-                             propositions into a Büchi automaton interpretable
-                             as a finite automaton.  States with a outgoing
-                             "!alive" edge are marked as accepting.
+<pre class="example" id="orgaaf5c39">
+--cleanup-acceptance   remove unused acceptance sets from the automaton
+--cnf-acceptance       put the acceptance condition in Conjunctive Normal
+                       Form
+--complement           complement each automaton (different strategies
+                       are used)
+--complement-acceptance   complement the acceptance condition (without
+                       touching the automaton)
+--decompose-scc=t|w|s|N|aN, --decompose-strength=t|w|s|N|aN
+                       extract the (t) terminal, (w) weak, or (s) strong
+                       part of an automaton or (N) the subautomaton
+                       leading to the Nth SCC, or (aN) to the Nth
+                       accepting SCC (option can be combined with commas
+                       to extract multiple parts)
+--destut               allow less stuttering
+--dnf-acceptance       put the acceptance condition in Disjunctive Normal
+                       Form
+--dualize              dualize each automaton
+--exclusive-ap=AP,AP,...   if any of those APs occur in the automaton,
+                       restrict all edges to ensure two of them may not
+                       be true at the same time.  Use this option
+                       multiple times to declare independent groups of
+                       exclusive propositions.
+--generalized-rabin[=unique-inf|share-inf], --gra[=unique-inf|share-inf]
+                       rewrite the acceptance condition as generalized
+                       Rabin; the default "unique-inf" option uses the
+                       generalized Rabin definition from the HOA format;
+                       the "share-inf" option allows clauses to share Inf
+                       sets, therefore reducing the number of sets
+--generalized-streett[=unique-fin|share-fin], --gsa[=unique-fin|share-fin]                             
+                       rewrite the acceptance condition as generalized
+                       Streett; the "share-fin" option allows clauses to
+                       share Fin sets, therefore reducing the number of
+                       sets; the default "unique-fin" does not
+--instut[=1|2]         allow more stuttering (two possible algorithms)
+--keep-states=NUM[,NUM...]   only keep specified states.  The first state
+                       will be the new initial state.  Implies
+                       --remove-unreachable-states.
+--kill-states=NUM[,NUM...]   mark the specified states as dead (no
+                       successor), and remove them.  Implies
+                       --remove-dead-states.
+--mask-acc=NUM[,NUM...]   remove all transitions in specified acceptance
+                       sets
+--merge-transitions    merge transitions with same destination and
+                       acceptance
+--partial-degeneralize[=NUM1,NUM2,...]
+                       Degeneralize automata according to sets
+                       NUM1,NUM2,... If no sets are given, partial
+                       degeneralization is performed for all conjunctions
+                       of Inf and disjunctions of Fin.
+--product=FILENAME, --product-and=FILENAME
+                       build the product with the automaton in FILENAME
+                       to intersect languages
+--product-or=FILENAME  build the product with the automaton in FILENAME
+                       to sum languages
+--randomize[=s|t]      randomize states and transitions (specify 's' or
+                       't' to randomize only states or transitions)
+--remove-ap=AP[=0|=1][,AP...]
+                       remove atomic propositions either by existential
+                       quantification, or by assigning them 0 or 1
+--remove-dead-states   remove states that are unreachable, or that cannot
+                       belong to an infinite path
+--remove-fin           rewrite the automaton without using Fin acceptance
+
+--remove-unreachable-states
+                       remove states that are unreachable from the
+                       initial state
+--remove-unused-ap     remove declared atomic propositions that are not
+                       used
+--sat-minimize[=options]   minimize the automaton using a SAT solver
+                       (only works for deterministic automata). Supported
+                       options are acc=STRING, states=N, max-states=N,
+                       sat-incr=N, sat-incr-steps=N, sat-langmap,
+                       sat-naive, colored, preproc=N. Spot uses by
+                       default its PicoSAT distribution but an external
+                       SATsolver can be set thanks to the SPOT_SATSOLVER
+                       environment variable(see spot-x).
+--separate-sets        if both Inf(x) and Fin(x) appear in the acceptance
+                       condition, replace Fin(x) by a new Fin(y) and
+                       adjust the automaton
+--simplify-acceptance  simplify the acceptance condition by merging
+                       identical acceptance sets and by simplifying some
+                       terms containing complementary sets
+--simplify-exclusive-ap   if --exclusive-ap is used, assume those AP
+                       groups are actually exclusive in the system to
+                       simplify the expression of transition labels
+                       (implies --merge-transitions)
+--split-edges          split edges into transitions labeled by
+                       conjunctions of all atomic propositions, so they
+                       can be read as letters
+--streett-like         convert to an automaton with Streett-like
+                       acceptance. Works only with acceptance condition
+                       in DNF
+--strip-acceptance     remove the acceptance condition and all acceptance
+                       sets
+--sum=FILENAME, --sum-or=FILENAME
+                       build the sum with the automaton in FILENAME to
+                       sum languages
+--sum-and=FILENAME     build the sum with the automaton in FILENAME to
+                       intersect languages
+--to-finite[=alive]    Convert an automaton with "alive" and "!alive"
+                       propositions into a Büchi automaton interpretable
+                       as a finite automaton.  States with a outgoing
+                       "!alive" edge are marked as accepting.
 </pre>
 </div>
 </div>
 
-<div id="outline-container-org0dd0e95" class="outline-2">
-<h2 id="org0dd0e95">Decorations</h2>
-<div class="outline-text-2" id="text-org0dd0e95">
+<div id="outline-container-org36a01e6" class="outline-2">
+<h2 id="org36a01e6">Decorations</h2>
+<div class="outline-text-2" id="text-org36a01e6">
 <p>
 Decorations work by coloring some states or edges in the automaton.
 They are only useful when the automaton is output in Dot format (with
 <code>--dot</code> or <code>-d</code>) or HOA v1.1 format (with <code>-H1.1</code> or <code>--hoa=1.1</code>).
 </p>
 
-<pre class="example" id="org2d10891">
+<pre class="example" id="orgcc27634">
 --highlight-accepting-run[=NUM]
                        highlight one accepting run using color NUM
 --highlight-languages  highlight states that recognize identical
@@ -836,13 +831,13 @@ sets, but this might change in the future.
 </div>
 </div>
 
-<div id="outline-container-orga7a04ae" class="outline-2">
-<h2 id="orga7a04ae">Examples</h2>
-<div class="outline-text-2" id="text-orga7a04ae">
+<div id="outline-container-orgc14f7d7" class="outline-2">
+<h2 id="orgc14f7d7">Examples</h2>
+<div class="outline-text-2" id="text-orgc14f7d7">
 </div>
-<div id="outline-container-org8a07b33" class="outline-3">
-<h3 id="org8a07b33">Acceptance transformations</h3>
-<div class="outline-text-3" id="text-org8a07b33">
+<div id="outline-container-orgf318992" class="outline-3">
+<h3 id="orgf318992">Acceptance transformations</h3>
+<div class="outline-text-3" id="text-orgf318992">
 <p>
 Here is an automaton with transition-based acceptance:
 </p>
@@ -878,14 +873,13 @@ discussed <a href="oaut.html#default-dot">on another page</a>.)
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="org1a49e2f">autfilt aut-ex1.hoa --dot
+<pre class="src src-sh" id="orgce435c5">autfilt aut-ex1.hoa --dot
 </pre>
 </div>
 
 
-<div id="org55acca4" class="figure">
-<p><object type="image/svg+xml" data="autfilt-ex1.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org11838cd" class="figure">
+<p><img src="autfilt-ex1.svg" alt="autfilt-ex1.svg" class="org-svg" />
 </p>
 </div>
 
@@ -894,14 +888,13 @@ Using <code>-S</code> will "push" the acceptance membership of the transitions t
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="org199a8f1">autfilt -S aut-ex1.hoa --dot
+<pre class="src src-sh" id="org1963db5">autfilt -S aut-ex1.hoa --dot
 </pre>
 </div>
 
 
-<div id="org4cfce6c" class="figure">
-<p><object type="image/svg+xml" data="autfilt-ex2.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="orgbea5010" class="figure">
+<p><img src="autfilt-ex2.svg" alt="autfilt-ex2.svg" class="org-svg" />
 </p>
 </div>
 
@@ -910,14 +903,13 @@ Using <code>--cnf-acceptance</code> simply rewrites the acceptance condition in 
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="orgb825947">autfilt --cnf-acceptance aut-ex1.hoa --dot
+<pre class="src src-sh" id="org056dc6c">autfilt --cnf-acceptance aut-ex1.hoa --dot
 </pre>
 </div>
 
 
-<div id="org39b9c80" class="figure">
-<p><object type="image/svg+xml" data="autfilt-ex3.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="orge0a3cd1" class="figure">
+<p><img src="autfilt-ex3.svg" alt="autfilt-ex3.svg" class="org-svg" />
 </p>
 </div>
 
@@ -928,14 +920,13 @@ of identical acceptance sets, etc) to simplify the acceptance formula of an auto
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="orge83daab">autfilt --simplify-acc aut-ex1.hoa --dot
+<pre class="src src-sh" id="orgd80f3b2">autfilt --simplify-acc aut-ex1.hoa --dot
 </pre>
 </div>
 
 
-<div id="org6dba8d4" class="figure">
-<p><object type="image/svg+xml" data="autfilt-ex3b.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="orgbd5be8a" class="figure">
+<p><img src="autfilt-ex3b.svg" alt="autfilt-ex3b.svg" class="org-svg" />
 </p>
 </div>
 
@@ -949,14 +940,13 @@ not simplify the automaton constructed, so additionally passing
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="org9137ee3">autfilt --remove-fin --small aut-ex1.hoa --dot
+<pre class="src src-sh" id="orge66354b">autfilt --remove-fin --small aut-ex1.hoa --dot
 </pre>
 </div>
 
 
-<div id="orgf229345" class="figure">
-<p><object type="image/svg+xml" data="autfilt-ex4.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org572fd5e" class="figure">
+<p><img src="autfilt-ex4.svg" alt="autfilt-ex4.svg" class="org-svg" />
 </p>
 </div>
 
@@ -967,14 +957,13 @@ reflect the fact that these sets can never be visited.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="org70c537e">autfilt --mask-acc=1,2 aut-ex1.hoa --dot
+<pre class="src src-sh" id="org27795f4">autfilt --mask-acc=1,2 aut-ex1.hoa --dot
 </pre>
 </div>
 
 
-<div id="orgad9abbd" class="figure">
-<p><object type="image/svg+xml" data="autfilt-ex5.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org370f6db" class="figure">
+<p><img src="autfilt-ex5.svg" alt="autfilt-ex5.svg" class="org-svg" />
 </p>
 </div>
 
@@ -987,14 +976,13 @@ without any color.)
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="orgc1bf110">autfilt --colored-parity aut-ex1.hoa --dot
+<pre class="src src-sh" id="orgba61a6e">autfilt --colored-parity aut-ex1.hoa --dot
 </pre>
 </div>
 
 
-<div id="orgf321757" class="figure">
-<p><object type="image/svg+xml" data="autfilt-ex6.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org2c3d3e9" class="figure">
+<p><img src="autfilt-ex6.svg" alt="autfilt-ex6.svg" class="org-svg" />
 </p>
 </div>
 
@@ -1004,14 +992,13 @@ argument of the <code>--parity</code> or <code>--colored-parity</code> option.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="org064a5ae">autfilt --parity=<span class="org-string">'min odd'</span> aut-ex1.hoa --dot
+<pre class="src src-sh" id="org01f57b4">autfilt --parity=<span class="org-string">'min odd'</span> aut-ex1.hoa --dot
 </pre>
 </div>
 
 
-<div id="orgd93231c" class="figure">
-<p><object type="image/svg+xml" data="autfilt-ex6b.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org34ca7be" class="figure">
+<p><img src="autfilt-ex6b.svg" alt="autfilt-ex6b.svg" class="org-svg" />
 </p>
 </div>
 </div>
@@ -1019,9 +1006,9 @@ Sorry, your browser does not support SVG.</object>
 
 
 
-<div id="outline-container-orge4a38ed" class="outline-3">
-<h3 id="orge4a38ed">Atomic proposition removal</h3>
-<div class="outline-text-3" id="text-orge4a38ed">
+<div id="outline-container-orgfa648b8" class="outline-3">
+<h3 id="orgfa648b8">Atomic proposition removal</h3>
+<div class="outline-text-3" id="text-orgfa648b8">
 <p>
 Atomic propositions can be removed from an automaton in three ways:
 </p>
@@ -1037,46 +1024,43 @@ Here are the results of these three options on our example:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="org1b55a49">autfilt --remove-ap=a aut-ex1.hoa --dot
+<pre class="src src-sh" id="orgf46e576">autfilt --remove-ap=a aut-ex1.hoa --dot
 </pre>
 </div>
 
 
-<div id="org25f0204" class="figure">
-<p><object type="image/svg+xml" data="autfilt-ex6a.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org3aca203" class="figure">
+<p><img src="autfilt-ex6a.svg" alt="autfilt-ex6a.svg" class="org-svg" />
 </p>
 </div>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="orgc74d61a">autfilt --remove-ap=<span class="org-variable-name">a</span>=0 aut-ex1.hoa --dot
+<pre class="src src-sh" id="org8dc75b5">autfilt --remove-ap=<span class="org-variable-name">a</span>=0 aut-ex1.hoa --dot
 </pre>
 </div>
 
 
-<div id="org0a53223" class="figure">
-<p><object type="image/svg+xml" data="autfilt-ex6b.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="orgdbb3ffa" class="figure">
+<p><img src="autfilt-ex6b.svg" alt="autfilt-ex6b.svg" class="org-svg" />
 </p>
 </div>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="org843ae12">autfilt --remove-ap=<span class="org-variable-name">a</span>=1 aut-ex1.hoa --dot
+<pre class="src src-sh" id="orgc544fdf">autfilt --remove-ap=<span class="org-variable-name">a</span>=1 aut-ex1.hoa --dot
 </pre>
 </div>
 
 
-<div id="org88a5d3e" class="figure">
-<p><object type="image/svg+xml" data="autfilt-ex6c.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org95ba012" class="figure">
+<p><img src="autfilt-ex6c.svg" alt="autfilt-ex6c.svg" class="org-svg" />
 </p>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org21d65be" class="outline-3">
-<h3 id="org21d65be">Testing word acceptance</h3>
-<div class="outline-text-3" id="text-org21d65be">
+<div id="outline-container-org0aa4c27" class="outline-3">
+<h3 id="org0aa4c27">Testing word acceptance</h3>
+<div class="outline-text-3" id="text-org0aa4c27">
 <p>
 The following example checks whether the formula <code>a U b U c</code> accepts
 the word <code>a&amp;!b&amp;!c; cycle{!a&amp;!b&amp;c}</code>.
@@ -1108,7 +1092,7 @@ stored as the name of the automaton by <code>ltl2tgba</code>).
 </pre>
 </div>
 
-<pre class="example" id="orgdf397c9">
+<pre class="example" id="org010f4d4">
 F!b
 !b
 F(!a &amp; !b)
@@ -1149,9 +1133,9 @@ a | G((a &amp; GFa) | (!a &amp; FG!a))
 </div>
 </div>
 
-<div id="outline-container-org0daf39f" class="outline-3">
-<h3 id="org0daf39f">Decorations</h3>
-<div class="outline-text-3" id="text-org0daf39f">
+<div id="outline-container-org39f68a9" class="outline-3">
+<h3 id="org39f68a9">Decorations</h3>
+<div class="outline-text-3" id="text-org39f68a9">
 <p>
 We know from a previous example that formula <code>a U b U c</code> accepts the
 word <code>b; cycle{c}</code>.  We can actually highlight the corresponding
@@ -1159,14 +1143,13 @@ run in the automaton:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="orgb89d311">ltl2tgba <span class="org-string">'a U b U c'</span> | autfilt --highlight-word=<span class="org-string">'a&amp;!b&amp;!c; cycle{!a&amp;!b&amp;c}'</span> -d
+<pre class="src src-sh" id="org1d5f9b1">ltl2tgba <span class="org-string">'a U b U c'</span> | autfilt --highlight-word=<span class="org-string">'a&amp;!b&amp;!c; cycle{!a&amp;!b&amp;c}'</span> -d
 </pre>
 </div>
 
 
-<div id="org87a1d62" class="figure">
-<p><object type="image/svg+xml" data="autfilt-hlword.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org2fc8854" class="figure">
+<p><img src="autfilt-hlword.svg" alt="autfilt-hlword.svg" class="org-svg" />
 </p>
 </div>
 
@@ -1179,16 +1162,15 @@ previous ones.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="orge51f646">ltl2tgba <span class="org-string">'a U b U c'</span> |
+<pre class="src src-sh" id="orga368409">ltl2tgba <span class="org-string">'a U b U c'</span> |
   autfilt --highlight-word=5,<span class="org-string">'a&amp;!b&amp;!c; cycle{!a&amp;!b&amp;c}'</span> <span class="org-sh-escaped-newline">\</span>
           --highlight-word=4,<span class="org-string">'!a&amp;b&amp;!c; cycle{!a&amp;!b&amp;c}'</span> -d
 </pre>
 </div>
 
 
-<div id="org851762a" class="figure">
-<p><object type="image/svg+xml" data="autfilt-hlword2.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="orga7cfa3f" class="figure">
+<p><img src="autfilt-hlword2.svg" alt="autfilt-hlword2.svg" class="org-svg" />
 </p>
 </div>
 
@@ -1201,15 +1183,14 @@ made.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="org3fa77e1">ltl2tgba <span class="org-string">'F((b R a) W Gb)'</span> |
+<pre class="src src-sh" id="org7c91729">ltl2tgba <span class="org-string">'F((b R a) W Gb)'</span> |
     autfilt --highlight-nondet-states=5 --highlight-nondet-edges=1 -d
 </pre>
 </div>
 
 
-<div id="org4a6edb3" class="figure">
-<p><object type="image/svg+xml" data="autfilt-hlnondet.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org288420b" class="figure">
+<p><img src="autfilt-hlnondet.svg" alt="autfilt-hlnondet.svg" class="org-svg" />
 </p>
 </div>
 </div>

@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-08-01 Tue 20:03 -->
+<!-- 2022-10-08 Sat 19:38 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Creating an automaton by adding states and transitions</title>
@@ -192,7 +192,7 @@
     { font-size: 10px; font-weight: bold; white-space: nowrap; }
   .org-info-js_search-highlight
     { background-color: #ffff00; color: #000000; font-weight: bold; }
-  .org-svg { }
+  .org-svg { width: 90%; }
 </style>
 <link rel="stylesheet" type="text/css" href="spot.css" />
 </head>
@@ -210,28 +210,27 @@
 <li><a href="#tgba">Transition-based Generalized Büchi automaton</a>
 <ul>
 <li><a href="#cpp">C++</a></li>
-<li><a href="#org1f44e8c">Python</a></li>
+<li><a href="#org31293ab">Python</a></li>
 </ul>
 </li>
 <li><a href="#sba">Büchi automaton, with state-based acceptance</a>
 <ul>
-<li><a href="#org79c5219">C++</a></li>
-<li><a href="#org9f4a86f">Python</a></li>
+<li><a href="#orgcb4800c">C++</a></li>
+<li><a href="#org8ff894e">Python</a></li>
 </ul>
 </li>
 <li><a href="#setacc">Automaton with arbitrary acceptance condition</a>
 <ul>
-<li><a href="#org30e1b22">C++</a></li>
-<li><a href="#orgc912c42">Python</a></li>
+<li><a href="#org7604b94">C++</a></li>
+<li><a href="#orga173c15">Python</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="orgae542fb" class="figure">
-<p><object type="image/svg+xml" data="spot2.svg" class="org-svg" id="spotlogo">
-Sorry, your browser does not support SVG.</object>
+<div id="org2135df0" class="figure">
+<p><img src="spot2.svg" alt="spot2.svg" class="org-svg" id="spotlogo" />
 </p>
 </div>
 <p>
@@ -316,9 +315,9 @@ automata in Spot.
 </div>
 </div>
 
-<div id="outline-container-org1f44e8c" class="outline-3">
-<h3 id="org1f44e8c">Python</h3>
-<div class="outline-text-3" id="text-org1f44e8c">
+<div id="outline-container-org31293ab" class="outline-3">
+<h3 id="org31293ab">Python</h3>
+<div class="outline-text-3" id="text-org31293ab">
 <div class="org-src-container">
 <pre class="src src-python"><span class="org-keyword">import</span> spot
 <span class="org-keyword">import</span> buddy
@@ -418,9 +417,9 @@ whenever possible".
 </p>
 </div>
 
-<div id="outline-container-org79c5219" class="outline-3">
-<h3 id="org79c5219">C++</h3>
-<div class="outline-text-3" id="text-org79c5219">
+<div id="outline-container-orgcb4800c" class="outline-3">
+<h3 id="orgcb4800c">C++</h3>
+<div class="outline-text-3" id="text-orgcb4800c">
 <div class="org-src-container">
 <pre class="src src-C++"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;iostream&gt;</span>
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;spot/twaalgos/hoa.hh&gt;</span>
@@ -490,9 +489,9 @@ whenever possible".
 </div>
 </div>
 
-<div id="outline-container-org9f4a86f" class="outline-3">
-<h3 id="org9f4a86f">Python</h3>
-<div class="outline-text-3" id="text-org9f4a86f">
+<div id="outline-container-org8ff894e" class="outline-3">
+<h3 id="org8ff894e">Python</h3>
+<div class="outline-text-3" id="text-org8ff894e">
 <div class="org-src-container">
 <pre class="src src-python"><span class="org-keyword">import</span> spot
 <span class="org-keyword">import</span> buddy
@@ -569,9 +568,9 @@ Arbitrary acceptance condition can be set with <code>set_acceptance</code>.
 </p>
 </div>
 
-<div id="outline-container-org30e1b22" class="outline-3">
-<h3 id="org30e1b22">C++</h3>
-<div class="outline-text-3" id="text-org30e1b22">
+<div id="outline-container-org7604b94" class="outline-3">
+<h3 id="org7604b94">C++</h3>
+<div class="outline-text-3" id="text-org7604b94">
 <div class="org-src-container">
 <pre class="src src-C++"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;iostream&gt;</span>
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;spot/twaalgos/hoa.hh&gt;</span>
@@ -622,9 +621,9 @@ Arbitrary acceptance condition can be set with <code>set_acceptance</code>.
 </div>
 </div>
 
-<div id="outline-container-orgc912c42" class="outline-3">
-<h3 id="orgc912c42">Python</h3>
-<div class="outline-text-3" id="text-orgc912c42">
+<div id="outline-container-orga173c15" class="outline-3">
+<h3 id="orga173c15">Python</h3>
+<div class="outline-text-3" id="text-orga173c15">
 <div class="org-src-container">
 <pre class="src src-python"><span class="org-keyword">import</span> spot
 <span class="org-keyword">import</span> buddy

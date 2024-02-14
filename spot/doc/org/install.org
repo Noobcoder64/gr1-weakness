@@ -9,9 +9,9 @@
    :CUSTOM_ID: tar
    :END:
 
-The latest release of Spot is version call_SPOT_VERSION() and was released on {{{LASTDATE}}}:
+The latest release of Spot is version {{{LASTRELEASE}}}:
 
-- call_TARBALL_LINK() (see also the call_NEWS_LINK())
+- {{{LASTTARBALL}}} (see also the {{{LASTNEWS}}})
 
 Past releases can be found [[https://www.lrde.epita.fr/dload/spot/][in the same directory]].  If you are
 interested in /future/ releases, you can always peek at the [[https://gitlab.lre.epita.fr/spot/spot/-/jobs/artifacts/next/browse?job=make-dist][last
@@ -52,13 +52,10 @@ make
 make install
 #+END_SRC
 
-Before running =make install=, you might want to run =make check= to
-run our test-suite.
-
 Files =INSTALL= and =README= included in the tarball contains more
-explanations about the various options you can use during the
-compilation process.  Also note that =README= has a section about
-troubleshooting installations.
+explanations about the various options you can use during this
+process.  Also note that =README= has a section about troubleshooting
+installations.
 
 * Installing the Debian packages
    :PROPERTIES:
@@ -91,9 +88,7 @@ apt-get install spot libspot-dev spot-doc python3-spot # Or a subset of those
 Note that our Debian repository is signed since that is the new Debian
 policy, and both of the above command blocks start with a download of
 our [[https://www.lrde.epita.fr/repo/debian.gpg][GPG key]].  Its fingerprint is =209B 7362 CFD6 FECF B41D 717F 03D9
-9E74 44F2 A84A=, if you want to verify it.  If you have an old copy of
-the GPG key that expired, please download it again: the current
-version should be valid until 2032.
+9E74 44F2 A84A=, if you want to verify it.
 
 The package =spot= contains the [[file:tools.org][command-line tools]]. =libspot-dev=
 contains the header files if you plan to use Spot in a C++17

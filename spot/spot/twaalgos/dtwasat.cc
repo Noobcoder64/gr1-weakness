@@ -1,5 +1,5 @@
 // -*- coding: utf-8 -*-
-// Copyright (C) 2013-2023 Laboratoire de Recherche
+// Copyright (C) 2013-2021 Laboratoire de Recherche
 // et Développement de l'Epita.
 //
 // This file is part of Spot, a model checking library.
@@ -98,7 +98,11 @@ namespace spot
           return true;
         if (this->acc_ref > other.acc_ref)
           return false;
-        return this->acc_cand < other.acc_cand;
+        if (this->acc_cand < other.acc_cand)
+          return true;
+        if (this->acc_cand > other.acc_cand)
+          return false;
+        return false;
       }
 
     };
@@ -860,7 +864,7 @@ namespace spot
 #if TRACE
       std::fstream out("dtwa-sat.dbg",
                        std::ios_base::trunc | std::ios_base::out);
-      out.exceptions(std::ofstream::failbit | std::ofstream::badbit);
+      out.exceptions(std::ifstream::failbit | std::ifstream::badbit);
 #endif
       std::map<int, acc_cond::mark_t> state_acc;
       std::set<src_cond> seen_trans;

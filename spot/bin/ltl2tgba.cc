@@ -1,5 +1,5 @@
 // -*- coding: utf-8 -*-
-// Copyright (C) 2012-2019, 2022-2023 Laboratoire de Recherche et
+// Copyright (C) 2012-2019, 2022 Laboratoire de Recherche et
 // Développement de l'Epita (LRDE).
 //
 // This file is part of Spot, a model checking library.
@@ -39,7 +39,7 @@
 #include <spot/misc/optionmap.hh>
 #include <spot/misc/timer.hh>
 
-static const char argp_program_doc[] = "\
+static const char argp_program_doc[] ="\
 Translate linear-time formulas (LTL/PSL) into various types of automata.\n\n\
 By default it will apply all available optimizations to output \
 the smallest Transition-based Generalized Büchi Automata, \
@@ -124,10 +124,10 @@ namespace
   {
   public:
     spot::translator& trans;
-    automaton_printer printer{ltl_input};
+    automaton_printer printer;
 
-    explicit trans_processor(spot::translator& trans)
-      : trans(trans)
+    trans_processor(spot::translator& trans)
+      : trans(trans), printer(ltl_input)
     {
     }
 

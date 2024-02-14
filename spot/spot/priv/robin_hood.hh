@@ -36,7 +36,7 @@
 // see https://semver.org/
 #define ROBIN_HOOD_VERSION_MAJOR 3  // for incompatible API changes
 #define ROBIN_HOOD_VERSION_MINOR 11 // for adding functionality in a backwards-compatible manner
-#define ROBIN_HOOD_VERSION_PATCH 5  // for backwards-compatible bug fixes
+#define ROBIN_HOOD_VERSION_PATCH 3  // for backwards-compatible bug fixes
 
 #include <algorithm>
 #include <cstdlib>
@@ -206,7 +206,7 @@ static Counts& counts() {
 
 // workaround missing "is_trivially_copyable" in g++ < 5.0
 // See https://stackoverflow.com/a/31798726/48181
-#if false
+#if defined(__GNUC__) && __GNUC__ < 5
 #    define ROBIN_HOOD_IS_TRIVIALLY_COPYABLE(...) __has_trivial_copy(__VA_ARGS__)
 #else
 #    define ROBIN_HOOD_IS_TRIVIALLY_COPYABLE(...) std::is_trivially_copyable<__VA_ARGS__>::value
@@ -1821,12 +1821,6 @@ public:
     }
 
     template <typename... Args>
-    iterator emplace_hint(const_iterator position, Args&&... args) {
-        (void)position;
-        return emplace(std::forward<Args>(args)...).first;
-    }
-
-    template <typename... Args>
     std::pair<iterator, bool> try_emplace(const key_type& key, Args&&... args) {
         return try_emplace_impl(key, std::forward<Args>(args)...);
     }
@@ -1837,15 +1831,16 @@ public:
     }
 
     template <typename... Args>
-    iterator try_emplace(const_iterator hint, const key_type& key, Args&&... args) {
+    std::pair<iterator, bool> try_emplace(const_iterator hint, const key_type& key,
+                                          Args&&... args) {
         (void)hint;
-        return try_emplace_impl(key, std::forward<Args>(args)...).first;
+        return try_emplace_impl(key, std::forward<Args>(args)...);
     }
 
     template <typename... Args>
-    iterator try_emplace(const_iterator hint, key_type&& key, Args&&... args) {
+    std::pair<iterator, bool> try_emplace(const_iterator hint, key_type&& key, Args&&... args) {
         (void)hint;
-        return try_emplace_impl(std::move(key), std::forward<Args>(args)...).first;
+        return try_emplace_impl(std::move(key), std::forward<Args>(args)...);
     }
 
     template <typename Mapped>
@@ -1859,15 +1854,16 @@ public:
     }
 
     template <typename Mapped>
-    iterator insert_or_assign(const_iterator hint, const key_type& key, Mapped&& obj) {
+    std::pair<iterator, bool> insert_or_assign(const_iterator hint, const key_type& key,
+                                               Mapped&& obj) {
         (void)hint;
-        return insertOrAssignImpl(key, std::forward<Mapped>(obj)).first;
+        return insertOrAssignImpl(key, std::forward<Mapped>(obj));
     }
 
     template <typename Mapped>
-    iterator insert_or_assign(const_iterator hint, key_type&& key, Mapped&& obj) {
+    std::pair<iterator, bool> insert_or_assign(const_iterator hint, key_type&& key, Mapped&& obj) {
         (void)hint;
-        return insertOrAssignImpl(std::move(key), std::forward<Mapped>(obj)).first;
+        return insertOrAssignImpl(std::move(key), std::forward<Mapped>(obj));
     }
 
     std::pair<iterator, bool> insert(const value_type& keyval) {
@@ -1875,18 +1871,8 @@ public:
         return emplace(keyval);
     }
 
-    iterator insert(const_iterator hint, const value_type& keyval) {
-        (void)hint;
-        return emplace(keyval).first;
-    }
-
     std::pair<iterator, bool> insert(value_type&& keyval) {
         return emplace(std::move(keyval));
-    }
-
-    iterator insert(const_iterator hint, value_type&& keyval) {
-        (void)hint;
-        return emplace(std::move(keyval)).first;
     }
 
     // Returns 1 if key is found, 0 otherwise.
@@ -2322,14 +2308,13 @@ private:
 
         auto const numElementsWithBuffer = calcNumElementsWithBuffer(max_elements);
 
-        // malloc & zero mInfo. Faster than calloc everything.
+        // calloc also zeroes everything
         auto const numBytesTotal = calcNumBytesTotal(numElementsWithBuffer);
         ROBIN_HOOD_LOG("std::calloc " << numBytesTotal << " = calcNumBytesTotal("
                                       << numElementsWithBuffer << ")")
         mKeyVals = reinterpret_cast<Node*>(
-            detail::assertNotNull<std::bad_alloc>(malloc(numBytesTotal)));
+            detail::assertNotNull<std::bad_alloc>(std::calloc(1, numBytesTotal)));
         mInfo = reinterpret_cast<uint8_t*>(mKeyVals + numElementsWithBuffer);
-        std::memset(mInfo, 0, numBytesTotal - numElementsWithBuffer * sizeof(Node));
 
         // set sentinel
         mInfo[numElementsWithBuffer] = 1;

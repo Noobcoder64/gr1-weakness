@@ -3,12 +3,12 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-08-01 Tue 20:05 -->
+<!-- 2022-10-08 Sat 19:39 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Command-line tools installed by Spot</title>
+<title>Command-line tools installed by Spot 2.11</title>
 <meta name="author" content="root" />
-<meta name="description" content="List of all the command-line tools installed by Spot" />
+<meta name="description" content="List of all the command-line tools installed by Spot {{{SPOTVERSION}}}" />
 <meta name="generator" content="Org Mode" />
 <style>
   #content { max-width: 60em; margin: auto; }
@@ -192,7 +192,7 @@
     { font-size: 10px; font-weight: bold; white-space: nowrap; }
   .org-info-js_search-highlight
     { background-color: #ffff00; color: #000000; font-weight: bold; }
-  .org-svg { }
+  .org-svg { width: 90%; }
 </style>
 <link rel="stylesheet" type="text/css" href="spot.css" />
 </head>
@@ -202,36 +202,35 @@
  |
  <a accesskey="H" href="index.html"> HOME </a>
 </div><div id="content" class="content">
-<h1 class="title">Command-line tools installed by Spot</h1>
+<h1 class="title">Command-line tools installed by Spot 2.11</h1>
 <div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgbbbe076">Conventions</a></li>
-<li><a href="#org167a638">Documentation common to multiple tools</a></li>
-<li><a href="#org3904e18">Command-line tools</a></li>
-<li><a href="#org15ac3f2">Man pages</a></li>
-<li><a href="#orgfeb26e4">Advanced use-cases</a></li>
-<li><a href="#org7407dd1">Citing</a></li>
+<li><a href="#orge5930fa">Conventions</a></li>
+<li><a href="#org49cba7c">Documentation common to multiple tools</a></li>
+<li><a href="#org02967bf">Command-line tools</a></li>
+<li><a href="#orgddb7fa4">Man pages</a></li>
+<li><a href="#org0e32661">Advanced use-cases</a></li>
+<li><a href="#orgd99c5a5">Citing</a></li>
 </ul>
 </div>
 </div>
 
-<div id="org4543284" class="figure">
-<p><object type="image/svg+xml" data="spot2.svg" class="org-svg" id="spotlogo">
-Sorry, your browser does not support SVG.</object>
+<div id="org7f92cc1" class="figure">
+<p><img src="spot2.svg" alt="spot2.svg" class="org-svg" id="spotlogo" />
 </p>
 </div>
 <p>
 This document introduces command-line tools that are installed with
-Spot 2.11.6.  We give some examples to highlight possible
+the Spot library.  We give some examples to highlight possible
 use-cases but shall not attempt to cover all features exhaustively
 (please check the man pages for further inspiration).
 </p>
 
-<div id="outline-container-orgbbbe076" class="outline-2">
-<h2 id="orgbbbe076">Conventions</h2>
-<div class="outline-text-2" id="text-orgbbbe076">
+<div id="outline-container-orge5930fa" class="outline-2">
+<h2 id="orge5930fa">Conventions</h2>
+<div class="outline-text-2" id="text-orge5930fa">
 <p>
 For technical reasons related to the way we generate these pages, we
 use the following convention when rendering shell commands.  The
@@ -240,7 +239,7 @@ on the left:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="org2794a82"><span class="org-builtin">echo</span> Hello World
+<pre class="src src-sh" id="org941ece2"><span class="org-builtin">echo</span> Hello World
 </pre>
 </div>
 
@@ -262,9 +261,9 @@ corresponding commands are hidden.
 </div>
 </div>
 
-<div id="outline-container-org167a638" class="outline-2">
-<h2 id="org167a638">Documentation common to multiple tools</h2>
-<div class="outline-text-2" id="text-org167a638">
+<div id="outline-container-org49cba7c" class="outline-2">
+<h2 id="org49cba7c">Documentation common to multiple tools</h2>
+<div class="outline-text-2" id="text-org49cba7c">
 <ul class="org-ul">
 <li><a href="ioltl.html">common input and output options for LTL/PSL formulas</a></li>
 <li><a href="oaut.html">common output options for automata</a></li>
@@ -273,9 +272,9 @@ corresponding commands are hidden.
 </div>
 </div>
 
-<div id="outline-container-org3904e18" class="outline-2">
-<h2 id="org3904e18">Command-line tools</h2>
-<div class="outline-text-2" id="text-org3904e18">
+<div id="outline-container-org02967bf" class="outline-2">
+<h2 id="org02967bf">Command-line tools</h2>
+<div class="outline-text-2" id="text-org02967bf">
 <ul class="org-ul">
 <li><a href="randltl.html"><code>randltl</code></a> Generate random LTL/PSL formulas.</li>
 <li><a href="ltlfilt.html"><code>ltlfilt</code></a> Filter, convert, and transform LTL/PSL formulas.</li>
@@ -298,9 +297,9 @@ variants of Büchi automata.</li>
 </div>
 </div>
 
-<div id="outline-container-org15ac3f2" class="outline-2">
-<h2 id="org15ac3f2">Man pages</h2>
-<div class="outline-text-2" id="text-org15ac3f2">
+<div id="outline-container-orgddb7fa4" class="outline-2">
+<h2 id="orgddb7fa4">Man pages</h2>
+<div class="outline-text-2" id="text-orgddb7fa4">
 <p>
 In addition to the above illustrated documentation, Spot also installs
 man pages for all these tools.  These man pages are mostly generated
@@ -330,9 +329,9 @@ convenience, you can browse their HTML versions:
 </div>
 </div>
 
-<div id="outline-container-orgfeb26e4" class="outline-2">
-<h2 id="orgfeb26e4">Advanced use-cases</h2>
-<div class="outline-text-2" id="text-orgfeb26e4">
+<div id="outline-container-org0e32661" class="outline-2">
+<h2 id="org0e32661">Advanced use-cases</h2>
+<div class="outline-text-2" id="text-org0e32661">
 <ul class="org-ul">
 <li><a href="csv.html">Reading and writing CSV files</a></li>
 <li><a href="satmin.html">SAT-based minimization of Deterministic ω-Automata</a></li>
@@ -341,9 +340,9 @@ convenience, you can browse their HTML versions:
 </div>
 </div>
 
-<div id="outline-container-org7407dd1" class="outline-2">
-<h2 id="org7407dd1">Citing</h2>
-<div class="outline-text-2" id="text-org7407dd1">
+<div id="outline-container-orgd99c5a5" class="outline-2">
+<h2 id="orgd99c5a5">Citing</h2>
+<div class="outline-text-2" id="text-orgd99c5a5">
 <p>
 If some of these tools have played a significant role in a work that
 lead to some academic publication, please consider citing Spot.  Our

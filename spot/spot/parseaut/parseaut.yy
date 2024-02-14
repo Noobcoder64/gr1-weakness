@@ -1,5 +1,5 @@
 /* -*- coding: utf-8 -*-
-** Copyright (C) 2014-2023 Laboratoire de Recherche et Développement
+** Copyright (C) 2014-2022 Laboratoire de Recherche et Développement
 ** de l'Epita (LRDE).
 **
 ** This file is part of Spot, a model checking library.
@@ -1231,7 +1231,6 @@ body: states
 	// diagnostic, so let not add another one.
 	if (res.states >= 0)
 	  n = res.states;
-        std::vector<unsigned> unused_undeclared;
 	for (unsigned i = 0; i < n; ++i)
 	  {
 	    auto& p = res.info_states[i];
@@ -1240,43 +1239,17 @@ body: states
                 if (p.used)
                   error(p.used_loc,
                         "state " + std::to_string(i) + " has no definition");
-                if (!p.used)
-                  unused_undeclared.push_back(i);
+                if (!p.used && res.complete)
+                  if (auto p = res.prop_is_true("complete"))
+                    {
+                      error(res.states_loc,
+                            "state " + std::to_string(i) +
+                            " has no definition...");
+                      error(p.loc, "... despite 'properties: complete'");
+                    }
                 res.complete = false;
               }
 	  }
-        if (!unused_undeclared.empty())
-          {
-            std::ostringstream out;
-            unsigned uus = unused_undeclared.size();
-            int rangestart = -2;
-            int rangecur = -2;
-            const char* sep = uus > 1 ? "states " : "state ";
-            auto print_range = [&]() {
-              if (rangecur < 0)
-                return;
-              out << sep << rangestart;
-              if (rangecur != rangestart)
-                out << '-' << rangecur;
-              sep = ",";
-            };
-            for (unsigned s: unused_undeclared)
-              {
-                if ((int)s != rangecur + 1)
-                  {
-                    print_range();
-                    rangestart = s;
-                  }
-                rangecur = s;
-              }
-            print_range();
-            out << (uus > 1 ? " are" : " is") << " unused and undefined";
-            error(res.states_loc, out.str());
-
-            if (auto p = res.prop_is_true("complete"))
-              error(p.loc, "automaton is incomplete because it has "
-                    "undefined states");
-          }
         if (res.complete)
           if (auto p = res.prop_is_false("complete"))
             {
@@ -2610,7 +2583,7 @@ static void fix_initial_state(result_& r)
   start.resize(std::distance(start.begin(), res));
 
   assert(start.size() >= 1);
-  if (start.size() == 1)
+    if (start.size() == 1)
     {
       if (r.opts.want_kripke)
 	r.h->ks->set_init_state(start.front().front());
@@ -2627,13 +2600,13 @@ static void fix_initial_state(result_& r)
 				    "a single initial state");
 	  return;
 	}
-      auto& aut = r.h->aut;
       // Fiddling with initial state may turn an incomplete automaton
       // into a complete one.
-      if (aut->prop_complete().is_false())
-        aut->prop_complete(spot::trival::maybe());
+      if (r.complete.is_false())
+        r.complete = spot::trival::maybe();
       // Multiple initial states.  We might need to add a fake one,
       // unless one of the actual initial state has no incoming edge.
+      auto& aut = r.h->aut;
       std::vector<unsigned char> has_incoming(aut->num_states(), 0);
       for (auto& t: aut->edges())
         for (unsigned ud: aut->univ_dests(t))
@@ -2672,9 +2645,6 @@ static void fix_initial_state(result_& r)
             {
               unsigned p = pp.front();
               if (p != init)
-                // FIXME: If p has no incoming we should be able to
-                // change the source of the edges of p instead of
-                // adding new edges.
                 for (auto& t: aut->out(p))
                   aut->new_edge(init, t.dst, t.cond);
             }
@@ -2696,24 +2666,6 @@ static void fix_initial_state(result_& r)
               comb_or |= comb_and;
             }
           combiner.new_dests(init, comb_or);
-        }
-
-      // Merging two states may break state-based acceptance
-      // make sure all outgoing edges have the same color.
-      if (aut->prop_state_acc().is_true())
-        {
-          bool first = true;
-          spot::acc_cond::mark_t prev;
-          for (auto& e: aut->out(init))
-            if (first)
-              {
-                first = false;
-                prev = e.acc;
-              }
-            else if (e.acc != prev)
-              {
-                e.acc = prev;
-              }
         }
     }
 }
@@ -2892,8 +2844,8 @@ namespace spot
         r.aut_or_ks->set_named_prop("aliases", p);
       }
     fix_acceptance(r);
-    fix_properties(r); // before fix_initial_state
     fix_initial_state(r);
+    fix_properties(r);
     if (r.h->aut && !r.h->aut->is_existential())
       r.h->aut->merge_univ_dests();
     return r.h;

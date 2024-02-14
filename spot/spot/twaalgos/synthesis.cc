@@ -1,5 +1,5 @@
 // -*- coding: utf-8 -*-
-// Copyright (C) 2020-2023 Laboratoire de Recherche et
+// Copyright (C) 2020-2022 Laboratoire de Recherche et
 // Développement de l'Epita (LRDE).
 //
 // This file is part of Spot, a model checking library.
@@ -137,12 +137,12 @@ namespace{
   // Note, this only deals with deterministic strategies
   // Note, assumes that env starts playing
   twa_graph_ptr
-  apply_strategy(const const_twa_graph_ptr& arena,
+  apply_strategy(const twa_graph_ptr& arena,
                  bool unsplit, bool keep_acc)
   {
-    const region_t& win = get_state_winners(arena);
-    const strategy_t& strat = get_strategy(arena);
-    const region_t& sp = get_state_players(arena);
+    const auto& win = get_state_winners(arena);
+    const auto& strat = get_strategy(arena);
+    const auto& sp = get_state_players(arena);
     auto outs = get_synthesis_outputs(arena);
 
     if (!win[arena->get_init_state_number()])
@@ -574,7 +574,9 @@ namespace spot
               // implies is faster than and
               if (bdd_implies(one_letter, e_info.einsup.first))
                 {
-                  e_info.econdout = bdd_restrict(e_info.econd, one_letter);
+                  e_info.econdout =
+                      bdd_appex(e_info.econd, one_letter,
+                                bddop_and, input_bdd);
                   dests.push_back(&e_info);
                   assert(e_info.econdout != bddfalse);
                 }

@@ -145,8 +145,7 @@ ltl2tgba --help | sed -n '/ sequences:/,/^$/p' | sed '1d;$d'
                              (iw) inherently weak. Use uppercase letters to
                              negate them.
   %d                         1 if the output is deterministic, 0 otherwise
-  %e, %[LETTER]e             number of edges (add one LETTER to select (r)
-                             reachable [default], (u) unreachable, (a) all).
+  %e                         number of reachable edges
   %f                         the formula, in Spot's syntax
   %F                         name of the input file
   %g, %[LETTERS]g            acceptance condition (in HOA syntax); add brackets
@@ -171,11 +170,8 @@ ltl2tgba --help | sed -n '/ sequences:/,/^$/p' | sed '1d;$d'
                              LETTERS to restrict to(u) user time, (s) system
                              time, (p) parent process, or (c) children
                              processes.
-  %s, %[LETTER]s             number of states (add one LETTER to select (r)
-                             reachable [default], (u) unreachable, (a) all).
-  %t, %[LETTER]t             number of transitions (add one LETTER to select
-                             (r) reachable [default], (u) unreachable, (a)
-                             all).
+  %s                         number of reachable states
+  %t                         number of reachable transitions
   %u, %[e]u                  number of states (or [e]dges) with universal
                              branching
   %u, %[LETTER]u             1 if the automaton contains some universal

@@ -1,6 +1,6 @@
 // -*- coding: utf-8 -*-
-// Copyright (C) 2017-2020, 2022-2023 Laboratoire de Recherche et
-// Développement de l'Epita (LRDE).
+// Copyright (C) 2017-2020, 2022 Laboratoire de Recherche et Développement de
+// l'Epita (LRDE).
 //
 // This file is part of Spot, a model checking library.
 //
@@ -51,7 +51,7 @@
 #include <spot/misc/escape.hh>
 #include <spot/misc/timer.hh>
 
-static const char argp_program_doc[] = "\
+const char argp_program_doc[] ="\
 Call several tools that process automata and cross-compare their output \
 to detect bugs, or to gather statistics.  The list of automata to use \
 should be supplied on standard input, or using the -F option.\v\
@@ -549,7 +549,7 @@ namespace
       {
         if (!quiet)
           std::cerr << "info: building " << autname(i, is_really_comp(i))
-                    << '*' << autname(j, !is_really_comp(j))
+                    << '*' << autname(j, true ^ is_really_comp(j))
                     << " requires more acceptance sets than supported\n";
         return false;
       }
@@ -557,14 +557,14 @@ namespace
     if (verbose)
       std::cerr << "info: check_empty "
                 << autname(i, is_really_comp(i))
-                << '*' << autname(j, !is_really_comp(j)) << '\n';
+                << '*' << autname(j, true ^ is_really_comp(j)) << '\n';
 
     auto w = aut_i->intersecting_word(aut_j);
     if (w)
       {
         std::ostream& err = global_error();
         err << "error: " << autname(i, is_really_comp(i))
-            << '*' << autname(j, !is_really_comp(j))
+            << '*' << autname(j, true ^ is_really_comp(j))
             << (" is nonempty; both automata accept the infinite word:\n"
                 "       ");
         example() << *w << '\n';
@@ -613,7 +613,7 @@ namespace
           return src.str();
         }();
 
-      input_statistics.emplace_back(in_statistics());
+      input_statistics.push_back(in_statistics());
 
       input_statistics[round_num].input_source = std::move(source);
       if (auto name = input->get_named_prop<std::string>("automaton-name"))
@@ -658,7 +658,7 @@ namespace
           problems += prob;
         }
       spot::cleanup_tmpfiles();
-      output_statistics.emplace_back(std::move(stats));
+      output_statistics.push_back(std::move(stats));
 
       if (verbose)
         {

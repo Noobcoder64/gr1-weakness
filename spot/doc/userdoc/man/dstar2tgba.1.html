@@ -1,5 +1,5 @@
-<!-- Creator     : groff version 1.23.0 -->
-<!-- CreationDate: Tue Aug  1 19:58:49 2023 -->
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Sat Oct  8 19:32:55 2022 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -26,12 +26,6 @@
 <li><a href="#NAME">NAME</a></li>
 <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
 <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
-<li><a href="#Input:">Input:</a></li>
-<li><a href="#Output automaton type:">Output automaton type:</a></li>
-<li><a href="#Output format:">Output format:</a></li>
-<li><a href="#Simplification goal:">Simplification goal:</a></li>
-<li><a href="#Simplification level:">Simplification level:</a></li>
-<li><a href="#Miscellaneous options:">Miscellaneous options:</a></li>
 <li><a href="#HISTORY">HISTORY</a></li>
 <li><a href="#BIBLIOGRAPHY">BIBLIOGRAPHY</a></li>
 <li><a href="#REPORTING BUGS">REPORTING BUGS</a></li>
@@ -72,13 +66,8 @@ never claim) and outputs a Transition-based Generalized
 B&uuml;chi Automata in GraphViz&rsquo;s format by default.
 Each supplied file may contain multiple automata.</p>
 
-<h3>Input:
-<a name="Input:"></a>
-</h3>
-
-
-<p style="margin-left:11%; margin-top: 1em"><b>-F</b>,
-<b>--file</b>=<i>FILENAME</i></p>
+<h3 style="margin-left:11%">Input:</h3><p style="margin-left:11%"><b>
+-F</b>, <b>--file</b>=<i>FILENAME</i></p>
 
 <p style="margin-left:22%;">process the automaton in
 FILENAME</p>
@@ -90,13 +79,9 @@ FILENAME</p>
 HOA files are ignored, unless they can be easily verified.
 If true (the default) any supported property is trusted.</p>
 
-<h3>Output automaton type:
-<a name="Output automaton type:"></a>
-</h3>
-
-
-<p style="margin-left:11%; margin-top: 1em"><b>-b</b>,
-<b>--buchi</b>, <b>--Buchi</b></p>
+<h3 style="margin-left:11%">Output
+automaton type:</h3><p style="margin-left:11%"><b>
+-b</b>, <b>--buchi</b>, <b>--Buchi</b></p>
 
 <p style="margin-left:22%;">automaton with B&uuml;chi
 acceptance</p>
@@ -168,13 +153,9 @@ states</p>
 <p style="margin-left:22%;">automaton with Generalized
 B&uuml;chi acceptance (default)</p>
 
-<h3>Output format:
-<a name="Output format:"></a>
-</h3>
-
-
-<p style="margin-left:11%; margin-top: 1em"><b>-8</b>,
-<b>--utf8</b></p>
+<h3 style="margin-left:11%">Output
+format:</h3><p style="margin-left:11%"><b>
+-8</b>, <b>--utf8</b></p>
 
 <p style="margin-left:22%;">enable UTF-8 characters in
 output (ignored with <b>--lbtt</b> or <b>--spin</b>)</p>
@@ -342,33 +323,31 @@ Use uppercase letters to negate them.</p>
 <p>1 if the automaton is deterministic, 0 otherwise</p></td>
 <td width="5%">
 </td></tr>
-</table>
-
-<p style="margin-left:11%;">%E, %e, %[LETTER]E,
-%[LETTER]e</p>
-
-<p style="margin-left:22%;">number of edges (add one LETTER
-to select</p>
-
-<p style="margin-left:11%;">(r) reachable [default], (u)
-unreachable, (a)</p>
-
-<p style="margin-left:22%;">all).</p>
-
-<table width="100%" border="0" rules="none" frame="void"
-       cellspacing="0" cellpadding="0">
 <tr valign="top" align="left">
 <td width="11%"></td>
-<td width="3%">
+<td width="9%">
+
+
+<p>%E, %e</p></td>
+<td width="2%"></td>
+<td width="73%">
+
+
+<p>number of reachable edges</p></td>
+<td width="5%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="9%">
 
 
 <p>%F</p></td>
-<td width="8%"></td>
-<td width="33%">
+<td width="2%"></td>
+<td width="73%">
 
 
 <p>name of the input file</p></td>
-<td width="45%">
+<td width="5%">
 </td></tr>
 </table>
 
@@ -453,39 +432,46 @@ shorthand for &rsquo;lo0&rsquo;.</p>
 <td width="78%">
 
 
-<p>wall-clock time elapsed in seconds (excluding</p></td></tr>
+<p>wall-clock time elapsed in seconds (excluding
+parsing)</p> </td></tr>
 </table>
-
-<p style="margin-left:22%; margin-top: 1em">parsing)</p>
 
 <p style="margin-left:11%;">%R, %[LETTERS]R</p>
 
 <p style="margin-left:22%;">CPU time (excluding parsing),
-in seconds; Add LETTERS to restrict to (u) user time, (s)
+in seconds; Add LETTERS to restrict to(u) user time, (s)
 system time, (p) parent process, or (c) children
 processes.</p>
 
-<p style="margin-left:11%;">%S, %s, %[LETTER]S,
-%[LETTER]s</p>
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="9%">
 
-<p style="margin-left:22%;">number of states (add one
-LETTER to select</p>
 
-<p style="margin-left:11%;">(r) reachable [default], (u)
-unreachable, (a)</p>
+<p>%S, %s</p></td>
+<td width="2%"></td>
+<td width="47%">
 
-<p style="margin-left:22%;">all).</p>
 
-<p style="margin-left:11%;">%T, %t, %[LETTER]E,
-%[LETTER]e</p>
+<p>number of reachable states</p></td>
+<td width="31%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="9%">
 
-<p style="margin-left:22%;">number of transitions (add one
-LETTER to</p>
 
-<p style="margin-left:11%;">select (r) reachable [default],
-(u) unreachable,</p>
+<p>%T, %t</p></td>
+<td width="2%"></td>
+<td width="47%">
 
-<p style="margin-left:22%;">(a) all).</p>
+
+<p>number of reachable transitions</p></td>
+<td width="31%">
+</td></tr>
+</table>
 
 <p style="margin-left:11%;">%U, %u, %[LETTER]U,
 %[LETTER]u</p>
@@ -515,31 +501,21 @@ some universal</p>
 </td></tr>
 </table>
 
-<p style="margin-left:22%; margin-top: 1em">%X, %x,
-%[LETTERS]X, %[LETTERS]x</p>
+<p style="margin-left:11%;">%X, %x, %[LETTERS]X,
+%[LETTERS]x</p>
 
-<p style="margin-left:11%; margin-top: 1em">number of
-atomic propositions declared in the <br>
-automaton;</p>
-
-<p style="margin-left:22%;">add LETTERS to list atomic</p>
-
-<p style="margin-left:11%;">propositions with (n) no
-quoting, (s) occasional</p>
-
-<p style="margin-left:22%;">double-quotes with C-style
-escape, (d) double-quotes with C-style escape, (c)
-double-quotes with CSV-style escape, (p) between
-parentheses, any extra non-alphanumeric character will be
-used to separate propositions</p>
-
-<h3>Simplification goal:
-<a name="Simplification goal:"></a>
-</h3>
+<p style="margin-left:22%;">number of atomic propositions
+declared in the automaton; add LETTERS to list atomic
+propositions with (n) no quoting, (s) occasional
+double-quotes with C-style escape, (d) double-quotes with
+C-style escape, (c) double-quotes with CSV-style escape, (p)
+between parentheses, any extra non-alphanumeric character
+will be used to separate propositions</p>
 
 
-<p style="margin-left:11%; margin-top: 1em"><b>-a</b>,
-<b>--any</b></p>
+<h3 style="margin-left:11%">Simplification
+goal:</h3><p style="margin-left:11%"><b>
+-a</b>, <b>--any</b></p>
 
 <p style="margin-left:22%;">no preference, do not bother
 making it small or deterministic</p>
@@ -556,10 +532,9 @@ deterministic automaton)</p>
 <p style="margin-left:22%;">prefer small automata
 (default)</p>
 
-<h3>Simplification level:
-<a name="Simplification level:"></a>
-</h3>
 
+<h3 style="margin-left:11%">Simplification
+level:</h3>
 
 <table width="100%" border="0" rules="none" frame="void"
        cellspacing="0" cellpadding="0">
@@ -568,13 +543,12 @@ deterministic automaton)</p>
 <td width="9%">
 
 
-<p style="margin-top: 1em"><b>--high</b></p></td>
+<p><b>--high</b></p></td>
 <td width="2%"></td>
 <td width="66%">
 
 
-<p style="margin-top: 1em">all available optimizations
-(slow, default)</p></td>
+<p>all available optimizations (slow, default)</p></td>
 <td width="12%">
 </td></tr>
 <tr valign="top" align="left">
@@ -596,13 +570,10 @@ deterministic automaton)</p>
 
 <p style="margin-left:22%;">moderate optimizations</p>
 
-<h3>Miscellaneous options:
-<a name="Miscellaneous options:"></a>
-</h3>
 
-
-<p style="margin-left:11%; margin-top: 1em"><b>-x</b>,
-<b>--extra-options</b>=<i>OPTS</i></p>
+<h3 style="margin-left:11%">Miscellaneous
+options:</h3><p style="margin-left:11%"><b>
+-x</b>, <b>--extra-options</b>=<i>OPTS</i></p>
 
 <p style="margin-left:22%;">fine-tuning options (see spot-x
 (7))</p>
@@ -811,8 +782,8 @@ conditions.</p>
 
 
 <p style="margin-left:11%; margin-top: 1em">Copyright
-&copy; 2023 Laboratoire de Recherche de l&rsquo;Epita (LRE)
-License GPLv3+: <a href="http://www.gnu.org/licenses/gpl.html">GNU GPL version 3 or later</a>. <br>
+&copy; 2022 Laboratoire de Recherche et D&eacute;veloppement
+de l&rsquo;Epita. License GPLv3+: <a href="http://www.gnu.org/licenses/gpl.html">GNU GPL version 3 or later</a>. <br>
 This is free software: you are free to change and
 redistribute it. There is NO WARRANTY, to the extent
 permitted by law.</p>

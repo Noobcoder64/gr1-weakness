@@ -1,5 +1,5 @@
 // -*- coding: utf-8 -*-
-// Copyright (C) 2015-2023 Laboratoire de Recherche et Développement
+// Copyright (C) 2015-2022 Laboratoire de Recherche et Développement
 // de l'Epita (LRDE).
 //
 // This file is part of Spot, a model checking library.
@@ -53,7 +53,7 @@ struct shorthands_t
 };
 #define SHORTHAND(PRE, POST) { PRE, std::regex("^" PRE), POST }
 
-static const shorthands_t shorthands_ltl[] = {
+static shorthands_t shorthands_ltl[] = {
   SHORTHAND("delag", " %f>%O"),
   SHORTHAND("lbt", " <%L>%O"),
   SHORTHAND("ltl2ba", " -f %s>%O"),
@@ -73,7 +73,7 @@ static const shorthands_t shorthands_ltl[] = {
   SHORTHAND("owl.* ltl-utilities\\b", " -f %f"),
 };
 
-static const shorthands_t shorthands_autproc[] = {
+static shorthands_t shorthands_autproc[] = {
   SHORTHAND("autfilt", " %H>%O"),
   SHORTHAND("dra2dpa", " <%H>%O"),
   SHORTHAND("dstar2tgba", " %H>%O"),
@@ -85,7 +85,7 @@ static const shorthands_t shorthands_autproc[] = {
             " <%H>%O"),
 };
 
-static void show_shorthands(const shorthands_t* begin, const shorthands_t* end)
+static void show_shorthands(shorthands_t* begin, shorthands_t* end)
 {
   std::cout
     << ("If a COMMANDFMT does not use any %-sequence, and starts with one of\n"
@@ -100,8 +100,7 @@ static void show_shorthands(const shorthands_t* begin, const shorthands_t* end)
 }
 
 
-tool_spec::tool_spec(const char* spec,
-                     const shorthands_t* begin, const shorthands_t* end,
+tool_spec::tool_spec(const char* spec, shorthands_t* begin, shorthands_t* end,
                      bool is_ref) noexcept
   : spec(spec), cmd(spec), name(spec), reference(is_ref)
 {
@@ -114,15 +113,15 @@ tool_spec::tool_spec(const char* spec,
         {
           if (*pos == '{')
             ++count;
-          else if (*pos == '}' && --count == 0)
-            {
-              name = strndup(cmd + 1, pos - cmd - 1);
-              cmd = pos + 1;
-              // skip leading whitespace
-              while (*cmd == ' ' || *cmd == '\t')
-                ++cmd;
-              break;
-            }
+          else if (*pos == '}')
+            if (!--count)
+              {
+                name = strndup(cmd + 1, pos - cmd - 1);
+                cmd = pos + 1;
+                while (*cmd == ' ' || *cmd == '\t')
+                  ++cmd;
+                break;
+              }
         }
     }
   // If there is no % in the string, look for a known
@@ -148,11 +147,11 @@ tool_spec::tool_spec(const char* spec,
           auto& p = *begin++;
           if (std::regex_search(basename, p.rprefix))
             {
-              size_t m = strlen(p.suffix);
-              size_t q = strlen(cmd);
+              int m = strlen(p.suffix);
+              int q = strlen(cmd);
               char* tmp = static_cast<char*>(malloc(q + m + 1));
-              memcpy(tmp, cmd, q);
-              memcpy(tmp + q, p.suffix, m + 1);
+              strcpy(tmp, cmd);
+              strcpy(tmp + q, p.suffix);
               cmd = tmp;
               allocated = true;
               break;
@@ -491,8 +490,9 @@ read_stdout_of_command(char* const* args)
   if (close(cout_pipe[1]) < 0)
     error(2, errno, "closing write-side of pipe failed");
 
+  std::string buffer(32, 0);
   std::string results;
-  ssize_t bytes_read;
+  int bytes_read;
   for (;;)
     {
       static char buffer[512];
@@ -612,7 +612,7 @@ get_arg(const char*& cmd)
 {
   const char* start = cmd;
   std::string arg;
-  while (char c = *cmd)
+  while (int c = *cmd)
     {
       switch (c)
         {
@@ -642,14 +642,14 @@ get_arg(const char*& cmd)
           goto end_loop;
         case '\'':
           {
-            char d = '\0';
+            int d = 0;
             while ((d = *++cmd))
               {
                 if (d == '\'')
                   break;
                 arg.push_back(d);
               }
-            if (d == '\0')
+            if (d == 0)
               return nullptr;
           }
           break;

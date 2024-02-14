@@ -1,5 +1,5 @@
 // -*- coding: utf-8 -*-
-// Copyright (C) 2015-2022 Laboratoire de Recherche et
+// Copyright (C) 2015-2021 Laboratoire de Recherche et
 // Développement de l'Epita.
 //
 // This file is part of Spot, a model checking library.
@@ -472,23 +472,15 @@ namespace spot
       std::vector<safra_state::safra_node_t> res;
       for (const auto& n: s.nodes_)
         {
-          // First, count the number of braces.
-          unsigned nbraces = 0;
-          for (int brace = n.second; brace >= 0; brace = s.braces_[brace])
-            ++nbraces;
-          // Then list them in reverse order.  Since we know the
-          // number of braces, we can allocate exactly what we need.
-          if (nbraces > 0)
+          int brace = n.second;
+          std::vector<int> tmp;
+          while (brace >= 0)
             {
-              std::vector<int> tmp(nbraces, 0);
-              for (int brace = n.second; brace >= 0; brace = s.braces_[brace])
-                tmp[--nbraces] = brace;
-              res.emplace_back(n.first, std::move(tmp));
+              // FIXME is not there a smarter way?
+              tmp.insert(tmp.begin(), brace);
+              brace = s.braces_[brace];
             }
-          else
-            {
-              res.emplace_back(n.first, std::vector<int>{});
-            }
+          res.emplace_back(n.first, std::move(tmp));
         }
       std::sort(res.begin(), res.end(), compare());
       return res;
@@ -789,7 +781,7 @@ namespace spot
   bool
   safra_state::operator<(const safra_state& other) const
   {
-    // FIXME: what is the right, if any, comparison to perform?
+    // FIXME what is the right, if any, comparison to perform?
     return braces_ == other.braces_ ? nodes_ < other.nodes_
                                     : braces_ < other.braces_;
   }
@@ -895,7 +887,7 @@ namespace spot
           // NB spot::simulation() does not remove unreachable states, as it
           // would invalidate the contents of 'implications'.
           // so we need to explicitly test for unreachable states
-          // FIXME: based on the scc_info, we could remove the unreachable
+          // FIXME based on the scc_info, we could remove the unreachable
           // states, both in the input automaton and in 'implications'
           // to reduce the size of 'implies'.
           if (!scc.reachable_state(i))
@@ -930,7 +922,7 @@ namespace spot
     std::vector<bdd> support(aut->num_states());
     if (use_stutter && aut->prop_stutter_invariant())
       {
-        // FIXME: this could be improved
+        // FIXME this could be improved
         // supports of states should account for possible stuttering if we plan
         // to use stuttering invariance
         for (unsigned c = 0; c != scc.scc_count(); ++c)

@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-08-01 Tue 20:00 -->
+<!-- 2022-10-08 Sat 19:38 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Using games to check a simulation</title>
@@ -192,41 +192,30 @@
     { font-size: 10px; font-weight: bold; white-space: nowrap; }
   .org-info-js_search-highlight
     { background-color: #ffff00; color: #000000; font-weight: bold; }
-  .org-svg { }
+  .org-svg { width: 90%; }
 </style>
 <link rel="stylesheet" type="text/css" href="spot.css" />
-<script>
-  window.MathJax = {
-    tex: {
-      ams: {
-        multlineWidth: '85%'
-      },
-      tags: 'ams',
-      tagSide: 'right',
-      tagIndent: '.8em'
-    },
-    chtml: {
-      scale: 1.0,
-      displayAlign: 'center',
-      displayIndent: '0em'
-    },
-    svg: {
-      scale: 1.0,
-      displayAlign: 'center',
-      displayIndent: '0em'
-    },
-    output: {
-      font: 'mathjax-modern',
-      displayOverflow: 'overflow'
-    }
-  };
-</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
 
-<script
-  id="MathJax-script"
-  async
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
 </head>
 <body>
 <div id="org-div-home-and-up">
@@ -239,15 +228,14 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgdc06b76">Python</a></li>
-<li><a href="#orga412e12">C++</a></li>
+<li><a href="#org9c3a1ab">Python</a></li>
+<li><a href="#org2e581ef">C++</a></li>
 </ul>
 </div>
 </div>
 
-<div id="orga7d9795" class="figure">
-<p><object type="image/svg+xml" data="spot2.svg" class="org-svg" id="spotlogo">
-Sorry, your browser does not support SVG.</object>
+<div id="org8477c68" class="figure">
+<p><img src="spot2.svg" alt="spot2.svg" class="org-svg" id="spotlogo" />
 </p>
 </div>
 <p>
@@ -280,7 +268,7 @@ and state 4 simulates state 0.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-hoa" id="org6a232b1"><span class="org-hoa-header-uppercase">HOA:</span> v1
+<pre class="src src-hoa" id="org40e6a99"><span class="org-hoa-header-uppercase">HOA:</span> v1
 <span class="org-hoa-header-uppercase">States:</span> 6
 <span class="org-hoa-header-uppercase">Start:</span> 0
 <span class="org-hoa-header-uppercase">AP:</span> 2 <span class="org-string">"a"</span> <span class="org-string">"b"</span>
@@ -304,9 +292,8 @@ and state 4 simulates state 0.
 </div>
 
 
-<div id="orgf22a72e" class="figure">
-<p><object type="image/svg+xml" data="tut40in.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org3d0ea92" class="figure">
+<p><img src="tut40in.svg" alt="tut40in.svg" class="org-svg" />
 </p>
 </div>
 
@@ -334,9 +321,8 @@ Here is how the game arena look like starting from \((q,q')=(4,0)\):
 </p>
 
 
-<div id="orge16a7db" class="figure">
-<p><object type="image/svg+xml" data="tut40gameunsolved.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org38ec652" class="figure">
+<p><img src="tut40gameunsolved.svg" alt="tut40gameunsolved.svg" class="org-svg" />
 </p>
 </div>
 
@@ -356,9 +342,8 @@ strategies.
 </p>
 
 
-<div id="org99730a6" class="figure">
-<p><object type="image/svg+xml" data="tut40gamesolved.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org5366e3b" class="figure">
+<p><img src="tut40gamesolved.svg" alt="tut40gamesolved.svg" class="org-svg" />
 </p>
 </div>
 
@@ -372,9 +357,9 @@ games, or add more state to this game, to learn about other pairs of
 states.
 </p>
 
-<div id="outline-container-orgdc06b76" class="outline-2">
-<h2 id="orgdc06b76">Python</h2>
-<div class="outline-text-2" id="text-orgdc06b76">
+<div id="outline-container-org9c3a1ab" class="outline-2">
+<h2 id="org9c3a1ab">Python</h2>
+<div class="outline-text-2" id="text-org9c3a1ab">
 <p>
 We now look at how to create such a game in Python.
 </p>
@@ -388,7 +373,7 @@ automaton interface, and the owners are set by calling
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python" id="org0e23031"><span class="org-keyword">import</span> spot
+<pre class="src src-python" id="org24d98dd"><span class="org-keyword">import</span> spot
 <span class="org-keyword">from</span> spot <span class="org-keyword">import</span> buddy
 
 <span class="org-keyword">def</span> <span class="org-function-name">direct_sim_game</span>(aut, s1, s2):
@@ -475,7 +460,7 @@ in state \((i,j)\), we could proceed as follow:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python" id="org9ef7d65"><span class="org-keyword">def</span> <span class="org-function-name">list_simulations</span>(aut, i, j):
+<pre class="src src-python" id="org64983bb"><span class="org-keyword">def</span> <span class="org-function-name">list_simulations</span>(aut, i, j):
     <span class="org-variable-name">g</span> = direct_sim_game(aut, i, j)
     spot.solve_game(g)
 
@@ -509,9 +494,9 @@ On our running example, that gives:
 </div>
 </div>
 
-<div id="outline-container-orga412e12" class="outline-2">
-<h2 id="orga412e12">C++</h2>
-<div class="outline-text-2" id="text-orga412e12">
+<div id="outline-container-org2e581ef" class="outline-2">
+<h2 id="org2e581ef">C++</h2>
+<div class="outline-text-2" id="text-org2e581ef">
 <p>
 Here is some almost equivalent code in C++.
 </p>
@@ -523,7 +508,7 @@ product of automata.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-C++" id="org10cbb44"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;spot/twaalgos/game.hh&gt;</span>
+<pre class="src src-C++" id="orgb69be42"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;spot/twaalgos/game.hh&gt;</span>
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;spot/twa/twagraph.hh&gt;</span>
 
 <span class="org-constant">spot</span>::<span class="org-type">twa_graph_ptr</span> <span class="org-function-name">direct_sim_game</span>(<span class="org-constant">spot</span>::<span class="org-type">const_twa_graph_ptr</span> <span class="org-variable-name">aut</span>,
@@ -613,7 +598,7 @@ need to read the automaton from a file.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-C++" id="orgf1bbd1e"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;iostream&gt;</span>
+<pre class="src src-C++" id="orga4cbd0f"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;iostream&gt;</span>
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;spot/twa/twagraph.hh&gt;</span>
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;spot/parseaut/public.hh&gt;</span>
 

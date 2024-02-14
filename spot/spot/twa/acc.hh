@@ -60,6 +60,11 @@ namespace spot
   /// could be removed.)
   class SPOT_API acc_cond
   {
+
+  public:
+    bool
+    has_parity_prefix(acc_cond& new_acc, std::vector<unsigned>& colors) const;
+
 #ifndef SWIG
   private:
     [[noreturn]] static void report_too_many_sets();
@@ -96,6 +101,10 @@ namespace spot
     public:
       /// Initialize an empty mark_t.
       mark_t() = default;
+
+      mark_t
+      apply_permutation(std::vector<unsigned> permut);
+
 
 #ifndef SWIG
       /// Create a mark_t from a range of set numbers.
@@ -479,6 +488,15 @@ namespace spot
     {
       acc_code
       unit_propagation();
+
+      bool
+      has_parity_prefix(acc_cond& new_cond,
+        std::vector<unsigned>& colors) const;
+
+      bool
+      is_parity_max_equiv(std::vector<int>& permut,
+                        unsigned new_color,
+                        bool even) const;
 
      bool operator==(const acc_code& other) const
       {
@@ -993,7 +1011,6 @@ namespace spot
         return res;
       }
 
-#ifndef SWIG
       /// \brief Conjunct the current condition with \a r.
       acc_code operator&(acc_code&& r) const
       {
@@ -1001,7 +1018,6 @@ namespace spot
         res &= r;
         return res;
       }
-#endif // SWIG
 
       /// \brief Disjunct the current condition in place with \a r.
       acc_code& operator|=(const acc_code& r)
@@ -1090,7 +1106,6 @@ namespace spot
         return *this;
       }
 
-#ifndef SWIG
       /// \brief Disjunct the current condition with \a r.
       acc_code operator|(acc_code&& r) const
       {
@@ -1098,7 +1113,6 @@ namespace spot
         res |= r;
         return res;
       }
-#endif // SWIG
 
       /// \brief Disjunct the current condition with \a r.
       acc_code operator|(const acc_code& r) const
@@ -1775,6 +1789,8 @@ namespace spot
     bool is_parity(bool& max, bool& odd, bool equiv = false) const;
 
 
+    bool is_parity_max_equiv(std::vector<int>& permut, bool even) const;
+
     /// \brief check is the acceptance condition matches one of the
     /// four type of parity acceptance defined in the HOA format.
     bool is_parity() const
@@ -1954,6 +1970,57 @@ namespace spot
     mark_t all_sets() const
     {
       return all_;
+    }
+
+    acc_cond
+    apply_permutation(std::vector<unsigned>permut)
+    {
+      return acc_cond(apply_permutation_aux(permut));
+    }
+
+    acc_code
+    apply_permutation_aux(std::vector<unsigned>permut)
+    {
+      auto conj = top_conjuncts();
+      auto disj = top_disjuncts();
+
+      if (conj.size() > 1)
+      {
+        auto transformed = std::vector<acc_code>();
+        for (auto elem : conj)
+          transformed.push_back(elem.apply_permutation_aux(permut));
+        std::sort(transformed.begin(), transformed.end());
+        auto uniq = std::unique(transformed.begin(), transformed.end());
+        auto result = std::accumulate(transformed.begin(), uniq, acc_code::t(),
+          [](acc_code c1, acc_code c2)
+              {
+                return c1 & c2;
+              });
+        return result;
+      }
+      else if (disj.size() > 1)
+      {
+        auto transformed = std::vector<acc_code>();
+        for (auto elem : disj)
+          transformed.push_back(elem.apply_permutation_aux(permut));
+        std::sort(transformed.begin(), transformed.end());
+        auto uniq = std::unique(transformed.begin(), transformed.end());
+        auto result = std::accumulate(transformed.begin(), uniq, acc_code::f(),
+          [](acc_code c1, acc_code c2)
+              {
+                return c1 | c2;
+              });
+        return result;
+      }
+      else
+      {
+        if (code_.back().sub.op == acc_cond::acc_op::Fin)
+          return fin(code_[0].mark.apply_permutation(permut));
+        if (code_.back().sub.op == acc_cond::acc_op::Inf)
+          return inf(code_[0].mark.apply_permutation(permut));
+      }
+      SPOT_ASSERT(false);
+      return {};
     }
 
     /// \brief Check whether visiting *exactly* all sets \a inf
@@ -2401,6 +2468,16 @@ namespace spot
   inline spot::internal::mark_container acc_cond::mark_t::sets() const
   {
     return {*this};
+  }
+
+  inline acc_cond::mark_t
+  acc_cond::mark_t::apply_permutation(std::vector<unsigned> permut)
+  {
+    mark_t result { };
+    for (auto color : sets())
+      if (color < permut.size())
+        result.set(permut[color]);
+    return result;
   }
 }
 

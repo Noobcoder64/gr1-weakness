@@ -387,15 +387,27 @@ namespace spot
     return aut;
   }
 
-  reduce_parity_data::reduce_parity_data(const const_twa_graph_ptr& aut,
-                                         bool layered)
+  twa_graph_ptr
+  reduce_parity(const const_twa_graph_ptr& aut, bool colored)
   {
-    if (!aut->acc().is_parity(parity_max, parity_odd, true))
-      input_is_not_parity("reduce_parity_data");
+    return reduce_parity_here(make_twa_graph(aut, twa::prop_set::all()),
+                              colored);
+  }
+
+  twa_graph_ptr
+  reduce_parity_here(twa_graph_ptr aut, bool colored)
+  {
+    unsigned num_sets = aut->num_sets();
+    if (!colored && num_sets == 0)
+      return aut;
+
+    bool current_max;
+    bool current_odd;
+    if (!aut->acc().is_parity(current_max, current_odd, true))
+      input_is_not_parity("reduce_parity");
     if (!aut->is_existential())
       throw std::runtime_error
-        ("reduce_parity_data() does not support alternation");
-    unsigned num_sets = aut->num_sets();
+        ("reduce_parity_here() does not support alternation");
 
     // The algorithm assumes "max odd" or "max even" parity.  "min"
     // parity is handled by converting it to "max" while the algorithm
@@ -454,8 +466,8 @@ namespace spot
     //
     // -2 means the edge was never assigned a color.
     unsigned evs = aut->edge_vector().size();
-    piprime1.resize(evs, -2); // k=1
-    piprime2.resize(evs, -2); // k=0
+    std::vector<int> piprime1(evs, -2); // k=1
+    std::vector<int> piprime2(evs, -2); // k=0
     bool sba = aut->prop_state_acc().is_true();
 
     auto rec =
@@ -469,7 +481,7 @@ namespace spot
             {
               int piri;         // π(Rᵢ)
               int color;        // corresponding color, to deal with "min" kind
-              if (parity_max)
+              if (current_max)
                 {
                   piri = color = si.acc_sets_of(scc).max_set() - 1;
                 }
@@ -495,30 +507,15 @@ namespace spot
                   m.first += (piri - m.first) & 1;
                   m.second += (piri - m.second) & 1;
                 }
-              // Recolor edges.  Depending on LAYERED we want to
-              // either recolor all edges for which piprime1 is -2
-              // (uncolored), or only the edges that we were removed
-              // by the previous filter.
-              auto coloredge = [&](auto& e) {
-                unsigned en = aut->edge_number(e);
-                bool recolor = layered
-                  ? piprime1[en] == -2
-                  : (piri >= 0 && e.acc.has(color)) || (piri < 0 && !e.acc);
-                if (recolor)
-                  {
-                    piprime1[en] = m.first;
-                    piprime2[en] = m.second;
-                  }
-              };
-              if (sba)
-                // si.edges_of(scc) would be wrong as it can ignore
-                // outgoing edges removed from a previous level.
-                for (unsigned s: si.states_of(scc))
-                  for (auto& e: aut->out(s))
-                    coloredge(e);
-              else
-                for (auto& e: si.inner_edges_of(scc))
-                  coloredge(e);
+              for (unsigned state: si.states_of(scc))
+                for (auto& e: aut->out(state))
+                  if ((sba || si.scc_of(e.dst) == scc) &&
+                      ((piri >= 0 && e.acc.has(color)) || (piri < 0 && !e.acc)))
+                    {
+                      unsigned en = aut->edge_number(e);
+                      piprime1[en] = m.first;
+                      piprime2[en] = m.second;
+                    }
               res.first = std::max(res.first, m.first);
               res.second = std::max(res.second, m.second);
             }
@@ -526,28 +523,11 @@ namespace spot
       };
     scc_and_mark_filter filter1(aut, {});
     rec(filter1, rec);
-  }
-
-  twa_graph_ptr
-  reduce_parity(const const_twa_graph_ptr& aut, bool colored, bool layered)
-  {
-    return reduce_parity_here(make_twa_graph(aut, twa::prop_set::all()),
-                              colored, layered);
-  }
-
-  twa_graph_ptr
-  reduce_parity_here(twa_graph_ptr aut, bool colored, bool layered)
-  {
-    unsigned num_sets = aut->num_sets();
-    if (!colored && num_sets == 0)
-      return aut;
-
-    reduce_parity_data pd(aut, layered);
 
     // compute the used range for each vector.
     int min1 = num_sets;
     int max1 = -2;
-    for (int m : pd.piprime1)
+    for (int m : piprime1)
       {
         if (m <= -2)
           continue;
@@ -564,7 +544,7 @@ namespace spot
       }
     int min2 = num_sets;
     int max2 = -2;
-    for (int m : pd.piprime2)
+    for (int m : piprime2)
       {
         if (m <= -2)
           continue;
@@ -580,13 +560,13 @@ namespace spot
       {
         std::swap(size1, size2);
         std::swap(min1, min2);
-        std::swap(pd.piprime1, pd.piprime2);
+        std::swap(piprime1, piprime2);
       }
 
     unsigned new_num_sets = size1;
-    if (pd.parity_max)
+    if (current_max)
       {
-        for (int& m : pd.piprime1)
+        for (int& m : piprime1)
           if (m > -2)
             m -= min1;
           else
@@ -594,7 +574,7 @@ namespace spot
       }
     else
       {
-        for (int& m : pd.piprime1)
+        for (int& m : piprime1)
           if (m > -2)
             m = new_num_sets - (m - min1) - 1;
           else
@@ -602,8 +582,8 @@ namespace spot
       }
 
     // The parity style changes if we shift colors by an odd number.
-    bool new_odd = pd.parity_odd ^ (min1 & 1);
-    if (!pd.parity_max)
+    bool new_odd = current_odd ^ (min1 & 1);
+    if (!current_max)
       // Switching from min<->max changes the parity style every time
       // the number of colors is even.  If the input was "min", we
       // switched once to "max" to apply the reduction and once again
@@ -612,7 +592,7 @@ namespace spot
       new_odd ^= !(num_sets & 1) ^ !(new_num_sets & 1);
     if (!colored)
       {
-        new_odd ^= pd.parity_max;
+        new_odd ^= current_max;
         new_num_sets -= 1;
 
         // It seems we have nothing to win by changing automata with a
@@ -622,18 +602,18 @@ namespace spot
       }
 
     aut->set_acceptance(new_num_sets,
-                        acc_cond::acc_code::parity(pd.parity_max, new_odd,
+                        acc_cond::acc_code::parity(current_max, new_odd,
                                                    new_num_sets));
     if (colored)
       for (auto& e: aut->edges())
         {
           unsigned n = aut->edge_number(e);
-          e.acc = acc_cond::mark_t({unsigned(pd.piprime1[n])});
+          e.acc = acc_cond::mark_t({unsigned(piprime1[n])});
         }
-    else if (pd.parity_max)
+    else if (current_max)
       for (auto& e: aut->edges())
         {
-          unsigned n = pd.piprime1[aut->edge_number(e)];
+          unsigned n = piprime1[aut->edge_number(e)];
           if (n == 0)
             e.acc = acc_cond::mark_t({});
           else
@@ -642,7 +622,7 @@ namespace spot
     else
       for (auto& e: aut->edges())
         {
-          unsigned n = pd.piprime1[aut->edge_number(e)];
+          unsigned n = piprime1[aut->edge_number(e)];
           if (n >= new_num_sets)
             e.acc = acc_cond::mark_t({});
           else

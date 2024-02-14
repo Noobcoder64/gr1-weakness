@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-08-01 Tue 20:02 -->
+<!-- 2022-10-08 Sat 19:36 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Working with LTL formulas with finite semantics</title>
@@ -192,7 +192,7 @@
     { font-size: 10px; font-weight: bold; white-space: nowrap; }
   .org-info-js_search-highlight
     { background-color: #ffff00; color: #000000; font-weight: bold; }
-  .org-svg { }
+  .org-svg { width: 90%; }
 </style>
 <link rel="stylesheet" type="text/css" href="spot.css" />
 </head>
@@ -207,17 +207,16 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org3990642">Shell version</a></li>
-<li><a href="#orgbea1992">Python version</a></li>
-<li><a href="#org19d7c58">C++ version</a></li>
-<li><a href="#orgcfd08f7">Final notes</a></li>
+<li><a href="#org6685533">Shell version</a></li>
+<li><a href="#org3b7ed71">Python version</a></li>
+<li><a href="#org79b25e0">C++ version</a></li>
+<li><a href="#org03829ee">Final notes</a></li>
 </ul>
 </div>
 </div>
 
-<div id="org0ff635b" class="figure">
-<p><object type="image/svg+xml" data="spot2.svg" class="org-svg" id="spotlogo">
-Sorry, your browser does not support SVG.</object>
+<div id="orge8beae9" class="figure">
+<p><img src="spot2.svg" alt="spot2.svg" class="org-svg" id="spotlogo" />
 </p>
 </div>
 <p>
@@ -245,9 +244,8 @@ formula <code>(a U b) &amp; Fc</code> would be transformed into
 Convert the resulting formula into a Büchi automaton:
 </p>
 
-<div id="org84928e0" class="figure">
-<p><object type="image/svg+xml" data="tut12a.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org88e1908" class="figure">
+<p><img src="tut12a.svg" alt="tut12a.svg" class="org-svg" />
 </p>
 </div></li>
 <li><p>
@@ -258,9 +256,8 @@ a false self-loop on any accepting state without a successor in
 order to mark it as accepting.)
 </p>
 
-<div id="org3367993" class="figure">
-<p><object type="image/svg+xml" data="tut12b.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="orge6c462d" class="figure">
+<p><img src="tut12b.svg" alt="tut12b.svg" class="org-svg" />
 </p>
 </div></li>
 <li>Interpret the above automaton as finite automaton.  (This part is
@@ -277,9 +274,9 @@ paper</a>, but that second paper forgets to ensure that <code>alive</code> holds
 initially, as required in the first paper&#x2026;
 </p>
 
-<div id="outline-container-org3990642" class="outline-2">
-<h2 id="org3990642">Shell version</h2>
-<div class="outline-text-2" id="text-org3990642">
+<div id="outline-container-org6685533" class="outline-2">
+<h2 id="org6685533">Shell version</h2>
+<div class="outline-text-2" id="text-org6685533">
 <p>
 The first four steps of the above sequence of operations can be
 executed as follows.  Transforming LTLf to LTL can be done using
@@ -297,7 +294,7 @@ Büchi automaton as a finite automaton is out of scope for Spot.
 </pre>
 </div>
 
-<pre class="example" id="org5fb8562">
+<pre class="example" id="org14b8522">
 HOA: v1
 States: 4
 Start: 2
@@ -329,9 +326,9 @@ automaton is output.
 </div>
 </div>
 
-<div id="outline-container-orgbea1992" class="outline-2">
-<h2 id="orgbea1992">Python version</h2>
-<div class="outline-text-2" id="text-orgbea1992">
+<div id="outline-container-org3b7ed71" class="outline-2">
+<h2 id="org3b7ed71">Python version</h2>
+<div class="outline-text-2" id="text-org3b7ed71">
 <p>
 In Python, we use the <code>from_ltlf()</code> function to convert from LTLf to
 LTL and translate the result into a Büchi automaton using
@@ -349,7 +346,7 @@ function.
 </pre>
 </div>
 
-<pre class="example" id="org890a610">
+<pre class="example" id="org771a84a">
 HOA: v1
 States: 4
 Start: 2
@@ -382,9 +379,9 @@ print of an automaton</a>.
 </div>
 </div>
 
-<div id="outline-container-org19d7c58" class="outline-2">
-<h2 id="org19d7c58">C++ version</h2>
-<div class="outline-text-2" id="text-org19d7c58">
+<div id="outline-container-org79b25e0" class="outline-2">
+<h2 id="org79b25e0">C++ version</h2>
+<div class="outline-text-2" id="text-org79b25e0">
 <p>
 The C++ version is straightforward adaptation of the Python version.
 (The Python function <code>translate()</code> is a convenient Python-only
@@ -418,7 +415,7 @@ here.)
 </pre>
 </div>
 
-<pre class="example" id="org6204f81">
+<pre class="example" id="orgd27d93a">
 HOA: v1
 States: 4
 Start: 2
@@ -450,9 +447,9 @@ need to print in some format for NFA/DFA.
 </div>
 </div>
 
-<div id="outline-container-orgcfd08f7" class="outline-2">
-<h2 id="orgcfd08f7">Final notes</h2>
-<div class="outline-text-2" id="text-orgcfd08f7">
+<div id="outline-container-org03829ee" class="outline-2">
+<h2 id="org03829ee">Final notes</h2>
+<div class="outline-text-2" id="text-org03829ee">
 <p>
 Spot only deals with infinite behaviors, so if you plan to use Spot to
 perform some LTLf model checking, you should stop at step 3.  Keep the
@@ -487,9 +484,8 @@ To see the difference between <code>X</code> and <code>X[!]</code>, consider the
 of <code>(a &amp; Xa) | (b &amp; X[!]b)</code>:
 </p>
 
-<div id="orgb5a9b3b" class="figure">
-<p><object type="image/svg+xml" data="tut12c.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org727e9a4" class="figure">
+<p><img src="tut12c.svg" alt="tut12c.svg" class="org-svg" />
 </p>
 </div>
 
@@ -505,9 +501,8 @@ self-loop labeled by <b>false</b> (internally, this extra edge is carrying
 the acceptance mark that is displayed on the state).  For instance:
 </p>
 
-<div id="orgff5c5c9" class="figure">
-<p><object type="image/svg+xml" data="tut12d.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="orgab0d11a" class="figure">
+<p><img src="tut12d.svg" alt="tut12d.svg" class="org-svg" />
 </p>
 </div>
 </div>

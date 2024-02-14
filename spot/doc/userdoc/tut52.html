@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-08-01 Tue 20:05 -->
+<!-- 2022-10-08 Sat 19:39 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Playing with explicit Kripke structures</title>
@@ -192,41 +192,30 @@
     { font-size: 10px; font-weight: bold; white-space: nowrap; }
   .org-info-js_search-highlight
     { background-color: #ffff00; color: #000000; font-weight: bold; }
-  .org-svg { }
+  .org-svg { width: 90%; }
 </style>
 <link rel="stylesheet" type="text/css" href="spot.css" />
-<script>
-  window.MathJax = {
-    tex: {
-      ams: {
-        multlineWidth: '85%'
-      },
-      tags: 'ams',
-      tagSide: 'right',
-      tagIndent: '.8em'
-    },
-    chtml: {
-      scale: 1.0,
-      displayAlign: 'center',
-      displayIndent: '0em'
-    },
-    svg: {
-      scale: 1.0,
-      displayAlign: 'center',
-      displayIndent: '0em'
-    },
-    output: {
-      font: 'mathjax-modern',
-      displayOverflow: 'overflow'
-    }
-  };
-</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
 
-<script
-  id="MathJax-script"
-  async
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
 </head>
 <body>
 <div id="org-div-home-and-up">
@@ -239,25 +228,24 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgbad7c5a">C++ implementation</a>
+<li><a href="#org3a21202">C++ implementation</a>
 <ul>
-<li><a href="#orgcc4bd79">Building the state space</a></li>
-<li><a href="#orgea09ed4">Checking a property on this state space</a></li>
+<li><a href="#org77306ad">Building the state space</a></li>
+<li><a href="#org6396bad">Checking a property on this state space</a></li>
 </ul>
 </li>
-<li><a href="#org4907748">Python implementation</a>
+<li><a href="#org587647d">Python implementation</a>
 <ul>
-<li><a href="#org9fb8f27">Building the state space</a></li>
-<li><a href="#org9504590">Checking a property on this state space</a></li>
+<li><a href="#org6d9bb22">Building the state space</a></li>
+<li><a href="#org79acbc5">Checking a property on this state space</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="orgf666dd9" class="figure">
-<p><object type="image/svg+xml" data="spot2.svg" class="org-svg" id="spotlogo">
-Sorry, your browser does not support SVG.</object>
+<div id="org8252834" class="figure">
+<p><img src="spot2.svg" alt="spot2.svg" class="org-svg" id="spotlogo" />
 </p>
 </div>
 <p>
@@ -311,19 +299,19 @@ often holds as well.
 </p>
 
 
-<div id="outline-container-orgbad7c5a" class="outline-2">
-<h2 id="orgbad7c5a">C++ implementation</h2>
-<div class="outline-text-2" id="text-orgbad7c5a">
+<div id="outline-container-org3a21202" class="outline-2">
+<h2 id="org3a21202">C++ implementation</h2>
+<div class="outline-text-2" id="text-org3a21202">
 </div>
-<div id="outline-container-orgcc4bd79" class="outline-3">
-<h3 id="orgcc4bd79">Building the state space</h3>
-<div class="outline-text-3" id="text-orgcc4bd79">
+<div id="outline-container-org77306ad" class="outline-3">
+<h3 id="org77306ad">Building the state space</h3>
+<div class="outline-text-3" id="text-org77306ad">
 <p>
 Here is how we could create the Kripke structure:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-C++" id="org293e024"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;spot/kripke/kripkegraph.hh&gt;</span>
+<pre class="src src-C++" id="org8cbb4d3"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;spot/kripke/kripkegraph.hh&gt;</span>
 
 <span class="org-constant">spot</span>::<span class="org-type">kripke_graph_ptr</span> <span class="org-function-name">create_kripke</span>(<span class="org-constant">spot</span>::<span class="org-type">bdd_dict_ptr</span> <span class="org-variable-name">dict</span>,
                                      <span class="org-type">bool</span> <span class="org-variable-name">named_states</span> = <span class="org-constant">false</span>)
@@ -374,7 +362,7 @@ function:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-C++" id="org7eafc82"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;spot/twaalgos/dot.hh&gt;</span>
+<pre class="src src-C++" id="org9e2773e"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;spot/twaalgos/dot.hh&gt;</span>
 
 <span class="org-type">int</span> <span class="org-function-name">main</span>()
 {
@@ -390,9 +378,8 @@ have to pass it to GraphViz's <code>dot</code> command to render it:
 </p>
 
 
-<div id="orgd4d3bc5" class="figure">
-<p><object type="image/svg+xml" data="kripke-52.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org230a88b" class="figure">
+<p><img src="kripke-52.svg" alt="kripke-52.svg" class="org-svg" />
 </p>
 </div>
 
@@ -404,7 +391,7 @@ that when passed a true argument.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-C++" id="orgdd43d87"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;spot/twaalgos/dot.hh&gt;</span>
+<pre class="src src-C++" id="org5eed945"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;spot/twaalgos/dot.hh&gt;</span>
 
 <span class="org-type">int</span> <span class="org-function-name">main</span>()
 {
@@ -415,17 +402,16 @@ that when passed a true argument.
 </div>
 
 
-<div id="orgca9dd85" class="figure">
-<p><object type="image/svg+xml" data="kripke-52b.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org34ecece" class="figure">
+<p><img src="kripke-52b.svg" alt="kripke-52b.svg" class="org-svg" />
 </p>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgea09ed4" class="outline-3">
-<h3 id="orgea09ed4">Checking a property on this state space</h3>
-<div class="outline-text-3" id="text-orgea09ed4">
+<div id="outline-container-org6396bad" class="outline-3">
+<h3 id="org6396bad">Checking a property on this state space</h3>
+<div class="outline-text-3" id="text-org6396bad">
 <p>
 Let us pretend that we want to verify the following property: if
 <code>odd_x</code> infinitely often holds, then <code>odd_y</code> infinitely often holds.
@@ -444,7 +430,7 @@ counterexample:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-C++" id="org358c40c"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;spot/tl/parse.hh&gt;</span>
+<pre class="src src-C++" id="org9083a54"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;spot/tl/parse.hh&gt;</span>
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;spot/twaalgos/translate.hh&gt;</span>
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;spot/twaalgos/emptiness.hh&gt;</span>
 
@@ -499,15 +485,15 @@ similar way.
 </div>
 </div>
 
-<div id="outline-container-org4907748" class="outline-2">
-<h2 id="org4907748">Python implementation</h2>
-<div class="outline-text-2" id="text-org4907748">
+<div id="outline-container-org587647d" class="outline-2">
+<h2 id="org587647d">Python implementation</h2>
+<div class="outline-text-2" id="text-org587647d">
 </div>
-<div id="outline-container-org9fb8f27" class="outline-3">
-<h3 id="org9fb8f27">Building the state space</h3>
-<div class="outline-text-3" id="text-org9fb8f27">
+<div id="outline-container-org6d9bb22" class="outline-3">
+<h3 id="org6d9bb22">Building the state space</h3>
+<div class="outline-text-3" id="text-org6d9bb22">
 <div class="org-src-container">
-<pre class="src src-python" id="orgb9f1396"><span class="org-keyword">import</span> spot
+<pre class="src src-python" id="org4263180"><span class="org-keyword">import</span> spot
 <span class="org-keyword">from</span> buddy <span class="org-keyword">import</span> bdd_ithvar
 
 <span class="org-keyword">def</span> <span class="org-function-name">create_kripke</span>(bdddict, name_states=<span class="org-constant">False</span>):
@@ -552,7 +538,7 @@ convert the resulting textual output into graphical form using the
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python" id="orgd8bea65">
+<pre class="src src-python" id="org713a93e">
 <span class="org-variable-name">k</span> = create_kripke(spot.make_bdd_dict())
 <span class="org-builtin">print</span>(k.to_str(<span class="org-string">'dot'</span>))
 </pre>
@@ -564,9 +550,8 @@ have to pass it to GraphViz's <code>dot</code> command to render it:
 </p>
 
 
-<div id="org042ccd9" class="figure">
-<p><object type="image/svg+xml" data="kripke-52c.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org8975a47" class="figure">
+<p><img src="kripke-52c.svg" alt="kripke-52c.svg" class="org-svg" />
 </p>
 </div>
 
@@ -578,32 +563,31 @@ a vector of names (indexed by state numbers) to the <code>set_name_states()</cod
 
 
 <div class="org-src-container">
-<pre class="src src-python" id="org4c3b00f">
+<pre class="src src-python" id="org9adcf8d">
 <span class="org-variable-name">k</span> = create_kripke(spot.make_bdd_dict(), <span class="org-constant">True</span>)
 <span class="org-builtin">print</span>(k.to_str(<span class="org-string">'dot'</span>))
 </pre>
 </div>
 
 
-<div id="orgc5d5572" class="figure">
-<p><object type="image/svg+xml" data="kripke-52d.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="orgf3838b2" class="figure">
+<p><img src="kripke-52d.svg" alt="kripke-52d.svg" class="org-svg" />
 </p>
 </div>
 </div>
 </div>
 
 
-<div id="outline-container-org9504590" class="outline-3">
-<h3 id="org9504590">Checking a property on this state space</h3>
-<div class="outline-text-3" id="text-org9504590">
+<div id="outline-container-org79acbc5" class="outline-3">
+<h3 id="org79acbc5">Checking a property on this state space</h3>
+<div class="outline-text-3" id="text-org79acbc5">
 <p>
 Here is the Python code equivalent to our C++ check.  Please
 read the C++ description for details.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python" id="org77bae80">
+<pre class="src src-python" id="orga835f9a">
 
 <span class="org-variable-name">d</span> = spot.make_bdd_dict()
 

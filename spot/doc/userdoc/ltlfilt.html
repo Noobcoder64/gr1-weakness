@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-08-01 Tue 20:05 -->
+<!-- 2022-10-08 Sat 19:36 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>=ltlfilt=</title>
@@ -192,7 +192,7 @@
     { font-size: 10px; font-weight: bold; white-space: nowrap; }
   .org-info-js_search-highlight
     { background-color: #ffff00; color: #000000; font-weight: bold; }
-  .org-svg { }
+  .org-svg { width: 90%; }
 </style>
 <link rel="stylesheet" type="text/css" href="spot.css" />
 </head>
@@ -207,17 +207,16 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org4499fed">Changing syntaxes</a></li>
-<li><a href="#orgcb3b983">Altering the formula</a></li>
-<li><a href="#org0d1e925">Filtering</a></li>
-<li><a href="#orgdab0951">Using <code>--format</code> and <code>--output</code></a></li>
+<li><a href="#org17d5140">Changing syntaxes</a></li>
+<li><a href="#org9986b06">Altering the formula</a></li>
+<li><a href="#orgeb9771a">Filtering</a></li>
+<li><a href="#orgf6d414f">Using <code>--format</code> and <code>--output</code></a></li>
 </ul>
 </div>
 </div>
 
-<div id="orgf098f4e" class="figure">
-<p><object type="image/svg+xml" data="spot2.svg" class="org-svg" id="spotlogo">
-Sorry, your browser does not support SVG.</object>
+<div id="org923c20b" class="figure">
+<p><img src="spot2.svg" alt="spot2.svg" class="org-svg" id="spotlogo" />
 </p>
 </div>
 <p>
@@ -230,9 +229,9 @@ formulas.)  It can be used to perform a number of tasks.  Essentially:
 <li>selecting formulas matching some criterion.</li>
 </ul>
 
-<div id="outline-container-org4499fed" class="outline-2">
-<h2 id="org4499fed">Changing syntaxes</h2>
-<div class="outline-text-2" id="text-org4499fed">
+<div id="outline-container-org17d5140" class="outline-2">
+<h2 id="org17d5140">Changing syntaxes</h2>
+<div class="outline-text-2" id="text-org17d5140">
 <p>
 Because it read and write formulas, <code>ltlfilt</code> accepts
 all the <a href="ioltl.html">common input and output options</a>.
@@ -290,15 +289,15 @@ p0 U (p1 &amp; (p0 | p5))
 </div>
 </div>
 
-<div id="outline-container-orgcb3b983" class="outline-2">
-<h2 id="orgcb3b983">Altering the formula</h2>
-<div class="outline-text-2" id="text-orgcb3b983">
+<div id="outline-container-org9986b06" class="outline-2">
+<h2 id="org9986b06">Altering the formula</h2>
+<div class="outline-text-2" id="text-org9986b06">
 <p>
 The following options can be used to modify the formulas that have
 been read.
 </p>
 
-<pre class="example" id="orgd599570">
+<pre class="example" id="orgdc82e04">
     --boolean-to-isop      rewrite Boolean subformulas as irredundant sum of
                            products (implies at least -r1)
     --define[=FILENAME]    when used with --relabel or --relabel-bool, output
@@ -533,7 +532,7 @@ cat ltlex.def ltlex.never
 </pre>
 </div>
 
-<pre class="example" id="org5e10f5a">
+<pre class="example" id="org14c99e0">
 #define p0 ((proc@loc1))
 #define p1 ((proc@loc2))
 never { /* p0 U p1  */
@@ -580,14 +579,14 @@ separate page</a>.
 </div>
 </div>
 
-<div id="outline-container-org0d1e925" class="outline-2">
-<h2 id="org0d1e925">Filtering</h2>
-<div class="outline-text-2" id="text-org0d1e925">
+<div id="outline-container-orgeb9771a" class="outline-2">
+<h2 id="orgeb9771a">Filtering</h2>
+<div class="outline-text-2" id="text-orgeb9771a">
 <p>
 <code>ltlfilt</code> supports many ways to filter formulas:
 </p>
 
-<pre class="example" id="orge7c91a9">
+<pre class="example" id="orgbf8d2d0">
     --accept-word=WORD     keep formulas that accept WORD
     --ap=RANGE             match formulas with a number of atomic
                            propositions in RANGE
@@ -650,7 +649,7 @@ generate 10 formulas that are equivalent to <code>a U b</code>:
 <pre class="src src-sh">randltl -n -1 a b | ltlfilt --equivalent-to <span class="org-string">'a U b'</span> -n 10
 </pre>
 </div>
-<pre class="example" id="org161a59b">
+<pre class="example" id="orga436946">
 b W (a U b)
 a U b
 !(!a R !b)
@@ -687,7 +686,7 @@ safety formulas in the remaining list.
 <pre class="src src-sh">randltl -r -n -1 a b | ltlfilt -v --syntactic-safety | ltlfilt --safety -n 10
 </pre>
 </div>
-<pre class="example" id="org90792e3">
+<pre class="example" id="org449e434">
 F((!b &amp; GF!b) | (b &amp; FGb))
 a | G((a &amp; GFa) | (!a &amp; FG!a))
 XXG(!a &amp; (Fa W Gb))
@@ -786,7 +785,7 @@ formulas of smaller sizes).
 </pre>
 </div>
 
-<pre class="example" id="org2909154">
+<pre class="example" id="org06cb9ba">
 !F!Ga
 X!(a U b)
 !G(a &amp; b)
@@ -814,7 +813,7 @@ Boolean-size 5:
 </pre>
 </div>
 
-<pre class="example" id="orge33fad7">
+<pre class="example" id="orgb283733">
 F(1 U X(0))
 Gb xor Fa
 FX!Fa
@@ -829,14 +828,14 @@ GF(1 U b)
 </div>
 </div>
 
-<div id="outline-container-orgdab0951" class="outline-2">
-<h2 id="orgdab0951">Using <code>--format</code> and <code>--output</code></h2>
-<div class="outline-text-2" id="text-orgdab0951">
+<div id="outline-container-orgf6d414f" class="outline-2">
+<h2 id="orgf6d414f">Using <code>--format</code> and <code>--output</code></h2>
+<div class="outline-text-2" id="text-orgf6d414f">
 <p>
 The <code>--format</code> option can be used the alter the way formulas are output.
 The list of supported <code>%</code>-escape sequences are recalled in the <code>--help</code> output:
 </p>
-<pre class="example" id="org426b977">
+<pre class="example" id="org93d96be">
 %&lt;                         the part of the line before the formula if it
                            comes from a column extracted from a CSV file
 %&gt;                         the part of the line after the formula if it comes

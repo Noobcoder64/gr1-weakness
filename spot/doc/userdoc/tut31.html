@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-08-01 Tue 20:01 -->
+<!-- 2022-10-08 Sat 19:39 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Alternation removal</title>
@@ -192,7 +192,7 @@
     { font-size: 10px; font-weight: bold; white-space: nowrap; }
   .org-info-js_search-highlight
     { background-color: #ffff00; color: #000000; font-weight: bold; }
-  .org-svg { }
+  .org-svg { width: 90%; }
 </style>
 <link rel="stylesheet" type="text/css" href="spot.css" />
 </head>
@@ -207,16 +207,15 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgdbf06d3">Shell</a></li>
-<li><a href="#org0b57b67">Python</a></li>
-<li><a href="#orgb095126">C++</a></li>
+<li><a href="#org1b23e93">Shell</a></li>
+<li><a href="#org0e7b9fc">Python</a></li>
+<li><a href="#orgf232288">C++</a></li>
 </ul>
 </div>
 </div>
 
-<div id="orgcdf8ffc" class="figure">
-<p><object type="image/svg+xml" data="spot2.svg" class="org-svg" id="spotlogo">
-Sorry, your browser does not support SVG.</object>
+<div id="org81f4e37" class="figure">
+<p><img src="spot2.svg" alt="spot2.svg" class="org-svg" id="spotlogo" />
 </p>
 </div>
 <p>
@@ -225,7 +224,7 @@ create it</a>):
 </p>
 
 <div class="org-src-container">
-<pre class="src src-hoa" id="org9828ad0"><span class="org-hoa-header-uppercase">HOA:</span> v1
+<pre class="src src-hoa" id="org6d0d835"><span class="org-hoa-header-uppercase">HOA:</span> v1
 <span class="org-hoa-header-uppercase">States:</span> 3
 <span class="org-hoa-header-uppercase">Start:</span> 0
 <span class="org-hoa-header-uppercase">AP:</span> 1 <span class="org-string">"a"</span>
@@ -247,9 +246,8 @@ create it</a>):
 </div>
 
 
-<div id="orgce87472" class="figure">
-<p><object type="image/svg+xml" data="tut31in.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org3b64da9" class="figure">
+<p><img src="tut31in.svg" alt="tut31in.svg" class="org-svg" />
 </p>
 </div>
 
@@ -267,9 +265,9 @@ produce a <a href="concepts.html#trans-acc">TGBA</a> for <a href="concepts.html#
 if the input is <a href="concepts.html#property-flags">very-weak</a>.
 </p>
 
-<div id="outline-container-orgdbf06d3" class="outline-2">
-<h2 id="orgdbf06d3">Shell</h2>
-<div class="outline-text-2" id="text-orgdbf06d3">
+<div id="outline-container-org1b23e93" class="outline-2">
+<h2 id="org1b23e93">Shell</h2>
+<div class="outline-text-2" id="text-org1b23e93">
 <p>
 We simply use <code>autfilt</code> with option <code>--tgba</code>:
 </p>
@@ -299,17 +297,16 @@ We simply use <code>autfilt</code> with option <code>--tgba</code>:
 </div>
 
 
-<div id="orga0b7a0d" class="figure">
-<p><object type="image/svg+xml" data="tut31out.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="orgdc024d4" class="figure">
+<p><img src="tut31out.svg" alt="tut31out.svg" class="org-svg" />
 </p>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org0b57b67" class="outline-2">
-<h2 id="org0b57b67">Python</h2>
-<div class="outline-text-2" id="text-org0b57b67">
+<div id="outline-container-org0e7b9fc" class="outline-2">
+<h2 id="org0e7b9fc">Python</h2>
+<div class="outline-text-2" id="text-org0e7b9fc">
 <p>
 In the Python version we call <code>remove_alternation()</code>
 </p>
@@ -342,9 +339,9 @@ In the Python version we call <code>remove_alternation()</code>
 </div>
 </div>
 
-<div id="outline-container-orgb095126" class="outline-2">
-<h2 id="orgb095126">C++</h2>
-<div class="outline-text-2" id="text-orgb095126">
+<div id="outline-container-orgf232288" class="outline-2">
+<h2 id="orgf232288">C++</h2>
+<div class="outline-text-2" id="text-orgf232288">
 <p>
 The C++ version calls <code>remove_alternation()</code> too.
 </p>

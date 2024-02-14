@@ -1535,7 +1535,7 @@ uninstall-am:
 .PHONY: update
 update:
 	wget $(RH) -O robin_hood.tmp || curl $(RH) -o robin_hood.tmp
-	sed 's/std::malloc/malloc/;/https:\/\/stackoverflow.com\/a\/31798726/{n;s/defined.*/false/}' robin_hood.tmp > $(srcdir)/robin_hood.hh
+	sed 's/std::malloc/malloc/' robin_hood.tmp > $(srcdir)/robin_hood.hh
 	rm -f robin_hood.tmp
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.

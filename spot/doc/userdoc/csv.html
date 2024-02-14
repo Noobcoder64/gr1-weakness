@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-08-01 Tue 20:01 -->
+<!-- 2022-10-08 Sat 19:35 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Reading and writing CSV files</title>
@@ -192,7 +192,7 @@
     { font-size: 10px; font-weight: bold; white-space: nowrap; }
   .org-info-js_search-highlight
     { background-color: #ffff00; color: #000000; font-weight: bold; }
-  .org-svg { }
+  .org-svg { width: 90%; }
 </style>
 <link rel="stylesheet" type="text/css" href="spot.css" />
 </head>
@@ -207,17 +207,16 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgb6afbee">Producing CSV files</a></li>
-<li><a href="#orga41136a">Reading CSV files</a></li>
-<li><a href="#orgd7aa9bc">Dealing with header lines</a></li>
-<li><a href="#org6153e16">CSV files containing automata</a></li>
+<li><a href="#org63cb28d">Producing CSV files</a></li>
+<li><a href="#org32c197a">Reading CSV files</a></li>
+<li><a href="#orgdadbebe">Dealing with header lines</a></li>
+<li><a href="#org32e2d91">CSV files containing automata</a></li>
 </ul>
 </div>
 </div>
 
-<div id="org3feabfd" class="figure">
-<p><object type="image/svg+xml" data="spot2.svg" class="org-svg" id="spotlogo">
-Sorry, your browser does not support SVG.</object>
+<div id="orge2ebc36" class="figure">
+<p><img src="spot2.svg" alt="spot2.svg" class="org-svg" id="spotlogo" />
 </p>
 </div>
 <p>
@@ -225,9 +224,9 @@ This page discusses features available in Spot's command-line
 tools to produce an consume CSV files.
 </p>
 
-<div id="outline-container-orgb6afbee" class="outline-2">
-<h2 id="orgb6afbee">Producing CSV files</h2>
-<div class="outline-text-2" id="text-orgb6afbee">
+<div id="outline-container-org63cb28d" class="outline-2">
+<h2 id="org63cb28d">Producing CSV files</h2>
+<div class="outline-text-2" id="text-org63cb28d">
 <p>
 All the tools that normally produce formulas (like <a href="genltl.html"><code>genltl</code></a>,
 <a href="randltl.html"><code>randltl</code></a>, and <a href="ltlfilt.html"><code>ltlfilt</code></a>) have a <a href="ioltl.html"><code>--format</code> option</a> that can be used to
@@ -245,7 +244,7 @@ the formula itself.
 cat gen.csv
 </pre>
 </div>
-<pre class="example" id="orgcd5b2e9">
+<pre class="example" id="org450e9a8">
 and-gf,1,GFp1
 and-gf,2,GFp1 &amp; GFp2
 and-gf,3,GFp1 &amp; GFp2 &amp; GFp3
@@ -276,7 +275,7 @@ formulas, and show the resulting number of states (<code>%s</code>) and edges
 <pre class="src src-sh">genltl --and-gf=1..5 --u-left=1..5 | ltl2tgba --stats <span class="org-string">'%f,%s,%e'</span>
 </pre>
 </div>
-<pre class="example" id="orgc05bc7e">
+<pre class="example" id="org1d2c49e">
 GFp1,1,2
 G(Fp1 &amp; Fp2),1,4
 G(Fp1 &amp; Fp2 &amp; Fp3),1,8
@@ -336,9 +335,9 @@ via option such as <code>--products</code> or <code>--omit-missing</code>).
 </div>
 </div>
 
-<div id="outline-container-orga41136a" class="outline-2">
-<h2 id="orga41136a">Reading CSV files</h2>
-<div class="outline-text-2" id="text-orga41136a">
+<div id="outline-container-org32c197a" class="outline-2">
+<h2 id="org32c197a">Reading CSV files</h2>
+<div class="outline-text-2" id="text-org32c197a">
 <p>
 All the tools that read formulas from files extend the filename syntax
 to support the specification of a CSV column.  The notation
@@ -350,7 +349,7 @@ For instance let's consider the file <code>gen.csv</code> built with the first c
 this page.  It contains:
 </p>
 
-<pre class="example" id="org8c0a8cf">
+<pre class="example" id="org54f5b66">
 and-gf,1,GFp1
 and-gf,2,GFp1 &amp; GFp2
 and-gf,3,GFp1 &amp; GFp2 &amp; GFp3
@@ -372,7 +371,7 @@ the same output as in a previous example:
 <pre class="src src-sh">ltl2tgba -F gen.csv/3 --stats <span class="org-string">'%f,%s,%e'</span>
 </pre>
 </div>
-<pre class="example" id="org7305c1b">
+<pre class="example" id="org5c66484">
 GFp1,1,2
 G(Fp1 &amp; Fp2),1,4
 G(Fp1 &amp; Fp2 &amp; Fp3),1,8
@@ -451,9 +450,9 @@ formulas in Spot's format.  If that is inappropriate, simply use
 </div>
 </div>
 
-<div id="outline-container-orgd7aa9bc" class="outline-2">
-<h2 id="orgd7aa9bc">Dealing with header lines</h2>
-<div class="outline-text-2" id="text-orgd7aa9bc">
+<div id="outline-container-orgdadbebe" class="outline-2">
+<h2 id="orgdadbebe">Dealing with header lines</h2>
+<div class="outline-text-2" id="text-orgdadbebe">
 <p>
 Some CSV files contain a header lines that should not be processed.
 For instance the CSV files produced by <code>ltlcross</code> have such a line:
@@ -467,14 +466,14 @@ cat results.csv
 </div>
 <pre class="example">
 "formula","tool","exit_status","exit_code","time","states","edges","transitions","acc","scc","nondet_states","nondet_aut","complete_aut","product_states","product_transitions","product_scc"
-"0","ltl2tgba -s %f &gt;%N","ok",0,0.0362512,1,1,0,1,1,0,0,0,1,0,1
-"0","ltl3ba -f %s &gt;%N","ok",0,0.0079067,1,0,0,1,1,0,0,0,1,0,1
-"1","ltl2tgba -s %f &gt;%N","ok",0,0.0366859,1,1,1,1,1,0,0,1,200,4199,1
-"1","ltl3ba -f %s &gt;%N","ok",0,0.00872473,1,1,1,1,1,0,0,1,200,4199,1
-"!(F(!(b)))","ltl2tgba -s %f &gt;%N","ok",0,0.0361917,1,1,1,1,1,0,0,0,200,2059,1
-"!(F(!(b)))","ltl3ba -f %s &gt;%N","ok",0,0.00839766,1,1,1,1,1,0,0,0,200,2059,1
-"F(!(b))","ltl2tgba -s %f &gt;%N","ok",0,0.036369,2,3,4,1,2,0,0,1,400,8264,2
-"F(!(b))","ltl3ba -f %s &gt;%N","ok",0,0.00829354,2,3,4,1,2,0,0,1,400,8264,2
+"0","ltl2tgba -s %f &gt;%N","ok",0,0.0383281,1,1,0,1,1,0,0,0,1,0,1
+"0","ltl3ba -f %s &gt;%N","ok",0,0.00914445,1,0,0,1,1,0,0,0,1,0,1
+"1","ltl2tgba -s %f &gt;%N","ok",0,0.0382415,1,1,1,1,1,0,0,1,200,4199,1
+"1","ltl3ba -f %s &gt;%N","ok",0,0.00969135,1,1,1,1,1,0,0,1,200,4199,1
+"!(F(!(b)))","ltl2tgba -s %f &gt;%N","ok",0,0.0394909,1,1,1,1,1,0,0,0,200,2059,1
+"!(F(!(b)))","ltl3ba -f %s &gt;%N","ok",0,0.00921335,1,1,1,1,1,0,0,0,200,2059,1
+"F(!(b))","ltl2tgba -s %f &gt;%N","ok",0,0.0383854,2,3,4,1,2,0,0,1,400,8264,2
+"F(!(b))","ltl3ba -f %s &gt;%N","ok",0,0.00859548,2,3,4,1,2,0,0,1,400,8264,2
 </pre>
 
 
@@ -516,9 +515,9 @@ F!b
 </div>
 </div>
 
-<div id="outline-container-org6153e16" class="outline-2">
-<h2 id="org6153e16">CSV files containing automata</h2>
-<div class="outline-text-2" id="text-org6153e16">
+<div id="outline-container-org32e2d91" class="outline-2">
+<h2 id="org32e2d91">CSV files containing automata</h2>
+<div class="outline-text-2" id="text-org32e2d91">
 <p>
 The <code>--stats</code> option of tools that generate automata can be used to
 generate CSV files that embed automata.  For instance
@@ -577,12 +576,12 @@ cat result.csv
 
 <pre class="example">
 "formula","tool","exit_status","exit_code","time","states","edges","transitions","acc","scc","nondet_states","nondet_aut","complete_aut","product_states","product_transitions","product_scc","automaton"
-"G(!(p0))","ltl2tgba","ok",0,0.0366188,1,1,1,1,1,0,0,0,200,2055,2,"HOA: v1 name: ""G!p0"" States: 1 Start: 0 AP: 1 ""p0"" acc-name: Buchi Acceptance: 1 Inf(0) properties: trans-labels explicit-labels state-acc colored deterministic stutter-invariant very-weak --BODY-- State: 0 {0} [!0] 0 --END--"
-"!(G(!(p0)))","ltl2tgba","ok",0,0.0364908,2,3,4,1,2,0,0,1,400,8272,3,"HOA: v1 name: ""Fp0"" States: 2 Start: 1 AP: 1 ""p0"" acc-name: Buchi Acceptance: 1 Inf(0) properties: trans-labels explicit-labels state-acc complete deterministic stutter-invariant terminal --BODY-- State: 0 {0} [t] 0 State: 1 [0] 0 [!0] 1 --END--"
-"(F(p0)) -&gt; ((!(p1)) U (p0))","ltl2tgba","ok",0,0.0424151,3,5,10,1,3,0,0,0,598,10379,4,"HOA: v1 name: ""(!p1 U p0) | G!p0"" States: 3 Start: 2 AP: 2 ""p1"" ""p0"" acc-name: Buchi Acceptance: 1 Inf(0) properties: trans-labels explicit-labels state-acc colored deterministic stutter-invariant very-weak --BODY-- State: 0 {0} [!1] 0 State: 1 {0} [t] 1 State: 2 {0} [0&amp;!1] 0 [1] 1 [!0&amp;!1] 2 --END--"
-"!((F(p0)) -&gt; ((!(p1)) U (p0)))","ltl2tgba","ok",0,0.0369372,3,5,10,1,3,0,0,0,598,10398,4,"HOA: v1 name: ""Fp0 &amp; (p1 R !p0)"" States: 3 Start: 1 AP: 2 ""p1"" ""p0"" acc-name: Buchi Acceptance: 1 Inf(0) properties: trans-labels explicit-labels state-acc deterministic stutter-invariant very-weak --BODY-- State: 0 {0} [t] 0 State: 1 [!0&amp;!1] 1 [0&amp;!1] 2 State: 2 [1] 0 [!1] 2 --END--"
-"G((p0) -&gt; (G(!(p1))))","ltl2tgba","ok",0,0.0371172,2,3,5,1,2,0,0,0,400,5025,2,"HOA: v1 name: ""G(!p0 | G!p1)"" States: 2 Start: 1 AP: 2 ""p0"" ""p1"" acc-name: Buchi Acceptance: 1 Inf(0) properties: trans-labels explicit-labels state-acc colored deterministic stutter-invariant very-weak --BODY-- State: 0 {0} [!1] 0 State: 1 {0} [0&amp;!1] 0 [!0] 1 --END--"
-"!(G((p0) -&gt; (G(!(p1)))))","ltl2tgba","ok",0,0.0370102,3,6,12,1,3,0,0,1,600,12354,3,"HOA: v1 name: ""F(p0 &amp; Fp1)"" States: 3 Start: 2 AP: 2 ""p0"" ""p1"" acc-name: Buchi Acceptance: 1 Inf(0) properties: trans-labels explicit-labels state-acc complete deterministic stutter-invariant terminal --BODY-- State: 0 {0} [t] 0 State: 1 [1] 0 [!1] 1 State: 2 [0&amp;1] 0 [0&amp;!1] 1 [!0] 2 --END--"
+"G(!(p0))","ltl2tgba","ok",0,0.0382243,1,1,1,1,1,0,0,0,200,2055,2,"HOA: v1 name: ""G!p0"" States: 1 Start: 0 AP: 1 ""p0"" acc-name: Buchi Acceptance: 1 Inf(0) properties: trans-labels explicit-labels state-acc colored deterministic stutter-invariant very-weak --BODY-- State: 0 {0} [!0] 0 --END--"
+"!(G(!(p0)))","ltl2tgba","ok",0,0.0403015,2,3,4,1,2,0,0,1,400,8272,3,"HOA: v1 name: ""Fp0"" States: 2 Start: 1 AP: 1 ""p0"" acc-name: Buchi Acceptance: 1 Inf(0) properties: trans-labels explicit-labels state-acc complete deterministic stutter-invariant terminal --BODY-- State: 0 {0} [t] 0 State: 1 [0] 0 [!0] 1 --END--"
+"(F(p0)) -&gt; ((!(p1)) U (p0))","ltl2tgba","ok",0,0.0412109,3,5,10,1,3,0,0,0,598,10379,4,"HOA: v1 name: ""(!p1 U p0) | G!p0"" States: 3 Start: 2 AP: 2 ""p1"" ""p0"" acc-name: Buchi Acceptance: 1 Inf(0) properties: trans-labels explicit-labels state-acc colored deterministic stutter-invariant very-weak --BODY-- State: 0 {0} [!1] 0 State: 1 {0} [t] 1 State: 2 {0} [0&amp;!1] 0 [1] 1 [!0&amp;!1] 2 --END--"
+"!((F(p0)) -&gt; ((!(p1)) U (p0)))","ltl2tgba","ok",0,0.0379982,3,5,10,1,3,0,0,0,598,10398,4,"HOA: v1 name: ""Fp0 &amp; (p1 R !p0)"" States: 3 Start: 1 AP: 2 ""p1"" ""p0"" acc-name: Buchi Acceptance: 1 Inf(0) properties: trans-labels explicit-labels state-acc deterministic stutter-invariant very-weak --BODY-- State: 0 {0} [t] 0 State: 1 [!0&amp;!1] 1 [0&amp;!1] 2 State: 2 [1] 0 [!1] 2 --END--"
+"G((p0) -&gt; (G(!(p1))))","ltl2tgba","ok",0,0.037728,2,3,5,1,2,0,0,0,400,5025,2,"HOA: v1 name: ""G(!p0 | G!p1)"" States: 2 Start: 1 AP: 2 ""p0"" ""p1"" acc-name: Buchi Acceptance: 1 Inf(0) properties: trans-labels explicit-labels state-acc colored deterministic stutter-invariant very-weak --BODY-- State: 0 {0} [!1] 0 State: 1 {0} [0&amp;!1] 0 [!0] 1 --END--"
+"!(G((p0) -&gt; (G(!(p1)))))","ltl2tgba","ok",0,0.0483746,3,6,12,1,3,0,0,1,600,12354,3,"HOA: v1 name: ""F(p0 &amp; Fp1)"" States: 3 Start: 2 AP: 2 ""p0"" ""p1"" acc-name: Buchi Acceptance: 1 Inf(0) properties: trans-labels explicit-labels state-acc complete deterministic stutter-invariant terminal --BODY-- State: 0 {0} [t] 0 State: 1 [1] 0 [!1] 1 State: 2 [0&amp;1] 0 [0&amp;!1] 1 [!0] 2 --END--"
 </pre>
 </div>
 </div>

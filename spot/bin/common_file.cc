@@ -1,5 +1,5 @@
 // -*- coding: utf-8 -*-
-// Copyright (C) 2015, 2016, 2022, 2023 Laboratoire de Recherche et
+// Copyright (C) 2015, 2016, 2022 Laboratoire de Recherche et
 // Développement de l'Epita (LRDE).
 //
 // This file is part of Spot, a model checking library.
@@ -21,6 +21,7 @@
 #include <error.h>
 #include <iostream>
 
+
 output_file::output_file(const char* name, bool force_append)
 {
   std::ios_base::openmode mode = std::ios_base::trunc;
@@ -38,36 +39,19 @@ output_file::output_file(const char* name, bool force_append)
       os_ = &std::cout;
       return;
     }
-  of_ = std::make_unique<std::ofstream>(name, mode);
+  of_ = new std::ofstream(name, mode);
   if (!*of_)
     error(2, errno, "cannot open '%s'", name);
-  os_ = of_.get();
+  os_ = of_;
 }
 
-void
-output_file::reopen_for_append(const std::string& name)
-{
-  if (of_ && of_->is_open())     // nothing to do
-    return;
-  const char* cname = name.c_str();
-  if (cname[0] == '>' && cname[1] == '>')
-    cname += 2;
-  if (name[0] == '-' && name[1] == 0)
-    {
-      os_ = &std::cout;
-      return;
-    }
-  of_->open(cname, std::ios_base::app);
-  if (!*of_)
-    error(2, errno, "cannot reopen '%s'", cname);
-}
 
 void output_file::close(const std::string& name)
 {
   // We close of_, not os_, so that we never close std::cout.
   if (os_)
     os_->flush();
-  if (of_ && of_->is_open())
+  if (of_)
     of_->close();
   if (os_ && !*os_)
     error(2, 0, "error writing to %s",

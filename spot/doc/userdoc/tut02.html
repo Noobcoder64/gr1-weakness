@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-08-01 Tue 20:02 -->
+<!-- 2022-10-08 Sat 19:38 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Relabeling Formulas</title>
@@ -192,7 +192,7 @@
     { font-size: 10px; font-weight: bold; white-space: nowrap; }
   .org-info-js_search-highlight
     { background-color: #ffff00; color: #000000; font-weight: bold; }
-  .org-svg { }
+  .org-svg { width: 90%; }
 </style>
 <link rel="stylesheet" type="text/css" href="spot.css" />
 </head>
@@ -207,22 +207,21 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgdacb211">Shell</a></li>
-<li><a href="#orge3bd7f4">Python</a></li>
-<li><a href="#orgc2decfd">C++</a></li>
-<li><a href="#org1ba8c0b">Additional comments</a>
+<li><a href="#orgb74061c">Shell</a></li>
+<li><a href="#org5e0507d">Python</a></li>
+<li><a href="#orgc453e61">C++</a></li>
+<li><a href="#orge1cf758">Additional comments</a>
 <ul>
-<li><a href="#org38a6c62">Two ways to name atomic propositions</a></li>
-<li><a href="#org31bb6bb">Relabeling Boolean sub-expressions</a></li>
+<li><a href="#org7ba80fa">Two ways to name atomic propositions</a></li>
+<li><a href="#orgf4896e6">Relabeling Boolean sub-expressions</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="org44986cd" class="figure">
-<p><object type="image/svg+xml" data="spot2.svg" class="org-svg" id="spotlogo">
-Sorry, your browser does not support SVG.</object>
+<div id="org658733a" class="figure">
+<p><img src="spot2.svg" alt="spot2.svg" class="org-svg" id="spotlogo" />
 </p>
 </div>
 <p>
@@ -231,9 +230,9 @@ double-quoted) atomic propositions, and provide <code>#define</code> statements
 for each of these renamings, writing everything in Spin's syntax.
 </p>
 
-<div id="outline-container-orgdacb211" class="outline-2">
-<h2 id="orgdacb211">Shell</h2>
-<div class="outline-text-2" id="text-orgdacb211">
+<div id="outline-container-orgb74061c" class="outline-2">
+<h2 id="orgb74061c">Shell</h2>
+<div class="outline-text-2" id="text-orgb74061c">
 <div class="org-src-container">
 <pre class="src src-sh">ltlfilt -ps --relabel=pnn --define -f <span class="org-string">'"Proc@Here" U ("var &gt; 10" | "var &lt; 4")'</span>
 </pre>
@@ -262,7 +261,7 @@ rm tmp.defs tmp.ltl
 </pre>
 </div>
 
-<pre class="example" id="org262e309">
+<pre class="example" id="orgca68fb1">
 #define p0 (Proc@Here)
 #define p1 (var &lt; 4)
 #define p2 (var &gt; 10)
@@ -287,9 +286,9 @@ correct atomic propositions, even though <code>ltl2ba</code> cannot parse them.
 </div>
 </div>
 
-<div id="outline-container-orge3bd7f4" class="outline-2">
-<h2 id="orge3bd7f4">Python</h2>
-<div class="outline-text-2" id="text-orge3bd7f4">
+<div id="outline-container-org5e0507d" class="outline-2">
+<h2 id="org5e0507d">Python</h2>
+<div class="outline-text-2" id="text-org5e0507d">
 <p>
 The <code>spot.relabel</code> function takes an optional third parameter that
 should be a <code>relabeling_map</code>.  If supplied, this map is filled with
@@ -317,9 +316,9 @@ pairs of atomic propositions of the form (new-name, old-name).
 </div>
 </div>
 
-<div id="outline-container-orgc2decfd" class="outline-2">
-<h2 id="orgc2decfd">C++</h2>
-<div class="outline-text-2" id="text-orgc2decfd">
+<div id="outline-container-orgc453e61" class="outline-2">
+<h2 id="orgc453e61">C++</h2>
+<div class="outline-text-2" id="text-orgc453e61">
 <p>
 The <code>spot::relabeling_map</code> is just implemented as a <code>std::map</code>.
 </p>
@@ -360,13 +359,13 @@ The <code>spot::relabeling_map</code> is just implemented as a <code>std::map</c
 </div>
 </div>
 
-<div id="outline-container-org1ba8c0b" class="outline-2">
-<h2 id="org1ba8c0b">Additional comments</h2>
-<div class="outline-text-2" id="text-org1ba8c0b">
+<div id="outline-container-orge1cf758" class="outline-2">
+<h2 id="orge1cf758">Additional comments</h2>
+<div class="outline-text-2" id="text-orge1cf758">
 </div>
-<div id="outline-container-org38a6c62" class="outline-3">
-<h3 id="org38a6c62">Two ways to name atomic propositions</h3>
-<div class="outline-text-3" id="text-org38a6c62">
+<div id="outline-container-org7ba80fa" class="outline-3">
+<h3 id="org7ba80fa">Two ways to name atomic propositions</h3>
+<div class="outline-text-3" id="text-org7ba80fa">
 <p>
 Instead of <code>--relabel=pnn</code> (or <code>spot.Pnn</code>, or <code>spot::Pnn</code>), you can
 actually use <code>--relabel=abc</code> (or <code>spot.Abc</code>, or <code>spot::Abc</code>) to have
@@ -375,9 +374,9 @@ the atomic propositions named <code>a</code>, <code>b</code>, <code>c</code>, et
 </div>
 </div>
 
-<div id="outline-container-org31bb6bb" class="outline-3">
-<h3 id="org31bb6bb">Relabeling Boolean sub-expressions</h3>
-<div class="outline-text-3" id="text-org31bb6bb">
+<div id="outline-container-orgf4896e6" class="outline-3">
+<h3 id="orgf4896e6">Relabeling Boolean sub-expressions</h3>
+<div class="outline-text-3" id="text-orgf4896e6">
 <p>
 Instead of relabeling each atomic proposition, you could decide to
 relabel each Boolean sub-expression:

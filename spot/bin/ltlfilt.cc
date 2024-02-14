@@ -1,5 +1,5 @@
 // -*- coding: utf-8 -*-
-// Copyright (C) 2012-2023 Laboratoire de Recherche et Développement
+// Copyright (C) 2012-2022 Laboratoire de Recherche et Développement
 // de l'Epita (LRDE).
 //
 // This file is part of Spot, a model checking library.
@@ -59,7 +59,7 @@
 #include <spot/twaalgos/totgba.hh>
 #include <spot/twaalgos/word.hh>
 
-static const char argp_program_doc[] = "\
+const char argp_program_doc[] ="\
 Read a list of formulas and output them back after some optional processing.\v\
 Exit status:\n\
   0  if some formulas were output (skipped syntax errors do not count)\n\
@@ -586,7 +586,7 @@ namespace
     fset_t unique_set;
     spot::relabeling_map relmap;
 
-    explicit ltl_processor(spot::tl_simplifier& simpl)
+    ltl_processor(spot::tl_simplifier& simpl)
       : simpl(simpl)
     {
     }
@@ -722,7 +722,7 @@ namespace
       matched &= !syntactic_si || f.is_syntactic_stutter_invariant();
       if (matched && (ap_n.min > 0 || ap_n.max >= 0))
         {
-          spot::atomic_prop_set* s = atomic_prop_collect(f);
+          auto s = atomic_prop_collect(f);
           int n = s->size();
           delete s;
           matched &= (ap_n.min <= 0) || (n >= ap_n.min);
@@ -761,7 +761,7 @@ namespace
               aut = ltl_to_tgba_fm(f, simpl.get_dict(), true);
 
               if (matched && !opt->acc_words.empty())
-                for (const spot::twa_graph_ptr& word_aut: opt->acc_words)
+                for (auto& word_aut: opt->acc_words)
                   if (spot::product(aut, word_aut)->is_empty())
                     {
                       matched = false;
@@ -769,7 +769,7 @@ namespace
                     }
 
               if (matched && !opt->rej_words.empty())
-                for (const spot::twa_graph_ptr& word_aut: opt->rej_words)
+                for (auto& word_aut: opt->rej_words)
                   if (!spot::product(aut, word_aut)->is_empty())
                     {
                       matched = false;
@@ -843,12 +843,12 @@ namespace
             {
               // Sort the formulas alphabetically.
               std::map<std::string, spot::formula> m;
-              for (const auto& [newformula, oldname]: relmap)
-                m.emplace(str_psl(newformula), oldname);
-              for (const auto& [newname, oldname]: m)
+              for (auto& p: relmap)
+                m.emplace(str_psl(p.first), p.second);
+              for (auto& p: m)
                 stream_formula(opt->output_define->ostream()
-                               << "#define " << newname << " (",
-                               oldname, filename,
+                               << "#define " << p.first << " (",
+                               p.second, filename,
                                std::to_string(linenum).c_str()) << ")\n";
             }
           one_match = true;

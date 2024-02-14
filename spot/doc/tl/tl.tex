@@ -668,17 +668,20 @@ $a$ is an atomic proposition.
   \sigma\VDash f\FUSION g&\iff \exists k\in\N,\,(\sigma^{0..k} \VDash f)\land(\sigma^{k..} \VDash g)\\
   \sigma\VDash f\STAR{\mvar{i}..\mvar{j}}& \iff
   \begin{cases}
-    \text{either} & \mvar{i}=0 \land\mvar{j}=0\land \sigma=\varepsilon \\
-    \text{or} & \mvar{i}=0 \land \mvar{j}>0 \land \bigl((\sigma = \varepsilon) \lor (\sigma
-      \VDash f\STAR{\mvar{1}..\mvar{j}})\bigr)\\
+    \text{either} & \mvar{i}=0 \land \sigma=\varepsilon \\
+    \text{or} & \mvar{i}=0 \land \mvar{j}>0 \land (\exists k\in\N,\,
+      (\sigma^{0..k-1}\VDash f) \land (\sigma^{k..}
+      \VDash f\STAR{\mvar{0}..\mvar{j-1}}))\\
     \text{or} & \mvar{i}>0 \land \mvar{j}>0 \land (\exists k\in\N,\,
       (\sigma^{0..k-1}\VDash f) \land (\sigma^{k..}
       \VDash f\STAR{\mvar{i-1}..\mvar{j-1}}))\\
   \end{cases}\\
   \sigma\VDash f\STAR{\mvar{i}..} & \iff
   \begin{cases}
-    \text{either} & \mvar{i}=0 \land \bigl((\sigma=\varepsilon)\lor(\sigma
-      \VDash f\STAR{\mvar{1}..})\bigr)\\
+    \text{either} & \mvar{i}=0 \land \sigma=\varepsilon \\
+    \text{or} & \mvar{i}=0 \land (\exists k\in\N,\,
+      (\sigma^{0..k-1}\VDash f) \land (\sigma^{k..}
+      \VDash f\STAR{\mvar{0}..}))\\
     \text{or} & \mvar{i}>0 \land (\exists k\in\N,\,
       (\sigma^{0..k-1}\VDash f) \land (\sigma^{k..}
       \VDash f\STAR{\mvar{i-1}..}))\\
@@ -686,22 +689,25 @@ $a$ is an atomic proposition.
   \sigma\VDash f\FSTAR{\mvar{i}..\mvar{j}}& \iff
   \begin{cases}
     \text{either} & \mvar{i}=0 \land \mvar{j}=0 \land \sigma\VDash\1 \\
-    \text{or} & \mvar{i}=0 \land \mvar{j}>0 \land \bigl((\sigma\VDash\1)\lor(\sigma
-      \VDash f\FSTAR{\mvar{1}..\mvar{j}})\bigr)\\
+    \text{or} & \mvar{i}=0 \land \mvar{j}>0 \land (\exists k\in\N,\,
+      (\sigma^{0..k}\VDash f) \land (\sigma^{k..}
+      \VDash f\FSTAR{\mvar{0}..\mvar{j-1}}))\\
     \text{or} & \mvar{i}>0 \land \mvar{j}>0 \land (\exists k\in\N,\,
       (\sigma^{0..k}\VDash f) \land (\sigma^{k..}
       \VDash f\FSTAR{\mvar{i-1}..\mvar{j-1}}))\\
   \end{cases}\\
   \sigma\VDash f\FSTAR{\mvar{i}..} & \iff
   \begin{cases}
-    \text{either} & \mvar{i}=0 \land \bigl((\sigma\VDash\1)
-                    \lor(\sigma \VDash f\FSTAR{\mvar{1}..})\bigr)\\
+    \text{either} & \mvar{i}=0 \land \sigma\VDash\1 \\
+    \text{or} & \mvar{i}=0 \land (\exists k\in\N,\,
+      (\sigma^{0..k}\VDash f) \land (\sigma^{k..}
+      \VDash f\FSTAR{\mvar{0}..}))\\
     \text{or} & \mvar{i}>0 \land (\exists k\in\N,\,
       (\sigma^{0..k}\VDash f) \land (\sigma^{k..}
       \VDash f\FSTAR{\mvar{i-1}..}))\\
     \end{cases}\\
   \sigma\VDash \FIRSTMATCH\code(f\code) & \iff
-      (\sigma\VDash f)\land (\forall k<|\sigma|,\,\sigma^{0..k-1}\nVDash f)
+      (\sigma\VDash f)\land (\forall k<|\sigma|,\,\sigma^{0..k}\nVDash f)
 \end{align*}}
 
 Notes:
@@ -1919,12 +1925,6 @@ are counted as one.
 Many of the above rules were collected from the
 literature~\cite{somenzi.00.cav,tauriainen.03.tr,babiak.12.tacas} and
 sometimes generalized to support operators such as $\M$ and $\W$.
-
-The first six rules, about n-ary operators $\AND$ and $\OR$, are
-implemented for $n$ operands by testing each operand against all
-other.  To prevent the complexity to escalate, this is only performed
-with up to 16 operands.  That value can be changed in
-``\verb|tl_simplifier_options::containment_max_ops|''.
 
 The following rules mix implication-based checks with formulas that
 are pure eventualities ($e$) or that are purely universal ($u$).

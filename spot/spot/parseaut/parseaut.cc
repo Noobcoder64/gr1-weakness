@@ -2139,7 +2139,6 @@ namespace hoayy {
 	// diagnostic, so let not add another one.
 	if (res.states >= 0)
 	  n = res.states;
-        std::vector<unsigned> unused_undeclared;
 	for (unsigned i = 0; i < n; ++i)
 	  {
 	    auto& p = res.info_states[i];
@@ -2148,43 +2147,17 @@ namespace hoayy {
                 if (p.used)
                   error(p.used_loc,
                         "state " + std::to_string(i) + " has no definition");
-                if (!p.used)
-                  unused_undeclared.push_back(i);
+                if (!p.used && res.complete)
+                  if (auto p = res.prop_is_true("complete"))
+                    {
+                      error(res.states_loc,
+                            "state " + std::to_string(i) +
+                            " has no definition...");
+                      error(p.loc, "... despite 'properties: complete'");
+                    }
                 res.complete = false;
               }
 	  }
-        if (!unused_undeclared.empty())
-          {
-            std::ostringstream out;
-            unsigned uus = unused_undeclared.size();
-            int rangestart = -2;
-            int rangecur = -2;
-            const char* sep = uus > 1 ? "states " : "state ";
-            auto print_range = [&]() {
-              if (rangecur < 0)
-                return;
-              out << sep << rangestart;
-              if (rangecur != rangestart)
-                out << '-' << rangecur;
-              sep = ",";
-            };
-            for (unsigned s: unused_undeclared)
-              {
-                if ((int)s != rangecur + 1)
-                  {
-                    print_range();
-                    rangestart = s;
-                  }
-                rangecur = s;
-              }
-            print_range();
-            out << (uus > 1 ? " are" : " is") << " unused and undefined";
-            error(res.states_loc, out.str());
-
-            if (auto p = res.prop_is_true("complete"))
-              error(p.loc, "automaton is incomplete because it has "
-                    "undefined states");
-          }
         if (res.complete)
           if (auto p = res.prop_is_false("complete"))
             {
@@ -2231,11 +2204,11 @@ namespace hoayy {
               res.state_player = nullptr;
             }
       }
-#line 2235 "parseaut.cc"
+#line 2208 "parseaut.cc"
     break;
 
   case 92: // state-num: "integer"
-#line 1327 "parseaut.yy"
+#line 1300 "parseaut.yy"
            {
 	     if (((int) (yystack_[0].value.num)) < 0)
 	       {
@@ -2244,11 +2217,11 @@ namespace hoayy {
 	       }
 	     (yylhs.value.num) = (yystack_[0].value.num);
 	   }
-#line 2248 "parseaut.cc"
+#line 2221 "parseaut.cc"
     break;
 
   case 93: // checked-state-num: state-num
-#line 1337 "parseaut.yy"
+#line 1310 "parseaut.yy"
                    {
 		     if ((int) (yystack_[0].value.num) >= res.states)
 		       {
@@ -2290,11 +2263,11 @@ namespace hoayy {
 		       }
 		     (yylhs.value.num) = (yystack_[0].value.num);
 		   }
-#line 2294 "parseaut.cc"
+#line 2267 "parseaut.cc"
     break;
 
   case 95: // states: states state
-#line 1381 "parseaut.yy"
+#line 1354 "parseaut.yy"
         {
 	  if ((res.universal.is_true() || res.complete.is_true()))
 	    {
@@ -2340,11 +2313,11 @@ namespace hoayy {
                                   bddfalse, res.acc_state);
            }
 	}
-#line 2344 "parseaut.cc"
+#line 2317 "parseaut.cc"
     break;
 
   case 97: // state: state-name unlabeled-edges
-#line 1428 "parseaut.yy"
+#line 1401 "parseaut.yy"
        {
 	 if (!res.has_state_label) // Implicit labels
 	   {
@@ -2367,11 +2340,11 @@ namespace hoayy {
 	     res.h->ks->state_from_number(res.cur_state)->cond(res.state_label);
 	   }
        }
-#line 2371 "parseaut.cc"
+#line 2344 "parseaut.cc"
     break;
 
   case 98: // state: error
-#line 1451 "parseaut.yy"
+#line 1424 "parseaut.yy"
        {
 	 // Assume the worse.  This skips the tests about determinism
 	 // we might perform on the state.
@@ -2381,11 +2354,11 @@ namespace hoayy {
          // also do not try to preserve any color
          res.acc_state = {};
        }
-#line 2385 "parseaut.cc"
+#line 2358 "parseaut.cc"
     break;
 
   case 99: // state-name: "State:" state-label_opt checked-state-num string_opt state-acc_opt
-#line 1463 "parseaut.yy"
+#line 1436 "parseaut.yy"
           {
 	    res.cur_state = (yystack_[2].value.num);
 	    if (res.info_states[(yystack_[2].value.num)].declared)
@@ -2415,11 +2388,11 @@ namespace hoayy {
 	    if (res.opts.want_kripke && !res.has_state_label)
 	      error(yylhs.location, "Kripke structures should have labeled states");
 	  }
-#line 2419 "parseaut.cc"
+#line 2392 "parseaut.cc"
     break;
 
   case 100: // label: '[' label-expr ']'
-#line 1493 "parseaut.yy"
+#line 1466 "parseaut.yy"
            {
              res.cur_label = bdd_from_int((yystack_[1].value.b));
              bdd_delref((yystack_[1].value.b));
@@ -2427,33 +2400,33 @@ namespace hoayy {
                res.fcache[*(yystack_[2].value.str)] = res.cur_label;
              delete (yystack_[2].value.str);
 	   }
-#line 2431 "parseaut.cc"
+#line 2404 "parseaut.cc"
     break;
 
   case 101: // label: BDD
-#line 1500 "parseaut.yy"
+#line 1473 "parseaut.yy"
            { res.cur_label = bdd_from_int((yystack_[0].value.b)); }
-#line 2437 "parseaut.cc"
+#line 2410 "parseaut.cc"
     break;
 
   case 102: // label: '[' error ']'
-#line 1502 "parseaut.yy"
+#line 1475 "parseaut.yy"
            {
 	     error(yylhs.location, "ignoring this invalid label");
 	     res.cur_label = bddtrue;
              delete (yystack_[2].value.str);
 	   }
-#line 2447 "parseaut.cc"
+#line 2420 "parseaut.cc"
     break;
 
   case 103: // state-label_opt: %empty
-#line 1507 "parseaut.yy"
+#line 1480 "parseaut.yy"
                         { res.has_state_label = false; }
-#line 2453 "parseaut.cc"
+#line 2426 "parseaut.cc"
     break;
 
   case 104: // state-label_opt: label
-#line 1509 "parseaut.yy"
+#line 1482 "parseaut.yy"
                {
 		 res.has_state_label = true;
 		 res.state_label_loc = yystack_[0].location;
@@ -2475,11 +2448,11 @@ namespace hoayy {
 		     res.label_style = Mixed_Labels;
 		   }
 	       }
-#line 2479 "parseaut.cc"
+#line 2452 "parseaut.cc"
     break;
 
   case 105: // trans-label: label
-#line 1531 "parseaut.yy"
+#line 1504 "parseaut.yy"
                  {
 		   if (res.has_state_label)
 		     {
@@ -2505,11 +2478,11 @@ namespace hoayy {
 		       res.label_style = Mixed_Labels;
 		     }
 		 }
-#line 2509 "parseaut.cc"
+#line 2482 "parseaut.cc"
     break;
 
   case 106: // acc-sig: '{' acc-sets '}'
-#line 1558 "parseaut.yy"
+#line 1531 "parseaut.yy"
              {
 	       (yylhs.value.mark) = (yystack_[1].value.mark);
 	       if (res.ignore_acc && !res.ignore_acc_silent)
@@ -2520,46 +2493,46 @@ namespace hoayy {
 		   res.ignore_acc_silent = true;
 		 }
 	     }
-#line 2524 "parseaut.cc"
+#line 2497 "parseaut.cc"
     break;
 
   case 107: // acc-sig: '{' error '}'
-#line 1569 "parseaut.yy"
+#line 1542 "parseaut.yy"
              {
 	       error(yylhs.location, "ignoring this invalid acceptance set");
 	     }
-#line 2532 "parseaut.cc"
+#line 2505 "parseaut.cc"
     break;
 
   case 108: // acc-sets: %empty
-#line 1573 "parseaut.yy"
+#line 1546 "parseaut.yy"
           {
 	    (yylhs.value.mark) = spot::acc_cond::mark_t({});
 	  }
-#line 2540 "parseaut.cc"
+#line 2513 "parseaut.cc"
     break;
 
   case 109: // acc-sets: acc-sets acc-set
-#line 1577 "parseaut.yy"
+#line 1550 "parseaut.yy"
           {
 	    if (res.ignore_acc || (yystack_[0].value.num) == -1U)
 	      (yylhs.value.mark) = spot::acc_cond::mark_t({});
 	    else
 	      (yylhs.value.mark) = (yystack_[1].value.mark) | res.aut_or_ks->acc().mark((yystack_[0].value.num));
 	  }
-#line 2551 "parseaut.cc"
+#line 2524 "parseaut.cc"
     break;
 
   case 110: // state-acc_opt: %empty
-#line 1585 "parseaut.yy"
+#line 1558 "parseaut.yy"
                {
                  (yylhs.value.mark) = spot::acc_cond::mark_t({});
                }
-#line 2559 "parseaut.cc"
+#line 2532 "parseaut.cc"
     break;
 
   case 111: // state-acc_opt: acc-sig
-#line 1589 "parseaut.yy"
+#line 1562 "parseaut.yy"
                {
 		 (yylhs.value.mark) = (yystack_[0].value.mark);
 		 if (res.acc_style == Trans_Acc)
@@ -2570,19 +2543,19 @@ namespace hoayy {
 		     res.acc_style = Mixed_Acc;
 		   }
 	       }
-#line 2574 "parseaut.cc"
+#line 2547 "parseaut.cc"
     break;
 
   case 112: // trans-acc_opt: %empty
-#line 1600 "parseaut.yy"
+#line 1573 "parseaut.yy"
                {
                  (yylhs.value.mark) = spot::acc_cond::mark_t({});
                }
-#line 2582 "parseaut.cc"
+#line 2555 "parseaut.cc"
     break;
 
   case 113: // trans-acc_opt: acc-sig
-#line 1604 "parseaut.yy"
+#line 1577 "parseaut.yy"
                {
 		 (yylhs.value.mark) = (yystack_[0].value.mark);
 		 res.trans_acc_seen = true;
@@ -2594,11 +2567,11 @@ namespace hoayy {
 		     res.acc_style = Mixed_Acc;
 		   }
 	       }
-#line 2598 "parseaut.cc"
+#line 2571 "parseaut.cc"
     break;
 
   case 119: // incorrectly-unlabeled-edge: checked-state-num trans-acc_opt
-#line 1623 "parseaut.yy"
+#line 1596 "parseaut.yy"
                             {
 			      bdd cond = bddtrue;
 			      if (!res.has_state_label)
@@ -2616,11 +2589,11 @@ namespace hoayy {
 							 (yystack_[0].value.mark) | res.acc_state);
 				}
 			    }
-#line 2620 "parseaut.cc"
+#line 2593 "parseaut.cc"
     break;
 
   case 120: // labeled-edge: trans-label checked-state-num trans-acc_opt
-#line 1641 "parseaut.yy"
+#line 1614 "parseaut.yy"
               {
 		if (res.cur_label != bddfalse ||
                     // As a hack to allow states to be accepting
@@ -2636,11 +2609,11 @@ namespace hoayy {
 					   res.cur_label, (yystack_[0].value.mark) | res.acc_state);
 		  }
 	      }
-#line 2640 "parseaut.cc"
+#line 2613 "parseaut.cc"
     break;
 
   case 121: // labeled-edge: trans-label state-conj-checked trans-acc_opt
-#line 1657 "parseaut.yy"
+#line 1630 "parseaut.yy"
               {
                 if (res.cur_label != bddfalse)
                   {
@@ -2652,11 +2625,11 @@ namespace hoayy {
                   }
                 delete (yystack_[1].value.states);
 	      }
-#line 2656 "parseaut.cc"
+#line 2629 "parseaut.cc"
     break;
 
   case 122: // state-conj-checked: state-conj-2
-#line 1670 "parseaut.yy"
+#line 1643 "parseaut.yy"
               {
                 (yylhs.value.states) = (yystack_[0].value.states);
                 if (auto ub = res.prop_is_false("univ-branch"))
@@ -2667,11 +2640,11 @@ namespace hoayy {
                   }
                 res.existential = false;
               }
-#line 2671 "parseaut.cc"
+#line 2644 "parseaut.cc"
     break;
 
   case 126: // unlabeled-edge: checked-state-num trans-acc_opt
-#line 1688 "parseaut.yy"
+#line 1661 "parseaut.yy"
                 {
 		  bdd cond;
 		  if (res.has_state_label)
@@ -2702,11 +2675,11 @@ namespace hoayy {
 					     cond, (yystack_[0].value.mark) | res.acc_state);
 		    }
 		}
-#line 2706 "parseaut.cc"
+#line 2679 "parseaut.cc"
     break;
 
   case 127: // unlabeled-edge: state-conj-checked trans-acc_opt
-#line 1719 "parseaut.yy"
+#line 1692 "parseaut.yy"
                 {
 		  bdd cond;
 		  if (res.has_state_label)
@@ -2737,28 +2710,28 @@ namespace hoayy {
 		    }
                   delete (yystack_[1].value.states);
 		}
-#line 2741 "parseaut.cc"
+#line 2714 "parseaut.cc"
     break;
 
   case 128: // incorrectly-labeled-edge: trans-label unlabeled-edge
-#line 1750 "parseaut.yy"
+#line 1723 "parseaut.yy"
                           {
 			    error(yystack_[1].location, "ignoring this label, because previous"
 				  " edge has no label");
                           }
-#line 2750 "parseaut.cc"
+#line 2723 "parseaut.cc"
     break;
 
   case 130: // dstar: dstar_type error "end of DSTAR automaton"
-#line 1762 "parseaut.yy"
+#line 1735 "parseaut.yy"
        {
 	 error(yylhs.location, "failed to parse this as an ltl2dstar automaton");
        }
-#line 2758 "parseaut.cc"
+#line 2731 "parseaut.cc"
     break;
 
   case 131: // dstar_type: "DRA"
-#line 1767 "parseaut.yy"
+#line 1740 "parseaut.yy"
        {
          res.h->type = spot::parsed_aut_type::DRA;
          res.plus = 1;
@@ -2770,11 +2743,11 @@ namespace hoayy {
 	     YYABORT;
 	   }
        }
-#line 2774 "parseaut.cc"
+#line 2747 "parseaut.cc"
     break;
 
   case 132: // dstar_type: "DSA"
-#line 1779 "parseaut.yy"
+#line 1752 "parseaut.yy"
        {
 	 res.h->type = spot::parsed_aut_type::DSA;
          res.plus = 0;
@@ -2786,11 +2759,11 @@ namespace hoayy {
 	     YYABORT;
 	   }
        }
-#line 2790 "parseaut.cc"
+#line 2763 "parseaut.cc"
     break;
 
   case 133: // dstar_header: dstar_sizes
-#line 1792 "parseaut.yy"
+#line 1765 "parseaut.yy"
   {
     if (res.states < 0)
       error(yystack_[0].location, "missing state count");
@@ -2813,11 +2786,11 @@ namespace hoayy {
     fill_guards(res);
     res.cur_guard = res.guards.end();
   }
-#line 2817 "parseaut.cc"
+#line 2790 "parseaut.cc"
     break;
 
   case 136: // dstar_sizes: dstar_sizes "Acceptance-Pairs:" "integer"
-#line 1818 "parseaut.yy"
+#line 1791 "parseaut.yy"
   {
     if (res.ignore_more_acc)
       {
@@ -2835,11 +2808,11 @@ namespace hoayy {
       res.ignore_more_acc = true;
     }
   }
-#line 2839 "parseaut.cc"
+#line 2812 "parseaut.cc"
     break;
 
   case 137: // dstar_sizes: dstar_sizes "States:" "integer"
-#line 1836 "parseaut.yy"
+#line 1809 "parseaut.yy"
   {
     if (res.states < 0)
       {
@@ -2852,19 +2825,19 @@ namespace hoayy {
 	  res.states = (yystack_[0].value.num);
       }
   }
-#line 2856 "parseaut.cc"
+#line 2829 "parseaut.cc"
     break;
 
   case 138: // dstar_sizes: dstar_sizes "Start:" "integer"
-#line 1849 "parseaut.yy"
+#line 1822 "parseaut.yy"
   {
     res.start.emplace_back(yystack_[0].location, std::vector<unsigned>{(yystack_[0].value.num)});
   }
-#line 2864 "parseaut.cc"
+#line 2837 "parseaut.cc"
     break;
 
   case 140: // dstar_state_id: "State:" "integer" string_opt
-#line 1855 "parseaut.yy"
+#line 1828 "parseaut.yy"
   {
     if (res.cur_guard != res.guards.end())
       error(yystack_[2].location, "not enough transitions for previous state");
@@ -2903,31 +2876,31 @@ namespace hoayy {
     res.dest_map.clear();
     res.cur_state = (yystack_[1].value.num);
   }
-#line 2907 "parseaut.cc"
+#line 2880 "parseaut.cc"
     break;
 
   case 141: // sign: '+'
-#line 1894 "parseaut.yy"
+#line 1867 "parseaut.yy"
           { (yylhs.value.num) = res.plus; }
-#line 2913 "parseaut.cc"
+#line 2886 "parseaut.cc"
     break;
 
   case 142: // sign: '-'
-#line 1895 "parseaut.yy"
+#line 1868 "parseaut.yy"
           { (yylhs.value.num) = res.minus; }
-#line 2919 "parseaut.cc"
+#line 2892 "parseaut.cc"
     break;
 
   case 143: // dstar_accsigs: %empty
-#line 1899 "parseaut.yy"
+#line 1872 "parseaut.yy"
   {
     (yylhs.value.mark) = spot::acc_cond::mark_t({});
   }
-#line 2927 "parseaut.cc"
+#line 2900 "parseaut.cc"
     break;
 
   case 144: // dstar_accsigs: dstar_accsigs sign "integer"
-#line 1903 "parseaut.yy"
+#line 1876 "parseaut.yy"
   {
     if (res.states < 0 || res.cur_state >= (unsigned) res.states)
       break;
@@ -2951,17 +2924,17 @@ namespace hoayy {
 	error(yystack_[0].location, o.str());
       }
   }
-#line 2955 "parseaut.cc"
+#line 2928 "parseaut.cc"
     break;
 
   case 145: // dstar_state_accsig: "Acc-Sig:" dstar_accsigs
-#line 1927 "parseaut.yy"
+#line 1900 "parseaut.yy"
                                              { (yylhs.value.mark) = (yystack_[0].value.mark); }
-#line 2961 "parseaut.cc"
+#line 2934 "parseaut.cc"
     break;
 
   case 147: // dstar_transitions: dstar_transitions "integer"
-#line 1931 "parseaut.yy"
+#line 1904 "parseaut.yy"
   {
     std::pair<map_t::iterator, bool> i =
       res.dest_map.emplace((yystack_[0].value.num), *res.cur_guard);
@@ -2969,20 +2942,20 @@ namespace hoayy {
       i.first->second |= *res.cur_guard;
     ++res.cur_guard;
   }
-#line 2973 "parseaut.cc"
+#line 2946 "parseaut.cc"
     break;
 
   case 150: // dstar_states: dstar_states dstar_state_id dstar_state_accsig dstar_transitions
-#line 1942 "parseaut.yy"
+#line 1915 "parseaut.yy"
   {
     for (auto i: res.dest_map)
       res.h->aut->new_edge(res.cur_state, i.first, i.second, (yystack_[1].value.mark));
   }
-#line 2982 "parseaut.cc"
+#line 2955 "parseaut.cc"
     break;
 
   case 151: // pgamestart: "start of PGSolver game"
-#line 1952 "parseaut.yy"
+#line 1925 "parseaut.yy"
        {
 	 if (res.opts.want_kripke)
 	   {
@@ -2991,11 +2964,11 @@ namespace hoayy {
 	     YYABORT;
 	   }
        }
-#line 2995 "parseaut.cc"
+#line 2968 "parseaut.cc"
     break;
 
   case 152: // pgame: pgamestart pgame_nodes "end of PGSolver game"
-#line 1962 "parseaut.yy"
+#line 1935 "parseaut.yy"
        {
          unsigned n = res.accset;
          auto p = spot::acc_cond::acc_code::parity_max_odd(n);
@@ -3007,34 +2980,34 @@ namespace hoayy {
 	 for (auto& p: res.info_states)
 	   p.declared = true;
        }
-#line 3011 "parseaut.cc"
+#line 2984 "parseaut.cc"
     break;
 
   case 153: // pgame: pgamestart error "end of PGSolver game"
-#line 1974 "parseaut.yy"
+#line 1947 "parseaut.yy"
        {
 	 error(yylhs.location, "failed to parse this as a PGSolver game");
        }
-#line 3019 "parseaut.cc"
+#line 2992 "parseaut.cc"
     break;
 
   case 156: // pgame_succs: "integer"
-#line 1982 "parseaut.yy"
+#line 1955 "parseaut.yy"
            { (yylhs.value.states) = new std::vector<unsigned>{(yystack_[0].value.num)}; }
-#line 3025 "parseaut.cc"
+#line 2998 "parseaut.cc"
     break;
 
   case 157: // pgame_succs: pgame_succs ',' "integer"
-#line 1984 "parseaut.yy"
+#line 1957 "parseaut.yy"
            {
              (yylhs.value.states) = (yystack_[2].value.states);
              (yylhs.value.states)->emplace_back((yystack_[0].value.num));
            }
-#line 3034 "parseaut.cc"
+#line 3007 "parseaut.cc"
     break;
 
   case 158: // pgame_node: "integer" "integer" "integer" pgame_succs string_opt
-#line 1990 "parseaut.yy"
+#line 1963 "parseaut.yy"
             {
               unsigned state = (yystack_[4].value.num);
               unsigned owner = (yystack_[2].value.num);
@@ -3078,11 +3051,11 @@ namespace hoayy {
                   delete name;
                 }
             }
-#line 3082 "parseaut.cc"
+#line 3055 "parseaut.cc"
     break;
 
   case 159: // $@9: %empty
-#line 2039 "parseaut.yy"
+#line 2012 "parseaut.yy"
        {
 	 if (res.opts.want_kripke)
 	   {
@@ -3094,11 +3067,11 @@ namespace hoayy {
 	 res.acc_style = State_Acc;
 	 res.pos_acc_sets = res.h->aut->acc().all_sets();
        }
-#line 3098 "parseaut.cc"
+#line 3071 "parseaut.cc"
     break;
 
   case 160: // never: "never" $@9 '{' nc-states '}'
-#line 2051 "parseaut.yy"
+#line 2024 "parseaut.yy"
        {
 	 // Add an accept_all state if needed.
 	 if (res.accept_all_needed && !res.accept_all_seen)
@@ -3116,11 +3089,11 @@ namespace hoayy {
 	   p.declared = true;
          res.h->aut->register_aps_from_dict();
        }
-#line 3120 "parseaut.cc"
+#line 3093 "parseaut.cc"
     break;
 
   case 165: // nc-one-ident: "identifier" ':'
-#line 2075 "parseaut.yy"
+#line 2048 "parseaut.yy"
     {
       auto r = res.labels.insert(std::make_pair(*(yystack_[1].value.str), yystack_[1].location));
       if (!r.second)
@@ -3130,11 +3103,11 @@ namespace hoayy {
 	}
       (yylhs.value.str) = (yystack_[1].value.str);
     }
-#line 3134 "parseaut.cc"
+#line 3107 "parseaut.cc"
     break;
 
   case 166: // nc-ident-list: nc-one-ident
-#line 2086 "parseaut.yy"
+#line 2059 "parseaut.yy"
     {
       unsigned n = res.namer->new_state(*(yystack_[0].value.str));
       if (res.start.empty())
@@ -3144,11 +3117,11 @@ namespace hoayy {
 	}
       (yylhs.value.str) = (yystack_[0].value.str);
     }
-#line 3148 "parseaut.cc"
+#line 3121 "parseaut.cc"
     break;
 
   case 167: // nc-ident-list: nc-ident-list nc-one-ident
-#line 2096 "parseaut.yy"
+#line 2069 "parseaut.yy"
     {
       res.aliased_states |=
 	res.namer->alias_state(res.namer->get_state(*(yystack_[1].value.str)), *(yystack_[0].value.str));
@@ -3164,27 +3137,27 @@ namespace hoayy {
 	  (yylhs.value.str) = (yystack_[1].value.str);
         }
     }
-#line 3168 "parseaut.cc"
+#line 3141 "parseaut.cc"
     break;
 
   case 168: // nc-transition-block: "if" nc-transitions "fi"
-#line 2114 "parseaut.yy"
+#line 2087 "parseaut.yy"
     {
       (yylhs.value.list) = (yystack_[1].value.list);
     }
-#line 3176 "parseaut.cc"
+#line 3149 "parseaut.cc"
     break;
 
   case 169: // nc-transition-block: "do" nc-transitions "od"
-#line 2118 "parseaut.yy"
+#line 2091 "parseaut.yy"
     {
       (yylhs.value.list) = (yystack_[1].value.list);
     }
-#line 3184 "parseaut.cc"
+#line 3157 "parseaut.cc"
     break;
 
   case 170: // nc-state: nc-ident-list "skip"
-#line 2124 "parseaut.yy"
+#line 2097 "parseaut.yy"
     {
       if (*(yystack_[1].value.str) == "accept_all")
 	res.accept_all_seen = true;
@@ -3194,23 +3167,23 @@ namespace hoayy {
       res.namer->new_edge(*(yystack_[1].value.str), *(yystack_[1].value.str), bddtrue, acc);
       delete (yystack_[1].value.str);
     }
-#line 3198 "parseaut.cc"
+#line 3171 "parseaut.cc"
     break;
 
   case 171: // nc-state: nc-ident-list
-#line 2133 "parseaut.yy"
+#line 2106 "parseaut.yy"
                   { delete (yystack_[0].value.str); }
-#line 3204 "parseaut.cc"
+#line 3177 "parseaut.cc"
     break;
 
   case 172: // nc-state: nc-ident-list "false"
-#line 2134 "parseaut.yy"
+#line 2107 "parseaut.yy"
                           { delete (yystack_[1].value.str); }
-#line 3210 "parseaut.cc"
+#line 3183 "parseaut.cc"
     break;
 
   case 173: // nc-state: nc-ident-list nc-transition-block
-#line 2136 "parseaut.yy"
+#line 2109 "parseaut.yy"
     {
       auto acc = !strncmp("accept", (yystack_[1].value.str)->c_str(), 6) ?
 	res.h->aut->acc().all_sets() : spot::acc_cond::mark_t({});
@@ -3224,17 +3197,17 @@ namespace hoayy {
       delete (yystack_[1].value.str);
       delete (yystack_[0].value.list);
     }
-#line 3228 "parseaut.cc"
+#line 3201 "parseaut.cc"
     break;
 
   case 174: // nc-transitions: %empty
-#line 2151 "parseaut.yy"
+#line 2124 "parseaut.yy"
          { (yylhs.value.list) = new std::list<pair>; }
-#line 3234 "parseaut.cc"
+#line 3207 "parseaut.cc"
     break;
 
   case 175: // nc-transitions: nc-transitions nc-transition
-#line 2153 "parseaut.yy"
+#line 2126 "parseaut.yy"
     {
       if ((yystack_[0].value.p))
 	{
@@ -3243,23 +3216,23 @@ namespace hoayy {
 	}
       (yylhs.value.list) = (yystack_[1].value.list);
     }
-#line 3247 "parseaut.cc"
+#line 3220 "parseaut.cc"
     break;
 
   case 176: // nc-formula-or-ident: "boolean formula"
-#line 2162 "parseaut.yy"
+#line 2135 "parseaut.yy"
                      { (yylhs.value.str) = (yystack_[0].value.str); }
-#line 3253 "parseaut.cc"
+#line 3226 "parseaut.cc"
     break;
 
   case 177: // nc-formula-or-ident: "identifier"
-#line 2162 "parseaut.yy"
+#line 2135 "parseaut.yy"
                                { (yylhs.value.str) = (yystack_[0].value.str); }
-#line 3259 "parseaut.cc"
+#line 3232 "parseaut.cc"
     break;
 
   case 178: // nc-formula: nc-formula-or-ident
-#line 2165 "parseaut.yy"
+#line 2138 "parseaut.yy"
      {
        auto i = res.fcache.find(*(yystack_[0].value.str));
        if (i == res.fcache.end())
@@ -3289,45 +3262,45 @@ namespace hoayy {
        bdd_addref((yylhs.value.b));
        delete (yystack_[0].value.str);
      }
-#line 3293 "parseaut.cc"
+#line 3266 "parseaut.cc"
     break;
 
   case 179: // nc-formula: "false"
-#line 2195 "parseaut.yy"
+#line 2168 "parseaut.yy"
      {
        (yylhs.value.b) = 0;
      }
-#line 3301 "parseaut.cc"
+#line 3274 "parseaut.cc"
     break;
 
   case 180: // nc-opt-dest: %empty
-#line 2201 "parseaut.yy"
+#line 2174 "parseaut.yy"
     {
       (yylhs.value.str) = nullptr;
     }
-#line 3309 "parseaut.cc"
+#line 3282 "parseaut.cc"
     break;
 
   case 181: // nc-opt-dest: "->" "goto" "identifier"
-#line 2205 "parseaut.yy"
+#line 2178 "parseaut.yy"
     {
       (yylhs.value.str) = (yystack_[0].value.str);
     }
-#line 3317 "parseaut.cc"
+#line 3290 "parseaut.cc"
     break;
 
   case 182: // nc-opt-dest: "->" "assert" "boolean formula"
-#line 2209 "parseaut.yy"
+#line 2182 "parseaut.yy"
     {
       delete (yystack_[0].value.str);
       (yylhs.value.str) = new std::string("accept_all");
       res.accept_all_needed = true;
     }
-#line 3327 "parseaut.cc"
+#line 3300 "parseaut.cc"
     break;
 
   case 183: // nc-src-dest: nc-formula nc-opt-dest
-#line 2216 "parseaut.yy"
+#line 2189 "parseaut.yy"
     {
       // If there is no destination, do ignore the transition.
       // This happens for instance with
@@ -3344,27 +3317,27 @@ namespace hoayy {
 	  res.namer->new_state(*(yystack_[0].value.str));
 	}
     }
-#line 3348 "parseaut.cc"
+#line 3321 "parseaut.cc"
     break;
 
   case 184: // nc-transition: ':' ':' "atomic" '{' nc-src-dest '}'
-#line 2235 "parseaut.yy"
+#line 2208 "parseaut.yy"
     {
       (yylhs.value.p) = (yystack_[1].value.p);
     }
-#line 3356 "parseaut.cc"
+#line 3329 "parseaut.cc"
     break;
 
   case 185: // nc-transition: ':' ':' nc-src-dest
-#line 2239 "parseaut.yy"
+#line 2212 "parseaut.yy"
     {
       (yylhs.value.p) = (yystack_[0].value.p);
     }
-#line 3364 "parseaut.cc"
+#line 3337 "parseaut.cc"
     break;
 
   case 186: // lbtt: lbtt-header lbtt-body "-1"
-#line 2248 "parseaut.yy"
+#line 2221 "parseaut.yy"
       {
 	auto& acc = res.h->aut->acc();
 	unsigned num = acc.num_sets();
@@ -3405,20 +3378,20 @@ namespace hoayy {
 	   s.declared = true;
          res.h->aut->register_aps_from_dict();
       }
-#line 3409 "parseaut.cc"
+#line 3382 "parseaut.cc"
     break;
 
   case 187: // lbtt: lbtt-header-states "acceptance sets for empty automaton"
-#line 2289 "parseaut.yy"
+#line 2262 "parseaut.yy"
       {
         res.h->aut->set_generalized_buchi((yystack_[0].value.num));
 	res.pos_acc_sets = res.h->aut->acc().all_sets();
       }
-#line 3418 "parseaut.cc"
+#line 3391 "parseaut.cc"
     break;
 
   case 188: // lbtt-header-states: "LBTT header"
-#line 2295 "parseaut.yy"
+#line 2268 "parseaut.yy"
                   {
 		    if (res.opts.want_kripke)
 		      {
@@ -3431,29 +3404,29 @@ namespace hoayy {
 		    res.states_loc = yystack_[0].location;
 		    res.h->aut->new_states((yystack_[0].value.num));
 		  }
-#line 3435 "parseaut.cc"
+#line 3408 "parseaut.cc"
     break;
 
   case 189: // lbtt-header: lbtt-header-states "state acceptance"
-#line 2308 "parseaut.yy"
+#line 2281 "parseaut.yy"
            {
 	     res.acc_mapper = new spot::acc_mapper_int(res.h->aut, (yystack_[0].value.num));
 	     res.acc_style = State_Acc;
 	   }
-#line 3444 "parseaut.cc"
+#line 3417 "parseaut.cc"
     break;
 
   case 190: // lbtt-header: lbtt-header-states "integer"
-#line 2313 "parseaut.yy"
+#line 2286 "parseaut.yy"
            {
 	     res.acc_mapper = new spot::acc_mapper_int(res.h->aut, (yystack_[0].value.num));
 	     res.trans_acc_seen = true;
 	   }
-#line 3453 "parseaut.cc"
+#line 3426 "parseaut.cc"
     break;
 
   case 194: // lbtt-state: "state number" "integer" lbtt-acc
-#line 2322 "parseaut.yy"
+#line 2295 "parseaut.yy"
           {
 	    if ((yystack_[2].value.num) >= (unsigned) res.states)
 	      {
@@ -3472,17 +3445,17 @@ namespace hoayy {
                                      std::vector<unsigned>{res.cur_state});
 	    res.acc_state = (yystack_[0].value.mark);
 	  }
-#line 3476 "parseaut.cc"
+#line 3449 "parseaut.cc"
     break;
 
   case 195: // lbtt-acc: %empty
-#line 2340 "parseaut.yy"
+#line 2313 "parseaut.yy"
                  { (yylhs.value.mark) = spot::acc_cond::mark_t({}); }
-#line 3482 "parseaut.cc"
+#line 3455 "parseaut.cc"
     break;
 
   case 196: // lbtt-acc: lbtt-acc "acceptance set"
-#line 2342 "parseaut.yy"
+#line 2315 "parseaut.yy"
         {
 	  (yylhs.value.mark)  = (yystack_[1].value.mark);
 	  auto p = res.acc_mapper->lookup((yystack_[0].value.num));
@@ -3491,11 +3464,11 @@ namespace hoayy {
 	  else
 	    error(yystack_[0].location, "more acceptance sets used than declared");
 	}
-#line 3495 "parseaut.cc"
+#line 3468 "parseaut.cc"
     break;
 
   case 197: // lbtt-guard: "string"
-#line 2351 "parseaut.yy"
+#line 2324 "parseaut.yy"
           {
 	    auto pf = spot::parse_prefix_ltl(*(yystack_[0].value.str), *res.env);
 	    if (!pf.f || !pf.errors.empty())
@@ -3535,11 +3508,11 @@ namespace hoayy {
 	      }
 	    delete (yystack_[0].value.str);
 	  }
-#line 3539 "parseaut.cc"
+#line 3512 "parseaut.cc"
     break;
 
   case 199: // lbtt-transitions: lbtt-transitions "destination number" lbtt-acc lbtt-guard
-#line 2392 "parseaut.yy"
+#line 2365 "parseaut.yy"
                 {
 		  unsigned dst = (yystack_[2].value.num);
 		  if (dst >= (unsigned) res.states)
@@ -3557,11 +3530,11 @@ namespace hoayy {
 				       res.cur_label,
 				       res.acc_state | (yystack_[1].value.mark));
 		}
-#line 3561 "parseaut.cc"
+#line 3534 "parseaut.cc"
     break;
 
 
-#line 3565 "parseaut.cc"
+#line 3538 "parseaut.cc"
 
             default:
               break;
@@ -4228,17 +4201,17 @@ namespace hoayy {
      991,   992,   996,   997,  1002,  1003,  1010,  1011,  1012,  1013,
     1017,  1022,  1026,  1034,  1038,  1044,  1048,  1052,  1081,  1096,
     1102,  1109,  1116,  1122,  1140,  1168,  1186,  1190,  1196,  1202,
-    1206,  1215,  1326,  1336,  1379,  1380,  1426,  1427,  1450,  1462,
-    1492,  1500,  1501,  1507,  1508,  1530,  1557,  1568,  1572,  1576,
-    1584,  1588,  1599,  1603,  1617,  1618,  1619,  1620,  1621,  1622,
-    1640,  1656,  1669,  1684,  1685,  1686,  1687,  1718,  1749,  1760,
-    1761,  1766,  1778,  1791,  1815,  1816,  1817,  1835,  1848,  1852,
-    1854,  1894,  1895,  1898,  1902,  1927,  1929,  1930,  1939,  1940,
-    1941,  1951,  1961,  1973,  1978,  1979,  1981,  1983,  1989,  2039,
-    2038,  2069,  2070,  2071,  2072,  2074,  2085,  2095,  2113,  2117,
-    2123,  2133,  2134,  2135,  2151,  2152,  2162,  2162,  2164,  2194,
-    2200,  2204,  2208,  2215,  2234,  2238,  2247,  2288,  2294,  2307,
-    2312,  2317,  2318,  2319,  2321,  2340,  2341,  2350,  2390,  2391
+    1206,  1215,  1299,  1309,  1352,  1353,  1399,  1400,  1423,  1435,
+    1465,  1473,  1474,  1480,  1481,  1503,  1530,  1541,  1545,  1549,
+    1557,  1561,  1572,  1576,  1590,  1591,  1592,  1593,  1594,  1595,
+    1613,  1629,  1642,  1657,  1658,  1659,  1660,  1691,  1722,  1733,
+    1734,  1739,  1751,  1764,  1788,  1789,  1790,  1808,  1821,  1825,
+    1827,  1867,  1868,  1871,  1875,  1900,  1902,  1903,  1912,  1913,
+    1914,  1924,  1934,  1946,  1951,  1952,  1954,  1956,  1962,  2012,
+    2011,  2042,  2043,  2044,  2045,  2047,  2058,  2068,  2086,  2090,
+    2096,  2106,  2107,  2108,  2124,  2125,  2135,  2135,  2137,  2167,
+    2173,  2177,  2181,  2188,  2207,  2211,  2220,  2261,  2267,  2280,
+    2285,  2290,  2291,  2292,  2294,  2313,  2314,  2323,  2363,  2364
   };
 
   void
@@ -4322,9 +4295,9 @@ namespace hoayy {
   }
 
 } // hoayy
-#line 4326 "parseaut.cc"
+#line 4299 "parseaut.cc"
 
-#line 2410 "parseaut.yy"
+#line 2383 "parseaut.yy"
 
 
 static void fill_guards(result_& r)
@@ -4528,7 +4501,7 @@ static void fix_initial_state(result_& r)
   start.resize(std::distance(start.begin(), res));
 
   assert(start.size() >= 1);
-  if (start.size() == 1)
+    if (start.size() == 1)
     {
       if (r.opts.want_kripke)
 	r.h->ks->set_init_state(start.front().front());
@@ -4545,13 +4518,13 @@ static void fix_initial_state(result_& r)
 				    "a single initial state");
 	  return;
 	}
-      auto& aut = r.h->aut;
       // Fiddling with initial state may turn an incomplete automaton
       // into a complete one.
-      if (aut->prop_complete().is_false())
-        aut->prop_complete(spot::trival::maybe());
+      if (r.complete.is_false())
+        r.complete = spot::trival::maybe();
       // Multiple initial states.  We might need to add a fake one,
       // unless one of the actual initial state has no incoming edge.
+      auto& aut = r.h->aut;
       std::vector<unsigned char> has_incoming(aut->num_states(), 0);
       for (auto& t: aut->edges())
         for (unsigned ud: aut->univ_dests(t))
@@ -4590,9 +4563,6 @@ static void fix_initial_state(result_& r)
             {
               unsigned p = pp.front();
               if (p != init)
-                // FIXME: If p has no incoming we should be able to
-                // change the source of the edges of p instead of
-                // adding new edges.
                 for (auto& t: aut->out(p))
                   aut->new_edge(init, t.dst, t.cond);
             }
@@ -4614,24 +4584,6 @@ static void fix_initial_state(result_& r)
               comb_or |= comb_and;
             }
           combiner.new_dests(init, comb_or);
-        }
-
-      // Merging two states may break state-based acceptance
-      // make sure all outgoing edges have the same color.
-      if (aut->prop_state_acc().is_true())
-        {
-          bool first = true;
-          spot::acc_cond::mark_t prev;
-          for (auto& e: aut->out(init))
-            if (first)
-              {
-                first = false;
-                prev = e.acc;
-              }
-            else if (e.acc != prev)
-              {
-                e.acc = prev;
-              }
         }
     }
 }
@@ -4810,8 +4762,8 @@ namespace spot
         r.aut_or_ks->set_named_prop("aliases", p);
       }
     fix_acceptance(r);
-    fix_properties(r); // before fix_initial_state
     fix_initial_state(r);
+    fix_properties(r);
     if (r.h->aut && !r.h->aut->is_existential())
       r.h->aut->merge_univ_dests();
     return r.h;

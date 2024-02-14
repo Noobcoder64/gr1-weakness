@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-08-01 Tue 20:04 -->
+<!-- 2022-10-08 Sat 19:39 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Exploring the temporal hierarchy of Manna &amp; Pnueli</title>
@@ -192,41 +192,30 @@
     { font-size: 10px; font-weight: bold; white-space: nowrap; }
   .org-info-js_search-highlight
     { background-color: #ffff00; color: #000000; font-weight: bold; }
-  .org-svg { }
+  .org-svg { width: 90%; }
 </style>
 <link rel="stylesheet" type="text/css" href="spot.css" />
-<script>
-  window.MathJax = {
-    tex: {
-      ams: {
-        multlineWidth: '85%'
-      },
-      tags: 'ams',
-      tagSide: 'right',
-      tagIndent: '.8em'
-    },
-    chtml: {
-      scale: 1.0,
-      displayAlign: 'center',
-      displayIndent: '0em'
-    },
-    svg: {
-      scale: 1.0,
-      displayAlign: 'center',
-      displayIndent: '0em'
-    },
-    output: {
-      font: 'mathjax-modern',
-      displayOverflow: 'overflow'
-    }
-  };
-</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
 
-<script
-  id="MathJax-script"
-  async
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
 </head>
 <body>
 <div id="org-div-home-and-up">
@@ -239,25 +228,24 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org596885c">Description of the classes</a></li>
-<li><a href="#orgb4e4a32">Deciding class membership</a></li>
-<li><a href="#org756926e">Deciding classes membership syntactically</a></li>
-<li><a href="#org784612a">What to do with each class?</a>
+<li><a href="#orgece0855">Description of the classes</a></li>
+<li><a href="#orga82c053">Deciding class membership</a></li>
+<li><a href="#orga1145fd">Deciding classes membership syntactically</a></li>
+<li><a href="#org7662a2b">What to do with each class?</a>
 <ul>
-<li><a href="#orgca0f7f6">Obligation</a></li>
-<li><a href="#org2680e07">Guarantee</a></li>
+<li><a href="#orged2ba75">Obligation</a></li>
+<li><a href="#orgac28003">Guarantee</a></li>
 <li><a href="#safety">Safety</a></li>
-<li><a href="#orgc976de2">Recurrence</a></li>
-<li><a href="#orgeac2049">Persistence</a></li>
+<li><a href="#org10ec147">Recurrence</a></li>
+<li><a href="#orgf2d0fdd">Persistence</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="orgf054da1" class="figure">
-<p><object type="image/svg+xml" data="spot2.svg" class="org-svg" id="spotlogo">
-Sorry, your browser does not support SVG.</object>
+<div id="orgbc15b65" class="figure">
+<p><img src="spot2.svg" alt="spot2.svg" class="org-svg" id="spotlogo" />
 </p>
 </div>
 <p>
@@ -270,9 +258,9 @@ This hierarchy relates "properties" (i.e., omega-regular languages) to
 structural properties of the automata that can recognize them.
 </p>
 
-<div id="outline-container-org596885c" class="outline-2">
-<h2 id="org596885c">Description of the classes</h2>
-<div class="outline-text-2" id="text-org596885c">
+<div id="outline-container-orgece0855" class="outline-2">
+<h2 id="orgece0855">Description of the classes</h2>
+<div class="outline-text-2" id="text-orgece0855">
 <p>
 The hierarchy is built from the classes pictured in the following
 diagram, where each class includes everything below it. For instance,
@@ -282,9 +270,8 @@ intersection of <i>safety</i> and <i>guarantee</i> (<code>B</code> in the pictur
 </p>
 
 
-<div id="org368f9e1" class="figure">
-<p><object type="image/svg+xml" data="hierarchy.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="orga932a3e" class="figure">
+<p><img src="hierarchy.svg" alt="hierarchy.svg" class="org-svg" />
 </p>
 </div>
 
@@ -358,9 +345,9 @@ Spot to denote the classes.
 </div>
 </div>
 
-<div id="outline-container-orgb4e4a32" class="outline-2">
-<h2 id="orgb4e4a32">Deciding class membership</h2>
-<div class="outline-text-2" id="text-orgb4e4a32">
+<div id="outline-container-orga82c053" class="outline-2">
+<h2 id="orga82c053">Deciding class membership</h2>
+<div class="outline-text-2" id="text-orga82c053">
 <p>
 The <code>--format=%h</code> option can be used to display the "class key" of the
 most precise class to which a formula belongs.
@@ -471,7 +458,7 @@ not LTL formulas, and that are not obligations:
    ltlfilt --recurrence -n10
 </pre>
 </div>
-<pre class="example" id="orgd6eb556">
+<pre class="example" id="org8ed3418">
 {[*]}&lt;&gt;-&gt; (!a &amp; XG!Ga)
 F({[*2][*]}[]-&gt; (b M 1))
 {[*0] | b[*]}&lt;&gt;-&gt; GFb
@@ -526,9 +513,9 @@ wc -l random-?.ltl
 </div>
 </div>
 
-<div id="outline-container-org756926e" class="outline-2">
-<h2 id="org756926e">Deciding classes membership syntactically</h2>
-<div class="outline-text-2" id="text-org756926e">
+<div id="outline-container-orga1145fd" class="outline-2">
+<h2 id="orga1145fd">Deciding classes membership syntactically</h2>
+<div class="outline-text-2" id="text-orga1145fd">
 <p>
 LTL formulas can also be classified into related classes which we
 shall call <i>syntactic-safety</i>, <i>syntactic-guarantee</i>, etc.  See <a href="https://spot.lrde.epita.fr/tl.pdf">tl.pdf</a>
@@ -556,7 +543,7 @@ properties but that are not in the syntactic-safety class:
 </pre>
 </div>
 
-<pre class="example" id="orge072736">
+<pre class="example" id="org3dfa1f6">
 F!(!b &lt;-&gt; FGb)
 !Fb xor G((b xor (Xa M b)) U b)
 a W F(a -&gt; b)
@@ -593,13 +580,13 @@ formula from the appropriate syntactic class.
 </div>
 </div>
 
-<div id="outline-container-org784612a" class="outline-2">
-<h2 id="org784612a">What to do with each class?</h2>
-<div class="outline-text-2" id="text-org784612a">
+<div id="outline-container-org7662a2b" class="outline-2">
+<h2 id="org7662a2b">What to do with each class?</h2>
+<div class="outline-text-2" id="text-org7662a2b">
 </div>
-<div id="outline-container-orgca0f7f6" class="outline-3">
-<h3 id="orgca0f7f6">Obligation</h3>
-<div class="outline-text-3" id="text-orgca0f7f6">
+<div id="outline-container-orged2ba75" class="outline-3">
+<h3 id="orged2ba75">Obligation</h3>
+<div class="outline-text-3" id="text-orged2ba75">
 <p>
 Spot implements algorithms from Löding (<a href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.24.6718"><i>Efficient minimization of
 deterministic weak ω-automata</i>, IPL 2001</a>) and Dax et al. (<a href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.83.2081"><i>Mechanizing
@@ -648,14 +635,13 @@ non-determinism occurs):
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="org4c31b07">ltl2tgba <span class="org-string">'Fa R b'</span> | autfilt --highlight-nondet -d
+<pre class="src src-sh" id="org1c5a2bf">ltl2tgba <span class="org-string">'Fa R b'</span> | autfilt --highlight-nondet -d
 </pre>
 </div>
 
 
-<div id="org91a9bcd" class="figure">
-<p><object type="image/svg+xml" data="hier-oblig-1.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org27317b9" class="figure">
+<p><img src="hier-oblig-1.svg" alt="hier-oblig-1.svg" class="org-svg" />
 </p>
 </div>
 
@@ -675,14 +661,13 @@ automaton instead.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="org5187287">ltl2tgba -D <span class="org-string">'Fa R b'</span> -d
+<pre class="src src-sh" id="org0c6d51e">ltl2tgba -D <span class="org-string">'Fa R b'</span> -d
 </pre>
 </div>
 
 
-<div id="orgbbbb125" class="figure">
-<p><object type="image/svg+xml" data="hier-oblig-2.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org19e2185" class="figure">
+<p><img src="hier-oblig-2.svg" alt="hier-oblig-2.svg" class="org-svg" />
 </p>
 </div>
 
@@ -706,14 +691,13 @@ for the obligation property <code>Ga | XFb</code>.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="org622f7e0">ltldo <span class="org-string">'ltl2dstar --automata=streett'</span> -f <span class="org-string">'Ga | XFb'</span> -d
+<pre class="src src-sh" id="org619d8ee">ltldo <span class="org-string">'ltl2dstar --automata=streett'</span> -f <span class="org-string">'Ga | XFb'</span> -d
 </pre>
 </div>
 
 
-<div id="org35c987b" class="figure">
-<p><object type="image/svg+xml" data="hier-oblig-3.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="orgc6fc302" class="figure">
+<p><img src="hier-oblig-3.svg" alt="hier-oblig-3.svg" class="org-svg" />
 </p>
 </div>
 
@@ -722,13 +706,12 @@ We can now minimize this automaton with:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="orgf3fdfd1">ltldo <span class="org-string">'ltl2dstar --automata=streett'</span> -f <span class="org-string">'Ga | XFb'</span> | autfilt -D -C -d
+<pre class="src src-sh" id="org6f3f3d6">ltldo <span class="org-string">'ltl2dstar --automata=streett'</span> -f <span class="org-string">'Ga | XFb'</span> | autfilt -D -C -d
 </pre>
 </div>
 
-<div id="org1df81ab" class="figure">
-<p><object type="image/svg+xml" data="hier-oblig-4.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="orgaf1cdae" class="figure">
+<p><img src="hier-oblig-4.svg" alt="hier-oblig-4.svg" class="org-svg" />
 </p>
 </div>
 
@@ -740,9 +723,9 @@ output complete automata.
 </div>
 </div>
 
-<div id="outline-container-org2680e07" class="outline-3">
-<h3 id="org2680e07">Guarantee</h3>
-<div class="outline-text-3" id="text-org2680e07">
+<div id="outline-container-orgac28003" class="outline-3">
+<h3 id="orgac28003">Guarantee</h3>
+<div class="outline-text-3" id="text-orgac28003">
 <p>
 <i>Guarantee</i> properties can be translated into terminal automata.
 There is nothing particular in Spot about <i>guarantee</i> properties, they
@@ -771,24 +754,22 @@ guarantee
 
 
 <div class="org-src-container">
-<pre class="src src-sh" id="org7533114">ltl2tgba <span class="org-string">'a U Xb'</span> | autfilt --highlight-nondet -d
+<pre class="src src-sh" id="org0102698">ltl2tgba <span class="org-string">'a U Xb'</span> | autfilt --highlight-nondet -d
 </pre>
 </div>
 
-<div id="orge31179b" class="figure">
-<p><object type="image/svg+xml" data="hier-guarantee-1.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org5dbe18d" class="figure">
+<p><img src="hier-guarantee-1.svg" alt="hier-guarantee-1.svg" class="org-svg" />
 </p>
 </div>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="org60a2762">ltl2tgba -D <span class="org-string">'a U Xb'</span> -d
+<pre class="src src-sh" id="orgfecaf5e">ltl2tgba -D <span class="org-string">'a U Xb'</span> -d
 </pre>
 </div>
 
-<div id="org1d23feb" class="figure">
-<p><object type="image/svg+xml" data="hier-guarantee-2.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="orgb0fed18" class="figure">
+<p><img src="hier-guarantee-2.svg" alt="hier-guarantee-2.svg" class="org-svg" />
 </p>
 </div>
 </div>
@@ -830,13 +811,12 @@ safety
 
 
 <div class="org-src-container">
-<pre class="src src-sh" id="org767f747">ltl2tgba <span class="org-string">'(a W Gb) M b'</span> | autfilt --highlight-nondet -d
+<pre class="src src-sh" id="orgd3f881d">ltl2tgba <span class="org-string">'(a W Gb) M b'</span> | autfilt --highlight-nondet -d
 </pre>
 </div>
 
-<div id="orgbcbbc6c" class="figure">
-<p><object type="image/svg+xml" data="hier-safety-1.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org78b70bf" class="figure">
+<p><img src="hier-safety-1.svg" alt="hier-safety-1.svg" class="org-svg" />
 </p>
 </div>
 
@@ -851,13 +831,12 @@ that is guaranteed to be minimal, and where all runs are accepting.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="orgbea02e3">ltl2tgba -D <span class="org-string">'(a W Gb) M b'</span> -d
+<pre class="src src-sh" id="org4493aac">ltl2tgba -D <span class="org-string">'(a W Gb) M b'</span> -d
 </pre>
 </div>
 
-<div id="org29ddd11" class="figure">
-<p><object type="image/svg+xml" data="hier-safety-2.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="orgc7ba457" class="figure">
+<p><img src="hier-safety-2.svg" alt="hier-safety-2.svg" class="org-svg" />
 </p>
 </div>
 
@@ -872,24 +851,22 @@ extended into valid ω-words).
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="org1e2d5e2">ltl2tgba -M <span class="org-string">'(a W Gb) M b'</span> | autfilt --highlight-nondet -d
+<pre class="src src-sh" id="org309e83f">ltl2tgba -M <span class="org-string">'(a W Gb) M b'</span> | autfilt --highlight-nondet -d
 </pre>
 </div>
 
-<div id="org524008d" class="figure">
-<p><object type="image/svg+xml" data="hier-safety-1m.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org7c4104a" class="figure">
+<p><img src="hier-safety-1m.svg" alt="hier-safety-1m.svg" class="org-svg" />
 </p>
 </div>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="org7833070">ltl2tgba -M -D <span class="org-string">'(a W Gb) M b'</span> -d
+<pre class="src src-sh" id="orgf37f89c">ltl2tgba -M -D <span class="org-string">'(a W Gb) M b'</span> -d
 </pre>
 </div>
 
-<div id="org6ad6610" class="figure">
-<p><object type="image/svg+xml" data="hier-safety-2m.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org9390aff" class="figure">
+<p><img src="hier-safety-2m.svg" alt="hier-safety-2m.svg" class="org-svg" />
 </p>
 </div>
 
@@ -902,9 +879,9 @@ language larger than that of the property.
 </div>
 </div>
 
-<div id="outline-container-orgc976de2" class="outline-3">
-<h3 id="orgc976de2">Recurrence</h3>
-<div class="outline-text-3" id="text-orgc976de2">
+<div id="outline-container-org10ec147" class="outline-3">
+<h3 id="org10ec147">Recurrence</h3>
+<div class="outline-text-3" id="text-org10ec147">
 <p>
 <i>Recurrence</i> properties can be represented by deterministic Büchi
 automata.
@@ -941,13 +918,12 @@ recurrence
 
 
 <div class="org-src-container">
-<pre class="src src-sh" id="orgacb29d4">ltl2tgba <span class="org-string">'GFa'</span> -d
+<pre class="src src-sh" id="org8bb462a">ltl2tgba <span class="org-string">'GFa'</span> -d
 </pre>
 </div>
 
-<div id="org510df30" class="figure">
-<p><object type="image/svg+xml" data="hier-recurrence-1.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org2f8a1ff" class="figure">
+<p><img src="hier-recurrence-1.svg" alt="hier-recurrence-1.svg" class="org-svg" />
 </p>
 </div>
 
@@ -956,13 +932,12 @@ Using state-based acceptance, at least two states are required.  For instance:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="org36d8bd1">ltl2tgba -S <span class="org-string">'GFa'</span> -d
+<pre class="src src-sh" id="orgc907105">ltl2tgba -S <span class="org-string">'GFa'</span> -d
 </pre>
 </div>
 
-<div id="org67421ab" class="figure">
-<p><object type="image/svg+xml" data="hier-recurrence-2.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org18631e3" class="figure">
+<p><img src="hier-recurrence-2.svg" alt="hier-recurrence-2.svg" class="org-svg" />
 </p>
 </div>
 
@@ -983,13 +958,12 @@ recurrence
 
 
 <div class="org-src-container">
-<pre class="src src-sh" id="org5763110">ltl2tgba -D <span class="org-string">'G(Gb | Fa)'</span> | autfilt --highlight-nondet -d
+<pre class="src src-sh" id="org433be65">ltl2tgba -D <span class="org-string">'G(Gb | Fa)'</span> | autfilt --highlight-nondet -d
 </pre>
 </div>
 
-<div id="orgf0b4b8a" class="figure">
-<p><object type="image/svg+xml" data="hier-recurrence-3.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org1df0b5e" class="figure">
+<p><img src="hier-recurrence-3.svg" alt="hier-recurrence-3.svg" class="org-svg" />
 </p>
 </div>
 
@@ -1002,13 +976,12 @@ automaton can only have one of three possible acceptance: <code>Inf(0)</code>, <
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="org27f0b27">ltl2tgba -P -D <span class="org-string">'G(Gb | Fa)'</span> -d
+<pre class="src src-sh" id="org809ed5a">ltl2tgba -P -D <span class="org-string">'G(Gb | Fa)'</span> -d
 </pre>
 </div>
 
-<div id="org8df8088" class="figure">
-<p><object type="image/svg+xml" data="hier-recurrence-4.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org6810d5e" class="figure">
+<p><img src="hier-recurrence-4.svg" alt="hier-recurrence-4.svg" class="org-svg" />
 </p>
 </div>
 
@@ -1020,13 +993,12 @@ difference is to pipe the result through <code>autfilt -B</code>
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="org51bf488">ltl2tgba -P -D <span class="org-string">'G(Gb | Fa)'</span> | autfilt -B -d
+<pre class="src src-sh" id="org366ae46">ltl2tgba -P -D <span class="org-string">'G(Gb | Fa)'</span> | autfilt -B -d
 </pre>
 </div>
 
-<div id="org20f6344" class="figure">
-<p><object type="image/svg+xml" data="hier-recurrence-5.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org761e7d3" class="figure">
+<p><img src="hier-recurrence-5.svg" alt="hier-recurrence-5.svg" class="org-svg" />
 </p>
 </div>
 
@@ -1039,9 +1011,9 @@ requirement.
 </div>
 </div>
 
-<div id="outline-container-orgeac2049" class="outline-3">
-<h3 id="orgeac2049">Persistence</h3>
-<div class="outline-text-3" id="text-orgeac2049">
+<div id="outline-container-orgf2d0fdd" class="outline-3">
+<h3 id="orgf2d0fdd">Persistence</h3>
+<div class="outline-text-3" id="text-orgf2d0fdd">
 <p>
 Since <i>persistence</i> properties are outside of the <i>recurrence</i> class,
 they cannot be represented by deterministic Büchi automata.  The typical
@@ -1049,13 +1021,12 @@ persistence formula is <code>FGa</code>, and using <code>-D</code> on this is ho
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="org9a9b236">ltl2tgba -D FGa -d
+<pre class="src src-sh" id="orgd21a5d0">ltl2tgba -D FGa -d
 </pre>
 </div>
 
-<div id="orgd0de56e" class="figure">
-<p><object type="image/svg+xml" data="hier-persistence-1.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org4b89973" class="figure">
+<p><img src="hier-persistence-1.svg" alt="hier-persistence-1.svg" class="org-svg" />
 </p>
 </div>
 
@@ -1069,13 +1040,12 @@ complementation ourselves:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="orgd63450a">ltl2tgba --negate -D FGa | autfilt --complement -d
+<pre class="src src-sh" id="org945602a">ltl2tgba --negate -D FGa | autfilt --complement -d
 </pre>
 </div>
 
-<div id="orgf0a1fa2" class="figure">
-<p><object type="image/svg+xml" data="hier-persistence-2.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org500f26c" class="figure">
+<p><img src="hier-persistence-2.svg" alt="hier-persistence-2.svg" class="org-svg" />
 </p>
 </div>
 
@@ -1124,13 +1094,12 @@ Unfortunately the default output of the translation is not weak:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="org96b1bbf">ltl2tgba <span class="org-string">'F(G!a | G(b U a))'</span> -d
+<pre class="src src-sh" id="org92342e7">ltl2tgba <span class="org-string">'F(G!a | G(b U a))'</span> -d
 </pre>
 </div>
 
-<div id="org08bbdc4" class="figure">
-<p><object type="image/svg+xml" data="hier-persistence-3.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="orgf5026d3" class="figure">
+<p><img src="hier-persistence-3.svg" alt="hier-persistence-3.svg" class="org-svg" />
 </p>
 </div>
 
@@ -1139,13 +1108,12 @@ So let's determinize using parity acceptance:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="org6778a26">ltl2tgba -P -D <span class="org-string">'F(G!a | G(b U a))'</span> -d
+<pre class="src src-sh" id="org858989c">ltl2tgba -P -D <span class="org-string">'F(G!a | G(b U a))'</span> -d
 </pre>
 </div>
 
-<div id="orgf83262b" class="figure">
-<p><object type="image/svg+xml" data="hier-persistence-4.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org7fc0fd4" class="figure">
+<p><img src="hier-persistence-4.svg" alt="hier-persistence-4.svg" class="org-svg" />
 </p>
 </div>
 
@@ -1154,13 +1122,12 @@ And finally we convert the result back to Büchi with <code>autfilt -B</code>.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="orgf273463">ltl2tgba -P -D <span class="org-string">'F(G!a | G(b U a))'</span> | autfilt -B --highlight-nondet --small -d
+<pre class="src src-sh" id="orgd265d84">ltl2tgba -P -D <span class="org-string">'F(G!a | G(b U a))'</span> | autfilt -B --highlight-nondet --small -d
 </pre>
 </div>
 
-<div id="orge86bf4f" class="figure">
-<p><object type="image/svg+xml" data="hier-persistence-7.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="orgce85d95" class="figure">
+<p><img src="hier-persistence-7.svg" alt="hier-persistence-7.svg" class="org-svg" />
 </p>
 </div>
 

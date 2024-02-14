@@ -1,5 +1,5 @@
 // -*- coding: utf-8 -*-
-// Copyright (C) 2013-2023 Laboratoire de Recherche et Développement
+// Copyright (C) 2013-2022 Laboratoire de Recherche et Développement
 // de l'Epita (LRDE).
 //
 // This file is part of Spot, a model checking library.
@@ -24,7 +24,7 @@
 #include <argp.h>
 #include "common_setup.hh"
 
-static const char argp_program_doc[] = "\
+const char argp_program_doc[] ="\
 Common fine-tuning options for programs installed with Spot.\n\
 \n\
 The argument of -x or --extra-options is a comma-separated list of KEY=INT \
@@ -47,13 +47,10 @@ depends on the --low, --medium, or --high settings.") },
     { DOC("tls-max-states",
           "Maximum number of states of automata involved in automata-based \
 implication checks for formula simplifications.  Defaults to 64.") },
-    { DOC("tls-max-ops",
-          "Maximum number of operands in n-ary opertors (or, and) on which \
-implication-based simplifications are attempted.  Defaults to 16.") },
     { nullptr, 0, nullptr, 0, "Translation options:", 0 },
     { DOC("ltl-split", "Set to 0 to disable the translation of automata \
 as product or sum of subformulas.") },
-    { DOC("branch-post", "Set to 0 to disable branching-postponement \
+    { DOC("branch-prop", "Set to 0 to disable branching-postponement \
 (done during translation, may create more states) and delayed-branching \
 (almost similar, but done after translation to only remove states).  \
 Set to 1 to force branching-postponement, and to 2 \

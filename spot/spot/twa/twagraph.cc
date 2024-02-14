@@ -1,5 +1,5 @@
 // -*- coding: utf-8 -*-
-// Copyright (C) 2014-2023 Laboratoire de Recherche et Développement
+// Copyright (C) 2014-2022 Laboratoire de Recherche et Développement
 // de l'Epita.
 //
 // This file is part of Spot, a model checking library.
@@ -107,6 +107,15 @@ namespace
 
 namespace spot
 {
+
+  void
+  twa_graph::apply_permutation(std::vector<unsigned> permut)
+  {
+    for (auto& e : edges())
+    {
+      e.acc.apply_permutation(permut);
+    }
+  }
 
   std::string twa_graph::format_state(unsigned n) const
   {
@@ -1234,7 +1243,8 @@ namespace spot
                     // the state so that graph::degrag_states() will
                     // eventually update it to the correct value.
                     nd = newst.size();
-                    newst.emplace_back(uniq.new_univ_dests(std::move(tmp)));
+                    newst.emplace_back(uniq.new_univ_dests(tmp.begin(),
+                                                           tmp.end()));
                   }
               }
             in_dst = nd;

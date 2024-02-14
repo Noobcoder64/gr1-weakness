@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-08-01 Tue 20:04 -->
+<!-- 2022-10-08 Sat 19:38 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>=ltlgrind=</title>
@@ -192,7 +192,7 @@
     { font-size: 10px; font-weight: bold; white-space: nowrap; }
   .org-info-js_search-highlight
     { background-color: #ffff00; color: #000000; font-weight: bold; }
-  .org-svg { }
+  .org-svg { width: 90%; }
 </style>
 <link rel="stylesheet" type="text/css" href="spot.css" />
 </head>
@@ -207,20 +207,19 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org799e43e">Miscellaneous options</a>
+<li><a href="#orgbe6cd10">Miscellaneous options</a>
 <ul>
-<li><a href="#org60ceb0d"><code>--sort</code></a></li>
-<li><a href="#org3728b7b"><code>-m N</code>, <code>--mutations=N</code></a></li>
-<li><a href="#orgc592d10"><code>-n N</code>, <code>--max-output=N</code></a></li>
+<li><a href="#org6d0ac75"><code>--sort</code></a></li>
+<li><a href="#orgfa64b4a"><code>-m N</code>, <code>--mutations=N</code></a></li>
+<li><a href="#org75c43f5"><code>-n N</code>, <code>--max-output=N</code></a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="orgd3b7370" class="figure">
-<p><object type="image/svg+xml" data="spot2.svg" class="org-svg" id="spotlogo">
-Sorry, your browser does not support SVG.</object>
+<div id="org00e223a" class="figure">
+<p><img src="spot2.svg" alt="spot2.svg" class="org-svg" id="spotlogo" />
 </p>
 </div>
 <p>
@@ -240,7 +239,7 @@ formula that caused a problem before trying to debug it (see also
 Here is a list of the different kinds of mutations that can be applied:
 </p>
 
-<pre class="example" id="org51cd075">
+<pre class="example" id="org57f79ed">
 --ap-to-const          atomic propositions are replaced with true/false
 --remove-multop-operands   remove one operand from multops
 --remove-one-ap        all occurrences of an atomic proposition are
@@ -270,7 +269,7 @@ specified, only those will be applied.
 </pre>
 </div>
 
-<pre class="example" id="org047e1e2">
+<pre class="example" id="org6887cf3">
 a
 G(b &lt;-&gt; c)
 a W G(b &lt;-&gt; c)
@@ -300,13 +299,13 @@ automatically by calling <code>ltlcross</code> with the <code>--grind=FILENAME</
 argument.
 </p>
 
-<div id="outline-container-org799e43e" class="outline-2">
-<h2 id="org799e43e">Miscellaneous options</h2>
-<div class="outline-text-2" id="text-org799e43e">
+<div id="outline-container-orgbe6cd10" class="outline-2">
+<h2 id="orgbe6cd10">Miscellaneous options</h2>
+<div class="outline-text-2" id="text-orgbe6cd10">
 </div>
-<div id="outline-container-org60ceb0d" class="outline-3">
-<h3 id="org60ceb0d"><code>--sort</code></h3>
-<div class="outline-text-3" id="text-org60ceb0d">
+<div id="outline-container-org6d0ac75" class="outline-3">
+<h3 id="org6d0ac75"><code>--sort</code></h3>
+<div class="outline-text-3" id="text-org6d0ac75">
 <p>
 Output formulas from the shortest to the longest one. The
 length of a formula is the number of atomic propositions, constants
@@ -314,9 +313,9 @@ and operators occurring in the formula.
 </p>
 </div>
 </div>
-<div id="outline-container-org3728b7b" class="outline-3">
-<h3 id="org3728b7b"><code>-m N</code>, <code>--mutations=N</code></h3>
-<div class="outline-text-3" id="text-org3728b7b">
+<div id="outline-container-orgfa64b4a" class="outline-3">
+<h3 id="orgfa64b4a"><code>-m N</code>, <code>--mutations=N</code></h3>
+<div class="outline-text-3" id="text-orgfa64b4a">
 <p>
 Specify the number of mutations to be applied to the formula. By
 default, <code>N=1</code>, so using this option is like calling ltlgrind on its
@@ -325,9 +324,9 @@ several formulas, ltlgrind doesn't handle duplicates.
 </p>
 </div>
 </div>
-<div id="outline-container-orgc592d10" class="outline-3">
-<h3 id="orgc592d10"><code>-n N</code>, <code>--max-output=N</code></h3>
-<div class="outline-text-3" id="text-orgc592d10">
+<div id="outline-container-org75c43f5" class="outline-3">
+<h3 id="org75c43f5"><code>-n N</code>, <code>--max-output=N</code></h3>
+<div class="outline-text-3" id="text-org75c43f5">
 <p>
 Limit the number of mutated formulas output to <code>N</code>.
 </p>

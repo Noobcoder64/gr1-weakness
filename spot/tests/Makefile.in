@@ -1837,8 +1837,6 @@ TESTS_misc = \
 
 TESTS_twa = \
   core/385.test \
-  core/521.test \
-  core/522.test \
   core/acc.test \
   core/acc2.test \
   core/bdddict.test \
@@ -4088,20 +4086,6 @@ core/kripke.test.log: core/kripke.test
 core/385.test.log: core/385.test
 	@p='core/385.test'; \
 	b='core/385.test'; \
-	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
-	--log-file $$b.log --trs-file $$b.trs \
-	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
-	"$$tst" $(AM_TESTS_FD_REDIRECT)
-core/521.test.log: core/521.test
-	@p='core/521.test'; \
-	b='core/521.test'; \
-	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
-	--log-file $$b.log --trs-file $$b.trs \
-	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
-	"$$tst" $(AM_TESTS_FD_REDIRECT)
-core/522.test.log: core/522.test
-	@p='core/522.test'; \
-	b='core/522.test'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \

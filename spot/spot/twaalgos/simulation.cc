@@ -1,5 +1,5 @@
 // -*- coding: utf-8 -*-
-// Copyright (C) 2012-2023 Laboratoire de Recherche et Développement
+// Copyright (C) 2012-2021 Laboratoire de Recherche et Développement
 // de l'Epita (LRDE).
 //
 // This file is part of Spot, a model checking library.
@@ -93,7 +93,13 @@ namespace spot
           return true;
         if (states > r.states)
           return false;
-        return edges < r.edges;
+
+        if (edges < r.edges)
+          return true;
+        if (edges > r.edges)
+          return false;
+
+        return false;
       }
 
       inline bool operator>(const automaton_size& r)
@@ -584,7 +590,7 @@ namespace spot
                 // C1 then (!C1)C2, instead of C1 then C2.
                 // With minatop_isop, we ensure that the no negative
                 // class variable will be seen (likewise for promises).
-                minato_isop isop(bdd_restrict(sig, one));
+                minato_isop isop(bdd_relprod(sig, one, sup_all_atomic_prop));
 
                 ++nb_minterms;
 

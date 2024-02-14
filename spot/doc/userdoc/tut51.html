@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-08-01 Tue 20:03 -->
+<!-- 2022-10-08 Sat 19:40 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Implementing an on-the-fly Kripke structure</title>
@@ -192,41 +192,30 @@
     { font-size: 10px; font-weight: bold; white-space: nowrap; }
   .org-info-js_search-highlight
     { background-color: #ffff00; color: #000000; font-weight: bold; }
-  .org-svg { }
+  .org-svg { width: 90%; }
 </style>
 <link rel="stylesheet" type="text/css" href="spot.css" />
-<script>
-  window.MathJax = {
-    tex: {
-      ams: {
-        multlineWidth: '85%'
-      },
-      tags: 'ams',
-      tagSide: 'right',
-      tagIndent: '.8em'
-    },
-    chtml: {
-      scale: 1.0,
-      displayAlign: 'center',
-      displayIndent: '0em'
-    },
-    svg: {
-      scale: 1.0,
-      displayAlign: 'center',
-      displayIndent: '0em'
-    },
-    output: {
-      font: 'mathjax-modern',
-      displayOverflow: 'overflow'
-    }
-  };
-</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
 
-<script
-  id="MathJax-script"
-  async
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
 </head>
 <body>
 <div id="org-div-home-and-up">
@@ -239,24 +228,23 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org3fcf8d3">Implementing a toy Kripke structure</a>
+<li><a href="#org26ff733">Implementing a toy Kripke structure</a>
 <ul>
-<li><a href="#org48217f2">What needs to be done</a></li>
-<li><a href="#org75eea2e">Implementing the <code>state</code> subclass</a></li>
-<li><a href="#org123ae20">Implementing the <code>kripke_succ_iterator</code> subclass</a></li>
-<li><a href="#orga8c3d54">Implementing the <code>kripke</code> subclass itself</a></li>
+<li><a href="#orge0fa101">What needs to be done</a></li>
+<li><a href="#org60dad95">Implementing the <code>state</code> subclass</a></li>
+<li><a href="#org2d2d418">Implementing the <code>kripke_succ_iterator</code> subclass</a></li>
+<li><a href="#orgd524d3e">Implementing the <code>kripke</code> subclass itself</a></li>
 </ul>
 </li>
-<li><a href="#org114fd5c">Displaying the state space</a></li>
+<li><a href="#org7a49965">Displaying the state space</a></li>
 <li><a href="#prop-check">Checking a property on this state space</a></li>
-<li><a href="#org58eda59">Possible improvements</a></li>
+<li><a href="#org3c2b885">Possible improvements</a></li>
 </ul>
 </div>
 </div>
 
-<div id="org69f230d" class="figure">
-<p><object type="image/svg+xml" data="spot2.svg" class="org-svg" id="spotlogo">
-Sorry, your browser does not support SVG.</object>
+<div id="org1bc2085" class="figure">
+<p><img src="spot2.svg" alt="spot2.svg" class="org-svg" id="spotlogo" />
 </p>
 </div>
 <p>
@@ -266,9 +254,9 @@ condition is <code>t</code>).  They are typically used by model checkers to
 represent the state space of the model to verify.
 </p>
 
-<div id="outline-container-org3fcf8d3" class="outline-2">
-<h2 id="org3fcf8d3">Implementing a toy Kripke structure</h2>
-<div class="outline-text-2" id="text-org3fcf8d3">
+<div id="outline-container-org26ff733" class="outline-2">
+<h2 id="org26ff733">Implementing a toy Kripke structure</h2>
+<div class="outline-text-2" id="text-org26ff733">
 <p>
 In this example, our goal is to implement a Kripke structure that
 constructs its state space on the fly. (<a href="tut52.html">Another page</a> shows how to
@@ -302,9 +290,9 @@ often holds as well.
 </p>
 </div>
 
-<div id="outline-container-org48217f2" class="outline-3">
-<h3 id="org48217f2">What needs to be done</h3>
-<div class="outline-text-3" id="text-org48217f2">
+<div id="outline-container-orge0fa101" class="outline-3">
+<h3 id="orge0fa101">What needs to be done</h3>
+<div class="outline-text-3" id="text-orge0fa101">
 <p>
 In Spot, Kripke structures are implemented as subclass of <code>twa</code>, but
 some operations have specialized versions that takes advantages of the
@@ -314,7 +302,7 @@ than the on-the-fly product of two <code>twa</code>.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-C++" id="orgf68850f"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;spot/kripke/kripke.hh&gt;</span>
+<pre class="src src-C++" id="org2246ad4"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;spot/kripke/kripke.hh&gt;</span>
 </pre>
 </div>
 
@@ -332,18 +320,17 @@ but good enough for show what we have to implement.
 </p>
 
 
-<div id="org8262836" class="figure">
-<p><object type="image/svg+xml" data="uml-kripke.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org781a449" class="figure">
+<p><img src="uml-kripke.svg" alt="uml-kripke.svg" class="org-svg" />
 </p>
 </div>
 </div>
 </div>
 
 
-<div id="outline-container-org75eea2e" class="outline-3">
-<h3 id="org75eea2e">Implementing the <code>state</code> subclass</h3>
-<div class="outline-text-3" id="text-org75eea2e">
+<div id="outline-container-org60dad95" class="outline-3">
+<h3 id="org60dad95">Implementing the <code>state</code> subclass</h3>
+<div class="outline-text-3" id="text-org60dad95">
 <p>
 Let us start with the <code>demo_state</code> class.  It should
 </p>
@@ -364,7 +351,7 @@ implement <code>compare()</code> using <code>hash()</code>.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-C++" id="orge8968af"><span class="org-keyword">class</span> <span class="org-type">demo_state</span>: <span class="org-keyword">public</span> <span class="org-constant">spot</span>::<span class="org-type">state</span>
+<pre class="src src-C++" id="org5f72f09"><span class="org-keyword">class</span> <span class="org-type">demo_state</span>: <span class="org-keyword">public</span> <span class="org-constant">spot</span>::<span class="org-type">state</span>
 {
 <span class="org-keyword">private</span>:
   <span class="org-type">unsigned</span> <span class="org-type">char</span> <span class="org-variable-name">x_</span>;
@@ -416,9 +403,9 @@ a job for the automaton.
 </div>
 </div>
 
-<div id="outline-container-org123ae20" class="outline-3">
-<h3 id="org123ae20">Implementing the <code>kripke_succ_iterator</code> subclass</h3>
-<div class="outline-text-3" id="text-org123ae20">
+<div id="outline-container-org2d2d418" class="outline-3">
+<h3 id="org2d2d418">Implementing the <code>kripke_succ_iterator</code> subclass</h3>
+<div class="outline-text-3" id="text-org2d2d418">
 <p>
 Now let us implement the iterator.  It will be constructed from a pair
 \((x,y)\) and during its iteration it should produce two new states
@@ -449,7 +436,7 @@ We also add a <code>recycle()</code> method that we will discuss later.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-C++" id="org2339540"><span class="org-keyword">class</span> <span class="org-type">demo_succ_iterator</span>: <span class="org-keyword">public</span> <span class="org-constant">spot</span>::<span class="org-type">kripke_succ_iterator</span>
+<pre class="src src-C++" id="org16b8a55"><span class="org-keyword">class</span> <span class="org-type">demo_succ_iterator</span>: <span class="org-keyword">public</span> <span class="org-constant">spot</span>::<span class="org-type">kripke_succ_iterator</span>
 {
 <span class="org-keyword">private</span>:
   <span class="org-type">unsigned</span> <span class="org-type">char</span> <span class="org-variable-name">x_</span>;
@@ -496,9 +483,9 @@ We also add a <code>recycle()</code> method that we will discuss later.
 </div>
 </div>
 
-<div id="outline-container-orga8c3d54" class="outline-3">
-<h3 id="orga8c3d54">Implementing the <code>kripke</code> subclass itself</h3>
-<div class="outline-text-3" id="text-orga8c3d54">
+<div id="outline-container-orgd524d3e" class="outline-3">
+<h3 id="orgd524d3e">Implementing the <code>kripke</code> subclass itself</h3>
+<div class="outline-text-3" id="text-orgd524d3e">
 <p>
 Finally, let us implement the Kripke structure itself.  We only have
 four methods of the interface to implement:
@@ -516,7 +503,7 @@ and <code>odd_y</code> we wanted to use.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-C++" id="orgeb5958c"><span class="org-keyword">class</span> <span class="org-type">demo_kripke</span>: <span class="org-keyword">public</span> <span class="org-constant">spot</span>::<span class="org-type">kripke</span>
+<pre class="src src-C++" id="org21bba00"><span class="org-keyword">class</span> <span class="org-type">demo_kripke</span>: <span class="org-keyword">public</span> <span class="org-constant">spot</span>::<span class="org-type">kripke</span>
 {
 <span class="org-keyword">private</span>:
   <span class="org-type">bdd</span> <span class="org-variable-name">odd_x_</span>;
@@ -562,7 +549,7 @@ propose two versions.  The most straightforward is the following:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-C++" id="orgb2ca3a1"><span class="org-type">demo_succ_iterator</span>* <span class="org-constant">demo_kripke</span>::<span class="org-function-name">succ_iter</span>(<span class="org-keyword">const</span> <span class="org-constant">spot</span>::<span class="org-type">state</span>* <span class="org-variable-name">s</span>) <span class="org-keyword">const</span>
+<pre class="src src-C++" id="orgb6ff1f4"><span class="org-type">demo_succ_iterator</span>* <span class="org-constant">demo_kripke</span>::<span class="org-function-name">succ_iter</span>(<span class="org-keyword">const</span> <span class="org-constant">spot</span>::<span class="org-type">state</span>* <span class="org-variable-name">s</span>) <span class="org-keyword">const</span>
 {
   <span class="org-keyword">auto</span> <span class="org-variable-name">ss</span> = <span class="org-keyword">static_cast</span>&lt;<span class="org-keyword">const</span> <span class="org-type">demo_state</span>*&gt;(s);
   <span class="org-keyword">return</span> <span class="org-keyword">new</span> <span class="org-type">demo_succ_iterator</span>(ss-&gt;get_x(), ss-&gt;get_y(), state_condition(ss));
@@ -582,7 +569,7 @@ is an implementation that does this.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-C++" id="orgbd8cba0"><span class="org-type">demo_succ_iterator</span>* <span class="org-constant">demo_kripke</span>::<span class="org-function-name">succ_iter</span>(<span class="org-keyword">const</span> <span class="org-constant">spot</span>::<span class="org-type">state</span>* <span class="org-variable-name">s</span>) <span class="org-keyword">const</span>
+<pre class="src src-C++" id="orgb14bb4c"><span class="org-type">demo_succ_iterator</span>* <span class="org-constant">demo_kripke</span>::<span class="org-function-name">succ_iter</span>(<span class="org-keyword">const</span> <span class="org-constant">spot</span>::<span class="org-type">state</span>* <span class="org-variable-name">s</span>) <span class="org-keyword">const</span>
 {
   <span class="org-keyword">auto</span> <span class="org-variable-name">ss</span> = <span class="org-keyword">static_cast</span>&lt;<span class="org-keyword">const</span> <span class="org-type">demo_state</span>*&gt;(s);
   <span class="org-type">unsigned</span> <span class="org-type">char</span> <span class="org-variable-name">x</span> = ss-&gt;get_x();
@@ -608,15 +595,15 @@ this reason.
 </div>
 </div>
 
-<div id="outline-container-org114fd5c" class="outline-2">
-<h2 id="org114fd5c">Displaying the state space</h2>
-<div class="outline-text-2" id="text-org114fd5c">
+<div id="outline-container-org7a49965" class="outline-2">
+<h2 id="org7a49965">Displaying the state space</h2>
+<div class="outline-text-2" id="text-org7a49965">
 <p>
 Here is a short <code>main</code> displaying the state space of our toy Kripke structure.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-C++" id="org0b797c2"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;spot/twaalgos/dot.hh&gt;</span>
+<pre class="src src-C++" id="orgdba7916"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;spot/twaalgos/dot.hh&gt;</span>
 
 <span class="org-type">int</span> <span class="org-function-name">main</span>()
 {
@@ -627,9 +614,8 @@ Here is a short <code>main</code> displaying the state space of our toy Kripke s
 </div>
 
 
-<div id="org8285686" class="figure">
-<p><object type="image/svg+xml" data="kripke-1.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="orga38bfc7" class="figure">
+<p><img src="kripke-1.svg" alt="kripke-1.svg" class="org-svg" />
 </p>
 </div>
 </div>
@@ -656,7 +642,7 @@ counterexample:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-C++" id="org359fc40"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;spot/tl/parse.hh&gt;</span>
+<pre class="src src-C++" id="org7ee65c0"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;spot/tl/parse.hh&gt;</span>
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;spot/twaalgos/translate.hh&gt;</span>
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;spot/twaalgos/emptiness.hh&gt;</span>
 
@@ -720,7 +706,7 @@ We also pass option "<code>A</code>" to hide the acceptance condition (which is
 </p>
 
 <div class="org-src-container">
-<pre class="src src-C++" id="org62e847f"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;spot/twaalgos/dot.hh&gt;</span>
+<pre class="src src-C++" id="orgb3016e9"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;spot/twaalgos/dot.hh&gt;</span>
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;spot/tl/parse.hh&gt;</span>
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;spot/twaalgos/translate.hh&gt;</span>
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;spot/twaalgos/emptiness.hh&gt;</span>
@@ -753,9 +739,8 @@ We also pass option "<code>A</code>" to hide the acceptance condition (which is
 </div>
 
 
-<div id="org1e4eefe" class="figure">
-<p><object type="image/svg+xml" data="kripke-3.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org5ddaada" class="figure">
+<p><img src="kripke-3.svg" alt="kripke-3.svg" class="org-svg" />
 </p>
 </div>
 
@@ -773,17 +758,16 @@ figure:
 </p>
 
 
-<div id="orga5c18ed" class="figure">
-<p><object type="image/svg+xml" data="kripke-3b.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org3430518" class="figure">
+<p><img src="kripke-3b.svg" alt="kripke-3b.svg" class="org-svg" />
 </p>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org58eda59" class="outline-2">
-<h2 id="org58eda59">Possible improvements</h2>
-<div class="outline-text-2" id="text-org58eda59">
+<div id="outline-container-org3c2b885" class="outline-2">
+<h2 id="org3c2b885">Possible improvements</h2>
+<div class="outline-text-2" id="text-org3c2b885">
 <p>
 The on-the-fly interface, especially as implemented here, involves a
 lot of memory allocation.  In particular, each state is allocated via

@@ -1,6 +1,6 @@
 // -*- coding: utf-8 -*-
-// Copyright (C) 2012, 2013, 2015-2019, 2022-2023 Laboratoire de
-// Recherche et Développement de l'Epita (LRDE).
+// Copyright (C) 2012, 2013, 2015-2019, 2022 Laboratoire de Recherche et
+// Développement de l'Epita (LRDE).
 //
 // This file is part of Spot, a model checking library.
 //
@@ -45,7 +45,7 @@
 
 using namespace spot;
 
-static const char argp_program_doc[] = "\
+const char argp_program_doc[] ="\
 Generate temporal logic formulas from predefined patterns.";
 
 // We reuse the values from gen::ltl_pattern_id as option keys.
@@ -317,7 +317,7 @@ output_pattern(gen::ltl_pattern_id pattern, int n, int n2)
 static void
 run_jobs()
 {
-  for (const auto& j: jobs)
+  for (auto& j: jobs)
     {
       int inc = (j.range.max < j.range.min) ? -1 : 1;
       int n = j.range.min;

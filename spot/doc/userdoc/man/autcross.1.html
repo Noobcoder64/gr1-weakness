@@ -1,5 +1,5 @@
-<!-- Creator     : groff version 1.23.0 -->
-<!-- CreationDate: Tue Aug  1 19:58:48 2023 -->
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Sat Oct  8 19:32:56 2022 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -26,15 +26,6 @@
 <li><a href="#NAME">NAME</a></li>
 <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
 <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
-<li><a href="#Input:">Input:</a></li>
-<li><a href="#Specifying tools to call:">Specifying tools to call:</a></li>
-<li><a href="#Parsing of automata:">Parsing of automata:</a></li>
-<li><a href="#autcross behavior:">autcross behavior:</a></li>
-<li><a href="#Statistics output:">Statistics output:</a></li>
-<li><a href="#Simplification level (for complementation):">Simplification level (for complementation):</a></li>
-<li><a href="#Output options:">Output options:</a></li>
-<li><a href="#Miscellaneous options:">Miscellaneous options:</a></li>
-<li><a href="#Exit status:">Exit status:</a></li>
 <li><a href="#ENVIRONMENT VARIABLES">ENVIRONMENT VARIABLES</a></li>
 <li><a href="#OUTPUT DATA">OUTPUT DATA</a></li>
 <li><a href="#REPORTING BUGS">REPORTING BUGS</a></li>
@@ -71,24 +62,15 @@ to detect bugs, or to gather statistics. The list of
 automata to use should be supplied on standard input, or
 using the <b>-F</b> option.</p>
 
-<h3>Input:
-<a name="Input:"></a>
-</h3>
-
-
-<p style="margin-left:11%; margin-top: 1em"><b>-F</b>,
-<b>--file</b>=<i>FILENAME</i></p>
+<h3 style="margin-left:11%">Input:</h3><p style="margin-left:11%"><b>
+-F</b>, <b>--file</b>=<i>FILENAME</i></p>
 
 <p style="margin-left:22%;">process automata from
 FILENAME</p>
 
-<h3>Specifying tools to call:
-<a name="Specifying tools to call:"></a>
-</h3>
-
-
-
-<p style="margin-left:11%; margin-top: 1em"><b>--list-shorthands</b></p>
+<h3 style="margin-left:11%">Specifying
+tools to call:</h3><p style="margin-left:11%"><b>
+--list-shorthands</b></p>
 
 <p style="margin-left:22%;">list availabled shorthands to
 use in COMMANDFMT</p>
@@ -152,25 +134,17 @@ automaton, with an optional default value</p>
 LBTT, or ltl2dstar&rsquo;s format</p></td></tr>
 </table>
 
-<h3>Parsing of automata:
-<a name="Parsing of automata:"></a>
-</h3>
-
-
-
-<p style="margin-left:11%; margin-top: 1em"><b>--trust-hoa</b>=<i>BOOL</i></p>
+<h3 style="margin-left:11%">Parsing of
+automata:</h3><p style="margin-left:11%"><b>
+--trust-hoa</b>=<i>BOOL</i></p>
 
 <p style="margin-left:22%;">If false, properties listed in
 HOA files are ignored, unless they can be easily verified.
 If true (the default) any supported property is trusted.</p>
 
-<h3>autcross behavior:
-<a name="autcross behavior:"></a>
-</h3>
-
-
-
-<p style="margin-left:11%; margin-top: 1em"><b>--fail-on-timeout</b></p>
+<h3 style="margin-left:11%">autcross
+behavior:</h3><p style="margin-left:11%"><b>
+--fail-on-timeout</b></p>
 
 <p style="margin-left:22%;">consider timeouts as errors</p>
 
@@ -203,13 +177,9 @@ checks</p>
 <p style="margin-left:22%;">stop on first execution error
 or failure to pass sanity checks (timeouts are OK)</p>
 
-<h3>Statistics output:
-<a name="Statistics output:"></a>
-</h3>
-
-
-
-<p style="margin-left:11%; margin-top: 1em"><b>--csv</b>[=[&gt;&gt;]FILENAME]</p>
+<h3 style="margin-left:11%">Statistics
+output:</h3><p style="margin-left:11%"><b>
+--csv</b>[=[&gt;&gt;]FILENAME]</p>
 
 <p style="margin-left:22%;">output statistics as CSV in
 FILENAME or on standard output (if &rsquo;&gt;&gt;&rsquo; is
@@ -221,10 +191,9 @@ output)</p>
 <p style="margin-left:22%;">do not output statistics for
 timeouts or failed translations</p>
 
-<h3>Simplification level (for complementation):
-<a name="Simplification level (for complementation):"></a>
-</h3>
 
+<h3 style="margin-left:11%">Simplification
+level (for complementation):</h3>
 
 <table width="100%" border="0" rules="none" frame="void"
        cellspacing="0" cellpadding="0">
@@ -233,13 +202,12 @@ timeouts or failed translations</p>
 <td width="9%">
 
 
-<p style="margin-top: 1em"><b>--high</b></p></td>
+<p><b>--high</b></p></td>
 <td width="2%"></td>
 <td width="66%">
 
 
-<p style="margin-top: 1em">all available optimizations
-(slow, default)</p></td>
+<p>all available optimizations (slow, default)</p></td>
 <td width="12%">
 </td></tr>
 <tr valign="top" align="left">
@@ -261,13 +229,9 @@ timeouts or failed translations</p>
 
 <p style="margin-left:22%;">moderate optimizations</p>
 
-<h3>Output options:
-<a name="Output options:"></a>
-</h3>
-
-
-
-<p style="margin-left:11%; margin-top: 1em"><b>--color</b>[=<i>WHEN</i>]</p>
+<h3 style="margin-left:11%">Output
+options:</h3><p style="margin-left:11%"><b>
+--color</b>[=<i>WHEN</i>]</p>
 
 <p style="margin-left:22%;">colorize output; WHEN can be
 &rsquo;never&rsquo;, &rsquo;always&rsquo; (the default if
@@ -295,10 +259,9 @@ debugging</p>
 FILENAME is prefixed with &rsquo;&gt;&gt;&rsquo;, it is open
 in append mode instead of being truncated.</p>
 
-<h3>Miscellaneous options:
-<a name="Miscellaneous options:"></a>
-</h3>
 
+<h3 style="margin-left:11%">Miscellaneous
+options:</h3>
 
 <table width="100%" border="0" rules="none" frame="void"
        cellspacing="0" cellpadding="0">
@@ -307,12 +270,12 @@ in append mode instead of being truncated.</p>
 <td width="9%">
 
 
-<p style="margin-top: 1em"><b>--help</b></p></td>
+<p><b>--help</b></p></td>
 <td width="2%"></td>
 <td width="23%">
 
 
-<p style="margin-top: 1em">print this help</p></td>
+<p>print this help</p></td>
 <td width="55%">
 </td></tr>
 </table>
@@ -325,10 +288,8 @@ in append mode instead of being truncated.</p>
 optional arguments to long options are also mandatory or
 optional for any corresponding short options.</p>
 
-<h3>Exit status:
-<a name="Exit status:"></a>
-</h3>
-
+<h3 style="margin-left:11%">Exit
+status:</h3>
 
 <table width="100%" border="0" rules="none" frame="void"
        cellspacing="0" cellpadding="0">
@@ -337,13 +298,13 @@ optional for any corresponding short options.</p>
 <td width="1%">
 
 
-<p style="margin-top: 1em">0</p></td>
+<p>0</p></td>
 <td width="10%"></td>
 <td width="78%">
 
 
-<p style="margin-top: 1em">everything went fine (without
-<b>--fail-on-timeout</b>, timeouts are OK)</p></td></tr>
+<p>everything went fine (without <b>--fail-on-timeout</b>,
+timeouts are OK)</p></td></tr>
 <tr valign="top" align="left">
 <td width="11%"></td>
 <td width="1%">
@@ -549,8 +510,8 @@ failling ones.</p></td></tr>
 
 
 <p style="margin-left:11%; margin-top: 1em">Copyright
-&copy; 2023 Laboratoire de Recherche de l&rsquo;Epita (LRE)
-License GPLv3+: <a href="http://www.gnu.org/licenses/gpl.html">GNU GPL version 3 or later</a>. <br>
+&copy; 2022 Laboratoire de Recherche et D&eacute;veloppement
+de l&rsquo;Epita. License GPLv3+: <a href="http://www.gnu.org/licenses/gpl.html">GNU GPL version 3 or later</a>. <br>
 This is free software: you are free to change and
 redistribute it. There is NO WARRANTY, to the extent
 permitted by law.</p>

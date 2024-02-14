@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-08-01 Tue 20:03 -->
+<!-- 2022-10-08 Sat 19:40 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Installing Spot</title>
@@ -192,7 +192,7 @@
     { font-size: 10px; font-weight: bold; white-space: nowrap; }
   .org-info-js_search-highlight
     { background-color: #ffff00; color: #000000; font-weight: bold; }
-  .org-svg { }
+  .org-svg { width: 90%; }
 </style>
 <link rel="stylesheet" type="text/css" href="spot.css" />
 </head>
@@ -209,21 +209,20 @@
 <ul>
 <li><a href="#tar">Installing and compiling from a tarball</a>
 <ul>
-<li><a href="#orgba4ebce">Requirements</a></li>
-<li><a href="#orgc27d93a">Installation</a></li>
+<li><a href="#org75b09f0">Requirements</a></li>
+<li><a href="#orgc443b41">Installation</a></li>
 </ul>
 </li>
 <li><a href="#Debian">Installing the Debian packages</a></li>
 <li><a href="#Fedora">Installing the Fedora packages</a></li>
-<li><a href="#orgdf54ec4">Installing as a Conda package</a></li>
+<li><a href="#org11db79b">Installing as a Conda package</a></li>
 <li><a href="#git">Installing and compiling from git</a></li>
 </ul>
 </div>
 </div>
 
-<div id="orga9b111c" class="figure">
-<p><object type="image/svg+xml" data="spot2.svg" class="org-svg" id="spotlogo">
-Sorry, your browser does not support SVG.</object>
+<div id="org6548d39" class="figure">
+<p><img src="spot2.svg" alt="spot2.svg" class="org-svg" id="spotlogo" />
 </p>
 </div>
 
@@ -231,11 +230,11 @@ Sorry, your browser does not support SVG.</object>
 <h2 id="tar">Installing and compiling from a tarball</h2>
 <div class="outline-text-2" id="text-tar">
 <p>
-The latest release of Spot is version 2.11.6 and was released on 2023-08-01:
+The latest release of Spot is version 2.11:
 </p>
 
 <ul class="org-ul">
-<li><a href="http://www.lrde.epita.fr/dload/spot/spot-2.11.6.tar.gz"><code>spot-2.11.6.tar.gz</code></a> (see also the <a href="https://gitlab.lre.epita.fr/spot/spot/blob/spot-2-11-6/NEWS">summary of the changes</a>)</li>
+<li><a href="http://www.lrde.epita.fr/dload/spot/spot-2.11.tar.gz"><code>spot-2.11.tar.gz</code></a> (see also the <a href="https://gitlab.lre.epita.fr/spot/spot/blob/spot-2-11/NEWS">summary of the changes</a>)</li>
 </ul>
 
 <p>
@@ -245,9 +244,9 @@ successful development build</a>.
 </p>
 </div>
 
-<div id="outline-container-orgba4ebce" class="outline-3">
-<h3 id="orgba4ebce">Requirements</h3>
-<div class="outline-text-3" id="text-orgba4ebce">
+<div id="outline-container-org75b09f0" class="outline-3">
+<h3 id="org75b09f0">Requirements</h3>
+<div class="outline-text-3" id="text-org75b09f0">
 <p>
 Spot requires a C++17-compliant compiler.  <code>g++</code> 7.0 or later, as well
 as <code>clang++</code> 5.0 or later should work.
@@ -264,9 +263,9 @@ to install it, you should run <code>./configure</code> with the
 </div>
 </div>
 
-<div id="outline-container-orgc27d93a" class="outline-3">
-<h3 id="orgc27d93a">Installation</h3>
-<div class="outline-text-3" id="text-orgc27d93a">
+<div id="outline-container-orgc443b41" class="outline-3">
+<h3 id="orgc443b41">Installation</h3>
+<div class="outline-text-3" id="text-orgc443b41">
 <p>
 The installation follows the usual <code>./configure</code>, <code>make</code>, <code>make install</code> steps.
 </p>
@@ -298,15 +297,10 @@ make install
 </div>
 
 <p>
-Before running <code>make install</code>, you might want to run <code>make check</code> to
-run our test-suite.
-</p>
-
-<p>
 Files <code>INSTALL</code> and <code>README</code> included in the tarball contains more
-explanations about the various options you can use during the
-compilation process.  Also note that <code>README</code> has a section about
-troubleshooting installations.
+explanations about the various options you can use during this
+process.  Also note that <code>README</code> has a section about troubleshooting
+installations.
 </p>
 </div>
 </div>
@@ -350,9 +344,7 @@ apt-get install spot libspot-dev spot-doc python3-spot <span class="org-comment-
 Note that our Debian repository is signed since that is the new Debian
 policy, and both of the above command blocks start with a download of
 our <a href="https://www.lrde.epita.fr/repo/debian.gpg">GPG key</a>.  Its fingerprint is <code>209B 7362 CFD6 FECF B41D 717F 03D9
-9E74 44F2 A84A</code>, if you want to verify it.  If you have an old copy of
-the GPG key that expired, please download it again: the current
-version should be valid until 2032.
+9E74 44F2 A84A</code>, if you want to verify it.
 </p>
 
 <p>
@@ -413,9 +405,9 @@ on <code>libspot</code> that contains the shared libraries.
 </div>
 </div>
 
-<div id="outline-container-orgdf54ec4" class="outline-2">
-<h2 id="orgdf54ec4">Installing as a Conda package</h2>
-<div class="outline-text-2" id="text-orgdf54ec4">
+<div id="outline-container-org11db79b" class="outline-2">
+<h2 id="org11db79b">Installing as a Conda package</h2>
+<div class="outline-text-2" id="text-org11db79b">
 <p>
 Spot is available as a <a href="https://anaconda.org/conda-forge/spot">Conda-forge package</a> for Linux and OS X.
 </p>

@@ -1,5 +1,5 @@
 // -*- coding: utf-8 -*-
-// Copyright (C) 2015, 2018, 2023 Laboratoire de Recherche et Développement
+// Copyright (C) 2015, 2018 Laboratoire de Recherche et Développement
 // de l'Epita (LRDE).
 //
 // This file is part of Spot, a model checking library.
@@ -25,14 +25,9 @@ int
 to_int(const char* s, const char* where)
 {
   char* endptr;
-  errno = 0;
-  long int lres = strtol(s, &endptr, 10);
+  int res = strtol(s, &endptr, 10);
   if (*endptr)
     error(2, 0, "failed to parse '%s' as an integer (in argument of %s).",
-          s, where);
-  int res = lres;
-  if (res != lres || errno == ERANGE)
-    error(2, 0, "value '%s' is too large for an int (in argument of %s).",
           s, where);
   return res;
 }
@@ -50,16 +45,10 @@ unsigned
 to_unsigned (const char *s, const char* where)
 {
   char* endptr;
-  errno = 0;
-  unsigned long lres = strtoul(s, &endptr, 10);
+  unsigned res = strtoul(s, &endptr, 10);
   if (*endptr)
     error(2, 0,
           "failed to parse '%s' as an unsigned integer (in argument of %s).",
-          s, where);
-  unsigned res = lres;
-  if (res != lres || errno == ERANGE)
-    error(2, 0,
-          "value '%s' is too large for a unsigned int (in argument of %s).",
           s, where);
   return res;
 }
@@ -68,9 +57,8 @@ float
 to_float(const char* s, const char* where)
 {
   char* endptr;
-  errno = 0;
   float res = strtof(s, &endptr);
-  if (*endptr || errno == ERANGE)
+  if (*endptr)
     error(2, 0, "failed to parse '%s' as a float (in argument of %s)",
           s, where);
   return res;
@@ -92,9 +80,8 @@ to_longs(const char* arg)
   while (*arg)
     {
       char* endptr;
-      errno = 0;
       long value = strtol(arg, &endptr, 10);
-      if (endptr == arg || errno)
+      if (endptr == arg)
         error(2, 0, "failed to parse '%s' as an integer.", arg);
       res.push_back(value);
       while (*endptr == ' ' || *endptr == ',')

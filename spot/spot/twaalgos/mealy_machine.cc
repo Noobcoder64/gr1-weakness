@@ -1,5 +1,5 @@
 // -*- coding: utf-8 -*-
-// Copyright (C) 2021, 2022, 2023 Laboratoire de Recherche et Développement
+// Copyright (C) 2021, 2022 Laboratoire de Recherche et Développement
 // de l'Epita (LRDE).
 //
 // This file is part of Spot, a model checking library.
@@ -100,8 +100,7 @@ namespace
       , f{std::fopen(name.c_str(), "a")}
     {
       if (!f)
-        throw std::runtime_error("`" + name +
-                                 "' could not be oppened for writing.");
+        throw std::runtime_error("File could not be oppened for writing.");
     }
     ~fwrapper()
     {
@@ -121,36 +120,21 @@ namespace
 namespace spot
 {
 
-  static bdd
-  ensure_mealy(const char* function_name,
-               const const_twa_graph_ptr& m)
-  {
-    if (SPOT_UNLIKELY(!m->acc().is_t()))
-      throw std::runtime_error(std::string(function_name) +
-                               "(): Mealy machines must have "
-                               "true acceptance condition");
-    bdd* out = m->get_named_prop<bdd>("synthesis-outputs");
-    if (SPOT_UNLIKELY(!out))
-      throw std::runtime_error(std::string(function_name) +
-                               "(): \"synthesis-outputs\" not defined");
-    return *out;
-  }
-
   bool
   is_mealy(const const_twa_graph_ptr& m)
   {
     if (!m->acc().is_t())
-      {
-        trace << "is_mealy(): Mealy machines must have "
-          "true acceptance condition.\n";
-        return false;
-      }
+    {
+      trace << "is_mealy(): Mealy machines must have "
+               "true acceptance condition.\n";
+      return false;
+    }
 
     if (!m->get_named_prop<bdd>("synthesis-outputs"))
-      {
-        trace << "is_mealy(): \"synthesis-outputs\" not found!\n";
-        return false;
-      }
+    {
+      trace << "is_mealy(): \"synthesis-outputs\" not found!\n";
+      return false;
+    }
 
     return true;
   }
@@ -185,7 +169,6 @@ namespace spot
       {
         trace << "is_split_mealy(): Split mealy machine must define the named "
                  "property \"state-player\"!\n";
-        return false;
       }
 
     auto sp = get_state_players(m);
@@ -269,7 +252,9 @@ namespace spot
   void
   split_separated_mealy_here(const twa_graph_ptr& m)
   {
-    bdd output_bdd = ensure_mealy("split_separated_mealy_here", m);
+    assert(is_mealy(m));
+
+    auto output_bdd = get_synthesis_outputs(m);
 
     struct dst_cond_color_t
     {
@@ -338,10 +323,10 @@ namespace spot
   twa_graph_ptr
   split_separated_mealy(const const_twa_graph_ptr& m)
   {
-    bdd outputs = ensure_mealy("split_separated_mealy", m);
+    assert(is_mealy((m)));
     auto m2 = make_twa_graph(m, twa::prop_set::all());
     m2->copy_acceptance_of(m);
-    set_synthesis_outputs(m2, outputs);
+    set_synthesis_outputs(m2, get_synthesis_outputs(m));
     split_separated_mealy_here(m2);
     return m2;
   }
@@ -782,7 +767,7 @@ namespace spot
   twa_graph_ptr reduce_mealy(const const_twa_graph_ptr& mm,
                              bool output_assignment)
   {
-    bdd outputs = ensure_mealy("reduce_mealy", mm);
+    assert(is_mealy(mm));
     if (mm->get_named_prop<std::vector<bool>>("state-player"))
       throw std::runtime_error("reduce_mealy(): "
                                "Only works on unsplit machines.\n");
@@ -790,7 +775,7 @@ namespace spot
     auto mmc = make_twa_graph(mm, twa::prop_set::all());
     mmc->copy_ap_of(mm);
     mmc->copy_acceptance_of(mm);
-    set_synthesis_outputs(mmc, outputs);
+    set_synthesis_outputs(mmc, get_synthesis_outputs(mm));
 
     reduce_mealy_here(mmc, output_assignment);
 
@@ -800,7 +785,7 @@ namespace spot
 
   void reduce_mealy_here(twa_graph_ptr& mm, bool output_assignment)
   {
-    ensure_mealy("reduce_mealy_here", mm);
+    assert(is_mealy(mm));
 
     // Only consider infinite runs
     mm->purge_dead_states();
@@ -917,8 +902,6 @@ namespace
     // Writing also "flushes"
     void write()
     {
-      if (!sat_csv_file)
-        return;
       auto f = [](std::ostream& o, auto& v, bool sep = true)
         {
           if (v >= 0)
@@ -927,6 +910,8 @@ namespace
             o.put(',');
           v = -1;
         };
+      if (!sat_csv_file)
+        return;
 
       auto& out = *sat_csv_file;
       if (out.tellp() == 0)
@@ -3801,7 +3786,7 @@ namespace spot
   twa_graph_ptr minimize_mealy(const const_twa_graph_ptr& mm,
                                int premin)
   {
-    bdd outputs = ensure_mealy("minimize_mealy", mm);
+    assert(is_mealy(mm));
 
     satprob_info si(sat_instance_name);
     si.task = "presat";
@@ -3849,7 +3834,7 @@ namespace spot
 
     // 0 -> "Env" next is input props
     // 1 -> "Player" next is output prop
-    const region_t& spref = get_state_players(mmw);
+    const auto& spref = get_state_players(mmw);
     assert((spref.size() == mmw->num_states())
            && "Inconsistent state players");
 
@@ -3931,17 +3916,14 @@ namespace spot
     // Set state players!
     if (!minmachine)
       return early_exit();
-    set_synthesis_outputs(minmachine, outputs);
+    set_synthesis_outputs(minmachine, get_synthesis_outputs(mm));
 
     si.done=1;
     si.n_min_states = minmachine->num_states();
     si.total_time = sglob.stop();
     si.write();
 
-    assert(is_split_mealy_specialization(
-      mm->get_named_prop<region_t>("state-player") ? mm
-                                                   :split_2step(mm, false),
-      minmachine));
+    assert(is_split_mealy_specialization(mm, minmachine));
     return minmachine;
   }
 
@@ -3949,23 +3931,17 @@ namespace spot
   minimize_mealy(const const_twa_graph_ptr& mm,
                  synthesis_info& si)
   {
-    if ((si.minimize_lvl < 3) || (si.minimize_lvl > 5))
-      throw std::runtime_error("minimize_mealy(): "
-                               "minimize_lvl should be between 3 and 5.");
+    if ((si.minimize_lvl < 3) || (5 < si.minimize_lvl))
+      throw std::runtime_error("Invalid option");
 
     std::string csvfile = si.opt.get_str("satlogcsv");
     std::string dimacsfile = si.opt.get_str("satlogdimacs");
 
     if (!csvfile.empty())
-      {
-        sat_csv_file = std::make_unique<std::ofstream>
-          (csvfile, std::ios_base::ate | std::ios_base::app);
-        if (!*sat_csv_file)
-          throw std::runtime_error("could not open `" + csvfile
-                                   + "' for writing");
-        sat_csv_file->exceptions(std::ofstream::failbit
-                                 | std::ofstream::badbit);
-      }
+      sat_csv_file
+        = std::make_unique<std::ofstream>(csvfile,
+                                          std::ios_base::ate
+                                            | std::ios_base::app);
     if (!dimacsfile.empty())
       sat_dimacs_file
         = std::make_unique<fwrapper>(dimacsfile);
@@ -3989,9 +3965,9 @@ namespace spot
     const unsigned initl = left->get_init_state_number();
     const unsigned initr = right->get_init_state_number();
 
-    const region_t& spr = get_state_players(right);
+    auto& spr = get_state_players(right);
 #ifndef NDEBUG
-    const region_t& spl = get_state_players(left);
+    auto& spl = get_state_players(left);
     // todo
     auto check_out = [](const const_twa_graph_ptr& aut,
                         const auto& sp)

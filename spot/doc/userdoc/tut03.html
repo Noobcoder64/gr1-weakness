@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-08-01 Tue 20:01 -->
+<!-- 2022-10-08 Sat 19:35 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Constructing and transforming formulas</title>
@@ -192,7 +192,7 @@
     { font-size: 10px; font-weight: bold; white-space: nowrap; }
   .org-info-js_search-highlight
     { background-color: #ffff00; color: #000000; font-weight: bold; }
-  .org-svg { }
+  .org-svg { width: 90%; }
 </style>
 <link rel="stylesheet" type="text/css" href="spot.css" />
 </head>
@@ -207,25 +207,24 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgf17ba5d">Constructing formulas</a>
+<li><a href="#orgea5a3ce">Constructing formulas</a>
 <ul>
-<li><a href="#org85b25e6">C++</a></li>
-<li><a href="#orgfc71c8d">Python</a></li>
+<li><a href="#orgaf1618d">C++</a></li>
+<li><a href="#org2bec7d3">Python</a></li>
 </ul>
 </li>
-<li><a href="#org90e3c86">Transforming formulas</a>
+<li><a href="#orge24cf19">Transforming formulas</a>
 <ul>
-<li><a href="#orgf8f8d88">C++</a></li>
-<li><a href="#orga8be753">Python</a></li>
+<li><a href="#orgaa60661">C++</a></li>
+<li><a href="#orgd78b94e">Python</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="org0c4471f" class="figure">
-<p><object type="image/svg+xml" data="spot2.svg" class="org-svg" id="spotlogo">
-Sorry, your browser does not support SVG.</object>
+<div id="orgccf8394" class="figure">
+<p><img src="spot2.svg" alt="spot2.svg" class="org-svg" id="spotlogo" />
 </p>
 </div>
 <p>
@@ -241,13 +240,13 @@ then Python.  Once these basics are covered, we will show examples for
 traversing and transforming formulas (again in C++ then Python).
 </p>
 
-<div id="outline-container-orgf17ba5d" class="outline-2">
-<h2 id="orgf17ba5d">Constructing formulas</h2>
-<div class="outline-text-2" id="text-orgf17ba5d">
+<div id="outline-container-orgea5a3ce" class="outline-2">
+<h2 id="orgea5a3ce">Constructing formulas</h2>
+<div class="outline-text-2" id="text-orgea5a3ce">
 </div>
-<div id="outline-container-org85b25e6" class="outline-3">
-<h3 id="org85b25e6">C++</h3>
-<div class="outline-text-3" id="text-org85b25e6">
+<div id="outline-container-orgaf1618d" class="outline-3">
+<h3 id="orgaf1618d">C++</h3>
+<div class="outline-text-3" id="text-orgaf1618d">
 <p>
 The <code>spot::formula</code> class contains static methods that act as
 constructors for each supported operator.
@@ -318,7 +317,7 @@ simplifications called <i>trivial identities</i>.  For instance
 <code>formula::F(formula::X(formula::tt()))</code> will return the same formula
 as <code>formula::tt()</code>.  These simplifications are those that involve the
 true and false constants, impotence (<code>F(F(e))=F(e)</code>), involutions
-(<code>Not(Not(e))=e</code>), associativity
+(<code>Not(Not(e)=e</code>), associativity
 (<code>And({And({e1,e2},e3})=And({e1,e2,e3})</code>).  See <a href="https://spot.lrde.epita.fr/tl.pdf">tl.pdf</a> for a list of
 these <i>trivial identities</i>.
 </p>
@@ -355,7 +354,7 @@ detail of the top-level operator in the formula.
 
   <span class="org-constant">std</span>::cout &lt;&lt; f &lt;&lt; <span class="org-string">'\n'</span>;
 
-  <span class="org-comment-delimiter">// </span><span class="org-comment">kindstr() prints the name of the operator</span>
+  <span class="org-comment-delimiter">// </span><span class="org-comment">kindstar() prints the name of the operator</span>
   <span class="org-comment-delimiter">// </span><span class="org-comment">size() return the number of operands of the operators</span>
   <span class="org-constant">std</span>::cout &lt;&lt; f.kindstr() &lt;&lt; <span class="org-string">", "</span> &lt;&lt; f.size() &lt;&lt; <span class="org-string">" children\n"</span>;
   <span class="org-comment-delimiter">// </span><span class="org-comment">operator[] accesses each operand</span>
@@ -388,9 +387,9 @@ GFc is G
 </div>
 </div>
 
-<div id="outline-container-orgfc71c8d" class="outline-3">
-<h3 id="orgfc71c8d">Python</h3>
-<div class="outline-text-3" id="text-orgfc71c8d">
+<div id="outline-container-org2bec7d3" class="outline-3">
+<h3 id="org2bec7d3">Python</h3>
+<div class="outline-text-3" id="text-org2bec7d3">
 <p>
 The Python equivalent is similar:
 </p>
@@ -406,7 +405,7 @@ The Python equivalent is similar:
 
 <span class="org-builtin">print</span>(f)
 
-<span class="org-comment-delimiter"># </span><span class="org-comment">kindstr() prints the name of the operator</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">kindstar() prints the name of the operator</span>
 <span class="org-comment-delimiter"># </span><span class="org-comment">size() return the number of operands of the operators</span>
 <span class="org-builtin">print</span>(<span class="org-string">"{}, {} children"</span>.<span class="org-builtin">format</span>(f.kindstr(), f.size()))
 <span class="org-comment-delimiter"># </span><span class="org-comment">[] accesses each operand</span>
@@ -435,13 +434,13 @@ GFc is G
 </div>
 </div>
 
-<div id="outline-container-org90e3c86" class="outline-2">
-<h2 id="org90e3c86">Transforming formulas</h2>
-<div class="outline-text-2" id="text-org90e3c86">
+<div id="outline-container-orge24cf19" class="outline-2">
+<h2 id="orge24cf19">Transforming formulas</h2>
+<div class="outline-text-2" id="text-orge24cf19">
 </div>
-<div id="outline-container-orgf8f8d88" class="outline-3">
-<h3 id="orgf8f8d88">C++</h3>
-<div class="outline-text-3" id="text-orgf8f8d88">
+<div id="outline-container-orgaa60661" class="outline-3">
+<h3 id="orgaa60661">C++</h3>
+<div class="outline-text-3" id="text-orgaa60661">
 <p>
 In Spot, Formula objects are immutable: this allows identical subtrees
 to be shared among multiple formulas.  Algorithms that "transform"
@@ -474,7 +473,7 @@ time time by not exploring further.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-C++" id="org6fe7edd"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;iostream&gt;</span>
+<pre class="src src-C++" id="orgd965bc6"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;iostream&gt;</span>
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;spot/tl/formula.hh&gt;</span>
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;spot/tl/print.hh&gt;</span>
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;spot/tl/parse.hh&gt;</span>
@@ -497,7 +496,7 @@ time time by not exploring further.
 </pre>
 </div>
 
-<pre class="example" id="org9c832b9">
+<pre class="example" id="org2535a3d">
 FGa -&gt; (GFb &amp; GF(b &amp; c &amp; d))
 FGa
 Ga
@@ -525,7 +524,7 @@ in a formula:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-C++" id="org566719d"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;iostream&gt;</span>
+<pre class="src src-C++" id="org2d5d839"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;iostream&gt;</span>
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;spot/tl/formula.hh&gt;</span>
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;spot/tl/print.hh&gt;</span>
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;spot/tl/parse.hh&gt;</span>
@@ -561,8 +560,8 @@ after:  GFa -&gt; (FGb &amp; FG(b &amp; c &amp; d))
 
 
 <ul class="org-ul">
-<li><a id="org53dbd5c"></a>Additional tricks about <code>map</code> and <code>traverse</code> in C++<br />
-<div class="outline-text-4" id="text-org53dbd5c">
+<li><a id="org86ed74f"></a>Additional tricks about <code>map</code> and <code>traverse</code> in C++<br />
+<div class="outline-text-4" id="text-org86ed74f">
 <p>
 As seen above, the first argument of <code>map()</code> and <code>traverse()</code> is a
 function <code>fun()</code> (or actually any object that as an <code>operator()</code>) that
@@ -572,7 +571,7 @@ formula.
 </p>
 
 <p>
-For instance instead of having a lambda capturing the <a href="#org9c832b9"><code>gcount</code>
+For instance instead of having a lambda capturing the <a href="#orgd965bc6"><code>gcount</code>
 variable in the first example</a>, we could pass a reference to this
 variable:
 </p>
@@ -614,7 +613,7 @@ capturing them in the lambda.
 
 <p>
 The possibility to pass additional arguments is however more useful in
-the case of <code>map</code>.  Let's write a variant of our <a href="#org07950a4"><code>xchg_fg()</code> example</a>
+the case of <code>map</code>.  Let's write a variant of our <a href="#org2d5d839"><code>xchg_fg()</code> example</a>
 that counts the number of exchanges performed.  First, we do it
 without lambda:
 </p>
@@ -713,9 +712,9 @@ exchanges:  6
 </div>
 
 
-<div id="outline-container-orga8be753" class="outline-3">
-<h3 id="orga8be753">Python</h3>
-<div class="outline-text-3" id="text-orga8be753">
+<div id="outline-container-orgd78b94e" class="outline-3">
+<h3 id="orgd78b94e">Python</h3>
+<div class="outline-text-3" id="text-orgd78b94e">
 <p>
 The Python version of the above two examples uses a very similar
 syntax.  Python only supports a very limited form of lambda
@@ -739,7 +738,7 @@ f.traverse(countg)
 </pre>
 </div>
 
-<pre class="example" id="org0e7cad0">
+<pre class="example" id="orgf519eea">
 FGa -&gt; (GFb &amp; GF(b &amp; c &amp; d))
 FGa
 Ga

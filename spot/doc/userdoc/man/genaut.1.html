@@ -1,5 +1,5 @@
-<!-- Creator     : groff version 1.23.0 -->
-<!-- CreationDate: Tue Aug  1 19:58:48 2023 -->
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Sat Oct  8 19:32:55 2022 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -26,10 +26,6 @@
 <li><a href="#NAME">NAME</a></li>
 <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
 <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
-<li><a href="#Pattern selection:">Pattern selection:</a></li>
-<li><a href="#Output format:">Output format:</a></li>
-<li><a href="#Any FORMAT string may use the following interpreted sequences:">Any FORMAT string may use the following interpreted sequences:</a></li>
-<li><a href="#Miscellaneous options:">Miscellaneous options:</a></li>
 <li><a href="#BIBLIOGRAPHY">BIBLIOGRAPHY</a></li>
 <li><a href="#REPORTING BUGS">REPORTING BUGS</a></li>
 <li><a href="#COPYRIGHT">COPYRIGHT</a></li>
@@ -61,13 +57,9 @@ generate &omega;-automata from scalable patterns</p>
 <p style="margin-left:11%; margin-top: 1em">Generate
 &omega;-automata from predefined patterns.</p>
 
-<h3>Pattern selection:
-<a name="Pattern selection:"></a>
-</h3>
-
-
-
-<p style="margin-left:11%; margin-top: 1em"><b>--cyclist-proof-dba</b>=<i>RANGE</i></p>
+<h3 style="margin-left:11%">Pattern
+selection:</h3><p style="margin-left:11%"><b>
+--cyclist-proof-dba</b>=<i>RANGE</i></p>
 
 <p style="margin-left:22%;">A DBA with N+2 states that
 should be included in cyclist-trace-nba=B.</p>
@@ -83,8 +75,7 @@ should include cyclist-proof-dba=B.</p>
 
 <p style="margin-left:22%;">A co-B&uuml;chi automaton with
 2N+1 states for which any equivalent deterministic
-co-B&uuml;chi automaton has at least 2&#710;N/(2N+1)
-states.</p>
+co-B&uuml;chi automaton has at least 2^N/(2N+1) states.</p>
 
 
 <p style="margin-left:11%;"><b>--l-dsa</b>=<i>RANGE</i></p>
@@ -111,13 +102,9 @@ one of the following forms: &rsquo;INT&rsquo;,
 &rsquo;INT..INT&rsquo;, or &rsquo;..INT&rsquo;. In the
 latter case, the missing number is assumed to be 1.</p>
 
-<h3>Output format:
-<a name="Output format:"></a>
-</h3>
-
-
-<p style="margin-left:11%; margin-top: 1em"><b>-8</b>,
-<b>--utf8</b></p>
+<h3 style="margin-left:11%">Output
+format:</h3><p style="margin-left:11%"><b>
+-8</b>, <b>--utf8</b></p>
 
 <p style="margin-left:22%;">enable UTF-8 characters in
 output (ignored with <b>--lbtt</b> or <b>--spin</b>)</p>
@@ -207,10 +194,8 @@ style, (c) comments on states</p>
 <p style="margin-left:22%;">output statistics about the
 automaton</p>
 
-<h3>Any FORMAT string may use the following interpreted sequences:
-<a name="Any FORMAT string may use the following interpreted sequences:"></a>
-</h3>
-
+<h3 style="margin-left:11%">Any FORMAT
+string may use the following interpreted sequences:</h3>
 
 <table width="100%" border="0" rules="none" frame="void"
        cellspacing="0" cellpadding="0">
@@ -219,12 +204,12 @@ automaton</p>
 <td width="3%">
 
 
-<p style="margin-top: 1em">%%</p></td>
+<p>%%</p></td>
 <td width="8%"></td>
 <td width="38%">
 
 
-<p style="margin-top: 1em">a single %</p></td>
+<p>a single %</p></td>
 <td width="40%">
 </td></tr>
 <tr valign="top" align="left">
@@ -265,16 +250,19 @@ Use uppercase letters to negate them.</p>
 <p>1 if the output is deterministic, 0 otherwise</p></td>
 <td width="9%">
 </td></tr>
-</table>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
 
-<p style="margin-left:11%;">%e, %[LETTER]e</p>
 
-<p style="margin-left:22%;">number of edges (add one LETTER
-to select (r) reachable [default], (u) unreachable, (a)
-all).</p>
+<p>%e</p></td>
+<td width="8%"></td>
+<td width="69%">
 
-<table width="100%" border="0" rules="none" frame="void"
-       cellspacing="0" cellpadding="0">
+
+<p>number of reachable edges</p></td>
+<td width="9%">
+</td></tr>
 <tr valign="top" align="left">
 <td width="11%"></td>
 <td width="3%">
@@ -282,11 +270,11 @@ all).</p>
 
 <p>%F</p></td>
 <td width="8%"></td>
-<td width="35%">
+<td width="69%">
 
 
 <p>the name of the pattern</p></td>
-<td width="43%">
+<td width="9%">
 </td></tr>
 </table>
 
@@ -381,17 +369,35 @@ in seconds; Add LETTERS to restrict to(u) user time, (s)
 system time, (p) parent process, or (c) children
 processes.</p>
 
-<p style="margin-left:11%;">%s, %[LETTER]s</p>
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
 
-<p style="margin-left:22%;">number of states (add one
-LETTER to select (r) reachable [default], (u) unreachable,
-(a) all).</p>
 
-<p style="margin-left:11%;">%t, %[LETTER]t</p>
+<p>%s</p></td>
+<td width="8%"></td>
+<td width="47%">
 
-<p style="margin-left:22%;">number of transitions (add one
-LETTER to select (r) reachable [default], (u) unreachable,
-(a) all).</p>
+
+<p>number of reachable states</p></td>
+<td width="31%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+<p>%t</p></td>
+<td width="8%"></td>
+<td width="47%">
+
+
+<p>number of reachable transitions</p></td>
+<td width="31%">
+</td></tr>
+</table>
 
 <p style="margin-left:11%;">%u, %[e]u</p>
 
@@ -431,10 +437,9 @@ C-style escape, (c) double-quotes with CSV-style escape, (p)
 between parentheses, any extra non-alphanumeric character
 will be used to separate propositions</p>
 
-<h3>Miscellaneous options:
-<a name="Miscellaneous options:"></a>
-</h3>
 
+<h3 style="margin-left:11%">Miscellaneous
+options:</h3>
 
 <table width="100%" border="0" rules="none" frame="void"
        cellspacing="0" cellpadding="0">
@@ -443,12 +448,12 @@ will be used to separate propositions</p>
 <td width="9%">
 
 
-<p style="margin-top: 1em"><b>--help</b></p></td>
+<p><b>--help</b></p></td>
 <td width="2%"></td>
 <td width="23%">
 
 
-<p style="margin-top: 1em">print this help</p></td>
+<p>print this help</p></td>
 <td width="55%">
 </td></tr>
 </table>
@@ -524,8 +529,8 @@ manuscript.</p> </td></tr>
 
 
 <p style="margin-left:11%; margin-top: 1em">Copyright
-&copy; 2023 Laboratoire de Recherche de l&rsquo;Epita (LRE)
-License GPLv3+: <a href="http://www.gnu.org/licenses/gpl.html">GNU GPL version 3 or later</a>. <br>
+&copy; 2022 Laboratoire de Recherche et D&eacute;veloppement
+de l&rsquo;Epita. License GPLv3+: <a href="http://www.gnu.org/licenses/gpl.html">GNU GPL version 3 or later</a>. <br>
 This is free software: you are free to change and
 redistribute it. There is NO WARRANTY, to the extent
 permitted by law.</p>

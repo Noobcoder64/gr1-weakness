@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-08-01 Tue 20:01 -->
+<!-- 2022-10-08 Sat 19:34 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Translating an LTL formula into a never claim</title>
@@ -192,7 +192,7 @@
     { font-size: 10px; font-weight: bold; white-space: nowrap; }
   .org-info-js_search-highlight
     { background-color: #ffff00; color: #000000; font-weight: bold; }
-  .org-svg { }
+  .org-svg { width: 90%; }
 </style>
 <link rel="stylesheet" type="text/css" href="spot.css" />
 </head>
@@ -207,32 +207,31 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgbaf408c">Shell</a></li>
-<li><a href="#orgfa28c08">Python</a></li>
-<li><a href="#orge63ff94">C++</a></li>
-<li><a href="#org7db6267">Additional comments</a></li>
+<li><a href="#org2e59f4b">Shell</a></li>
+<li><a href="#org6536cb6">Python</a></li>
+<li><a href="#org8adf915">C++</a></li>
+<li><a href="#orge8b83b0">Additional comments</a></li>
 </ul>
 </div>
 </div>
 
-<div id="org4d5d88c" class="figure">
-<p><object type="image/svg+xml" data="spot2.svg" class="org-svg" id="spotlogo">
-Sorry, your browser does not support SVG.</object>
+<div id="org1939ad7" class="figure">
+<p><img src="spot2.svg" alt="spot2.svg" class="org-svg" id="spotlogo" />
 </p>
 </div>
 <p>
 Here is how to translate an LTL (or PSL) formula into a never claim.
 </p>
 
-<div id="outline-container-orgbaf408c" class="outline-2">
-<h2 id="orgbaf408c">Shell</h2>
-<div class="outline-text-2" id="text-orgbaf408c">
+<div id="outline-container-org2e59f4b" class="outline-2">
+<h2 id="org2e59f4b">Shell</h2>
+<div class="outline-text-2" id="text-org2e59f4b">
 <div class="org-src-container">
 <pre class="src src-sh">ltl2tgba --spin <span class="org-string">'GFa -&gt; GFb'</span>
 </pre>
 </div>
 
-<pre class="example" id="org3f3cc92">
+<pre class="example" id="orgcc566c7">
 never { /* F(GFb | G!a) */
 T0_init:
   if
@@ -259,9 +258,9 @@ T0_S3:
 </div>
 </div>
 
-<div id="outline-container-orgfa28c08" class="outline-2">
-<h2 id="orgfa28c08">Python</h2>
-<div class="outline-text-2" id="text-orgfa28c08">
+<div id="outline-container-org6536cb6" class="outline-2">
+<h2 id="org6536cb6">Python</h2>
+<div class="outline-text-2" id="text-org6536cb6">
 <p>
 The <code>formula</code> function returns a formula object (or raises a
 parse-error exception).  Formula objects have a <code>translate()</code> method
@@ -291,7 +290,7 @@ that takes a formula (possibly as a string) as first argument:
 </pre>
 </div>
 
-<pre class="example" id="org4d2c807">
+<pre class="example" id="orga44ff44">
 never {
 T0_init:
   if
@@ -319,9 +318,9 @@ T0_S3:
 </div>
 </div>
 
-<div id="outline-container-orge63ff94" class="outline-2">
-<h2 id="orge63ff94">C++</h2>
-<div class="outline-text-2" id="text-orge63ff94">
+<div id="outline-container-org8adf915" class="outline-2">
+<h2 id="org8adf915">C++</h2>
+<div class="outline-text-2" id="text-org8adf915">
 <p>
 All the translation pipeline (this includes simplifying the formula,
 translating the simplified formula into an automaton, and simplifying
@@ -357,7 +356,7 @@ automaton. Finally, the output as a never claim is done via the
 </pre>
 </div>
 
-<pre class="example" id="org07b0578">
+<pre class="example" id="org9241a54">
 never {
 T0_init:
   if
@@ -385,17 +384,17 @@ T0_S3:
 </div>
 </div>
 
-<div id="outline-container-org7db6267" class="outline-2">
-<h2 id="org7db6267">Additional comments</h2>
-<div class="outline-text-2" id="text-org7db6267">
+<div id="outline-container-orge8b83b0" class="outline-2">
+<h2 id="orge8b83b0">Additional comments</h2>
+<div class="outline-text-2" id="text-orge8b83b0">
 <p>
 The Python version of <code>translate()</code> is documented as follows:
 </p>
 
-<pre class="example" id="orgc2150eb">
+<pre class="example" id="org5a1d90a">
 Help on function translate in module spot:
 
-translate(formula, *args, dict=&lt;spot.impl.bdd_dict; proxy of &lt;Swig Object of type 'std::shared_ptr&lt; spot::bdd_dict &gt; *' at 0x7f5014f59410&gt; &gt;, xargs=None)
+translate(formula, *args, dict=&lt;spot.impl.bdd_dict; proxy of &lt;Swig Object of type 'std::shared_ptr&lt; spot::bdd_dict &gt; *' at 0x7ff1d1528720&gt; &gt;, xargs=None)
     Translate a formula into an automaton.
     
     Keep in mind that 'Deterministic' expresses just a preference that

@@ -1,5 +1,5 @@
 // -*- coding: utf-8 -*-
-// Copyright (C) 2011-2022 Laboratoire de Recherche et Developpement
+// Copyright (C) 2011-2021 Laboratoire de Recherche et Developpement
 // de l'Epita (LRDE).
 //
 // This file is part of Spot, a model checking library.
@@ -64,14 +64,14 @@ namespace spot
     }
 
     tl_simplifier_cache(const bdd_dict_ptr& d)
-      : dict(d), lcc(d, false, true, false, false)
+      : dict(d), lcc(d, true, true, false, false)
     {
     }
 
     tl_simplifier_cache(const bdd_dict_ptr& d,
                          const tl_simplifier_options& opt)
       : dict(d), options(opt),
-        lcc(d, false, true, false, false, opt.containment_max_states)
+        lcc(d, true, true, false, false, opt.containment_max_states)
     {
       options.containment_checks |= options.containment_checks_stronger;
       options.event_univ |= options.favor_event_univ;
@@ -2507,11 +2507,8 @@ namespace spot
         unsigned mos = mo.size();
 
         if ((opt_.synt_impl | opt_.containment_checks)
-            && mo.is(op::Or, op::And)
-            && (opt_.containment_max_ops == 0
-                || opt_.containment_max_ops >= mos))
+            && mo.is(op::Or, op::And))
           {
-            bool is_and = mo.is(op::And);
             // Do not merge these two loops, as rewritings from the
             // second loop could prevent rewritings from the first one
             // to trigger.
@@ -2523,6 +2520,7 @@ namespace spot
                 // if fo => !fi, then fi & fo = false
                 // if !fi => fo, then fi | fo = true
                 // if !fo => fi, then fi | fo = true
+                bool is_and = mo.is(op::And);
                 if (c_->implication_neg(fi, fo, is_and)
                     || c_->implication_neg(fo, fi, is_and))
                   return recurse(is_and ? formula::ff() : formula::tt());
@@ -2533,8 +2531,8 @@ namespace spot
                 formula fo = mo.all_but(i);
                 // if fi => fo, then fi | fo = fo
                 // if fo => fi, then fi & fo = fo
-                if (((!is_and) && c_->implication(fi, fo))
-                    || (is_and && c_->implication(fo, fi)))
+                if ((mo.is(op::Or) && c_->implication(fi, fo))
+                    || (mo.is(op::And) && c_->implication(fo, fi)))
                   {
                     // We are about to pick fo, but hold on!
                     // Maybe we actually have fi <=> fo, in

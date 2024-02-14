@@ -124,23 +124,23 @@ class Automaton:
         re_edges = re.compile(r"\[(.+)\] (\d+)")
         re_numbers = re.compile(r"([0-9]+)")
 
-        linematch = re.match(re_numstates, hoa_stream.readline())
+        linematch = re.match(re_numstates, hoa_stream.readline().decode('utf-8'))
         i = 1
         while linematch is None:
             i += 1
-            linematch = re.match(re_numstates, hoa_stream.readline())
+            linematch = re.match(re_numstates, hoa_stream.readline().decode('utf-8'))
         self.numstates = int(linematch.group(1))
 
         # Finds the initial state's id. We are assuming a single initial state (deterministic automaton)
-        linematch = re.match(re_initstates, hoa_stream.readline())
+        linematch = re.match(re_initstates, hoa_stream.readline().decode('utf-8'))
         while linematch is None:
-            linematch = re.match(re_initstates, hoa_stream.readline())
+            linematch = re.match(re_initstates, hoa_stream.readline().decode('utf-8'))
         self.init_states.append(int(linematch.group(1)))
 
         # Gets the set of variables used in the HOA
-        hoa_line = hoa_stream.readline()
+        hoa_line = hoa_stream.readline().decode('utf-8')
         while(not hoa_line.startswith("AP:")):
-            hoa_line = hoa_stream.readline()
+            hoa_line = hoa_stream.readline().decode('utf-8')
         try:
             self.constrained_var_set = hoa_line[hoa_line.index("\"") + 1:-2].split("\" \"")
         except ValueError:
@@ -150,7 +150,7 @@ class Automaton:
             self.constrained_var_set = self.var_set
 
         # Finds all the transitions
-        inline = hoa_stream.readline()
+        inline = hoa_stream.readline().decode('utf-8')
         #i = 1
         while inline != "":
             #print "spot_out transitions: Reading line "+str(i)
@@ -176,7 +176,7 @@ class Automaton:
                     else:
                         self.edges.append([cursrc, formula, int(linematch.group(2)), self._getEdgeMultiplicity(formula)])
 
-            inline = hoa_stream.readline()
+            inline = hoa_stream.readline().decode('utf-8')
 
     def _getEdgeMultiplicity(self,formula):
         """Returns the number of variable assignments satisfying the label formula in edge"""
@@ -218,7 +218,7 @@ class Automaton:
 
     def getAdjacencyMatrix(self):
         """Returns the adjacency matrix of the automaton"""
-        mat = np.zeros([self.numstates,self.numstates],np.int)
+        mat = np.zeros([self.numstates,self.numstates],np.int32)
         for edge in self.edges:
             # Assign edge multiplicity to the (id_src,id_dst) matrix element
             mat[edge[0]][edge[2]] = edge[3]

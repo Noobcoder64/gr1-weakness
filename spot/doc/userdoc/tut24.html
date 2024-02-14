@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-08-01 Tue 20:04 -->
+<!-- 2022-10-08 Sat 19:40 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Iterating over alternating automata</title>
@@ -192,7 +192,7 @@
     { font-size: 10px; font-weight: bold; white-space: nowrap; }
   .org-info-js_search-highlight
     { background-color: #ffff00; color: #000000; font-weight: bold; }
-  .org-svg { }
+  .org-svg { width: 90%; }
 </style>
 <link rel="stylesheet" type="text/css" href="spot.css" />
 </head>
@@ -207,15 +207,14 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgb15c94f">C++</a></li>
-<li><a href="#org58ca494">Python</a></li>
+<li><a href="#org02b30fe">C++</a></li>
+<li><a href="#org2f49bfe">Python</a></li>
 </ul>
 </div>
 </div>
 
-<div id="org852a59f" class="figure">
-<p><object type="image/svg+xml" data="spot2.svg" class="org-svg" id="spotlogo">
-Sorry, your browser does not support SVG.</object>
+<div id="orgbd00c08" class="figure">
+<p><img src="spot2.svg" alt="spot2.svg" class="org-svg" id="spotlogo" />
 </p>
 </div>
 <p>
@@ -231,7 +230,7 @@ demonstrate a universal initial state).
 </p>
 
 <div class="org-src-container">
-<pre class="src src-hoa" id="org5c8b28c"><span class="org-hoa-header-uppercase">HOA:</span> v1
+<pre class="src src-hoa" id="orgde1f954"><span class="org-hoa-header-uppercase">HOA:</span> v1
 <span class="org-hoa-header-uppercase">States:</span> 3
 <span class="org-hoa-header-uppercase">Start:</span> 0&amp;1
 <span class="org-hoa-header-uppercase">AP:</span> 1 <span class="org-string">"a"</span>
@@ -251,15 +250,14 @@ demonstrate a universal initial state).
 </div>
 
 
-<div id="org7df6f4e" class="figure">
-<p><object type="image/svg+xml" data="tut24in.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org03e98be" class="figure">
+<p><img src="tut24in.svg" alt="tut24in.svg" class="org-svg" />
 </p>
 </div>
 
-<div id="outline-container-orgb15c94f" class="outline-2">
-<h2 id="orgb15c94f">C++</h2>
-<div class="outline-text-2" id="text-orgb15c94f">
+<div id="outline-container-org02b30fe" class="outline-2">
+<h2 id="org02b30fe">C++</h2>
+<div class="outline-text-2" id="text-org02b30fe">
 <p>
 Let us assume that this automaton has been loaded in variable <code>aut</code>,
 and that we run the following code, similar to what we did in the
@@ -267,7 +265,7 @@ and that we run the following code, similar to what we did in the
 </p>
 
 <div class="org-src-container">
-<pre class="src src-C++" id="org9d6357b"><span class="org-constant">std</span>::cout &lt;&lt; <span class="org-string">"Initial state: "</span> &lt;&lt; aut-&gt;get_init_state_number() &lt;&lt; <span class="org-string">'\n'</span>;
+<pre class="src src-C++" id="orgafb8a35"><span class="org-constant">std</span>::cout &lt;&lt; <span class="org-string">"Initial state: "</span> &lt;&lt; aut-&gt;get_init_state_number() &lt;&lt; <span class="org-string">'\n'</span>;
 
 <span class="org-keyword">const</span> <span class="org-constant">spot</span>::<span class="org-type">bdd_dict_ptr</span>&amp; <span class="org-variable-name">dict</span> = aut-&gt;get_dict();
 <span class="org-type">unsigned</span> <span class="org-variable-name">n</span> = aut-&gt;num_states();
@@ -340,7 +338,7 @@ decide whether to enclose the destinations in braces.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-C++" id="org49ad5d0"><span class="org-type">unsigned</span> <span class="org-variable-name">init</span> = aut-&gt;get_init_state_number();
+<pre class="src src-C++" id="orgc8a0762"><span class="org-type">unsigned</span> <span class="org-variable-name">init</span> = aut-&gt;get_init_state_number();
 <span class="org-constant">std</span>::cout &lt;&lt; <span class="org-string">"Initial state:"</span>;
 <span class="org-keyword">if</span> (aut-&gt;is_univ_dest(init))
   <span class="org-constant">std</span>::cout &lt;&lt; <span class="org-string">" {"</span>;
@@ -398,9 +396,9 @@ State 2:
 </div>
 </div>
 
-<div id="outline-container-org58ca494" class="outline-2">
-<h2 id="org58ca494">Python</h2>
-<div class="outline-text-2" id="text-org58ca494">
+<div id="outline-container-org2f49bfe" class="outline-2">
+<h2 id="org2f49bfe">Python</h2>
+<div class="outline-text-2" id="text-org2f49bfe">
 <p>
 Here is the Python version of this code:
 </p>
@@ -429,7 +427,7 @@ Here is the Python version of this code:
 </pre>
 </div>
 
-<pre class="example" id="org2ea6ef0">
+<pre class="example" id="org4ca0a99">
 Initial states: { 0 1 }
 State 0:
   edge(0 -&gt; 0)

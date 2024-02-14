@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-08-01 Tue 20:02 -->
+<!-- 2022-10-08 Sat 19:34 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Common output options for automata</title>
@@ -192,41 +192,30 @@
     { font-size: 10px; font-weight: bold; white-space: nowrap; }
   .org-info-js_search-highlight
     { background-color: #ffff00; color: #000000; font-weight: bold; }
-  .org-svg { }
+  .org-svg { width: 90%; }
 </style>
 <link rel="stylesheet" type="text/css" href="spot.css" />
-<script>
-  window.MathJax = {
-    tex: {
-      ams: {
-        multlineWidth: '85%'
-      },
-      tags: 'ams',
-      tagSide: 'right',
-      tagIndent: '.8em'
-    },
-    chtml: {
-      scale: 1.0,
-      displayAlign: 'center',
-      displayIndent: '0em'
-    },
-    svg: {
-      scale: 1.0,
-      displayAlign: 'center',
-      displayIndent: '0em'
-    },
-    output: {
-      font: 'mathjax-modern',
-      displayOverflow: 'overflow'
-    }
-  };
-</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
 
-<script
-  id="MathJax-script"
-  async
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
 </head>
 <body>
 <div id="org-div-home-and-up">
@@ -239,29 +228,28 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org7d7cf43">Common output options</a></li>
-<li><a href="#org3ee2cde">HOA output</a></li>
-<li><a href="#org3220255">LBTT output</a></li>
-<li><a href="#org5f2b3d4">Spin output</a></li>
-<li><a href="#org4a18b8f">Dot output</a>
+<li><a href="#orgdfe8a77">Common output options</a></li>
+<li><a href="#orgb9d8382">HOA output</a></li>
+<li><a href="#org8decaf1">LBTT output</a></li>
+<li><a href="#org5fa59a9">Spin output</a></li>
+<li><a href="#orgfd80736">Dot output</a>
 <ul>
-<li><a href="#org36eba25">Converting dot output to images or pdf</a></li>
-<li><a href="#orgbc83459">Customizing the dot output</a></li>
+<li><a href="#org2f491c0">Converting dot output to images or pdf</a></li>
+<li><a href="#org6a19049">Customizing the dot output</a></li>
 <li><a href="#SVG-and-CSS">SVG and CSS</a></li>
 <li><a href="#dot2tex">Working with <code>dot2tex</code></a></li>
 </ul>
 </li>
 <li><a href="#stats">Statistics</a></li>
 <li><a href="#timing">Timing</a></li>
-<li><a href="#org157ead2">Naming automata</a></li>
-<li><a href="#orgd8b8b16">Naming output</a></li>
+<li><a href="#org8d60517">Naming automata</a></li>
+<li><a href="#org1fb89e1">Naming output</a></li>
 </ul>
 </div>
 </div>
 
-<div id="org950e9f8" class="figure">
-<p><object type="image/svg+xml" data="spot2.svg" class="org-svg" id="spotlogo">
-Sorry, your browser does not support SVG.</object>
+<div id="org074219b" class="figure">
+<p><img src="spot2.svg" alt="spot2.svg" class="org-svg" id="spotlogo" />
 </p>
 </div>
 <p>
@@ -270,14 +258,14 @@ documents the options, common to all tools where it makes sense, that
 are used to specify how to output of automata.
 </p>
 
-<div id="outline-container-org7d7cf43" class="outline-2">
-<h2 id="org7d7cf43">Common output options</h2>
-<div class="outline-text-2" id="text-org7d7cf43">
+<div id="outline-container-orgdfe8a77" class="outline-2">
+<h2 id="orgdfe8a77">Common output options</h2>
+<div class="outline-text-2" id="text-orgdfe8a77">
 <p>
 All tools that can output automata implement the following options:
 </p>
 
-<pre class="example" id="org99d04a7">
+<pre class="example" id="orgba301b6">
 -8, --utf8                 enable UTF-8 characters in output (ignored with
                            --lbtt or --spin)
     --check[=PROP]         test for the additional property PROP and output
@@ -350,9 +338,9 @@ purposes.
 </div>
 </div>
 
-<div id="outline-container-org3ee2cde" class="outline-2">
-<h2 id="org3ee2cde">HOA output</h2>
-<div class="outline-text-2" id="text-org3ee2cde">
+<div id="outline-container-orgb9d8382" class="outline-2">
+<h2 id="orgb9d8382">HOA output</h2>
+<div class="outline-text-2" id="text-orgb9d8382">
 <p>
 Details about supported features of the HOA format can be found on a
 <a href="hoa.html">separate page</a>.
@@ -428,9 +416,8 @@ represent.  Here is a picture of these two automata:
 </p>
 
 
-<div id="orgaa7bf2d" class="figure">
-<p><object type="image/svg+xml" data="hoafex.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="orgda6371e" class="figure">
+<p><img src="hoafex.svg" alt="hoafex.svg" class="org-svg" />
 </p>
 </div>
 
@@ -585,9 +572,9 @@ represented in the first version.
 </div>
 </div>
 
-<div id="outline-container-org3220255" class="outline-2">
-<h2 id="org3220255">LBTT output</h2>
-<div class="outline-text-2" id="text-org3220255">
+<div id="outline-container-org8decaf1" class="outline-2">
+<h2 id="org8decaf1">LBTT output</h2>
+<div class="outline-text-2" id="text-org8decaf1">
 <p>
 The <a href="http://www.tcs.hut.fi/Software/lbtt/doc/html/Format-for-automata.html">LBTT</a> output has two flavors: state-based or transition-based.  The
 transition flavor can be recognized by the present of a <code>t</code> after the
@@ -682,9 +669,9 @@ quotes.  This second extension of the format was introduced by
 </div>
 </div>
 
-<div id="outline-container-org5f2b3d4" class="outline-2">
-<h2 id="org5f2b3d4">Spin output</h2>
-<div class="outline-text-2" id="text-org5f2b3d4">
+<div id="outline-container-org5fa59a9" class="outline-2">
+<h2 id="org5fa59a9">Spin output</h2>
+<div class="outline-text-2" id="text-org5fa59a9">
 <p>
 Spin <a href="http://spinroot.com/spin/Man/never.html">never claims</a> can be requested using <code>-s</code> or <code>--spin</code>.  They can only
 represent Büchi automata, so these options imply <code>--ba</code>.
@@ -740,9 +727,9 @@ of Promela syntax.)
 </div>
 </div>
 
-<div id="outline-container-org4a18b8f" class="outline-2">
-<h2 id="org4a18b8f">Dot output</h2>
-<div class="outline-text-2" id="text-org4a18b8f">
+<div id="outline-container-orgfd80736" class="outline-2">
+<h2 id="orgfd80736">Dot output</h2>
+<div class="outline-text-2" id="text-orgfd80736">
 <p>
 The <code>-d</code> or <code>--dot</code> option causes automata to be output in GraphViz's
 format.
@@ -752,7 +739,7 @@ format.
 <pre class="src src-sh">ltl2tgba <span class="org-string">'(Ga -&gt; Gb) W c'</span> -d
 </pre>
 </div>
-<pre class="example" id="org5797bb5">
+<pre class="example" id="orgc81e35e">
 digraph "(Gb | F!a) W c" {
   rankdir=LR
   label="Inf(0)\n[Büchi]"
@@ -781,9 +768,9 @@ digraph "(Gb | F!a) W c" {
 </pre>
 </div>
 
-<div id="outline-container-org36eba25" class="outline-3">
-<h3 id="org36eba25">Converting dot output to images or pdf</h3>
-<div class="outline-text-3" id="text-org36eba25">
+<div id="outline-container-org2f491c0" class="outline-3">
+<h3 id="org2f491c0">Converting dot output to images or pdf</h3>
+<div class="outline-text-3" id="text-org2f491c0">
 <p>
 This output should be processed with <code>dot</code> to be converted into a
 picture.  For instance use <code>dot -Tpng</code> or <code>dot -Tpdf</code>.  The pictures
@@ -796,9 +783,8 @@ on this page are produced with <code>dot -Tsvg</code>.
 </div>
 
 
-<div id="orgddf52f8" class="figure">
-<p><object type="image/svg+xml" data="oaut-dot1.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="orgd42a02d" class="figure">
+<p><img src="oaut-dot1.svg" alt="oaut-dot1.svg" class="org-svg" />
 </p>
 </div>
 
@@ -812,9 +798,9 @@ option.
 </div>
 </div>
 
-<div id="outline-container-orgbc83459" class="outline-3">
-<h3 id="orgbc83459">Customizing the dot output</h3>
-<div class="outline-text-3" id="text-orgbc83459">
+<div id="outline-container-org6a19049" class="outline-3">
+<h3 id="org6a19049">Customizing the dot output</h3>
+<div class="outline-text-3" id="text-org6a19049">
 <p>
 This output can be customized by passing optional characters to the
 <code>--dot</code> option.  For instance <code>v</code> requests a vertical layout (instead
@@ -833,11 +819,11 @@ from the same font.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="org59692da">ltl2tgba --dot=vcsna <span class="org-string">'(Ga -&gt; Gb) W c'</span>
+<pre class="src src-sh" id="orga8a8b42">ltl2tgba --dot=vcsna <span class="org-string">'(Ga -&gt; Gb) W c'</span>
 </pre>
 </div>
 
-<pre class="example" id="org171e51f">
+<pre class="example" id="orgea3dccf">
 digraph "(Gb | F!a) W c" {
   label="(Gb | F!a) W c\nInf(0)\n[Büchi]"
   labelloc="t"
@@ -881,9 +867,8 @@ digraph "(Gb | F!a) W c" {
 </pre>
 
 
-<div id="orga651438" class="figure">
-<p><object type="image/svg+xml" data="oaut-dot2.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org9ca4ebb" class="figure">
+<p><img src="oaut-dot2.svg" alt="oaut-dot2.svg" class="org-svg" />
 </p>
 </div>
 
@@ -910,14 +895,13 @@ Here is an example involving all colors:
 </p>
 
 
-<div id="orge9c93af" class="figure">
-<p><object type="image/svg+xml" data="oaut-dot3.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org2b5f9b7" class="figure">
+<p><img src="oaut-dot3.svg" alt="oaut-dot3.svg" class="org-svg" />
 </p>
 </div>
 
 <p>
-<a id="org8e5d21b"></a>
+<a id="orgc5f6784"></a>
 </p>
 
 <p>
@@ -980,14 +964,13 @@ be animated:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="org334ea72">ltl2tgba -G -D <span class="org-string">'GFa &lt;-&gt; XGb'</span> --dot=<span class="org-string">'i(iddemo).'</span>
+<pre class="src src-sh" id="org24a6d19">ltl2tgba -G -D <span class="org-string">'GFa &lt;-&gt; XGb'</span> --dot=<span class="org-string">'i(iddemo).'</span>
 </pre>
 </div>
 
 
-<div id="org0c6b56d" class="figure">
-<p><object type="image/svg+xml" data="oaut-dot4.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="orgd1002d2" class="figure">
+<p><img src="oaut-dot4.svg" alt="oaut-dot4.svg" class="org-svg" />
 </p>
 </div>
 </div>
@@ -1026,9 +1009,8 @@ following figure:
 </p>
 
 
-<div id="orga6fc4da" class="figure">
-<p><object type="image/svg+xml" data="dot2tex.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="orgbb642a3" class="figure">
+<p><img src="dot2tex.svg" alt="dot2tex.svg" class="org-svg" />
 </p>
 </div>
 
@@ -1042,9 +1024,8 @@ Here is an example with bullets denoting acceptance sets, and SCCs:
 </div>
 
 
-<div id="orgdcf77fd" class="figure">
-<p><object type="image/svg+xml" data="dot2tex2.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org7258151" class="figure">
+<p><img src="dot2tex2.svg" alt="dot2tex2.svg" class="org-svg" />
 </p>
 </div>
 
@@ -1089,7 +1070,7 @@ displayed when a tool is run with <code>--help</code>.
 For instance here are the statistics available in <a href="randaut.html"><code>randaut</code></a>:
 </p>
 
-<pre class="example" id="orgbfa7c1e">
+<pre class="example" id="org5c52c0e">
 %%                         a single %
 %a                         number of acceptance sets
 %c, %[LETTERS]c            number of SCCs; you may filter the SCCs to count
@@ -1099,8 +1080,7 @@ For instance here are the statistics available in <a href="randaut.html"><code>r
                            (iw) inherently weak. Use uppercase letters to
                            negate them.
 %d                         1 if the output is deterministic, 0 otherwise
-%e, %[LETTER]e             number of edges (add one LETTER to select (r)
-                           reachable [default], (u) unreachable, (a) all).
+%e                         number of reachable edges
 %F                         seed number
 %g, %[LETTERS]g            acceptance condition (in HOA syntax); add brackets
                            to print an acceptance name instead and LETTERS to
@@ -1124,11 +1104,8 @@ For instance here are the statistics available in <a href="randaut.html"><code>r
                            LETTERS to restrict to(u) user time, (s) system
                            time, (p) parent process, or (c) children
                            processes.
-%s, %[LETTER]s             number of states (add one LETTER to select (r)
-                           reachable [default], (u) unreachable, (a) all).
-%t, %[LETTER]t             number of transitions (add one LETTER to select
-                           (r) reachable [default], (u) unreachable, (a)
-                           all).
+%s                         number of reachable states
+%t                         number of reachable transitions
 %u, %[e]u                  number of states (or [e]dges) with universal
                            branching
 %u, %[LETTER]u             1 if the automaton contains some universal
@@ -1196,14 +1173,14 @@ time, while <code>%R</code> displays CPU-time.
 </div>
 
 <pre class="example">
-GFp1,0.00118797,0
-GF(p1 | p2),0.00133597,0
-GF(p1 | p2 | p3),0.00288909,0
-GF(p1 | p2 | p3 | p4),0.000596846,0.01
-GF(p1 | p2 | p3 | p4 | p5),0.000513808,0
-GF(p1 | p2 | p3 | p4 | p5 | p6),0.000520514,0
-GF(p1 | p2 | p3 | p4 | p5 | p6 | p7),0.0005268,0
-GF(p1 | p2 | p3 | p4 | p5 | p6 | p7 | p8),0.000571881,0
+GFp1,0.00103482,0
+GF(p1 | p2),0.00137673,0
+GF(p1 | p2 | p3),0.00346692,0
+GF(p1 | p2 | p3 | p4),0.000566903,0
+GF(p1 | p2 | p3 | p4 | p5),0.000527345,0
+GF(p1 | p2 | p3 | p4 | p5 | p6),0.000547525,0
+GF(p1 | p2 | p3 | p4 | p5 | p6 | p7),0.000560865,0
+GF(p1 | p2 | p3 | p4 | p5 | p6 | p7 | p8),0.000673571,0.01
 </pre>
 
 
@@ -1243,30 +1220,30 @@ and CPU-time spent in <code>ltl2tgba</code>:
 ltldo <span class="org-string">'{high}ltl2tgba'</span> <span class="org-string">'{low}ltl2tgba --low'</span> --stats=<span class="org-string">'%T,%f,%r,%[p]R,%[c]R'</span>
 </pre>
 </div>
-<pre class="example" id="orgd2fbe80">
-high,GFp1,0.0376742,0,0.04
-low,GFp1,0.0381843,0,0.05
-high,GFp1 | GFp2,0.0378725,0,0.04
-low,GFp1 | GFp2,0.0364926,0,0.04
-high,GFp1 | GFp2 | GFp3,0.0400159,0,0.05
-low,GFp1 | GFp2 | GFp3,0.0369546,0,0.05
-high,GFp1 | GFp2 | GFp3 | GFp4,0.0381397,0,0.04
-low,GFp1 | GFp2 | GFp3 | GFp4,0.0371649,0,0.03
-high,GFp1 | GFp2 | GFp3 | GFp4 | GFp5,0.0374554,0,0.05
-low,GFp1 | GFp2 | GFp3 | GFp4 | GFp5,0.0370639,0,0.04
-high,GFp1 | GFp2 | GFp3 | GFp4 | GFp5 | GFp6,0.0380345,0,0.05
-low,GFp1 | GFp2 | GFp3 | GFp4 | GFp5 | GFp6,0.0372667,0,0.04
-high,GFp1 | GFp2 | GFp3 | GFp4 | GFp5 | GFp6 | GFp7,0.0378565,0,0.04
-low,GFp1 | GFp2 | GFp3 | GFp4 | GFp5 | GFp6 | GFp7,0.0376284,0,0.05
-high,GFp1 | GFp2 | GFp3 | GFp4 | GFp5 | GFp6 | GFp7 | GFp8,0.0379174,0,0.04
-low,GFp1 | GFp2 | GFp3 | GFp4 | GFp5 | GFp6 | GFp7 | GFp8,0.0371495,0,0.05
+<pre class="example" id="orgabb36e1">
+high,GFp1,0.0399,0,0.04
+low,GFp1,0.0388332,0,0.04
+high,GFp1 | GFp2,0.0397128,0,0.05
+low,GFp1 | GFp2,0.0383984,0,0.05
+high,GFp1 | GFp2 | GFp3,0.0414554,0,0.05
+low,GFp1 | GFp2 | GFp3,0.0381526,0,0.04
+high,GFp1 | GFp2 | GFp3 | GFp4,0.0387059,0,0.04
+low,GFp1 | GFp2 | GFp3 | GFp4,0.0388473,0,0.04
+high,GFp1 | GFp2 | GFp3 | GFp4 | GFp5,0.0389539,0,0.05
+low,GFp1 | GFp2 | GFp3 | GFp4 | GFp5,0.041985,0,0.05
+high,GFp1 | GFp2 | GFp3 | GFp4 | GFp5 | GFp6,0.0396976,0,0.04
+low,GFp1 | GFp2 | GFp3 | GFp4 | GFp5 | GFp6,0.039175,0,0.05
+high,GFp1 | GFp2 | GFp3 | GFp4 | GFp5 | GFp6 | GFp7,0.040276,0,0.04
+low,GFp1 | GFp2 | GFp3 | GFp4 | GFp5 | GFp6 | GFp7,0.0387407,0,0.05
+high,GFp1 | GFp2 | GFp3 | GFp4 | GFp5 | GFp6 | GFp7 | GFp8,0.0406102,0,0.04
+low,GFp1 | GFp2 | GFp3 | GFp4 | GFp5 | GFp6 | GFp7 | GFp8,0.0403812,0,0.05
 </pre>
 </div>
 </div>
 
-<div id="outline-container-org157ead2" class="outline-2">
-<h2 id="org157ead2">Naming automata</h2>
-<div class="outline-text-2" id="text-org157ead2">
+<div id="outline-container-org8d60517" class="outline-2">
+<h2 id="org8d60517">Naming automata</h2>
+<div class="outline-text-2" id="text-org8d60517">
 <p>
 Automata can be given names.  This name can be output in the
 HOA format, but also in GraphViz output when <code>--dot=n</code> is given.
@@ -1280,14 +1257,13 @@ tools have no default name.  This name can be changed using the
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="org7fb2118">ltl2tgba --name=<span class="org-string">'TGBA for %f'</span> --dot=n <span class="org-string">'a U b'</span>
+<pre class="src src-sh" id="orgcff1eb7">ltl2tgba --name=<span class="org-string">'TGBA for %f'</span> --dot=n <span class="org-string">'a U b'</span>
 </pre>
 </div>
 
 
-<div id="orgc98254a" class="figure">
-<p><object type="image/svg+xml" data="oaut-name.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
+<div id="org78fca4a" class="figure">
+<p><img src="oaut-name.svg" alt="oaut-name.svg" class="org-svg" />
 </p>
 </div>
 
@@ -1365,9 +1341,9 @@ But we put it there for symmetry with the second call.
 </div>
 </div>
 
-<div id="outline-container-orgd8b8b16" class="outline-2">
-<h2 id="orgd8b8b16">Naming output</h2>
-<div class="outline-text-2" id="text-orgd8b8b16">
+<div id="outline-container-org1fb89e1" class="outline-2">
+<h2 id="org1fb89e1">Naming output</h2>
+<div class="outline-text-2" id="text-org1fb89e1">
 <p>
 By default, all output is sent to standard output, so you can either
 redirect it to a file, or pipe it to another program.

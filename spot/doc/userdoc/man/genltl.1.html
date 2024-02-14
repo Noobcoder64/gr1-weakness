@@ -1,5 +1,5 @@
-<!-- Creator     : groff version 1.23.0 -->
-<!-- CreationDate: Tue Aug  1 19:58:50 2023 -->
+<!-- Creator     : groff version 1.22.4 -->
+<!-- CreationDate: Sat Oct  8 19:32:57 2022 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -26,9 +26,6 @@
 <li><a href="#NAME">NAME</a></li>
 <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
 <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
-<li><a href="#Pattern selection:">Pattern selection:</a></li>
-<li><a href="#Output options:">Output options:</a></li>
-<li><a href="#Miscellaneous options:">Miscellaneous options:</a></li>
 <li><a href="#BIBLIOGRAPHY">BIBLIOGRAPHY</a></li>
 <li><a href="#REPORTING BUGS">REPORTING BUGS</a></li>
 <li><a href="#COPYRIGHT">COPYRIGHT</a></li>
@@ -60,14 +57,9 @@ generate LTL formulas from scalable patterns</p>
 <p style="margin-left:11%; margin-top: 1em">Generate
 temporal logic formulas from predefined patterns.</p>
 
-<h3>Pattern selection:
-<a name="Pattern selection:"></a>
-</h3>
-
-
-
-<p style="margin-left:11%; margin-top: 1em"><b>--and-f</b>=<i>RANGE</i>,
-<b>--gh-e</b>=<i>RANGE</i></p>
+<h3 style="margin-left:11%">Pattern
+selection:</h3><p style="margin-left:11%"><b>
+--and-f</b>=<i>RANGE</i>, <b>--gh-e</b>=<i>RANGE</i></p>
 
 
 <p style="margin-left:22%;">F(p1)&amp;F(p2)&amp;...&amp;F(pn)</p>
@@ -142,7 +134,7 @@ XG(pn))))</p>
 
 <p style="margin-left:11%;"><b>--gf-equiv-xn</b>=<i>RANGE</i></p>
 
-<p style="margin-left:22%;">GF(a &lt;-&gt; X&#710;n(a))</p>
+<p style="margin-left:22%;">GF(a &lt;-&gt; X^n(a))</p>
 
 
 <p style="margin-left:11%;"><b>--gf-implies</b>=<i>RANGE</i></p>
@@ -153,7 +145,7 @@ XG(pn))))</p>
 
 <p style="margin-left:11%;"><b>--gf-implies-xn</b>=<i>RANGE</i></p>
 
-<p style="margin-left:22%;">GF(a -&gt; X&#710;n(a))</p>
+<p style="margin-left:22%;">GF(a -&gt; X^n(a))</p>
 
 <p style="margin-left:11%;"><b>--gh-q</b>=<i>RANGE</i></p>
 
@@ -305,7 +297,7 @@ size)</p>
 
 
 <p style="margin-left:11%;"><b>--sejk-f</b>=<i>RANGE</i>[,RANGE]
-f(0,j)=(GFa0 U X&#710;j(b)), f(i,j)=(GFai U</p>
+f(0,j)=(GFa0 U X^j(b)), f(i,j)=(GFai U</p>
 
 <p style="margin-left:22%;">G(f(i-1,j)))</p>
 
@@ -375,13 +367,9 @@ one of the following forms: &rsquo;INT&rsquo;,
 &rsquo;INT..INT&rsquo;, or &rsquo;..INT&rsquo;. In the
 latter case, the missing number is assumed to be 1.</p>
 
-<h3>Output options:
-<a name="Output options:"></a>
-</h3>
-
-
-<p style="margin-left:11%; margin-top: 1em"><b>-0</b>,
-<b>--zero-terminated-output</b></p>
+<h3 style="margin-left:11%">Output
+options:</h3><p style="margin-left:11%"><b>
+-0</b>, <b>--zero-terminated-output</b></p>
 
 <p style="margin-left:22%;">separate output formulas with
 \0 instead of \n (for use with xargs <b>-0</b>)</p>
@@ -544,8 +532,8 @@ names, [w] for all compatible classes)</p>
 <p>the nesting depth of operator OP. OP should be a single
 letter denoting the operator to count, or multiple letters
 to fuse several operators during depth evaluation. Add
-&rsquo;&#732;&rsquo; to rewrite the formula in negative
-normal form before counting.</p></td></tr>
+&rsquo;~&rsquo; to rewrite the formula in negative normal
+form before counting.</p></td></tr>
 <tr valign="top" align="left">
 <td width="11%"></td>
 <td width="9%">
@@ -579,10 +567,9 @@ CSV-style escape, (p) between parentheses, any extra
 non-alphanumeric character will be used to separate
 propositions</p>
 
-<h3>Miscellaneous options:
-<a name="Miscellaneous options:"></a>
-</h3>
 
+<h3 style="margin-left:11%">Miscellaneous
+options:</h3>
 
 <table width="100%" border="0" rules="none" frame="void"
        cellspacing="0" cellpadding="0">
@@ -591,12 +578,12 @@ propositions</p>
 <td width="9%">
 
 
-<p style="margin-top: 1em"><b>--help</b></p></td>
+<p><b>--help</b></p></td>
 <td width="2%"></td>
 <td width="23%">
 
 
-<p style="margin-top: 1em">print this help</p></td>
+<p>print this help</p></td>
 <td width="55%">
 </td></tr>
 </table>
@@ -846,8 +833,8 @@ for SystemC. Proceedings of RV&rsquo;10. LNCS 6418.</p></td></tr>
 
 
 <p style="margin-left:11%; margin-top: 1em">Copyright
-&copy; 2023 Laboratoire de Recherche de l&rsquo;Epita (LRE)
-License GPLv3+: <a href="http://www.gnu.org/licenses/gpl.html">GNU GPL version 3 or later</a>. <br>
+&copy; 2022 Laboratoire de Recherche et D&eacute;veloppement
+de l&rsquo;Epita. License GPLv3+: <a href="http://www.gnu.org/licenses/gpl.html">GNU GPL version 3 or later</a>. <br>
 This is free software: you are free to change and
 redistribute it. There is NO WARRANTY, to the extent
 permitted by law.</p>

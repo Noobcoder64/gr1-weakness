@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-08-01 Tue 19:59 -->
+<!-- 2022-10-08 Sat 19:39 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Upgrading from Spot 1.2.6</title>
@@ -192,41 +192,30 @@
     { font-size: 10px; font-weight: bold; white-space: nowrap; }
   .org-info-js_search-highlight
     { background-color: #ffff00; color: #000000; font-weight: bold; }
-  .org-svg { }
+  .org-svg { width: 90%; }
 </style>
 <link rel="stylesheet" type="text/css" href="spot.css" />
-<script>
-  window.MathJax = {
-    tex: {
-      ams: {
-        multlineWidth: '85%'
-      },
-      tags: 'ams',
-      tagSide: 'right',
-      tagIndent: '.8em'
-    },
-    chtml: {
-      scale: 1.0,
-      displayAlign: 'center',
-      displayIndent: '0em'
-    },
-    svg: {
-      scale: 1.0,
-      displayAlign: 'center',
-      displayIndent: '0em'
-    },
-    output: {
-      font: 'mathjax-modern',
-      displayOverflow: 'overflow'
-    }
-  };
-</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
 
-<script
-  id="MathJax-script"
-  async
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
 </head>
 <body>
 <div id="org-div-home-and-up">
@@ -239,7 +228,7 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org44e3479">Overview of the changes</a></li>
+<li><a href="#org2ba79bb">Overview of the changes</a></li>
 <li><a href="#cpp17">Upgrading to C++17</a></li>
 <li><a href="#include">Upgrading <code>#include</code> directives</a>
 <ul>
@@ -256,9 +245,8 @@
 </div>
 </div>
 
-<div id="orga830c8b" class="figure">
-<p><object type="image/svg+xml" data="spot2.svg" class="org-svg" id="spotlogo">
-Sorry, your browser does not support SVG.</object>
+<div id="org656dd4e" class="figure">
+<p><img src="spot2.svg" alt="spot2.svg" class="org-svg" id="spotlogo" />
 </p>
 </div>
 <p>
@@ -275,9 +263,9 @@ based on features that appear to be commonly used, based on our the
 experience of updating a couple of projects that are using Spot.
 </p>
 
-<div id="outline-container-org44e3479" class="outline-2">
-<h2 id="org44e3479">Overview of the changes</h2>
-<div class="outline-text-2" id="text-org44e3479">
+<div id="outline-container-org2ba79bb" class="outline-2">
+<h2 id="org2ba79bb">Overview of the changes</h2>
+<div class="outline-text-2" id="text-org2ba79bb">
 <p>
 Let's begin by just trying to summarize what has changed between
 Spot 1.2.6 and Spot 2.x, just to get an idea of what will need to be
@@ -1613,7 +1601,7 @@ By convention <code>foo_ptr</code> is a <code>typedef</code> for <code>std::shar
 following typedefs are provided:
 </p>
 
-<pre class="example" id="orgfdabfad">
+<pre class="example" id="org75c8563">
 typedef std::shared_ptr&lt;aig&gt; aig_ptr;
 typedef std::shared_ptr&lt;bdd_dict&gt; bdd_dict_ptr;
 typedef std::shared_ptr&lt;const aig&gt; const_aig_ptr;
@@ -1774,7 +1762,7 @@ the automaton, this pointer requires no update when the iterator is
 recycled).
 </p>
 
-<div class="caveat" id="orgb06e264">
+<div class="caveat" id="orgd7fa2b6">
 <p>
 The iterator stored in <code>twa::iter_cache_</code> is destroyed by
 <code>twa::~twa()</code>.  In some case, this is too late.  For instance the

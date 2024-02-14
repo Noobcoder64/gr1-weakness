@@ -104,22 +104,19 @@ def setup(**kwargs):
     os.environ['SPOT_DOTDEFAULT'] = d
 
 
-# Swig versions prior to 4.1.0 export formula.X as formula_X as well,
-# for all operators.  Swig 4.1.0 stops doing this, breaking some
-# existing code.
-if 'formula_ff' not in globals():
+# In version 3.0.2, Swig puts strongly typed enum in the main
+# namespace without prefixing them.  Latter versions fix this.  So we
+# can remove for following hack once 3.0.2 is no longer used in our
+# build farm.
+if 'op_ff' not in globals():
     for i in ('ff', 'tt', 'eword', 'ap', 'Not', 'X', 'F', 'G',
               'Closure', 'NegClosure', 'NegClosureMarked',
               'Xor', 'Implies', 'Equiv', 'U', 'R', 'W', 'M',
               'EConcat', 'EConcatMarked', 'UConcat', 'Or',
               'OrRat', 'And', 'AndRat', 'AndNLM', 'Concat',
-              'Fusion', 'Star', 'FStar', 'nested_unop_range',
-              'sugar_goto', 'sugar_equal', 'sugar_delay', 'unop',
-              'binop', 'bunop', 'multop', 'first_match', 'unbounded'):
-        globals()['formula_' + i] = formula.__dict__[i].__func__
-if 'trival_maybe' not in globals():
-    for i in ('maybe',):
-        globals()['trival_' + i] = trival.__dict__[i].__func__
+              'Fusion', 'Star', 'FStar'):
+        globals()['op_' + i] = globals()[i]
+        del globals()[i]
 
 
 # Global BDD dict so that we do not have to create one in user code.
@@ -502,57 +499,51 @@ class acd:
 .acdacc polygon{fill:green;}
 '''
         js = '''
-function acdremclasses(sel, classes) {{
-document.querySelectorAll(sel).forEach(n=>{{n.classList.remove(...classes)}});}}
-function acdaddclasses(sel, classes) {{
-document.querySelectorAll(sel).forEach(n=>{{n.classList.add(...classes)}});}}
-function acdonclick(sel, fn) {{
-  document.querySelectorAll(sel).forEach(n=>
-        {{n.addEventListener("click", fn)}});
-}}
-function acd{num}_clear() {{
-  acdremclasses("#acd{num} .node,#acdaut{num} .node,#acdaut{num} .edge",
-                ["acdhigh", "acdbold", "acdacc", "acdrej"]);
+function acd{num}_clear(){{
+        $("#acd{num} .node,#acdaut{num} .node,#acdaut{num} .edge")
+        .removeClass("acdhigh acdbold acdacc acdrej");
 }};
 function acd{num}_state(state){{
-  acd{num}_clear();
-  acdaddclasses("#acd{num} .acdS" + state, ["acdhigh", "acdbold"]);
-  acdaddclasses("#acdaut{num} #S" + state, ["acdbold"]);
+        acd{num}_clear();
+        $("#acd{num} .acdS" + state).addClass("acdhigh acdbold");
+        $("#acdaut{num} #S" + state).addClass("acdbold");
 }};
 function acd{num}_edge(edge){{
-  acd{num}_clear();
-  var theedge = document.querySelector('#acdaut{num} #E' + edge);
-  theedge.classList.forEach(function(item, index) {{
-    if (item.startsWith('acdN')) {{
-       acdaddclasses("#acd{num} #" + item.substring(3), ["acdhigh", "acdbold"]);
-    }}
-  }});
-  theedge.classList.add("acdbold");
+        acd{num}_clear();
+        var theedge = $('#acdaut{num} #E' + edge)
+        var classList = theedge.attr('class').split(/\s+/);
+        $.each(classList, function(index, item) {{
+           if (item.startsWith('acdN')) {{
+        $("#acd{num} #" + item.substring(3)).addClass("acdhigh acdbold");
+           }}
+        }});
+        theedge.addClass("acdbold");
 }};
 function acd{num}_node(node, acc){{
         acd{num}_clear();
-        acdaddclasses("#acdaut{num} .acdN" + node,
-                      [acc ? "acdacc" : "acdrej", "acdbold"]);
-        acdaddclasses("#acd{num} #N" + node, ["acdbold", "acdhigh"]);
+        $("#acdaut{num} .acdN" + node).addClass(acc
+                                                ? "acdacc acdbold"
+                                                : "acdrej acdbold");
+        $("#acd{num} #N" + node).addClass("acdbold acdhigh");
 }};'''.format(num=num)
         me = 0
         for n in range(self.node_count()):
             for e in self.edges_of_node(n):
                 me = max(e, me)
-                js += 'acdaddclasses("#acdaut{num} #E{e}", ["acdN{n}"]);\n'\
+                js += '$("#acdaut{num} #E{e}").addClass("acdN{n}");'\
                       .format(num=num, e=e, n=n)
         for e in range(1, me + 1):
-            js += 'acdonclick("#acdaut{num} #E{e}",'\
-                  'function(){{acd{num}_edge({e});}});\n'\
+            js += '$("#acdaut{num} #E{e}")'\
+                  '.click(function(){{acd{num}_edge({e});}});'\
                   .format(num=num, e=e)
         for s in range(self.get_aut().num_states()):
-            js += 'acdonclick("#acdaut{num} #S{s}",'\
-                  'function(){{acd{num}_state({s});}});\n'\
+            js += '$("#acdaut{num} #S{s}")'\
+                  '.click(function(){{acd{num}_state({s});}});'\
                   .format(num=num, s=s)
         for n in range(self.node_count()):
             v = int(self.node_acceptance(n))
-            js += 'acdonclick("#acd{num} #N{n}",'\
-                  'function(){{acd{num}_node({n}, {v});}});\n'\
+            js += '$("#acd{num} #N{n}")'\
+                  '.click(function(){{acd{num}_node({n}, {v});}});'\
                   .format(num=num, n=n, v=v)
         html = '<style>{}</style><div>{}</div><div>{}</div><script>{}</script>'\
                .format(style,
