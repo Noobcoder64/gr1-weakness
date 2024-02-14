@@ -167,7 +167,7 @@ def main():
     assert(i3 == 2)
 
     # TEST LIFT
-    exp.configure("inputs/SIMPLE/Lift.spectra", show_args=False)
+    exp.configure("Lift.spectra", show_args=False)
     w1 = computeWeakness_probe(" & ".join(["G((!b1 & !b2 & !b3) -> X(b1 | b2 | b3))"]), exp.varsList)[0]
     w2 = computeWeakness_probe(" & ".join(["G(F(b1 | b2 | b3))"]), exp.varsList)[0]
     w3 = computeWeakness_probe(" & ".join(["G(F(b1))"]), exp.varsList)[0]
@@ -181,6 +181,7 @@ def main():
     print()
     print("Refinement 3: G(F(b1))")
     print("Weakness 3: ", w3)
+    print()
     print("Refinement 4: G(F(b2 | b3))")
     print("Weakness 4: ", w4)
 

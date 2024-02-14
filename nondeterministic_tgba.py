@@ -4,20 +4,7 @@ import shlex
 from definitions import ROOT_DIR
 import re
 import tarjan
-
-## This hack is to circumvent Python importing the dd module defined inside Ratsy.
-# Here I need to import Python's standard dd module
-def import_non_local(name, custom_name=None):
-    import imp
-
-    custom_name = custom_name or name
-
-    f, pathname, desc = imp.find_module(name, ["/usr/local/lib/python2.7/dist-packages"])
-    module = imp.load_module(custom_name, f, pathname, desc)
-
-    return module
-dd = import_non_local('dd')
-##
+import dd
 
 class NondeterministcTGBA(automaton.Automaton):
     """Calls Spot to create a Transition-based Generalized Buchi Automaton.
@@ -74,27 +61,27 @@ class NondeterministcTGBA(automaton.Automaton):
         re_edges = re.compile(r"\[(.+)\] (\d+)( \{\d+( \d+)*\})?")
         re_numbers = re.compile(r"([0-9]+)")
 
-        linematch = re.match(re_numstates, hoa_stream.readline())
+        linematch = re.match(re_numstates, hoa_stream.readline().decode('utf-8'))
         while linematch is None:
-            linematch = re.match(re_numstates, hoa_stream.readline())
+            linematch = re.match(re_numstates, hoa_stream.readline().decode('utf-8'))
         self.numstates = int(linematch.group(1))
 
         # Finds the initial state's id. Multiple starting states are denoted by multiple "Start: " lines
-        linematch = re.match(re_initstates, hoa_stream.readline())
+        linematch = re.match(re_initstates, hoa_stream.readline().decode('utf-8'))
         while linematch is None:
-            linematch = re.match(re_initstates, hoa_stream.readline())
+            linematch = re.match(re_initstates, hoa_stream.readline().decode('utf-8'))
         self.init_states.append(int(linematch.group(1)))
         # There may be more than one "Start: " lines. Read all of them before going to next step
-        hoa_line = hoa_stream.readline()
+        hoa_line = hoa_stream.readline().decode('utf-8')
         linematch = re.match(re_initstates, hoa_line)
         while linematch is not None:
             self.init_states.append(int(linematch.group(1)))
-            hoa_line = hoa_stream.readline()
+            hoa_line = hoa_stream.readline().decode('utf-8')
             linematch = re.match(re_initstates, hoa_line)
 
         # Gets the set of variables used in the HOA
         while(not hoa_line.startswith("AP:")):
-            hoa_line = hoa_stream.readline()
+            hoa_line = hoa_stream.readline().decode('utf-8')
         try:
             self.constrained_var_set = hoa_line[hoa_line.index("\"") + 1:-2].split("\" \"")
         except ValueError:
@@ -102,9 +89,9 @@ class NondeterministcTGBA(automaton.Automaton):
             # In this case the index("\"") function above raises an exception, and the automaton is empty.
             self.constrained_var_set = self.var_set
 
-        linematch = re.match(re_acceptance,hoa_stream.readline())
+        linematch = re.match(re_acceptance,hoa_stream.readline().decode('utf-8'))
         while linematch is None:
-            linematch = re.match(re_acceptance,hoa_stream.readline())
+            linematch = re.match(re_acceptance,hoa_stream.readline().decode('utf-8'))
         self.accepting_labels = int(linematch.group(1))
         # This records whether the TGBA accepts any infinite run
         # This kind of automaton is called safety automaton
@@ -115,16 +102,16 @@ class NondeterministcTGBA(automaton.Automaton):
 
         # Even if set to produce TGBAs, Spot sometimes produces state-based GBAs.
         # Checks whether the acceptance condition is state-based or transition-based
-        inline = hoa_stream.readline()
+        inline = hoa_stream.readline().decode('utf-8')
         while not inline.startswith("properties: "):
-            inline = hoa_stream.readline()
+            inline = hoa_stream.readline().decode('utf-8')
         if "state-acc" in inline:
             state_acceptance = True
         else:
             state_acceptance = False
 
         # Finds all the transitions
-        inline = hoa_stream.readline()
+        inline = hoa_stream.readline().decode('utf-8')
         while inline != "":
             linematch = re.match(re_srcstate, inline)
             if linematch is not None:
@@ -163,7 +150,7 @@ class NondeterministcTGBA(automaton.Automaton):
                         self.edges.append(
                             [cursrc, formula, int(linematch.group(2)), self._getEdgeMultiplicity(formula), accept_labels])
 
-            inline = hoa_stream.readline()
+            inline = hoa_stream.readline().decode('utf-8')
 
 
 
@@ -258,25 +245,24 @@ class NondeterministcTGBA(automaton.Automaton):
 
 
 def testFormulaAutomaton(formula):
-    import ref_utils.io_utils as io
+    import io_utils as io
     a = NondeterministcTGBA("ltl",ltlFormula=formula,var_set=io.getDistinctVariablesInFormula(formula))
-    print a.checkEmptiness()
+    print(a.checkEmptiness())
 
 
 def main():
-    a = NondeterministcTGBA("ltl",ltlFormula="G(a -> X(!b))",var_set=['a','b','c'])
-    #a = automatonFromRatFile("/home/dgc14/WeakestAssumptions/Weakness/tests/amba08.rat")
-    print "a.numstates: " + str(a.numstates)
-    print "a.edges: " + str(a.edges)
-    print "a.init_states: " + str(a.init_states)
-    print "a.accepting_labels: " + str(a.accepting_labels)
-    print "a.var_set" + str(a.var_set)
-    print "a.constrained_var_set" + str(a.constrained_var_set)
-#    print "a._getEdgeMultiplicity(a.edges[0][1]): " + str(a._getEdgeMultiplicity(a.edges[0][1]))
-    print "a.getAdjacencyList: " + str(a.getAdjacencyList())
-    print "a.getAdjacencyMatrix: "+str(a.getAdjacencyMatrix())
-    print "a.getHausdorffDimension: "+str(a.getHausdorffDimension())
-    print "a.checkEmptiness: "+str(a.checkEmptiness())
+    a = NondeterministcTGBA("ltl", ltlFormula="G(a -> X(!b))", var_set=['a','b','c'])
+    print("a.numstates: " + str(a.numstates))
+    print("a.edges: " + str(a.edges))
+    print("a.init_states: " + str(a.init_states))
+    print("a.accepting_labels: " + str(a.accepting_labels))
+    print("a.var_set" + str(a.var_set))
+    print("a.constrained_var_set" + str(a.constrained_var_set))
+#    print("a._getEdgeMultiplicity(a.edges[0][1]): " + str(a._getEdgeMultiplicity(a.edges[0][1])))
+    print("a.getAdjacencyList: " + str(a.getAdjacencyList()))
+    print("a.getAdjacencyMatrix: "+str(a.getAdjacencyMatrix()))
+    print("a.getHausdorffDimension: "+str(a.getHausdorffDimension()))
+    print("a.checkEmptiness: "+str(a.checkEmptiness()))
 
 if(__name__=="__main__"):
     testFormulaAutomaton("G((!Button | !Noise | !responded_1 | !responded_2 | XHeading) & (!Button | !Noise | !Obstacle | !responded_1 | responded_2 | !search | X(!Button | Heading | !Obstacle | !responded_1)) & F(responded_1 & !responded_1))")

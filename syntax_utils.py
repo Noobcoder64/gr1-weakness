@@ -283,84 +283,25 @@ def removeUnnecessaryParentheses(phi):
 
     return phi
 
-def generateRandomBooleanExpression(length, var_set, next=False):
-    if length == 1:
-        return BoolOperand([random.sample(var_set, 1)[0]])
-    elif length == 2:
-        if next:
-            if random.randint(0, 1) == 0:
-                return BoolUnary([["X", BoolOperand(random.sample(var_set, 1)[0])]])
-        return BoolUnary([["!", BoolOperand(random.sample(var_set, 1)[0])]])
-    else:
-        split_point = random.randint(1, length-2)
-        operator = random.choice(["&", "|", "->", "<->"])
-        if operator == "&":
-            return BoolAnd([[generateRandomBooleanExpression(split_point, var_set), "&",
-                             generateRandomBooleanExpression(length - 1 - split_point, var_set)]])
-        elif operator == "|":
-            return BoolOr([[generateRandomBooleanExpression(split_point, var_set), "|",
-                             generateRandomBooleanExpression(length - 1 - split_point, var_set)]])
-        elif operator == "->":
-            return BoolImplies([[generateRandomBooleanExpression(split_point, var_set), "->",
-                             generateRandomBooleanExpression(length - 1 - split_point, var_set)]])
-        elif operator == "<->":
-            return BoolDImplies([[generateRandomBooleanExpression(split_point, var_set), "<->",
-                             generateRandomBooleanExpression(length - 1 - split_point, var_set)]])
-
-def generateRandomGr1Expressions(num_units, maxlength_unit, var_set):
-    gr1_units = []
-
-    # If it has an initial condition, decrease num_units by 1
-    if random.randint(0, 1) == 0:
-        length_unit = random.randint(1, maxlength_unit)
-        gr1_units.append(str(generateRandomBooleanExpression(length_unit, var_set)))
-        num_units -= 1
-        gr1_units.append("&")
-
-    for i in range(num_units):
-        length_unit = random.randint(1, maxlength_unit)
-        # Invariant or fairness condition
-        if random.randint(0, 1):
-            gr1_units.append(Always([["G", generateRandomBooleanExpression(length_unit, var_set, next=True)]]))
-        else:
-            gr1_units.append(Always([["G", Eventually([["F", generateRandomBooleanExpression(length_unit, var_set)]])]]))
-        gr1_units.append("&")
-
-    del gr1_units[-1]
-
-    if len(gr1_units) == 1:
-        return gr1_units[0]
-    else:
-        gr1_expression = BoolAnd([gr1_units])
-        return gr1_expression
 
 def main():
-    print parseInitials("a")
-    print parseInvariants("a & b & G(a) & G(F(c))")
-    #print str(parseInvariants("a & b & G(a)")[0])
-    #print str(parseInvariants("G(a & b -> c | d & X(e)) & G(f | g) & G(F(h & !i))"))
-    #print str(parseFairness("G(a & b -> c | d & X(e)) & G(f | g) & G(F(h & !i))"))
+    print(parseInitials("a"))
     parserInit()
-    print getInvariant("G(a & b -> c | d & X(e)) & G(f | g) & G(F(h & !i))")
+    print(parseInvariants("a & b & G(a) & G(F(c))"))
     parserInit()
-    print getCFairness("G(a & b -> c | d & X(e)) & G(f | g) & G(F(h & !i))")
+    print(getInvariant("G(a & b -> c | d & X(e)) & G(f | g) & G(F(h & !i))"))
     parserInit()
-    print parseInitials("!b1 & !b2 & !b3 & G((b1 & f1) -> X(!b1)) & G((b2 & f2) -> X(!b2)) & G((b3 & f3) -> X(!b3)) & G((b1 & !f1) -> X(b1)) & G((b2 & !f2) -> X(b2)) & G((b3 & !f3) -> X(b3)) & G((!b1 & !b2 & !b3) -> X(b1 | b2 | b3))")
-    print getInvariant("!b1 & !b2 & !b3 & G((b1 & f1) -> X(!b1)) & G((b2 & f2) -> X(!b2)) & G((b3 & f3) -> X(!b3)) & G((b1 & !f1) -> X(b1)) & G((b2 & !f2) -> X(b2)) & G((b3 & !f3) -> X(b3)) & G((!b1 & !b2 & !b3) -> X(b1 | b2 | b3))")
-    print getCFairness("!b1 & !b2 & !b3 & G((b1 & f1) -> X(!b1)) & G((b2 & f2) -> X(!b2)) & G((b3 & f3) -> X(!b3)) & G((b1 & !f1) -> X(b1)) & G((b2 & !f2) -> X(b2)) & G((b3 & !f3) -> X(b3)) & G((!b1 & !b2 & !b3) -> X(b1 | b2 | b3))")
+    print(getCFairness("G(a & b -> c | d & X(e)) & G(f | g) & G(F(h & !i))"))
+    parserInit()
+    print(parseInitials("!b1 & !b2 & !b3 & G((b1 & f1) -> X(!b1)) & G((b2 & f2) -> X(!b2)) & G((b3 & f3) -> X(!b3)) & G((b1 & !f1) -> X(b1)) & G((b2 & !f2) -> X(b2)) & G((b3 & !f3) -> X(b3)) & G((!b1 & !b2 & !b3) -> X(b1 | b2 | b3))"))
+    print(getInvariant("!b1 & !b2 & !b3 & G((b1 & f1) -> X(!b1)) & G((b2 & f2) -> X(!b2)) & G((b3 & f3) -> X(!b3)) & G((b1 & !f1) -> X(b1)) & G((b2 & !f2) -> X(b2)) & G((b3 & !f3) -> X(b3)) & G((!b1 & !b2 & !b3) -> X(b1 | b2 | b3))"))
+    print(getCFairness("!b1 & !b2 & !b3 & G((b1 & f1) -> X(!b1)) & G((b2 & f2) -> X(!b2)) & G((b3 & f3) -> X(!b3)) & G((b1 & !f1) -> X(b1)) & G((b2 & !f2) -> X(b2)) & G((b3 & !f3) -> X(b3)) & G((!b1 & !b2 & !b3) -> X(b1 | b2 | b3))"))
 
     parserInit()
-    print str(getParseTreeFromBoolean("a | !b & c & d | e & (!f | !(g & h) | i) | (j)"))
+    print(str(getParseTreeFromBoolean("a | !b & c & d | e & (!f | !(g & h) | i) | (j)")))
 
-    print "Parentheses cleanup: " + removeUnnecessaryParentheses("(a & !(!(b))) & !(!(b & (c) & !d)) & ((((d)))) & !(!e)")
+    print("Parentheses cleanup: " + removeUnnecessaryParentheses("(a & !(!(b))) & !(!(b & (c) & !d)) & ((((d)))) & !(!e)"))
 
-    print "Some randomly generated Boolean expressions:"
-    for i in range(1, 11):
-        print str(generateRandomBooleanExpression(i, ["a", "b", "c", "d"]))
-
-    print "Some randomly generated GR(1) expressions"
-    for i in range(1, 11):
-        print str(generateRandomGr1Expressions(i, 10, ["a", "b", "c", "d"]))
 
 if(__name__=="__main__"):
     main()
