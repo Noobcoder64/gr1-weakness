@@ -1,17 +1,12 @@
-# gr1-weakness
+# Dependencies
 
-https://pypi.org/project/dd/
-pip install dd
-version 0.5.7
+| Name   | Link                                   | Version | Command             |
+|--------|----------------------------------------|---------|---------------------|
+| dd     | https://pypi.org/project/dd/           | 0.5.7   | pip install dd      |
+| numpy  | https://numpy.org/install/             | 1.24.3  | conda install numpy |
+| tarjan | https://pypi.org/project/tarjan/       | 0.2.4   | pip install tarjan  |
+| spot   | https://spot.lre.epita.fr/install.html | 2.11    |                     |
 
+# Checking weakness
 
-https://numpy.org/install/
-conda install numpy
-version 1.24.3
-
-https://pypi.org/project/tarjan/
-pip install tarjan
-version 0.2.4
-
-https://spot.lre.epita.fr/install.html
-version 2.11.6
+Use function `computeWeakness_probe` in `weakness_for_refinement.py`
